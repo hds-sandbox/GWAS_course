@@ -1,0 +1,6 @@
+{"argv": ["/work/Course_Env/bin/python", "-m", "bash_kernel", "-f", "{connection_file}"], 
+ "codemirror_mode": "shell", 
+ "display_name": "Bash", 
+ "language": "bash",
+ "env": {"PATH":"/work/Course_Env/lib/:/work/Course_Env/bin/:/work/Course_Env/libexec/:$PATH"}
+}
