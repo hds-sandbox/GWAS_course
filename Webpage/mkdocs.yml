@@ -1,13 +1,13 @@
 # Project information
 site_name: Genome-Wide Association Studies
 site_url: https://example.com/
-site_author: Samuele Soraggi
+site_author: Samuele Soraggi, Conor O'Hare
 site_description: >-
   An introduction to GWAS
 
 # Repository
-repo_name: hds-sandbox
-repo_url: https://github.com/hds-sandbox
+repo_name: An introduction to GWAS
+repo_url: https://github.com/hds-sandbox/GWAS_course
 
 # Configuration
 theme:
@@ -88,8 +88,8 @@ plugins:
   - search
 
   # minify HTML of a page before it is written to disk
-  - minify:
-      minify_html: true
+  #- minify:
+  #    minify_html: true
 
   - mkdocs-jupyter:
       execute: False # Disable when making little tweaks
@@ -151,10 +151,15 @@ markdown_extensions:
 nav:
   - Introduction: index.md
   - Course Notebooks:
-    - What is a GWAS?: Notebooks/GWAS1.ipynb
+    - What is a GWAS?: Notebooks/GWAS1-WhatIsAGWAS.ipynb
+    - Data Collection: Notebooks/GWAS2-DataCollectionA.ipynb
+    - Quality Control A: Notebooks/GWAS3-QualityControlA.ipynb
+    - Quality Control B?: Notebooks/GWAS4-QualityControlB.ipynb
+    - Association Testing: Notebooks/GWAS5-AssociationTesting.ipynb
+    - PRS Analysis: Notebooks/GWAS6-PRSAnalysis.ipynb
+    - Other tools and testing: Notebooks/GWAS7-OtherToolsAndTesting.ipynb
 
-
-  - General Page: empty.md
+  #- General Page: empty.md
 
   # include your page titles and associating .md files here
    
