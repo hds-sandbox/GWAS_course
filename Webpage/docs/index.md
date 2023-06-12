@@ -1,10 +1,10 @@
 ---
 title: Genome-Wide Association Studies
-summary: A brief description of my document.
-date: 2000-01-01
-hide:
-  - navigation
-  - toc
+summary: 
+date: 2023-05-01
+#hide:
+#  - navigation
+#  - toc
 ---
 
 <!--
@@ -50,11 +50,10 @@ particular software, instead explaining *why* the given analyses are done from a
         5. Haplotypes, linkage disequilibrum, imputation, fine-mapping  
         6. Linear mixed models and heritability  
         7. Summary statistics and meta-analysis  
-        8. Mendelian randomization  
-        9. Success and critisism of GWAS  
-        10. Human genetics research at FIMM  
+        8. Advanced tools 
 
-    &#128368; **Total Time Estimation:** X hours  
+
+    &#128368; **Total Time Estimation:** 6 hours  
 
     &#128193; **Supporting Materials:**  [Original course from the University of Helsinki](https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course) | 
                                          [PLINK documentation](https://zzz.bwh.harvard.edu/plink/) | 
