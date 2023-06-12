@@ -19,7 +19,7 @@
     
     
       
-        <title>PRS Analysis - Genome-Wide Association Studies</title>
+        <title>6 PRS Analysis - Genome-Wide Association Studies</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#prs-analysis" class="md-skip">
+        <a href="#6-prs-analysis" class="md-skip">
           Skip to content
         </a>
       
@@ -117,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              PRS Analysis
+              6 PRS Analysis
             
           </span>
         </div>
@@ -356,7 +356,7 @@
   
     <li class="md-nav__item">
       <a href="../GWAS1-WhatIsAGWAS/" class="md-nav__link">
-        What is a GWAS?
+        1 What is a GWAS?
       </a>
     </li>
   
@@ -370,7 +370,7 @@
   
     <li class="md-nav__item">
       <a href="../GWAS2-DataCollectionA/" class="md-nav__link">
-        Data Collection
+        2 Data Collection
       </a>
     </li>
   
@@ -384,7 +384,7 @@
   
     <li class="md-nav__item">
       <a href="../GWAS3-QualityControlA/" class="md-nav__link">
-        3 Quality Control (Initial Steps)
+        3 Quality Control: Initial Steps
       </a>
     </li>
   
@@ -398,7 +398,7 @@
   
     <li class="md-nav__item">
       <a href="../GWAS4-QualityControlB/" class="md-nav__link">
-        4 Quality Control (Relatedness &amp; Population Stratification)
+        4 Quality Control: Relatedness &amp; Population Stratification
       </a>
     </li>
   
@@ -435,12 +435,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          PRS Analysis
+          6 PRS Analysis
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        PRS Analysis
+        6 PRS Analysis
       </a>
       
         
@@ -1664,7 +1664,7 @@ Licensed under the Apache License, Version 2.0.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="prs-analysis">PRS Analysis<a class="anchor-link" href="#prs-analysis">&#182;</a></h1><h2 id="61-computing-a-prs">6.1. Computing a PRS<a class="anchor-link" href="#61-computing-a-prs">&#182;</a></h2><p>Single variant association analysis has been the primary method in GWAS but requires very large sample sizes to detect more than a handful of SNPs for many complex traits. In contrast, PRS analysis does not aim to identify individual SNPs but instead aggregates genetic risk across the genome in a single individual polygenic score for a trait of interest.</p>
+<h1 id="6-prs-analysis">6 PRS Analysis<a class="anchor-link" href="#6-prs-analysis">&#182;</a></h1><h2 id="61-computing-a-prs">6.1. Computing a PRS<a class="anchor-link" href="#61-computing-a-prs">&#182;</a></h2><p>Single variant association analysis has been the primary method in GWAS but requires very large sample sizes to detect more than a handful of SNPs for many complex traits. In contrast, PRS analysis does not aim to identify individual SNPs but instead aggregates genetic risk across the genome in a single individual polygenic score for a trait of interest.</p>
 <p>In this approach, a large discovery sample is required to reliably determine how much each SNP is expected to contribute to the polygenic score (“weights”) of a specific trait. Subsequently, in an independent target sample, which can be more modest in size (<a href="https://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1003348">Dudbridge, 2013</a>), polygenic scores can be calculated based on genetic DNA profiles and these weights (see below for details on the calculations). As a rule of thumb, a target sample around <strong>2,000 subjects</strong> provides sufficient power to detect a significant proportion of variance explained. Furthermore, the discovery and target samples should have the same number of subjects until the target sample includes 2,000 subjects. If more samples are available, additional subjects should be included in the discovery sample to maximize the accuracy of the estimation of the effect sizes (Dudbridge, 2013).</p>
 <p>Although PRS is not powerful enough to predict disease risk on the individual level (<a href="https://www.nature.com/articles/nrg3457">Wray et al., 2013</a>), it has been successfully used to show significant associations both within and across traits. For example, a PRS analysis of schizophrenia showed for the first time that an aggregate measure of the genetic risk to develop schizophrenia, estimated based on the effects of common SNPs (from the discovery sample) that showed nominally significant associations with disease risk, was significantly associated with schizophrenia risk in an independent (target) sample. The significant association was found despite the fact that the available sample sizes were too small to detect genome‐wide significant SNPs (Purcell et al., 2009). In addition, GWAS for schizophrenia (the discovery sample) has been used to significantly predict the risk in target samples with various phenotypes, such as bipolar disorder, level of creativity, and even risk of immune disorders (<a href="https://www.nature.com/articles/nn.4040">Power et al., 2015</a>; <a href="https://www.sciencedirect.com/science/article/pii/S0920996414004630">Stringer et al., 2014</a>; Wray et al., 2013).</p>
 
