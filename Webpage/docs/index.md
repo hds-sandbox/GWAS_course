@@ -23,7 +23,7 @@ hide:
 # Genome-Wide Association Studies
 </center>
 
-**Updated:** 15 September 2022
+**Updated:** 16 June 2023
 
 This course is an introduction to the method of Genome-Wide Association Studies (GWAS), which quantifies the statistical 
 association between a genetic variant and a phenotype (often on disease traits). This course will not focus on using any 
@@ -87,3 +87,4 @@ The genome of an individual remain (nearly) constant throughout the individualâ€
 
 - [Center for Health Data Science](https://heads.ku.dk/), University of Copenhagen
 - [Matti Pirinen, PhD](https://www.mv.helsinki.fi/home/mjxpirin/), University of Helsinki
+- [Andries T. Marees](https://research.vu.nl/en/persons/andries-marees), Vrije Universiteit Amsterdam
