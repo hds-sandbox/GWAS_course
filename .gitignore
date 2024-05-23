@@ -1,2 +1,5 @@
 .DS_Store
-Webpage/site/*
+Webpage/site/*Results
+.ipynb-checkpoints
+.ipynb_checkpoints
+Results
