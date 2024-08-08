@@ -12,7 +12,7 @@ scatter.mds <- ggplot(datafile, aes(x=datafile[,4], y=datafile[,5], color=datafi
   geom_point() +
   xlab("MD Component 1") + 
   ylab("MD Component 2") +
-  labs(color="Population")
+  labs(color="Population") +
   theme_bw()
 
 # Save plots 

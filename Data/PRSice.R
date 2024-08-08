@@ -23,7 +23,7 @@ In_Regression <-
   value <-
   Phenotype <- Set <- PRS.R2 <- LCI <- UCI <- quant.ref <- NULL
 
-r.version <- "2.3.3"
+r.version <- "4.3.2"
 # Help Messages --------------------------------------
 help_message <-
 "usage: Rscript PRSice.R [options] <-b base_file> <-t target_file> <--prsice prsice_location>\n
