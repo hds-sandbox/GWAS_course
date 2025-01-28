@@ -19,22 +19,22 @@ website:
             text: UCloud
           - href: access/genomedk.qmd
             text: Genome
-      # - text: Tutorial
-      #   menu: 
-      #     - href: Notebooks/GWAS1-WhatIsAGWAS.ipynb
-      #       text: What is a GWAS?
-      #     - href: Notebooks/GWAS2-DataCollection.ipynb
-      #       text: Data Collection
-      #     - href: Notebooks/GWAS3-QualityControlA.ipynb
-      #       text: Quality Control A
-      #     - href: Notebooks/GWAS4-QualityControlB.ipynb
-      #       text: Quality Control B?
-      #     - href: Notebooks/GWAS5-AssociationTesting.ipynb
-      #       text: Association Testing
-      #     - href: Notebooks/GWAS6-PRSAnalysis.ipynb
-      #       text: PRS Analysis
-      #     - href: Notebooks/GWAS7-OtherToolsAndTesting.ipynb
-      #       text: Other tools and testing
+      - text: Tutorial
+        menu: 
+          - href: develop/GWAS1-WhatIsAGWAS.ipynb
+            text: What is a GWAS?
+          - href: develop/GWAS2-DataCollection.ipynb
+            text: Data Collection
+          - href: develop/GWAS3-QualityControlA.ipynb
+            text: Quality Control A
+          - href: develop/GWAS4-QualityControlB.ipynb
+            text: Quality Control B?
+          - href: develop/GWAS5-AssociationTesting.ipynb
+            text: Association Testing
+          - href: develop/GWAS6-PRSAnalysis.ipynb
+            text: PRS Analysis
+          - href: develop/GWAS7-OtherToolsAndTesting.ipynb
+            text: Other tools and testing
 
 format:
   html:
