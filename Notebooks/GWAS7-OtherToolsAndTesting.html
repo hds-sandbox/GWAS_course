@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Genome-Wide Association Studies</title>
+<title>Genome-Wide Association Studies - 7 Other Tools &amp; Conclusion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -78,6 +112,35 @@ gtag('js', new Date());
 gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -88,45 +151,37 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./img/logo.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Genome-Wide Association Studies</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.qmd"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Access</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
-    <a class="dropdown-item" href="./access/index.html">
- <span class="dropdown-text">General</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./access/UCloud.html">
+    <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./access/genomedk.html">
- <span class="dropdown-text">Genome</span></a>
   </li>  
     </ul>
   </li>
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -141,9 +196,11 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#genome-wide-association-studies" id="toc-genome-wide-association-studies" class="nav-link active" data-scroll-target="#genome-wide-association-studies">Genome-Wide Association Studies</a>
+  <li><a href="#other-tools-conclusion" id="toc-other-tools-conclusion" class="nav-link active" data-scroll-target="#other-tools-conclusion">7 Other Tools &amp; Conclusion</a>
   <ul class="collapse">
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#ldak" id="toc-ldak" class="nav-link" data-scroll-target="#ldak">7.1 LDAK</a></li>
+  <li><a href="#overview-of-functionality" id="toc-overview-of-functionality" class="nav-link" data-scroll-target="#overview-of-functionality">7.1.1 Overview of functionality</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">7.2 Further Reading</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -153,7 +210,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Genome-Wide Association Studies</h1>
+<h1 class="title">7 Other Tools &amp; Conclusion</h1>
 </div>
 
 
@@ -170,68 +227,186 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<center>
-<section id="genome-wide-association-studies" class="level1">
-<h1>Genome-Wide Association Studies</h1>
-</section></center>
-<p>This course is an introduction to the method of Genome-Wide Association Studies (GWAS), which quantifies the statistical association between a genetic variant and a phenotype (often on disease traits). This course will not focus on using any particular software, instead explaining <em>why</em> the given analyses are done from a statistical and biological perspective.</p>
-<p><br></p>
-<!-- AUTHORS -->
-<!-- Format: [author name](link to author page){ .md-button } -->
-<h4 class="anchored">
-Authors
-</h4>
-<p><a href="https://www.linkedin.com/in/samuelesoraggi/" class="md-button">Samuele Soraggi</a> <a href="https://github.com/conor-ohare" class="md-button">Conor O’Hare</a></p>
-<hr>
-<!-- OVERVIEW OF COURSE -->
-<p>!!! abstract “Overview” 💬 <strong>Syllabus:</strong><br>
-1. Understand what is a GWAS is and why we use it<br>
-2. Statistics of GWAS (regression coefficients, P-values, statistical power, Bayes factors)<br>
-3. Genetic relatedness and population structure<br>
-4. Confounding and covariates in GWAS<br>
-5. Haplotypes, linkage disequilibrum, imputation, fine-mapping<br>
-6. Linear mixed models and heritability<br>
-7. Summary statistics and meta-analysis<br>
-8. Advanced tools</p>
-<pre><code>&amp;#128368; **Total Time Estimation:** 6 hours  
-
-&amp;#128193; **Supporting Materials:**  [Original course from the University of Helsinki](https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course) | 
-                                     [PLINK documentation](https://zzz.bwh.harvard.edu/plink/) | 
-                                     [An Introduction to Statistical Learning (for further statistics explanations)](https://www.statlearning.com/)
-
-&amp;#128203; **License:** [Tutorial Content is licensed under Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)</code></pre>
-<p>!!! warning “Course Requirements” - Knowledge of R. It is recommended that you have at least followed our workshop <a href="https://github.com/Center-for-Health-Data-Science/FromExceltoR">From Excel to R</a> - Basic statistics and mathematics skills</p>
-<hr>
-<p>We do GWAS because a statistical association between a particular physical region of the genome and the phenotype</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">can point to biological mechanisms affecting the phenotype,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">can allow prediction of the phenotype from genomic information.</label></li>
-</ul>
-<p>These results may further benefit</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">medicine by leading to molecular or environmental interventions against harmful phenotypes,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">biotechnology by improving the ways we utilize microbes, plants or animals,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">forensics by more accurate identification of an individual from a DNA sample,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">biogeographic ancestry inference of individuals, populations and species,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">our understanding of the role of natural selection and other evolutionary forces in the living world.</label></li>
-</ul>
-<p>The genome of an individual remain (nearly) constant throughout the individual’s lifetime. This is a truly remarkable property compared to, e.g., other molecular sources of information (such as metabolomics, metagenomics, transcriptomics, proteomics or epigenomics) or environmental factors that may vary widely across time. Therefore, the genome seems an ideal starting point for scientific research: it needs to be measured only once for an individual and there is no reverse causation from the phenotype to genome (with cancer as an important exception).</p>
-<section id="acknowledgements" class="level3">
-<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<section id="other-tools-conclusion" class="level1">
+<h1>7 Other Tools &amp; Conclusion</h1>
+<section id="ldak" class="level2">
+<h2 class="anchored" data-anchor-id="ldak">7.1 LDAK</h2>
+<p>Throughout this tutorial, we have used PLINK as the main method of our GWAS analysis. This is, in large part, due to its popularity throughout the modern literature. But it is by no means the only method of GWAS.</p>
+<p>One tool that has been developed in recent years is <em><a href="https://dougspeed.com/">LDAK</a></em>, a method <a href="https://www.cell.com/ajhg/fulltext/S0002-9297(12)00533-2">proposed in 2012</a>. One of the most sifnificant improvements of this programme is the genetic prediction of complex traits from individual-level data or summary statistics. Most prediction tools assume the GCTA Model, whereby each SNP is expected to contribute equally to the phenotype (as is the case with PLINK). But when we replace the GCTA Model with the BLD-LDAK Model, the squared correlation between observed and predicted phenotypes (<span class="math inline">\(R^2\)</span>) increases by on average 14% (s.d. 1%).</p>
+</section>
+<section id="overview-of-functionality" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-functionality">7.1.1 Overview of functionality</h2>
+<p>Using LDAK is very similar to PLINK, though the commands in PLINK are a bit less regular. As with PLINK, you will require the <code>.bed</code>, <code>.bim</code> and <code>.fam</code> files of your cohort. Beyond this, you will need additional files:</p>
 <ul>
-<li><a href="https://heads.ku.dk/">Center for Health Data Science</a>, University of Copenhagen</li>
-<li><a href="https://www.mv.helsinki.fi/home/mjxpirin/">Matti Pirinen, PhD</a>, University of Helsinki</li>
-<li><a href="https://research.vu.nl/en/persons/andries-marees">Andries T. Marees</a>, Vrije Universiteit Amsterdam</li>
+<li><code>.info</code> - information scores for SNPs</li>
+<li><code>.pheno</code> - a phenotype</li>
+<li><code>.covar</code> - covariates</li>
+<li><code>.ind.hers</code> - estimates of per-SNP heritabilities</li>
+<li><code>.genefile</code> - (real) RefSeq human gene annotations</li>
 </ul>
+<p>If we call our prefix <code>human</code>, then very simply, we can compute summary statistics in the following way:</p>
+<div id="8518d95f" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/work/Software/ldak</span> <span class="at">--calc-stats</span> Data/ldak_data/human <span class="at">--bfile</span> Data/ldak_data/human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+LDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More
+Version 5.2 - Help pages at http://www.ldak.org
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+There are 2 pairs of arguments:
+--calc-stats Data/ldak_data/human
+--bfile Data/ldak_data/human
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+Calculating predictor and individual statistics
+
+To run the parallel version of LDAK, use "--max-threads" (this will only reduce runtime for some commands)
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+Reading IDs for 424 samples from Data/ldak_data/human.fam
+
+Reading details for 3289 predictors from Data/ldak_data/human.bim
+
+Data contain 424 samples and 3289 predictors
+
+Calculating statistics for Chunk 1 of 1
+
+Statistics saved in Data/ldak_data/human.stats and Data/ldak_data/human.missing
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+Mission completed. All your basepair are belong to us :)
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</code></pre>
+</div>
+</div>
+<p>This command asks LDAK to read the data stored in Binary PLINK format with prefix human, then save the results to files with prefix “human”.</p>
+<p>Option pairs can be provided in any order, so it is equivalent to use</p>
+<div id="66a232d3" class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/work/Software/ldak</span> <span class="at">--bfile</span> Data/ldak_data/human <span class="at">--calc-stats</span> Data/ldak_data/human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+LDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More
+Version 5.2 - Help pages at http://www.ldak.org
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+There are 2 pairs of arguments:
+--bfile Data/ldak_data/human
+--calc-stats Data/ldak_data/human
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+Calculating predictor and individual statistics
+
+To run the parallel version of LDAK, use "--max-threads" (this will only reduce runtime for some commands)
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+Reading IDs for 424 samples from Data/ldak_data/human.fam
+
+Reading details for 3289 predictors from Data/ldak_data/human.bim
+
+Data contain 424 samples and 3289 predictors
+
+Calculating statistics for Chunk 1 of 1
+
+Statistics saved in Data/ldak_data/human.stats and Data/ldak_data/human.missing
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+Mission completed. All your basepair are belong to us :)
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</code></pre>
+</div>
+</div>
+<p>The output files are called <code>human.stats</code> and <code>human.missing</code>.</p>
+<p>Now by accessing the columns of <code>human.stats</code>, we can create plots similar to those in Section 3 of the tutorial on QC:</p>
+<p><img src="GWAS7-OtherToolsAndTesting_files/figure-html/0f0b9893-1-LDAK_QC.png" class="img-fluid" alt="LDAK_QC.png"> <em>Figure 7.1: Genomic properties are easily accessible by parsing through the outputted summary statistics</em></p>
+<p>If you wish to perform single-SNP association analysis using linear regression for this we use the main argument <code>--linear</code>. Each main argument requires different options. Documentation is again provided at www.dougspeed.com, but typically the easiest way is to run LDAK using just the main argument, then it will tell you what options you require:</p>
+<div id="c2526ce0" class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/work/Software/ldak</span> <span class="at">--linear</span> linear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+LDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More
+Version 5.2 - Help pages at http://www.ldak.org
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+There is one pair of arguments:
+--linear linear
+
+Error, you must use "--pheno" to provide phenotypes
+</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>: 1</code></pre>
+</div>
+</div>
+<p>The output can again be used to obtain GWAS plots of interest, such as a Manhattan plot:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="GWAS7-OtherToolsAndTesting_files/figure-html/b950a689-1-LDAK_Manhattan.png" class="img-fluid figure-img"></p>
+<figcaption>LDAK_Manhattan.png</figcaption>
+</figure>
+</div>
+<p><em>Figure 7.2: Manhattan plot outputted by LDAK</em></p>
+<p>Beyond this, there are many other methods and features LDAK provides, including the explicit inclusion of covariates and PRS. We suggest to those that are interested to follow the tutorials provided <a href="https://dougspeed.com/short/">here</a>. We have also provided the accompanying dataset to this tutorial under the <code>Data</code> folder, intuitively called <code>extra_data.zip</code>.</p>
+<p>The <em>key point</em> is that although there are more advanced tools on the market, PLINK acts as a good introduction to performing singular and specific analyses for didactic purposes.</p>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">7.2 Further Reading</h2>
+<p>There is only so much one can discuss in a beginner’s practical guide to GWAS. As such, for those that want to expand their knowledge of GWAS, we have provided a comprehensive list of resources for you to read/try out below:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Materials</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Other public courses</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course/">Statistics of GWAS</a></td>
+<td>Semester-long course run by the University of Helsinki - more leans towards the mathematical theory behind GWAS (i.e.&nbsp;no practical)</td>
+</tr>
+<tr class="odd">
+<td><a href="https://pbreheny.github.io/adv-gwas-tutorial/index.html">Introduction to GWAS</a></td>
+<td>Similar to this course, but with more R implementation</td>
+</tr>
+<tr class="even">
+<td><strong>Post-GWAS</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://pubmed.ncbi.nlm.nih.gov/29727686/">The Post-GWAS Era: From Association to Function</a></td>
+<td>Good discussion that highlights key advances in the field of functional genomics that may facilitate the derivation of biological meaning post-GWAS</td>
+</tr>
+<tr class="even">
+<td><a href="https://pubmed.ncbi.nlm.nih.gov/35222990/">Performing post-genome-wide association study analysis: overview, challenges and recommendations</a></td>
+<td>More of a practical guide to the paper above</td>
+</tr>
+<tr class="odd">
+<td><strong>Videos</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.youtube.com/watch?v=7iarFfxYxQc">Introduction to genomics theory</a></td>
+<td>30 minute discussion of using PLINK in the context of GWAS</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.youtube.com/watch?v=xw419NKqMqw">MPG Primer: GWAS design and interpretation</a></td>
+<td>Medical and Population Genomics Primer from MIT</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.youtube.com/watch?v=fCd6B5HRaZ8">Illumina Sequencing</a></td>
+<td>Visually intuitive understanding of sequencing from Illumina</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
-
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -413,7 +588,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -445,45 +631,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -518,11 +666,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -570,6 +714,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

@@ -2,12 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Samuele Soraggi">
+<meta name="author" content="Alba Refoyo Martinez">
+<meta name="author" content="Conor O’Hare">
 
-<title>Genome-Wide Association Studies</title>
+<title>Genome-Wide Association Studies - Getting Started with the GWAS Module</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -88,45 +91,80 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./img/logo.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Genome-Wide Association Studies</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Access</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
-    <a class="dropdown-item" href="./access/index.html">
+    <a class="dropdown-item" href="../access/index.html">
  <span class="dropdown-text">General</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./access/UCloud.html">
+    <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./access/genomedk.html">
+    <a class="dropdown-item" href="../access/genomedk.html">
  <span class="dropdown-text">Genome</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorial</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS1-WhatIsAGWAS.html">
+ <span class="dropdown-text">What is a GWAS?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS2-DataCollection.html">
+ <span class="dropdown-text">Data Collection</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS3-QualityControlA.html">
+ <span class="dropdown-text">Quality Control A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS4-QualityControlB.html">
+ <span class="dropdown-text">Quality Control B?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS5-AssociationTesting.html">
+ <span class="dropdown-text">Association Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS6-PRSAnalysis.html">
+ <span class="dropdown-text">PRS Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks/GWAS7-OtherToolsAndTesting.html">
+ <span class="dropdown-text">Other tools and testing</span></a>
   </li>  
     </ul>
   </li>
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
@@ -141,25 +179,30 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#genome-wide-association-studies" id="toc-genome-wide-association-studies" class="nav-link active" data-scroll-target="#genome-wide-association-studies">Genome-Wide Association Studies</a>
-  <ul class="collapse">
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  </ul></li>
+  <li><a href="#general-note-on-how-to-make-the-notebooks-work" id="toc-general-note-on-how-to-make-the-notebooks-work" class="nav-link active" data-scroll-target="#general-note-on-how-to-make-the-notebooks-work">General note on how to make the notebooks work</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="general-intro.out.ipynb" download="general-intro.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Genome-Wide Association Studies</h1>
+<h1 class="title">Getting Started with the GWAS Module</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+             <p>Conor O’Hare </p>
+          </div>
+  </div>
     
   
     
@@ -170,68 +213,48 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<center>
-<section id="genome-wide-association-studies" class="level1">
-<h1>Genome-Wide Association Studies</h1>
-</section></center>
-<p>This course is an introduction to the method of Genome-Wide Association Studies (GWAS), which quantifies the statistical association between a genetic variant and a phenotype (often on disease traits). This course will not focus on using any particular software, instead explaining <em>why</em> the given analyses are done from a statistical and biological perspective.</p>
-<p><br></p>
-<!-- AUTHORS -->
-<!-- Format: [author name](link to author page){ .md-button } -->
-<h4 class="anchored">
-Authors
-</h4>
-<p><a href="https://www.linkedin.com/in/samuelesoraggi/" class="md-button">Samuele Soraggi</a> <a href="https://github.com/conor-ohare" class="md-button">Conor O’Hare</a></p>
-<hr>
-<!-- OVERVIEW OF COURSE -->
-<p>!!! abstract “Overview” 💬 <strong>Syllabus:</strong><br>
-1. Understand what is a GWAS is and why we use it<br>
-2. Statistics of GWAS (regression coefficients, P-values, statistical power, Bayes factors)<br>
-3. Genetic relatedness and population structure<br>
-4. Confounding and covariates in GWAS<br>
-5. Haplotypes, linkage disequilibrum, imputation, fine-mapping<br>
-6. Linear mixed models and heritability<br>
-7. Summary statistics and meta-analysis<br>
-8. Advanced tools</p>
-<pre><code>&amp;#128368; **Total Time Estimation:** 6 hours  
-
-&amp;#128193; **Supporting Materials:**  [Original course from the University of Helsinki](https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course) | 
-                                     [PLINK documentation](https://zzz.bwh.harvard.edu/plink/) | 
-                                     [An Introduction to Statistical Learning (for further statistics explanations)](https://www.statlearning.com/)
-
-&amp;#128203; **License:** [Tutorial Content is licensed under Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)</code></pre>
-<p>!!! warning “Course Requirements” - Knowledge of R. It is recommended that you have at least followed our workshop <a href="https://github.com/Center-for-Health-Data-Science/FromExceltoR">From Excel to R</a> - Basic statistics and mathematics skills</p>
-<hr>
-<p>We do GWAS because a statistical association between a particular physical region of the genome and the phenotype</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">can point to biological mechanisms affecting the phenotype,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">can allow prediction of the phenotype from genomic information.</label></li>
-</ul>
-<p>These results may further benefit</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">medicine by leading to molecular or environmental interventions against harmful phenotypes,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">biotechnology by improving the ways we utilize microbes, plants or animals,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">forensics by more accurate identification of an individual from a DNA sample,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">biogeographic ancestry inference of individuals, populations and species,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">our understanding of the role of natural selection and other evolutionary forces in the living world.</label></li>
-</ul>
-<p>The genome of an individual remain (nearly) constant throughout the individual’s lifetime. This is a truly remarkable property compared to, e.g., other molecular sources of information (such as metabolomics, metagenomics, transcriptomics, proteomics or epigenomics) or environmental factors that may vary widely across time. Therefore, the genome seems an ideal starting point for scientific research: it needs to be measured only once for an individual and there is no reverse causation from the phenotype to genome (with cancer as an important exception).</p>
-<section id="acknowledgements" class="level3">
-<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>In this course, we will use JupyterLab, an open-source interactive development environment (IDE) for working with Jupyter Notebooks. If you’re not familiar with this interface, check out the <a href="https://jupyterlab.readthedocs.io/en/latest/getting_started/overview.html">JupyterLab Documentation</a>. It includes numerous screenshots and videos showcasing the cool features of JupyterLab.</p>
+<p>In particular, we suggest reviewing:</p>
 <ul>
-<li><a href="https://heads.ku.dk/">Center for Health Data Science</a>, University of Copenhagen</li>
-<li><a href="https://www.mv.helsinki.fi/home/mjxpirin/">Matti Pirinen, PhD</a>, University of Helsinki</li>
-<li><a href="https://research.vu.nl/en/persons/andries-marees">Andries T. Marees</a>, Vrije Universiteit Amsterdam</li>
+<li><a href="https://jupyterlab.readthedocs.io/en/latest/user/files.html">Working (manage) files</a></li>
+<li><a href="https://jupyterlab.readthedocs.io/en/latest/user/file_editor.html">How to edit files</a></li>
+<li><a href="https://jupyterlab.readthedocs.io/en/latest/user/terminal.html">How to use Terminals</a></li>
+<li><a href="https://jupyterlab.readthedocs.io/en/latest/user/running.html">Maning kernels and terminals</a></li>
 </ul>
+<section id="general-note-on-how-to-make-the-notebooks-work" class="level2">
+<h2 class="anchored" data-anchor-id="general-note-on-how-to-make-the-notebooks-work">General note on how to make the notebooks work</h2>
+<ul>
+<li>We will primarily use <code>R</code> and <code>bash command line</code> programming languages, where <code>R</code> is used for statistical analysis of the output from various tools running in <code>bash</code>.</li>
+<li>Since we use multiple coding languages, you need to <strong>choose a kernel every time we shift from one language to another</strong>. A kernel contains a programming language and the necessary packages to run the course material. To choose a kernel, go to the menu at the top of the page, select <code>Kernel --&gt; Change Kernel</code>, and then select the preferred one.</li>
+<li>We will shift between two kernels, and along the notebook, you will see a picture indicating when to change the kernel. The two pictures are shown below:
+<center>
+<img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel <img src="Images/R.png" alt="R" width="80"> Choose the R-GWAS kernel
+</center></li>
+<li>You can run the code in each cell (grey background) by clicking the run cell sign in the toolbar, or simply by pressing <kbd>Shift</kbd>+<kbd>Enter</kbd>. When the code is done running, a small green check mark will appear on the left side.</li>
+<li>You need to <strong>run the cells sequentially</strong> to execute the analysis. Please do not run a cell until the one above is done running, and do not skip any cells.</li>
+<li>Textual descriptions accompany the code to help you understand what is happening. Please try not to focus on understanding the code itself in too much detail, but rather focus on the explanations and commands’ output.<br>
+</li>
+<li>You can create new code cells by pressing <code>+</code> in the Menu bar above or by pressing <kbd>B</kbd> after selecting a cell.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>If a cell fails to run, verify the kernel in use, shown in the top-right corner.</li>
+<li>You don’t know the answer to the exercises? You can use Generative AI to help with the code. It can assist you when the tutorial alone isn’t enough or if you want to explore additional concepts beyond the exercise.</li>
+</ul>
+</div>
+</div>
 
 
 </section>
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -413,7 +436,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -445,45 +479,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -518,11 +514,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -570,6 +562,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

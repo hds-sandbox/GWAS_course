@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Genome-Wide Association Studies</title>
+<title>Accessing the GWAS workshop on GenomeDK – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -88,10 +122,10 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./img/logo.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Genome-Wide Association Studies</span>
     </a>
   </div>
@@ -102,7 +136,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -111,15 +145,15 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
-    <a class="dropdown-item" href="./access/index.html">
+    <a class="dropdown-item" href="../access/index.html">
  <span class="dropdown-text">General</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./access/UCloud.html">
+    <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./access/genomedk.html">
+    <a class="dropdown-item" href="../access/genomedk.html">
  <span class="dropdown-text">Genome</span></a>
   </li>  
     </ul>
@@ -136,24 +170,15 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#genome-wide-association-studies" id="toc-genome-wide-association-studies" class="nav-link active" data-scroll-target="#genome-wide-association-studies">Genome-Wide Association Studies</a>
-  <ul class="collapse">
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Genome-Wide Association Studies</h1>
+<h1 class="title">Accessing the GWAS workshop on GenomeDK</h1>
 </div>
 
 
@@ -170,68 +195,127 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<center>
-<section id="genome-wide-association-studies" class="level1">
-<h1>Genome-Wide Association Studies</h1>
-</section></center>
-<p>This course is an introduction to the method of Genome-Wide Association Studies (GWAS), which quantifies the statistical association between a genetic variant and a phenotype (often on disease traits). This course will not focus on using any particular software, instead explaining <em>why</em> the given analyses are done from a statistical and biological perspective.</p>
-<p><br></p>
-<!-- AUTHORS -->
-<!-- Format: [author name](link to author page){ .md-button } -->
-<h4 class="anchored">
-Authors
-</h4>
-<p><a href="https://www.linkedin.com/in/samuelesoraggi/" class="md-button">Samuele Soraggi</a> <a href="https://github.com/conor-ohare" class="md-button">Conor O’Hare</a></p>
-<hr>
-<!-- OVERVIEW OF COURSE -->
-<p>!!! abstract “Overview” 💬 <strong>Syllabus:</strong><br>
-1. Understand what is a GWAS is and why we use it<br>
-2. Statistics of GWAS (regression coefficients, P-values, statistical power, Bayes factors)<br>
-3. Genetic relatedness and population structure<br>
-4. Confounding and covariates in GWAS<br>
-5. Haplotypes, linkage disequilibrum, imputation, fine-mapping<br>
-6. Linear mixed models and heritability<br>
-7. Summary statistics and meta-analysis<br>
-8. Advanced tools</p>
-<pre><code>&amp;#128368; **Total Time Estimation:** 6 hours  
-
-&amp;#128193; **Supporting Materials:**  [Original course from the University of Helsinki](https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course) | 
-                                     [PLINK documentation](https://zzz.bwh.harvard.edu/plink/) | 
-                                     [An Introduction to Statistical Learning (for further statistics explanations)](https://www.statlearning.com/)
-
-&amp;#128203; **License:** [Tutorial Content is licensed under Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)</code></pre>
-<p>!!! warning “Course Requirements” - Knowledge of R. It is recommended that you have at least followed our workshop <a href="https://github.com/Center-for-Health-Data-Science/FromExceltoR">From Excel to R</a> - Basic statistics and mathematics skills</p>
-<hr>
-<p>We do GWAS because a statistical association between a particular physical region of the genome and the phenotype</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">can point to biological mechanisms affecting the phenotype,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">can allow prediction of the phenotype from genomic information.</label></li>
-</ul>
-<p>These results may further benefit</p>
-<ul class="task-list">
-<li><label><input type="checkbox" checked="">medicine by leading to molecular or environmental interventions against harmful phenotypes,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">biotechnology by improving the ways we utilize microbes, plants or animals,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">forensics by more accurate identification of an individual from a DNA sample,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">biogeographic ancestry inference of individuals, populations and species,<br>
-</label></li>
-<li><label><input type="checkbox" checked="">our understanding of the role of natural selection and other evolutionary forces in the living world.</label></li>
-</ul>
-<p>The genome of an individual remain (nearly) constant throughout the individual’s lifetime. This is a truly remarkable property compared to, e.g., other molecular sources of information (such as metabolomics, metagenomics, transcriptomics, proteomics or epigenomics) or environmental factors that may vary widely across time. Therefore, the genome seems an ideal starting point for scientific research: it needs to be measured only once for an individual and there is no reverse causation from the phenotype to genome (with cancer as an important exception).</p>
-<section id="acknowledgements" class="level3">
-<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with <code>singularity</code>, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have <code>conda</code> installed and is shown <a href="./otherHPC.qmd">in the page dedicate to the access with any computing cluster</a>.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Technical prerequisites">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Technical prerequisites
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><a href="https://heads.ku.dk/">Center for Health Data Science</a>, University of Copenhagen</li>
-<li><a href="https://www.mv.helsinki.fi/home/mjxpirin/">Matti Pirinen, PhD</a>, University of Helsinki</li>
-<li><a href="https://research.vu.nl/en/persons/andries-marees">Andries T. Marees</a>, Vrije Universiteit Amsterdam</li>
+<li><p>if you do not yet have an account on GenomeDK, please get one <a href="https://console.genome.au.dk/user-requests/create/">Click on this link to get to the account request.</a> and follow the instructions for the 2-factor authentication.</p></li>
+<li><p>you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. <a href="https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project">Follow these instructions to request a project.</a>. Please do not create a project only to run this course, but use an existing project folder.</p></li>
+<li><p>In Windows and the Powershell command line, commands might need <code>.exe</code> at the end, such as <code>ssh.exe</code> instead of <code>ssh</code>. Newer versions of Windows do not require that, though.</p></li>
 </ul>
+<section id="singularity-container" class="level2">
+<h2 class="anchored" data-anchor-id="singularity-container">Singularity container</h2>
+<p><strong>1.</strong> Log into the cluster using the command line, and substituting <code>USERNAME</code> with your actual user name:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>and be sure to run those two commands to remove space-filling cache data, which can make everything slower after a few times you run tutorials</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.apptainer/cache/<span class="pp">*</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.singularity/cache/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>2.</strong> Get into a folder inside your project, for example</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MYPROJECT/ngsSummerSchool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not work directly in your home folder <code>/home/username</code>, as this has a limit of 100GB of space available. Work instead inside a previously established project folder.</p>
+</div>
+</div>
+<p><strong>3.</strong> Use <code>singularity</code> to download the container of the course. This will take some time and show a lot of text, and at the end a file called <code>course.sif</code> is created into the folder.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull course.sif docker://hdssandbox/ngssummerschool:2024.07</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You need to do this step only once!</p>
+</div>
+</div>
+<p><strong>4.</strong> Activate <code>tmux</code>: this will make things run in backround. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The command line will change a bit its aspect. Now it’s time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for the first three modules, and 2 CPUs and 64GB of RAM for the single-cell analysis. For the first configuration suggested, for example, you get resources using</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>1 <span class="at">--time</span><span class="op">=</span>4:0:0  <span class="at">--account</span><span class="op">=</span>MYPROJECT <span class="at">--pty</span> /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note you always need your project name, and you can also choose for how long you want the resources to be available to you. <strong>Asking for resources means waiting for some time in a queue before they are assigned.</strong></p>
+<p>In the example above <code>time</code> is 4 hours. After this time, whatever you are doing will be closed, so be sure to save your work in progress.</p>
+</div>
+</div>
+<p><strong>5.</strong> execute the container with</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> exec course.sif /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that the command line shows now <code>Apptainer&gt;</code> on its left. We are <em>inside</em> the container and the tools we need are now available into it.</p>
+<p><strong>6.</strong> Now we need to run a configuration script, which will setup the last details and execute jupyterlab. If a folder called <code>Data</code> exists, it will not be downloaded again (also meaning that you can use our container with your own data folder for your own analysis in future)</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.sslVerify false</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span>  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhus/docker/scripts/courseMaterial.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>7.</strong> You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.</p>
+<p><img src="../images/nodeAndUsername.png" class="img-fluid" width="600"></p>
+<p>Wrote down node and ID? Last step is to create a tunnel between your computer and genomeDK to be able to see jupyterlab in your browser. Now you need to <strong>use the node name and the user id</strong> you wrote down before! <strong>Open a new terminal window</strong> on your laptop and write</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>where you substitute <code>USERID</code> and <code>NODENAME</code> as you wrote down before, and then USERNAME is your account name on GenomeDK. For example <code>ssh -L 6835:s21n81:6835 samuele@login.genome.au.dk</code> according to the figure above for a user with name <code>samuele</code>.</p>
+<p><strong>8.</strong> Open your browser and go to the address http://127.0.0.1:USERID/lab, where you need your user id again instead of USERID. For example <code>http://127.0.0.1:6835/lab</code> from the figure above. Jupyterlab opens in your browser.</p>
+<p><strong>9.</strong> Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
+<p><img src="../images/startNotebook.gif" class="img-fluid"></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Right click on a notebook or a saved results file, and use the download option to save it locally on your computer.</p>
+</div>
+</div>
+<section id="what-if-my-internet-connection-drops" class="level3">
+<h3 class="anchored" data-anchor-id="what-if-my-internet-connection-drops">What if my internet connection drops?</h3>
+<p>Now worries, <code>tmux</code> kept your material up and running. You only need a new terminal window to run the tunneling</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>as you did before, so you can continue working!</p>
+</section>
+<section id="recovering-the-material-from-your-previous-session" class="level3">
+<h3 class="anchored" data-anchor-id="recovering-the-material-from-your-previous-session">Recovering the material from your previous session</h3>
+<p>Do you want to work again on the course material, or recover some analysis? Everything is saved in the folder you were working in. Next time, follow the whole procedure again (without step number <strong>3.</strong>) and you can be up and running the course in no time.</p>
 
 
 </section>
-
+</section>
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

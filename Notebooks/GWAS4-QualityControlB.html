@@ -1,0 +1,2158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Conor O’Hare">
+<meta name="author" content="Samuele Soraggi">
+<meta name="author" content="Alba Refoyo Martinez">
+
+<title>Genome-Wide Association Studies - Quality Control: Relatedness &amp; Population Stratification</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-EXW13D5861"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Genome-Wide Association Studies</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#relatedness" id="toc-relatedness" class="nav-link active" data-scroll-target="#relatedness"><span class="header-section-number">0.3</span> 4.1 Relatedness</a>
+  <ul class="collapse">
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">0.3.1</span> 4.1.1 Analysis</a></li>
+  <li><a href="#write-answer-here" id="toc-write-answer-here" class="nav-link" data-scroll-target="#write-answer-here"><span class="header-section-number">0.3.2</span> <em>Write answer here</em></a></li>
+  </ul></li>
+  <li><a href="#population-stratification" id="toc-population-stratification" class="nav-link" data-scroll-target="#population-stratification"><span class="header-section-number">0.4</span> 4.2 Population Stratification</a>
+  <ul class="collapse">
+  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1"><span class="header-section-number">0.4.1</span> 4.2.1 Analysis</a></li>
+  <li><a href="#perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data." id="toc-perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data." class="nav-link" data-scroll-target="#perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data."><span class="header-section-number">0.4.2</span> Perform MDS on HapMap-CEU data anchored by 1000 Genomes data.</a></li>
+  </ul></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography"><span class="header-section-number">1</span> Bibliography</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS4-QualityControlB.out.ipynb" download="GWAS4-QualityControlB.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Quality Control: Relatedness &amp; Population Stratification</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Conor O’Hare </p>
+             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important notes for this notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As we have already mentioned, quality control (QC) analyses are crucial to ensure the reliability and validity of the results. In this section, we will explore confounding factors in GWAS that can lead to spurious associations if not properly controlled, including:</p>
+<ul>
+<li>Relatedness<br>
+</li>
+<li>Population Stratification/Structure</li>
+</ul>
+<section id="learning-outcomes" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">0.1</span> Learning outcomes</h2>
+<ul>
+<li><strong>Discuss</strong> confounding factors that lead to spurious associations</li>
+<li><strong>Detect</strong> related individuals</li>
+<li><strong>Identify</strong> population substructure</li>
+<li><strong>Correct</strong> for population stratification</li>
+</ul>
+</section>
+<section id="how-to-make-this-notebook-work" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="how-to-make-this-notebook-work"><span class="header-section-number">0.2</span> How to make this notebook work</h2>
+<p>In this notebook, we will both use <code>R</code> and <code>bash command line</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images. * We will first run <code>Bash</code> commands.</p>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+</section>
+</div>
+</div>
+<section id="relatedness" class="level2" data-number="0.3">
+<h2 data-number="0.3" class="anchored" data-anchor-id="relatedness"><span class="header-section-number">0.3</span> 4.1 Relatedness</h2>
+<p>Relatedness refers to the presence of genetically related individuals in a study sample, which can introduce confounding factors into association analyses. Since most statistical methods assume that samples are independent, including related individuals, like siblings, violates this assumption. Addressing relatedness is crucial as a quality control step to ensure that genomes in the dataset are no more similar than expected for unrelated individuals. This process is essential to preserve the validity of the study’s findings.</p>
+<p>While all humans share some genetic relatedness, the degree of relatedness varies among individuals. In genome-wide association studies (GWAS), these variations must be accounted for to avoid biasing the statistical associations between genotypes and phenotypes. <strong>Cryptic relatedness</strong> (genetic relatedness of individuals not expected to be in a family relationship) can interfere with the association analysis <span class="citation" data-cites="voight2005confounding">(<a href="#ref-voight2005confounding" role="doc-biblioref">Voight and Pritchard 2005</a>)</span>.</p>
+<p>In a <strong>family-based study</strong> (e.g., parent-offspring), you do not need to remove related pairs, but the statistical analysis should account for family relatedness. However, for a <strong>population-based study</strong>, we suggest using a <span class="math inline">\(\hat{\pi}\)</span> threshold of 0.2. <span class="math inline">\(\hat{\pi}\)</span> is computed as a probability P(IBD = 2) + 0.5 × P(IBD = 1), where IBD refers to “identical-by-descent”. This measures the proportion of alleles shared between individuals due to inheritance from a common ancestor. <span class="math inline">\(\hat{\pi}\)</span> ranges between 0 (no relationship) to 1 (identical genomes).</p>
+<p><img src="Images/bash.png" alt="Bash" width="40"> We use <code>ln -sf</code> to link the data folder and create a directory for output files.</p>
+<div id="4a89129f-f4bf-4315-b9d6-689bd6d5a78c" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="analysis" class="level3" data-number="0.3.1">
+<h3 data-number="0.3.1" class="anchored" data-anchor-id="analysis"><span class="header-section-number">0.3.1</span> 4.1.1 Analysis</h3>
+<p>We will use the set of independent SNPs (generated in the previous section) and the <code>--genome</code> option in PLINK for our analysis.</p>
+<p>The HapMap dataset is known to contain parent-offspring relationships. Assuming a random population sample, we will exclude all individuals above the <span class="math inline">\(\hat{\pi}\)</span> threshold of 0.2 (dealing with cryptic relatedness) using the commands below. Thresholds for relatedness can be changed using the <code>--min</code> and <code>--max</code> options.</p>
+<div id="aafefbaf" class="cell" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_7 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span> <span class="at">--out</span> Results/GWAS4/pihat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to Results/GWAS4/pihat.log.
+Options in effect:
+  --bfile Results/GWAS3/HapMap_3_r3_7
+  --extract Results/GWAS3/indepSNP.prune.in
+  --genome
+  --out Results/GWAS4/pihat
+
+385567 MB RAM detected; reserving 192783 MB for main workspace.
+1073788 variants loaded from .bim file.
+161 people (77 males, 84 females) loaded from .fam.
+110 phenotype values loaded from .fam.
+--extract: 104129 variants remaining.
+Using up to 63 threads (change this with --threads).
+Before main variant filters, 110 founders and 51 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998119.
+104129 variants and 161 people pass filters and QC.
+Among remaining phenotypes, 55 are cases and 55 are controls.  (51 phenotypes
+are missing.)
+IBD calculations complete.  
+Finished writing Results/GWAS4/pihat.genome .</code></pre>
+</div>
+</div>
+<p>The table from PLINK contains various IDs in the first columns, then: - <code>RT</code> Relationship - <code>EZ</code> IBD sharing expected value, based on just .fam/.ped relationship - <code>Z0</code> P(IBD=0) - <code>Z1</code> P(IBD=1) - <code>Z2</code> P(IBD=2) - <code>PI_HAT</code> Proportion IBD, i.e.&nbsp;P(IBD=2) + 0.5<em>P(IBD=1) - <code>PHE</code> Pairwise phenotypic code (1, 0, -1 = AA, AU, and UU pairs, respectively) - <code>DST</code> IBS distance, i.e.&nbsp;(IBS2 + 0.5</em>IBS1) / (IBS0 + IBS1 + IBS2) - <code>PPC</code> IBS binomial test - <code>RATIO</code> IBS0 SNP ratio (expected value 2)</p>
+<p>The specific IBD coefficients (<code>PI_HAT</code>, <code>Z0</code>, <code>Z1</code> and<code>Z2</code>) are used to infer these relationships. <code>PI_HAT</code> represents the proportion of IBD sharing, and <code>Z0</code>, <code>Z1</code>, and <code>Z2</code> represent the probabilities that a pair of individuals share 0, 1, or 2 alleles of IBD, respectively. These values together help determine the relationship category.</p>
+<p>For the relationships <code>RT</code>, you can have:</p>
+<ul>
+<li><code>PO</code> (Parent-Offspring): indicates a parent-offspring relationship. The expected IBD sharing for such a pair is 50%.</li>
+<li><code>FS</code> (Full Siblings): indicates a full sibling relationship. Full siblings are expected to share 50% of their genome IBD, but the pattern of sharing (i.e., segments shared by descent) differs from that of a parent-offspring pair.</li>
+<li><code>HS</code> (Half Siblings): indicates a half-sibling relationship, where the individuals share one parent. They are expected to share about 25% of their genome IBD.</li>
+<li><code>UN</code> (Unrelated): indicates that the pair of individuals is inferred to be unrelated. They share little to no IBD segments, which is expected for unrelated individuals in large populations.</li>
+<li><code>AV</code> (Avuncular): indicates an avuncular relationship (e.g., uncle/aunt to niece/nephew), where the expected IBD sharing is around 25%.</li>
+<li><code>GG</code> (Grandparent-Grandchild): indicates a grandparent-grandchild relationship, with expected IBD sharing of about 25%.</li>
+<li><code>CO</code> (Cousin): is used for cousin relationships, where the expected IBD sharing is about 12.5%.</li>
+<li><code>OT</code> (Other): is used for more distant relationships or complex kinship structures, and when none of the primary categories apply clearly.</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>What assumption in association studies is violated when individuals are related?</li>
+<li>How would you recognize if the same sample is duplicated in your dataset?</li>
+<li>What relationships (RT) are estimated by PLINK? Hint: check for unique values</li>
+<li>Are there closely related individuals? How many individuals show close relatedness (<code>PI_HAT &gt; 0.2</code>)?</li>
+</ul>
+<p>N.B. We recommend printing the first few lines of the file to identify the columns of interest. The filename is printed in the logs from the PLINK command.</p>
+</div>
+</div>
+<div id="ebab8c48-bca7-4667-9853-62a506b5085e" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here (add more cells if needed)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>If you have related individuals, you will lose the independence of individuals at each SNP. This is a problem because many models used in GWAS analysis do not include handling family relationships.</li>
+<li>Calculating the identity-by-descent (IBD) coefficient and looking for a <span class="math inline">\(\hat{\pi}\)</span> close to 1.</li>
+<li>We will look for unique values in column 5 (<code>RT</code>.)</li>
+<li>We will examine <span class="math inline">\(\hat{\pi}\)</span> values in column 10.</li>
+</ul>
+<p>Let’s print the first few rows of <code>pihat.genome</code> and then, the unique relatioship categories in the file:</p>
+<div id="4f7ccdcf-e469-4f95-8b0f-7f72ca1f91bb" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/pihat.genome <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   FID1     IID1   FID2     IID2 RT    EZ      Z0      Z1      Z2  PI_HAT PHE       DST     PPC   RATIO
+   1328  NA06989   1377  NA11891 UN    NA  0.9891  0.0109  0.0000  0.0055   1  0.720373  0.4063  1.9840
+   1328  NA06989   1349  NA11843 UN    NA  0.9846  0.0154  0.0000  0.0077   0  0.718050  0.0223  1.8707
+   1328  NA06989   1330  NA12341 UN    NA  0.9649  0.0351  0.0000  0.0176   1  0.721260  0.2259  1.9501
+   1328  NA06989   1344  NA10850 UN    NA  0.9860  0.0129  0.0011  0.0075   0  0.721665  0.6441  2.0250</code></pre>
+</div>
+</div>
+<div id="c112b46f-1847-4665-ac90-73fa002afba7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $5}'</span> Results/GWAS4/pihat.genome <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    222 OT
+     90 PO
+      1 RT
+  12568 UN</code></pre>
+</div>
+</div>
+<p>We have 90 parent-offspring, 12568 unrelated, and 222 others.</p>
+<p>Now, let’s calculate how many individuals have a <code>PI_HAT</code> parameter (column 10) larger than 0.2.</p>
+<div id="10099d32-f494-48da-88fd-a78cd4531217" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($10 &gt; 0.2) print }'</span> Results/GWAS4/pihat.genome <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are 93 individuals with PI_HAT &gt; 0.2 (94 lines minus header).</p>
+</div>
+</div>
+</div>
+<hr>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Write some R code to calculate the summary of the distribution of <code>PI_HAT</code> values (IBD sharing expected value, based on just .fam/.ped relationship) for each RT category. What do you observe?</p>
+<p>Hint: <code>by()</code> and <code>summary()</code>.</p>
+</div>
+</div>
+<div id="cadf2af8-4973-4a9e-82a4-d0a41a20c0ff" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Many parent-offspring (PO) relationships have a parameter close to 0.5, and the maximum value for unrelated (UN) individuals is also unexpectedly high relatedness.</p>
+</div>
+</div>
+<p>Let’s plot the z-values against each other to visualize related samples. You can also find the code for summary PI_HAT values.</p>
+<div id="884235a9" class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/pihat.genome"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="ex">plot.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="va">x</span><span class="op">=</span>Z0, <span class="va">y</span><span class="op">=</span>Z1, <span class="va">col</span><span class="op">=</span>RT<span class="kw">)</span><span class="ex">,</span> size=5, alpha=.25<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlim</span><span class="er">(</span><span class="ex">0,1</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylim</span><span class="er">(</span><span class="ex">0,1</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">x</span> = <span class="st">"Z0"</span>, y = <span class="st">"Z2"</span>, title = <span class="st">"Identity by descent probabilities"</span>, col = <span class="st">"Relationship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> legend.text= element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> legend.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">plot.relatedness</span><span class="kw">)</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness histogram</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>relatedness<span class="pp">[</span><span class="ss">,10</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of relatedness (Pi Hat)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Pi Hat"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.relatedness</span><span class="kw">)</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary table of PI_HAT files per RT group</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="ex">summary_by_RT</span> <span class="op">&lt;</span>- by<span class="er">(</span><span class="ex">relatedness</span><span class="va">$PI_HAT</span><span class="ex">,</span> relatedness<span class="va">$RT</span>, summary<span class="kw">)</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="ex">summary_by_RT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>relatedness$RT: OT
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+0.000000 0.005175 0.010400 0.011772 0.017225 0.042700 
+------------------------------------------------------------ 
+relatedness$RT: PO
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4958  0.5000  0.5000  0.5007  0.5018  0.5060 
+------------------------------------------------------------ 
+relatedness$RT: UN
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.00000 0.00500 0.01070 0.01165 0.01730 0.49230 </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-9-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There are three distinct categories of individuals based on the <code>RT</code> values:</p>
+<ul>
+<li>UN (unrelated),</li>
+<li>PO (parent-offspring),</li>
+<li>and OT (other)</li>
+</ul>
+<p>The PO relationship has a 100% probability of two alleles being identical by descent, and most UN and OT samples are unrelated. However, some UN samples are probably related given the high <code>PI_HAT</code> values; their relationship might not be correctly recorded in the data.</p>
+<p>The presence of related individuals is not a surprise, since the dataset was constructed to contain family trios and population structure to describe patterns of common genetic variation.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use <code>PLINK</code> options to filter out related individuals, using a relatedness threshold of 0.2. Name the output <code>--out Results/GWAS4/pihat_exercise</code>. The command is similar to the one used above, but you need an extra option. Check <a href="https://www.cog-genomics.org/plink/1.9/ibd">PLINK manual</a> to find the one.</p>
+<ul>
+<li><strong>How many individuals are related and would be filtered out?</strong></li>
+<li><strong>How many pairs of samples have PI_HAT values above the specified cutoff(s) are?</strong></li>
+<li>Replot the z-values, <strong>which relationship categories remain?</strong></li>
+</ul>
+<p>Hint: - Use the file <code>Results/GWAS4/pihat_exercise.log</code> to answer the first question. They are labeled as non-founders. - Count the lines of the new output vs.&nbsp;the pre-filtered one. - Modify the code above to plot the z-values for the <code>pihat_exercise.genome</code>.</p>
+</div>
+</div>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<div id="7b93af6a-23c4-4dfe-a7cd-381d7107a42a" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here (PLINK command)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<div id="2aa429e5-ce0d-4517-9f49-c2674acea551" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here (R code)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>:::{.callout-tip title=“Solution”}</p>
+<p>We need the option <code>--max 0.2</code> in PLINK so that only individuals below that threshold are used.</p>
+<p><img src="Images/bash.png" alt="Bash" width="40"></p>
+<div id="aaa83929-d0e5-427c-9115-411e280f385a" class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_7 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span> <span class="at">--out</span> Results/GWAS4/pihat_exercise <span class="at">--max</span> 0.2 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to Results/GWAS4/pihat_exercise.log.
+Options in effect:
+  --bfile Results/GWAS3/HapMap_3_r3_7
+  --extract Results/GWAS3/indepSNP.prune.in
+  --genome
+  --max 0.2
+  --out Results/GWAS4/pihat_exercise
+
+385567 MB RAM detected; reserving 192783 MB for main workspace.
+1073788 variants loaded from .bim file.
+161 people (77 males, 84 females) loaded from .fam.
+110 phenotype values loaded from .fam.
+--extract: 104129 variants remaining.
+Using up to 63 threads (change this with --threads).
+Before main variant filters, 110 founders and 51 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998119.
+104129 variants and 161 people pass filters and QC.
+Among remaining phenotypes, 55 are cases and 55 are controls.  (51 phenotypes
+are missing.)
+IBD calculations complete.  
+Finished writing Results/GWAS4/pihat_exercise.genome .</code></pre>
+</div>
+</div>
+<p>Based on the log file, a total of 51 non-founders must be excluded. Now, let’s examine the change in the number of lines after applying the <code>--max 0.2</code> filter. There are 93 sample pairs removed.</p>
+<div id="c8fafa51-fd35-45f4-b8f2-caf84d0274d5" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/pihat.genome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>12881 Results/GWAS4/pihat.genome</code></pre>
+</div>
+</div>
+<div id="77eb50fd-94d1-40c6-a9cf-75e8e423d528" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/pihat_exercise.genome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>12788 Results/GWAS4/pihat_exercise.genome</code></pre>
+</div>
+</div>
+<p><img src="Images/R.png" alt="R" width="40"></p>
+<p>Let’s plot the z-values again (repeating the plot from above)</p>
+<div id="3beaa1b2-3fc2-4ba4-bc63-8b7f10ddd2b2" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/pihat_exercise.genome"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="ex">plot.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="va">x</span><span class="op">=</span>Z0, <span class="va">y</span><span class="op">=</span>Z1, <span class="va">col</span><span class="op">=</span>RT<span class="kw">)</span><span class="ex">,</span> size=2.5<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlim</span><span class="er">(</span><span class="ex">0,1</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylim</span><span class="er">(</span><span class="ex">0,1</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">x</span> = <span class="st">"Z0"</span>, y = <span class="st">"Z2"</span>, title = <span class="st">"Identity by descent probabilities"</span>, col = <span class="st">"Relationship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">)</span><span class="ex">,</span> legend.text = element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,legend.title</span> = element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">))</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">plot.relatedness</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see there are only UN (unrelated) individuals left.</p>
+<hr>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<p>So far, you’ve learned how to filter individuals using <code>PI_HAT</code> thresholds. Now, we’ll demonstrate that most of the relatedness was due to parent-offspring relationships. We will achieve this by using the <code>--filter-founders</code> option to create a new filtered dataset that includes only the founders (individuals without listed parents in the data). This generates <code>.bed</code>, <code>.bim</code>, and <code>.fam</code> files, which are then used to create a <code>.genome</code> file containing relatedness values.</p>
+<div id="e034b088" class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_7 <span class="at">--filter-founders</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--silent</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span> <span class="at">--out</span> Results/GWAS4/pihat_founders <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p>Let’s plot the results from <code>Results/GWAS4/pihat_founders.genome</code>.</p>
+<div id="a966ef9c-05b1-4c24-a637-abe5999215f6" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/pihat_founders.genome"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="ex">plot.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="va">x</span><span class="op">=</span>Z0, <span class="va">y</span><span class="op">=</span>Z2, <span class="va">col</span><span class="op">=</span>RT<span class="kw">)</span><span class="ex">,</span> size=2.5<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlim</span><span class="er">(</span><span class="ex">0,1</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylim</span><span class="er">(</span><span class="ex">0,1</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">x</span> = <span class="st">"Z0"</span>, y = <span class="st">"Z2"</span>, title = <span class="st">"Identity by descent probabilities"</span>, col = <span class="st">"Relationship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">)</span><span class="ex">,</span> legend.text = element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,legend.title</span> = element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">))</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">plot.relatedness</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>1. Do you observe anything unexpected in the plot?</strong></li>
+<li><strong>2. Can you identify the IIDs of the sample pair?</strong> Hint: filter for Z0 values.</li>
+<li><strong>3. Based on the z-values, what is the most likely relationship between the pair?</strong></li>
+<li><strong>4. What would you do about it?</strong> Hint: remove one or both? which one?</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="write-answer-here" class="level3" data-number="0.3.2">
+<h3 data-number="0.3.2" class="anchored" data-anchor-id="write-answer-here"><span class="header-section-number">0.3.2</span> <em>Write answer here</em></h3>
+<div id="ddcb10c8-f5e0-4b21-9b17-cd38fc50d03b" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>1.</strong> The file <code>pihat_founders.genome</code> shows that, after excluding all non-founders, one individual pair removed in the exercise remains in the HapMap data.</li>
+<li><strong>2.</strong> Below, we can look at the individual from the table by setting <span class="math inline">\(Z_0 &lt; 0.5\)</span>. Even if labeled as unrelated, it has high relatedness. The IIDs of the pair are NA07045 and NA12813.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="e30d95c1" class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">relatedness</span><span class="op">[</span>relatedness<span class="va">$Z0</span> &lt; 0.5,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A data.frame: 1 × 14</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">FID1</th>
+<th data-quarto-table-cell-role="th" scope="col">IID1</th>
+<th data-quarto-table-cell-role="th" scope="col">FID2</th>
+<th data-quarto-table-cell-role="th" scope="col">IID2</th>
+<th data-quarto-table-cell-role="th" scope="col">RT</th>
+<th data-quarto-table-cell-role="th" scope="col">EZ</th>
+<th data-quarto-table-cell-role="th" scope="col">Z0</th>
+<th data-quarto-table-cell-role="th" scope="col">Z1</th>
+<th data-quarto-table-cell-role="th" scope="col">Z2</th>
+<th data-quarto-table-cell-role="th" scope="col">PI_HAT</th>
+<th data-quarto-table-cell-role="th" scope="col">PHE</th>
+<th data-quarto-table-cell-role="th" scope="col">DST</th>
+<th data-quarto-table-cell-role="th" scope="col">PPC</th>
+<th data-quarto-table-cell-role="th" scope="col">RATIO</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">2639</td>
+<td>13291</td>
+<td>NA07045</td>
+<td>1454</td>
+<td>NA12813</td>
+<td>UN</td>
+<td>NA</td>
+<td>0.2574</td>
+<td>0.5005</td>
+<td>0.2421</td>
+<td>0.4923</td>
+<td>0</td>
+<td>0.839757</td>
+<td>1</td>
+<td>9.6694</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>3.</strong> This remaining individual is likely to be a full sibling or DZ (dizygotic) twin pair based on the Z values (expected values for full siblings: z0=0.25; z1=0.50; z2=0.25). Noteworthy, they were not given the same family identity (FID) in the HapMap data.</li>
+<li><strong>4.</strong> We don’t need to remove both individuals from the dataset (IID1=NA07045; IID2=NA12813). It’s enough to remove just one, and the individual with the highest missing rate (lowest quality) should be chosen. Let’s calculate the missing rates using PLINK.</li>
+</ul>
+<hr>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<div id="7d55dc5d-2663-489e-b2bf-2637a577e716" class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, find the two individuals from the output file using <code>grep</code> and sorting descendingly by missing rate (EZ, column 6)</p>
+<div id="3fa5e705-a478-4e76-91b7-8105c41c0a01" class="cell" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the output</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_3_r3_8.imiss <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">'NA07045|NA12813'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k6,6nr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  13291   NA07045          N     2560  1073788 0.002384
+   1454   NA12813          N     1956  1073788 0.001822</code></pre>
+</div>
+</div>
+<p><code>NA07045</code> is the individual to be removed. Once this is removed, their offspring can still be used in analyses that don’t involve trios, such as family-related studies.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Plot the distribution of missing rates from <code>HapMap_3_r3_8</code>. What is the value for <code>NA07045</code>?</strong></li>
+<li><strong>Remove <code>NA07045</code> from the PLINK files</strong></li>
+</ul>
+<p>Hint: - Use the <code>imiss</code> file to plot a histogram of the missing scores from the file <code>HapMap_3_r3_8.imiss</code> in <code>R</code> (check previous notebooks for help). Is the score of <code>NA07045</code> amongst the higher/lower ones? You can add a vertical line in the histogram representing the value for <code>NA07045</code> using <code>geom_vline</code>. - Create a file with the sample ID to remove and use the <code>--remove</code> option in PLINK.</p>
+</div>
+</div>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<div id="fd1c7d1a-5a3b-40f4-9e6c-d12e63393cc6" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We can extract the column from the file and observe in the histogram that the individual <code>NA07045</code> has a missing rate closer to the higher values.</p>
+</div>
+</div>
+<div id="8adba97a-30f1-4fe5-a956-5b3337744491" class="cell" data-editable="true" data-scrolled="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="ex">imiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/HapMap_3_r3_8.imiss"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="va">data</span><span class="op">=</span>imiss, <span class="ex">aes</span><span class="er">(</span><span class="ex">F_MISS</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill = <span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_vline</span><span class="er">(</span><span class="ex">xintercept</span> = 0.002384, color = <span class="st">"red"</span>, linetype = <span class="st">"dashed"</span>, size = 1<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of missing rates"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Missing rate"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.relatedness</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning message:
+“Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.”
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<p>To remove the individual from the data, we create a file containing its number and ID, and provide it to PLINK with the option <code>--remove</code></p>
+<div id="5007aa3f" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"13291  NA07045"</span> <span class="op">&gt;</span> Results/GWAS4/id_remove.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d08763c4" class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the individuals with the lowest call rate in 'related' pairs with a pihat &gt; 0.2 </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--remove</span> Results/GWAS4/id_remove.txt <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="population-stratification" class="level2" data-number="0.4">
+<h2 data-number="0.4" class="anchored" data-anchor-id="population-stratification"><span class="header-section-number">0.4</span> 4.2 Population Stratification</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Some theory">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Some theory
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Population stratification presents a significant source of systematic bias in GWAS, arising <strong>when subpopulations exhibit systematic differences in allele frequencies</strong>. Research indicates that even subtle degrees of population stratification can exist within a single ethnic population <span class="citation" data-cites="abdellaoui2013population">(<a href="#ref-abdellaoui2013population" role="doc-biblioref">Abdellaoui et al. 2013</a>)</span>. Thus, testing and controlling for the presence of population stratification is an essential QC step.</p>
+<p>The population structure (or in other words, the ancestral relationship of the populations) is a so-called <strong>confounding factor</strong>. This means that it affects both the dependent and independent variables, as shown in the figure below, where both the genotype and traits are influenced by population structure (e.g., the distribution of north and south European individuals in the PCA space and the height of those individuals).</p>
+<p><img src="Images/ancestryBias.png" class="img-fluid">{fig-align=“center”, width=400px}</p>
+<p>Why is a bias introduced? Population structure can influence allele frequencies and produce false positives/negatives when doing association testing. Graphically, consider the example in the figure below. Case and control have minor allele frequencies of 1/6 and 1/8 (population 1) and 1/2, 7/12 (population 2). If you remove population structure, case and control have MAFs of 3/10, and 2/5, and those new values depend on how many samples you have from each population in the two conditions, and the MAFs of each population.</p>
+<p><img src="Images/popStruct.png" class="img-fluid">{fig-align=“center”, width=400px}</p>
+<p>The same problem arises in population studies without Case-control categories. Imagine having a population of randomly sampled individuals, each from a different ethnicity (the blue and red minor alleles in the example below). The final group of individuals will have a different proportion of MAFs depending on the sampling of various ethnicities.</p>
+<p><img src="Images/popSampling.png" class="img-fluid">{fig-align=“center”, width=400px}</p>
+<p>There are several methods to correct for population stratification <span class="citation" data-cites="price2010new">(<a href="#ref-price2010new" role="doc-biblioref">Price et al. 2010</a>, price_principal_2006)</span>. Here, we illustrate a method integrated into PLINK: the <strong>multidimensional scaling (MDS)</strong> approach. MDS calculates the genome-wide average proportion of shared alleles between any pair of individuals to generate quantitative indices (components) of the genetic variation for each individual. <strong>The individual component scores can be visualized to identify groups of genetically similar individuals.</strong> For instance, in a genetic study including subjects from Asia and Europe, MDS analysis would reveal that Asians are genetically more similar to each other than to Europeans and Africans. Figure below shows another example of MDS using HapMap, Genome diversity project, and authors’ data:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./Images/MDSexample2.png" class="img-fluid figure-img" label="fig-MDSexample" width="500"></p>
+<figcaption>Example of MDS plot of the first two MDS components scores on integrated datasets in <span class="citation" data-cites="somers_genetic_2017">Somers et al. (<a href="#ref-somers_genetic_2017" role="doc-biblioref">2017</a>)</span>. Here TWN, a past isolated population in the Netherlands, is separated from the other individuals from the same country (NDL). Sardinians, notoriously different from continental Italians, are also grouped far away from them. Central European populations colocalize as expected.</figcaption>
+</figure>
+</div>
+<p>To investigate which individuals the generated component scores deviate from in the target population, plotting the scores of the dataset under investigation and a population of known ethnic structure (e.g., HapMap/1KG data) is helpful: this step is called <strong>anchoring</strong> <span class="citation" data-cites="rietveld2013gwas">(<a href="#ref-rietveld2013gwas" role="doc-biblioref">Rietveld et al. 2013</a>)</span>. This enables the researcher to obtain ethnic information on their data and to determine possible ethnic outliers. For example, in <strong>?@fig-MDSexample</strong>, if TSI (Tuscans from Italy) is the anchor population, one can hypothesize that the yellow dots might be ethnically similar (as in the example).</p>
+<p>Outliers identified based on MDS analysis should be excluded from further analyses. Following their removal, a new MDS analysis must be conducted, and its primary components are utilized as covariates in association tests to correct for any residual population stratification within the population. The number of components to include depends on the population structure and sample size (usually 10-20).</p>
+<p>The MDS from <span class="citation" data-cites="cortellari_climatic_2021">Cortellari et al. (<a href="#ref-cortellari_climatic_2021" role="doc-biblioref">2021</a>)</span> shows a distinct goat population outlier. The second axis is dominated by this outlier, obscuring structure in the other populations. Removing the outlier reveals a clearer structure among the remaining populations.</p>
+<p><img src="./Images/MDSout1.png" class="img-fluid" width="400"> <img src="./Images/MDSout2.png" class="img-fluid" width="400"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is also possible to correct for relatedness (family structure). <strong>Should we also do it?</strong></p>
+</div>
+</div>
+<section id="analysis-1" class="level3" data-number="0.4.1">
+<h3 data-number="0.4.1" class="anchored" data-anchor-id="analysis-1"><span class="header-section-number">0.4.1</span> 4.2.1 Analysis</h3>
+<p>We aim to merge the HapMap and 1000GP datasets, using 1000GP Phase I as the anchor for HapMap. Our goal is to check if we can identify the ethnicity of the HapMap data based on the ethnicities in the 1000GP dataset. There are several steps to ensure compatibility between the datasets, so stay with us!</p>
+<section id="gp-data-download" class="level4" data-number="0.4.1.1">
+<h4 data-number="0.4.1.1" class="anchored" data-anchor-id="gp-data-download"><span class="header-section-number">0.4.1.1</span> 1000GP data download</h4>
+<p>Here are some commands to download and convert the 1000GP data for GWAS analysis. <strong>You don’t need to run them</strong>, as we’ve already processed the data.</p>
+<ul>
+<li>1000 Genomes Project - Phase I: genetic information for 629 individuals from various ethnic groups (&gt;60GB). <em>Phase III is now available, and we recommend using it for research purposes.</em></li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/release/20100804/ALL.2of4intersection.20100804.genotypes.vcf.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The data was converted from the <code>vcf</code> file (Variant Call Format) to plink format (<code>bim</code>, <code>fam</code>, <code>bed</code>):</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> ALL.2of4intersection.20100804.genotypes.vcf.gz <span class="at">--make-bed</span> <span class="at">--out</span> ALL.2of4intersection.20100804.genotypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The 1000 Genomes data downloaded above is rather large so the commands are not executable and are shown for reference only. To save time, we’ve provided the <code>.bed</code>, <code>.bim</code>and <code>.fam</code> files in the <code>Data</code> folder.</p>
+</div>
+</div>
+<p>Let’s unzip the files and see how many samples we have.</p>
+<div id="26e3a83a" class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> <span class="at">-o</span> Data/1000genomes.zip <span class="at">-d</span> Results/GWAS4</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># count lines in fam </span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/1000genomes.genotypesA.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Archive:  Data/1000genomes.zip
+  inflating: Results/GWAS4/1000genomes.genotypesA.bed  
+  inflating: Results/GWAS4/1000genomes.genotypesA.bim  
+  inflating: Results/GWAS4/1000genomes.genotypesA.fam  
+  inflating: Results/GWAS4/1000genomes.genotypesA.log  
+  inflating: Results/GWAS4/1000genomes.genotypesA.nosex  
+37 Results/GWAS4/1000genomes.genotypesA.fam</code></pre>
+</div>
+</div>
+<p>We have a subset of <strong>37 individuals</strong>. Now, let’s explore the <code>bim</code> file.</p>
+<div id="6d50c492" class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/1000genomes.genotypesA.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1   rs112750067 0   10327   C   T
+1   .   0   11508   A   G
+1   .   0   12783   G   A
+1   .   0   13116   G   T
+1   .   0   14933   A   G</code></pre>
+</div>
+</div>
+<p>One should note that the file <code>1000genomes.genotypes.bim</code> contains SNPs without an rs-identifier (or Reference SNP cluster ID). The missing rs-identifiers (noted as <code>.</code>) are not a problem for this tutorial. However, for good practice, we will assign unique identifiers to the SNPs (using available information):</p>
+<div id="3d7a9271" class="cell" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1000genomes.genotypesA <span class="at">--set-missing-var-ids</span> @:#<span class="pp">[</span><span class="ss">b37</span><span class="pp">]</span><span class="dt">\$</span>1,\$2 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, let’s visualize the data to check the SNP names assigned. These are derived from the format <code>@:#[b37]\$1,\$2</code> in the command above, which PLINK interprets as <code>chromosome:locus[b37]Allele1,Allele2</code>:</p>
+<div id="bc59444d" class="cell" data-tags="[]" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show changes on the bim file</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1   rs112750067 0   10327   C   T
+1   1:11508[b37]A,G 0   11508   A   G
+1   1:12783[b37]A,G 0   12783   G   A
+1   1:13116[b37]G,T 0   13116   G   T
+1   1:14933[b37]A,G 0   14933   A   G</code></pre>
+</div>
+</div>
+<p>Pretty neat, right?</p>
+</section>
+<section id="qc-on-1000gp-data" class="level4" data-number="0.4.1.2">
+<h4 data-number="0.4.1.2" class="anchored" data-anchor-id="qc-on-1000gp-data"><span class="header-section-number">0.4.1.2</span> QC on 1000GP data</h4>
+<p>As we covered in the GWAS3 notebook, it’s important to account for missingness, sex discrepancies, and minor allele frequency. We’ll apply standard QC thresholds to the 1000 GP data before merging it with HapMap data.</p>
+<div id="162f5bf0" class="cell" data-tags="[]" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs <span class="at">--geno</span> 0.02  <span class="dt">\</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1kG_MDS <span class="at">--silent</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS <span class="at">--mind</span> 0.02  <span class="dt">\</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1kG_MDS2 <span class="at">--silent</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS2 <span class="at">--maf</span> 0.05 <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span>   <span class="dt">\</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS4/1kG_MDS3 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="snps-matching-between-datasets" class="level4" data-number="0.4.1.3">
+<h4 data-number="0.4.1.3" class="anchored" data-anchor-id="snps-matching-between-datasets"><span class="header-section-number">0.4.1.3</span> SNPs matching between datasets</h4>
+<p>N.B: Ensure that the datasets you want to merge share the same genomic build! Otherwise, you’ll need to include a liftover step.</p>
+<p>We want to only consider SNPs that both datasets have in common. First, extract SNP names from the HapMap data and filter the 1000GP data to include only matching SNPs.</p>
+<div id="7893d82e-6625-4904-905c-2dc4f36a7d1d" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Print out SNPs from the HapMap data</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2}'</span> Results/GWAS4/HapMap_3_r3_9.bim <span class="op">&gt;</span> Results/GWAS4/HapMap_SNPs.txt</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap SNPs from the 1000GP data</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS3 <span class="at">--extract</span> Results/GWAS4/HapMap_SNPs.txt <span class="dt">\</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/1kG_MDS4 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is how part of the list of SNP names looks like:</p>
+<div id="a1009efb-9f10-4021-ab18-6f2357206551" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_SNPs.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs3131972
+rs3131969
+rs1048488
+rs12562034
+rs12124819</code></pre>
+</div>
+</div>
+<p>Now we take the variants from the reduced 1000GP data, and go the other way around. We extract 1000GP variants from the HapMap data. In other words, the two extraction passages will intersect the SNPs. Below is the code to use the SNPs of the 1000GP data to reduce the HapMap data.</p>
+<div id="584c7e2c-6a8b-48cb-98f2-4ccd5ab564ab" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Print out SNPs from the HapMap data</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2}'</span> Results/GWAS4/1kG_MDS4.bim <span class="op">&gt;</span> Results/GWAS4/1kG_MDS4_SNPs.txt</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap SNPs from the 1000GP data</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--extract</span> Results/GWAS4/1kG_MDS4_SNPs.txt <span class="at">--recode</span> <span class="dt">\</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/HapMap_MDS <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Look at the SNP names. Now, they are matching between the two <code>bim</code> files.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Look at the two outputs a bit more carefully. Is there any problem?</strong></p>
+<p>Hint: - compare the chromosome and position across the 2 datasets. - compare the two alleles</p>
+</div>
+</div>
+<div id="70beb88f-7099-4233-83d8-53efe75b0de4" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/HapMap_MDS.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1   rs3131969   0   744045  A   G
+1   rs12562034  0   758311  A   G
+1   rs4970383   0   828418  A   C
+1   rs4475691   0   836671  T   C
+1   rs1806509   0   843817  C   A
+1   rs28576697  0   860508  C   T
+1   rs3748595   0   877423  A   C
+1   rs13303118  0   908247  G   T
+1   rs1891910   0   922320  A   G
+1   rs3128097   0   970323  G   A</code></pre>
+</div>
+</div>
+<div id="6a54e180-24d6-4cb3-ac15-b27434b40a86" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/1kG_MDS4.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1   rs3131969   0   754182  A   G
+1   rs12562034  0   768448  A   G
+1   rs4970383   0   838555  A   C
+1   rs4475691   0   846808  T   C
+1   rs1806509   0   853954  A   C
+1   rs28576697  0   870645  C   T
+1   rs3748595   0   887560  A   C
+1   rs13303118  0   918384  T   G
+1   rs1891910   0   932457  A   G
+1   rs3128097   0   980460  G   A</code></pre>
+</div>
+</div>
+</section>
+<section id="build-matching" class="level4" data-number="0.4.1.4">
+<h4 data-number="0.4.1.4" class="anchored" data-anchor-id="build-matching"><span class="header-section-number">0.4.1.4</span> Build matching</h4>
+<p>Genomic data is based on a reference genome, and our datasets use different human reference versions. Since the reference genome improves over time, SNP positions may differ between datasets from different versions.</p>
+<p>We extract SNP names and positions from the HapMap data and align the 1000GP data to match these SNPs using the <code>--update-map</code> option in PLINK.</p>
+<div id="e7ad8313-f257-4f10-b396-34d4c03b83d7" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap variant coordinates</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$4}'</span> Results/GWAS4/HapMap_MDS.map <span class="op">&gt;</span> Results/GWAS4/buildhapmap.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This is how the list of SNPs look like:</p>
+<div id="0af685c3-65f1-4a27-a251-d250abfe3825" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/buildhapmap.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs3131969 744045
+rs12562034 758311
+rs4970383 828418
+rs4475691 836671
+rs1806509 843817</code></pre>
+</div>
+</div>
+<p>We run PLINK to update the 1000GP variant coordinates based on HapMap, ignoring the warning about non-ascending positions:</p>
+<div id="58fba51d-c89b-449f-8a45-e639a19dfa8e" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS4 <span class="at">--update-map</span> Results/GWAS4/buildhapmap.txt <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/1kG_MDS5 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Base-pair positions are now unsorted!</code></pre>
+</div>
+</div>
+</section>
+<section id="merging-datasets-and-performing-mds" class="level4" data-number="0.4.1.5">
+<h4 data-number="0.4.1.5" class="anchored" data-anchor-id="merging-datasets-and-performing-mds"><span class="header-section-number">0.4.1.5</span> Merging datasets and performing MDS</h4>
+<p>Before merging the HapMap and 1000 Genomes datasets, we ensure compatibility through 3 steps:</p>
+<ol type="1">
+<li>Verify the reference genome is compatible in both datasets.</li>
+<li>Align SNP orientations (strand) across datasets.</li>
+<li>Remove SNPs that still differ after these steps.</li>
+</ol>
+<p>The next steps are technical but ensure the datasets correspond correctly.</p>
+<p><strong>1.</strong> We’ve matched SNP positions, but we also need to ensure the reference alleles align. Remember that most PLINK analyses <strong>consider the A1 allele (typically the minor allele) as the reference allele</strong>, which is logical when dealing exclusively with biallelic variants.</p>
+<p>Below, we generate a list of SNPs ID and ‘reference alleles’ (corresponding to A1, column 5) from 1000GP.</p>
+<div id="97848c6a-85fb-4c1b-a515-f3120c21bf03" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract variant coordinates and reference alleles from 1000GP data</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5}'</span> Results/GWAS4/1kG_MDS5.bim <span class="op">&gt;</span> Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>How the list looks like:</p>
+<div id="7c4cecdd-737c-43ce-b38c-011d074e90f7" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs3131969 A
+rs12562034 A
+rs4970383 A
+rs4475691 T
+rs1806509 A</code></pre>
+</div>
+</div>
+<p>Then, we assign them to the HapMap data <code>--reference-allele</code> option (aliases for <code>--a1-allele</code>). We use <code>&amp;&gt; /dev/null</code> to redirect many warning messages away from the screen (<em>Warning: Impossible A1 allele assignment for variant rs11488462</em>). This warning flags variants with genotype mismatches. To address these warnings, we will first check for strand orientation issues before excluding any problematic variants.</p>
+<div id="af745a46-efdb-482e-af1a-f428d5b7302a" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_MDS <span class="at">--reference-allele</span> Results/GWAS4/1kg_ref-list.txt <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap-adj <span class="op">&amp;&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>2.</strong> To resolve strand issues, we flip SNPs found in both datasets with complementary alleles (i.e.&nbsp;they were reported in opposite strands). We generate SNP lists (ID and alleles) for both datasets, identify unique SNPs, and visualize differences in allele reporting. If a SNP is unique but reports alleles differently, it will appear twice. Below are examples of SNPs with strand issues from the 1000GP and HapMap data:</p>
+<div id="33e5be15-6808-4ea3-bbdb-56192f731cd6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/1kG_MDS5.bim <span class="op">&gt;</span> Results/GWAS4/1kGMDS5_tmp</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/HapMap-adj.bim <span class="op">&gt;</span> Results/GWAS4/HapMap-adj_tmp</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> Results/GWAS4/1kGMDS5_tmp Results/GWAS4/HapMap-adj_tmp <span class="kw">|</span><span class="fu">uniq</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="3e7a86f1-803e-4107-b13f-40c37ed1d35d" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-6</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs10006274 C T
+rs10006274 G A
+rs1008660 A G
+rs1008660 T C
+rs10088098 C T
+rs10088098 G A</code></pre>
+</div>
+</div>
+<p><strong>How many of these differences are there?</strong></p>
+<div id="eb2444e5-1267-4bcd-bae8-055b3e96d4e9" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>604 Results/GWAS4/all_differences.txt</code></pre>
+</div>
+</div>
+<div id="51234782-57d7-4bd4-bfc2-77f0131bc31f" class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Some</span> of these differences might be might be due to strand issues.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s look at this variant <code>rs10006274</code>. <strong>Will it be flipped in the HapMap dataset?</strong></p>
+<p>The answer is yes! If we look at the reference allele in <code>1kg_ref-list.txt</code>, it shows <code>C</code>. This means the SNP is on the forward strand in 1000GP (C/T) and on the reverse strand in HapMap (G/A).</p>
+<div id="12dc2f26-f2e6-402b-9be1-382e47845b2c" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs10006274 C</code></pre>
+</div>
+</div>
+<div id="3c51a907-1301-4fc0-b4d8-5e505b6153f1" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs10006274 C T
+rs10006274 G A</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Look at these other SNPs <code>rs9614750</code> and <code>rs10088098</code>. <strong>Which ones will have to be flipped? Is it always the same dataset that must be flipped?</strong></p>
+</div>
+</div>
+<div id="b8b0ba37-79a7-4d83-8c72-55355a101f1d" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>We will first print out the SNPs from the reference file to know which line corresponds to each dataset (since we know we used the 1000 Genomes Project as the reference). If there are strand issues, the SNP will need to be flipped in the dataset that wasn’t used as the reference.</p>
+<div id="ad77cb69-bb65-4cfb-92f0-426568021ae0" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs9614750 A</code></pre>
+</div>
+</div>
+<div id="1b33052c-eee2-4d7d-a6ef-fbd0eaa48eda" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs9614750 A G
+rs9614750 C G</code></pre>
+</div>
+</div>
+<p>For <code>rs9614750</code>, the genotype is reported as <code>A/G</code> in the 1000GP data, while in HapMap, it is <code>C/G</code>. This discrepancy between the two datasets means that the SNP will need to be removed later.</p>
+<div id="dc56146a-aefa-45ae-9acd-772df3d3eac4" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10088098 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs10088098 C</code></pre>
+</div>
+</div>
+<div id="5cabdd69-57d1-4223-a2cc-525ca87d5b3f" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10088098 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs10088098 C T
+rs10088098 G A</code></pre>
+</div>
+</div>
+<p>For <code>rs10088098</code>, the genotype is reported as <code>C/T</code> in the 1000GP data, while in HapMap, it is <code>G/A</code>. This means that PLINK will flip the allele, as they are complementary.</p>
+</div>
+</div>
+</div>
+<hr>
+<p>Now we take only the SNP names and give them to PLINK (option <code>--flip</code>), together with the reference genome (option <code>--reference-allele</code>):</p>
+<div id="d2bb696b-4d7b-423c-a0aa-1df7393af08b" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Flip SNPs for resolving strand issues.</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Print SNP-identifier and remove duplicates.</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS4/all_differences.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cbda06fc-d78e-4487-ad6a-1835c0dc5ea2" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>302 Results/GWAS4/flip_list.txt</code></pre>
+</div>
+</div>
+<p>These are the SNP ID of non-corresponding SNPs (N=302) between the two files.</p>
+<div id="e5f8b6e7-9452-4dc2-9430-4227ecedcf82" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs10006274
+rs1008660
+rs10088098
+rs1011297
+rs1023098
+302 Results/GWAS4/flip_list.txt</code></pre>
+</div>
+</div>
+<p>Apply the flipping option:</p>
+<div id="436c134e-9986-4218-86a0-98d8f5e3ee29" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap-adj <span class="at">--flip</span> Results/GWAS4/flip_list.txt <span class="at">--reference-allele</span> Results/GWAS4/1kg_ref-list.txt <span class="dt">\</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/corrected_hapmap <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: Impossible A1 allele assignment for variant rs2581195.
+Warning: Impossible A1 allele assignment for variant rs9614750.</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There might still be problematic SNPs after flipping.</p>
+<ul>
+<li><strong>Check if the expected allele flip occurred.</strong> (Hint: use <code>grep</code> to find the <code>rs10006274</code> and <code>rs9614750</code> variants; then compare the alleles assignments in the HapMap file before and after flipping.)</li>
+</ul>
+</div>
+</div>
+<div id="75f90b6d-911e-49a0-8cf1-2a09b4c63d16" class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>PLINK attempts to flip all SNPs in the list, but an error occurs when A1 does not match the one in the reference.</p>
+</div>
+</div>
+</div>
+<p>Notice how this SNP has changed as we predicted:</p>
+<div id="bfb8bbac-66f1-40ba-a92b-7beecc1743ff" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/corrected_hapmap.bim </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4   rs10006274  0   124165369   C   T</code></pre>
+</div>
+</div>
+<div id="ffa6dcc8-a48a-4e7b-8ca5-ea18a1a04045" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/HapMap-adj.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4   rs10006274  0   124165369   G   A</code></pre>
+</div>
+</div>
+<p><code>rs10006274</code> was flipped and has the same strand orientation in both datasets (same alleles in A1 and A2).</p>
+<p>What happened to this one? PLINK attempts to resolve the mismatch by flipping the alleles but throws an error because the complementary alleles do not match the reference!</p>
+<div id="a120ca9c-d0e3-4f98-b531-2d70989b07ff" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/corrected_hapmap.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>22  rs9614750   0   44436371    G   C</code></pre>
+</div>
+</div>
+<div id="26921fb5-c05a-4818-add4-fb9758238055" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/HapMap-adj.bim </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>22  rs9614750   0   44436371    C   G</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You don’t need to flip the 1000GP data because the reference allele (A1) in the 1000GP data already matches the strand orientation used in the HapMap data.</p>
+</div>
+</div>
+<p><strong>3.</strong> After flipping SNPs, some differ in their alleles when comparing datasets to each other (e.g.&nbsp;SNP <code>rs9614750</code>) and such SNPs must be removed.</p>
+<p>We extract the SNPs from the corrected HapMap data and search for unique SNP (ID, A1, and A2), comparing them with those from the 1000GP data.</p>
+<div id="1f3db957-1b52-42ea-bcf7-4f542a627600" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/corrected_hapmap.bim <span class="op">&gt;</span> Results/GWAS4/corrected_hapmap_tmp</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> Results/GWAS4/1kGMDS5_tmp Results/GWAS4/corrected_hapmap_tmp <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-u</span>  <span class="op">&gt;</span> Results/GWAS4/uncorresponding_SNPs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>How many SNP missmatches are there?</strong></p>
+<div id="3ecd7c1a-c504-4c26-9df3-117282576a3e" class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/uncorresponding_SNPs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>24 Results/GWAS4/uncorresponding_SNPs.txt</code></pre>
+</div>
+</div>
+<p>This corresponds to 12 unique SNP IDs with mismatched information.</p>
+<div id="a0cd231c-0467-4d12-b37d-a9d7d0d765ec" class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/uncorresponding_SNPs.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>rs11524965 T C
+rs11524965 T G
+rs12646999 G A
+rs12646999 G T
+rs17114359 C A
+rs17114359 C T
+rs17269854 C A
+rs17269854 C T
+rs2060424 G A
+rs2060424 G C</code></pre>
+</div>
+</div>
+<p>We extract again the SNP IDs from the file above, and exclude them using the PLINK option <code>--exclude</code> in both datasets</p>
+<div id="c847f8ba-c42a-4cbe-933b-a8f7b44472f4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS4/uncorresponding_SNPs.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/SNPs_for_exclusion.txt</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/corrected_hapmap <span class="at">--exclude</span> Results/GWAS4/SNPs_for_exclusion.txt <span class="dt">\</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/HapMap_MDS3 <span class="at">--silent</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS5 <span class="at">--exclude</span> Results/GWAS4/SNPs_for_exclusion.txt <span class="dt">\</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/1kG_MDS6 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>5.</strong> We can finally merge the data! We provide our dataset (<code>-bfile</code>) and the one to add (<code>--bmerge</code> option):</p>
+<div id="02eb4e5a-5904-4b27-9fab-45ca16d4f608" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/corrected_hapmap <span class="at">--bmerge</span> Results/GWAS4/1kG_MDS6.bed Results/GWAS4/1kG_MDS6.bim Results/GWAS4/1kG_MDS6.fam <span class="dt">\</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>--allow-no-sex <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data." class="level3" data-number="0.4.2">
+<h3 data-number="0.4.2" class="anchored" data-anchor-id="perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data."><span class="header-section-number">0.4.2</span> Perform MDS on HapMap-CEU data anchored by 1000 Genomes data.</h3>
+<p>MDS is typically performed on independent SNPs (pruned SNPs). We have previously identified such SNPs in this course, so we will extract only these SNPs for the analysis.</p>
+<div id="07f84ea8" class="cell" data-tags="[]" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/MDS_merge <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="dt">\</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genome</span> <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can use PLINK to run MDS with the option <code>---mds-plot</code> specifying the number of components to calculate.</p>
+<div id="fc3a311a-58e6-4d28-9cf0-127257a924c3" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mds-plot</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/MDS_merge <span class="at">--read-genome</span> Results/GWAS4/MDS_merge.genome <span class="dt">\</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cluster</span> <span class="at">--mds-plot</span> 10 <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For visualization purposes, we downloaded the 1000 Genomes Project (1000GP) panel, which includes individual names and their corresponding population information.</p>
+<div id="5a3f6fea-bb10-4d5c-8909-ab682020a41c" class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20100804/20100804.ALL.panel <span class="at">-P</span> Results/GWAS4 <span class="at">-q</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To determine the population origins of HapMap individuals, we created a new file that combines the 1000GP panel information with the HapMap data, labeling the population HapMap entries as ‘OWN’.</p>
+<div id="ac3d0b03-be57-4fc2-964e-8d32f9d6a4b2" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1,$2,"OWN"}'</span> Results/GWAS4/HapMap_MDS.fam <span class="op">&gt;</span> Results/GWAS4/popfile_own.txt</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1,$1,$2}'</span> Results/GWAS4/20100804.ALL.panel <span class="op">&gt;</span> Results/GWAS4/20100804.ALL.panel.txt</span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;(</span><span class="bu">echo</span> <span class="st">"FID IID POP"</span><span class="op">)</span> Results/GWAS4/20100804.ALL.panel.txt Results/GWAS4/popfile_own.txt <span class="op">&gt;</span> Results/GWAS4/popfile.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The 1000 Genomes Project (1000GP) categorizes individuals into major continental groups—such as Europeans (EUR), Africans (AFR), Americans (AMR), East Asians (EAS), and South Asians (SAS)—each comprising various subpopulations. We will use this population structure information to visualize and determine the clusters our samples belong to.</p>
+<p><img src="./Images/1000GP.png" class="img-fluid" width="800"></p>
+</div>
+</div>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p>Let’s visualize population stratification using the multidimensional scaling (MDS) results.</p>
+<div id="eac20c80-bb26-4175-a870-660892297e46" class="cell" data-tags="[]" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 12, repr.plot.height = 6<span class="kw">)</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="ex">data</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS4/MDS_merge.mds"</span>,header=TRUE<span class="kw">)</span></span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pop</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS4/popfile.txt"</span>,header=TRUE<span class="kw">)</span></span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="ex">datafile</span> <span class="op">&lt;</span>- merge<span class="er">(</span><span class="ex">data,pop,by=c</span><span class="er">(</span><span class="st">"FID"</span><span class="ex">,</span><span class="st">"IID"</span><span class="kw">))</span></span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Metapopulation information for the population in the 1000GP dataset</span></span>
+<span id="cb107-11"><a href="#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="ex">superpop</span> <span class="op">&lt;</span>- c<span class="er">(</span></span>
+<span id="cb107-12"><a href="#cb107-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JPT"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-13"><a href="#cb107-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ASW"</span> = <span class="st">"AFR"</span>,</span>
+<span id="cb107-14"><a href="#cb107-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CEU"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-15"><a href="#cb107-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHB"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-16"><a href="#cb107-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHD"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-17"><a href="#cb107-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"YRI"</span> = <span class="st">"AFR"</span>,</span>
+<span id="cb107-18"><a href="#cb107-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LWK"</span> = <span class="st">"AFR"</span>,</span>
+<span id="cb107-19"><a href="#cb107-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TSI"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-20"><a href="#cb107-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MXL"</span> = <span class="st">"AMR"</span>,</span>
+<span id="cb107-21"><a href="#cb107-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GBR"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-22"><a href="#cb107-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FIN"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-23"><a href="#cb107-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHS"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-24"><a href="#cb107-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PUR"</span> = <span class="st">"AMR"</span>,</span>
+<span id="cb107-25"><a href="#cb107-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"OWN"</span> = <span class="st">"UN"</span></span>
+<span id="cb107-26"><a href="#cb107-26" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span>
+<span id="cb107-27"><a href="#cb107-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-28"><a href="#cb107-28" aria-hidden="true" tabindex="-1"></a><span class="co"># add metapopulation info to the table </span></span>
+<span id="cb107-29"><a href="#cb107-29" aria-hidden="true" tabindex="-1"></a><span class="ex">datafile</span><span class="va">$SUPERPOP</span> <span class="op">&lt;</span>- superpop<span class="pp">[</span><span class="ss">datafile$POP</span><span class="pp">]</span></span>
+<span id="cb107-30"><a href="#cb107-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-31"><a href="#cb107-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting                </span></span>
+<span id="cb107-32"><a href="#cb107-32" aria-hidden="true" tabindex="-1"></a><span class="ex">scatter.mds</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">datafile,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>C1, <span class="va">y</span><span class="op">=</span>C2, <span class="va">color</span><span class="op">=</span>SUPERPOP<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb107-33"><a href="#cb107-33" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>5, <span class="va">alpha</span><span class="op">=</span>.4<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb107-34"><a href="#cb107-34" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_color_manual</span><span class="er">(</span><span class="va">values</span><span class="op">=</span>c<span class="kw">(</span><span class="st">"AFR"</span> = <span class="st">"red"</span>, <span class="st">"AMR"</span> = <span class="st">"springgreen4"</span>, <span class="st">"ASN"</span> = <span class="st">"gold"</span>, <span class="st">"EUR"</span> = <span class="st">"blue"</span>, <span class="st">"UN"</span> = <span class="st">"grey"</span> <span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb107-35"><a href="#cb107-35" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MD Component 1"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb107-36"><a href="#cb107-36" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"MD Component 2"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb107-37"><a href="#cb107-37" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="va">color</span><span class="op">=</span><span class="st">"Superpop"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb107-38"><a href="#cb107-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb107-39"><a href="#cb107-39" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> legend.text = element_text<span class="er">(</span><span class="fu">size</span> = 15<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb107-40"><a href="#cb107-40" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> legend.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb107-41"><a href="#cb107-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb107-42"><a href="#cb107-42" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">scatter.mds</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-71-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The HapMap data clusters closely with European populations such as CEU, TSI, IBS, GBR, and FIN, confirming its European composition. Additionally, the absence of distant points indicates no outliers in the HapMap dataset (grey datapoints cluster together).</p>
+<section id="exclude-ethnic-outliers" class="level4" data-number="0.4.2.1">
+<h4 data-number="0.4.2.1" class="anchored" data-anchor-id="exclude-ethnic-outliers"><span class="header-section-number">0.4.2.1</span> Exclude ethnic outliers</h4>
+<p>Let’s run the scripts to filter population stratification outliers for educational purposes (e.g.&nbsp;imagine a HapMap individual clusters in the lower-right corner with African populations).</p>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<p>To identify and exclude ethnic outliers in the HapMap dataset, select individuals falling within specific cut-off thresholds. These thresholds should be determined based on the visualization of the first two dimensions from the multidimensional scaling (MDS) analysis.</p>
+<p><strong>What values would you select or apply in this context, and why?</strong> Hint: look at the plot above.</p>
+<p>Preview of the MDS results:</p>
+<div id="89a3b1b8-0600-4970-bbd8-26c61e593aa3" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> Results/GWAS4/MDS_merge2.mds <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-6</span> <span class="at">-d</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    FID       IID    SOL           C1           C2           C3           C4           C5           C6           C7           C8           C9          C10 
+   1328   NA06984      0   -0.0218368  -0.00620683  -0.00464884   0.00121512 -0.000413235   0.00221093    0.0104188  -0.00199382    0.0173257   -0.0131241 
+   1328   NA06989      0   -0.0208157  -0.00581126  -0.00638572   0.00503345  -0.00116741  -0.00369152    0.0120005   -0.0229035  -0.00238946    0.0381386 </code></pre>
+</div>
+</div>
+<p>Based on the position of the target population’s cluster in the MDS plot, we will exclude individuals with MDS component 1 values less than 0 and MDS component 2 values less than -0.05.</p>
+<p>The selection has to be done for the individuals we want to keep, so the area to be chosen has to be mirrored into &gt;0 and &gt;-0.05. We provide the MDS component values in columns 4 and 5 of the file (corresponding to the first 2 components), and extract the individuals using <code>--keep</code></p>
+<div id="3e022245" class="cell" data-tags="[]" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($4 &gt;0 || $5 &gt;-0.05) print $1,$2 }'</span> Results/GWAS4/MDS_merge2.mds <span class="op">&gt;</span> Results/GWAS4/EUR_MDS_merge2</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--keep</span> Results/GWAS4/EUR_MDS_merge2 <span class="at">--make-bed</span>  <span class="dt">\</span></span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-covariates-for-gwas-analysis" class="level4" data-number="0.4.2.2">
+<h4 data-number="0.4.2.2" class="anchored" data-anchor-id="creating-covariates-for-gwas-analysis"><span class="header-section-number">0.4.2.2</span> Creating covariates for GWAS analysis</h4>
+<p>The 10 MDS dimensions will be used as covariates in the association analysis in the next tutorial to correct for population stratification. The covariate file is created by removing column 3 (SOL, optional metadata) from the MDS output file.</p>
+<div id="975054c0-85c1-4436-a340-819bffa12a5a" class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span>  <span class="dt">\</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--read-genome</span> Results/GWAS4/HapMap_3_r3_10.genome <span class="dt">\</span></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>--cluster <span class="at">--mds-plot</span> 10 <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_10_mds <span class="op">&gt;</span> /dev/null</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the format of the .mds file into a plink covariate file.</span></span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, $2, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13}'</span> Results/GWAS4/HapMap_3_r3_10_mds.mds <span class="op">&gt;</span> Results/GWAS4/covar_mds.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>covar_mds.txt</code> file contains the covariates to adjust for residual population stratification.</p>
+<div id="62ac8a2d-6153-443c-be20-0906f4a3262b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/covar_mds.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>FID IID C1 C2 C3 C4 C5 C6 C7 C8 C9 C10
+1328 NA06989 0.0193503 -0.0481539 0.053743 -8.56966e-05 0.0124037 -0.00872553 0.0146577 -0.0266013 0.0064429 -0.0149862
+1377 NA11891 0.0105154 -0.0241653 -0.00713715 -0.0276522 0.0272997 0.0044621 -0.00373271 -0.00561896 -0.0317101 0.0188078
+1349 NA11843 -0.00217144 0.0120046 -0.00508388 0.0193558 -0.00738542 0.0285001 -0.00512723 0.00271516 0.0029428 0.000145191
+1330 NA12341 -0.0124555 -0.0114929 0.0019162 -0.0252928 -0.0300722 -0.00411769 -0.0207568 -0.0122574 -0.017065 0.0353729</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Wrapping up">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Wrapping up
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You have now successfully checked your data for relatedness population stratification. You filtered out the individuals with high relatedness and produced a summary of the population structure using the MDS projection. You will use the MDS coordinates as a proxy for the population structure you want your association testing to be corrected for.</p>
+<p>In the next notebook on <strong>Association Testing</strong>, you will need the following files from the folder <code>Results/GWAS4/</code>: - <code>HapMap_3_r3_10</code> (the bfile, i.e., <code>HapMap_3_r3_10.bed</code>, <code>HapMap_3_r3_10.bim</code>, and <code>HapMap_3_r3_10.fam</code>) - <code>covar_mds.txt</code> which are the HapMap data and the MDS covariates highlighting the population stratification. Those are already available once you have been running this notebook.</p>
+<p>Below is a cheat sheet of our new methods of QC. Again, it is important to remember that each method of QC should be justified, which will depend on the nature of the feature you are trying to analyze.</p>
+<table class="table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 31%">
+<col style="width: 60%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Command</th>
+<th>Function</th>
+<th>Thresholds and explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6: Relatedness</td>
+<td>–genome</td>
+<td>Calculates identity by descent (IBD) of all sample pairs.</td>
+<td>Use independent SNPs ( pruning) for this analysis and limit it to autosomal chromosomes only.</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>–min</td>
+<td>Sets threshold and creates a list of individuals with relatedness above the chosen threshold. This means that subjects who are related at, for example, pi‐hat &gt;0.2 (i.e., second-degree relatives) can be detected.</td>
+<td>Cryptic relatedness can interfere with the association analysis. If you have a family‐based sample (e.g., parent‐offspring), you do not need to remove related pairs but the statistical analysis should take family relatedness into account. However, for a population-based sample, we suggest using a pi‐hat threshold of 0.2, which is in line with the literature (Anderson et al., 2010; Guo et al., 2014).</td>
+</tr>
+<tr class="odd">
+<td>7: Population Stratification</td>
+<td>–genome</td>
+<td>Calculates identity by descent (IBD) of all sample pairs.</td>
+<td>Use independent SNPs ( pruning) for this analysis and limit it to autosomal chromosomes only.</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>–cluster –mds-plot k</td>
+<td>Produces a k‐dimensional representation of any substructure in the data, based on IBS.</td>
+<td>K is the number of dimensions, which needs to be defined (typically 10). This is an important step of the QC that consists of multiple proceedings but for reasons of completeness, we briefly refer to this step in the table. This step will be described in more detail in the section “Controlling for population stratification.”</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="bibliography" class="level1" data-number="1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">1 Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-abdellaoui2013population" class="csl-entry" role="listitem">
+Abdellaoui, Abdel, Jouke-Jan Hottenga, Peter de Knijff, Michel G Nivard, Xiangjun Xiao, Paul Scheet, Andrew Brooks, et al. 2013. <span>“Population Structure, Migration, and Diversifying Selection in the Netherlands.”</span> <em>European Journal of Human Genetics</em> 21 (11): 1277–85.
+</div>
+<div id="ref-cortellari_climatic_2021" class="csl-entry" role="listitem">
+Cortellari, Matteo, Mario Barbato, Andrea Talenti, Arianna Bionda, Antonello Carta, Roberta Ciampolini, Elena Ciani, et al. 2021. <span>“The Climatic and Genetic Heritage of <span>Italian</span> Goat Breeds with Genomic <span>SNP</span> Data.”</span> <em>Scientific Reports</em> 11 (1): 10986. <a href="https://doi.org/10.1038/s41598-021-89900-2">https://doi.org/10.1038/s41598-021-89900-2</a>.
+</div>
+<div id="ref-price2010new" class="csl-entry" role="listitem">
+Price, Alkes L, Noah A Zaitlen, David Reich, and Nick Patterson. 2010. <span>“New Approaches to Population Stratification in Genome-Wide Association Studies.”</span> <em>Nature Reviews Genetics</em> 11 (7): 459–63.
+</div>
+<div id="ref-rietveld2013gwas" class="csl-entry" role="listitem">
+Rietveld, Cornelius A, Sarah E Medland, Jaime Derringer, Jian Yang, Tõnu Esko, Nicolas W Martin, Harm-Jan Westra, et al. 2013. <span>“GWAS of 126,559 Individuals Identifies Genetic Variants Associated with Educational Attainment.”</span> <em>Science</em> 340 (6139): 1467–71.
+</div>
+<div id="ref-somers_genetic_2017" class="csl-entry" role="listitem">
+Somers, Metten, Loes M. Olde Loohuis, Maartje F. Aukes, Bogdan Pasaniuc, Kees C. L. De Visser, René S. Kahn, Iris E. Sommer, and Roel A. Ophoff. 2017. <span>“A <span>Genetic</span> <span>Population</span> <span>Isolate</span> in <span>The</span> <span>Netherlands</span> <span>Showing</span> <span>Extensive</span> <span>Haplotype</span> <span>Sharing</span> and <span>Long</span> <span>Regions</span> of <span>Homozygosity</span>.”</span> <em>Genes</em> 8 (5): 133. <a href="https://doi.org/10.3390/genes8050133">https://doi.org/10.3390/genes8050133</a>.
+</div>
+<div id="ref-voight2005confounding" class="csl-entry" role="listitem">
+Voight, Benjamin F, and Jonathan K Pritchard. 2005. <span>“Confounding from Cryptic Relatedness in Case-Control Association Studies.”</span> <em>PLoS Genetics</em> 1 (3): e32.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
