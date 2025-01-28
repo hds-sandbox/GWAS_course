@@ -1,0 +1,44 @@
+project:
+  type: website
+
+website:
+  title: "Genome-Wide Association Studies"
+  google-analytics: 
+    tracking-id: "G-EXW13D5861"
+    anonymize-ip: true
+  navbar:
+    logo: /img/logo.png
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Access
+        menu: 
+          - href: access/index.qmd
+            text: General
+          - href: access/UCloud.qmd
+            text: UCloud
+          - href: access/genomedk.qmd
+            text: Genome
+      # - text: Tutorial
+      #   menu: 
+      #     - href: Notebooks/GWAS1-WhatIsAGWAS.ipynb
+      #       text: What is a GWAS?
+      #     - href: Notebooks/GWAS2-DataCollection.ipynb
+      #       text: Data Collection
+      #     - href: Notebooks/GWAS3-QualityControlA.ipynb
+      #       text: Quality Control A
+      #     - href: Notebooks/GWAS4-QualityControlB.ipynb
+      #       text: Quality Control B?
+      #     - href: Notebooks/GWAS5-AssociationTesting.ipynb
+      #       text: Association Testing
+      #     - href: Notebooks/GWAS6-PRSAnalysis.ipynb
+      #       text: PRS Analysis
+      #     - href: Notebooks/GWAS7-OtherToolsAndTesting.ipynb
+      #       text: Other tools and testing
+
+format:
+  html:
+    theme: 
+      light: [materia, css/materialight.scss]
+      dark: darkly
+    toc: true
