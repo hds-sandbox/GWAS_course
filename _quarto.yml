@@ -27,14 +27,14 @@ website:
             text: Data Collection
  #         - href: develop/GWAS3-QualityControlA.ipynb
  #           text: Quality Control A
- #         - href: develop/GWAS4-QualityControlB.ipynb
- #           text: Quality Control B?
- #         - href: develop/GWAS5-AssociationTesting.ipynb
- #           text: Association Testing
- #         - href: develop/GWAS6-PRSAnalysis.ipynb
- #           text: PRS Analysis
- #         - href: develop/GWAS7-OtherToolsAndTesting.ipynb
- #           text: Other tools and testing
+         - href: develop/GWAS4-QualityControlB.ipynb
+           text: Quality Control B?
+         - href: develop/GWAS5-AssociationTesting.ipynb
+           text: Association Testing
+         - href: develop/GWAS6-PRSAnalysis.ipynb
+           text: PRS Analysis
+         - href: develop/GWAS7-OtherToolsAndTesting.ipynb
+           text: Other tools and testing
 
 format:
   html:
