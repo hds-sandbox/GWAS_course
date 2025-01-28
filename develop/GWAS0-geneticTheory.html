@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>HPC access – Genome-Wide Association Studies</title>
+<title>Genetic Theory Review – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -148,7 +168,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -156,25 +176,26 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ucloud" id="toc-ucloud" class="nav-link active" data-scroll-target="#ucloud">UCloud</a></li>
-  <li><a href="#computerome" id="toc-computerome" class="nav-link" data-scroll-target="#computerome">Computerome</a></li>
-  <li><a href="#genomedk" id="toc-genomedk" class="nav-link" data-scroll-target="#genomedk">GenomeDK</a></li>
-  <li><a href="#any-other-computing-cluster" id="toc-any-other-computing-cluster" class="nav-link" data-scroll-target="#any-other-computing-cluster">Any other computing cluster</a></li>
-  <li><a href="#your-local-pc" id="toc-your-local-pc" class="nav-link" data-scroll-target="#your-local-pc">Your local PC</a></li>
+  <li><a href="#quick-review-of-genetic-theory" id="toc-quick-review-of-genetic-theory" class="nav-link active" data-scroll-target="#quick-review-of-genetic-theory">Quick Review of Genetic Theory</a>
+  <ul class="collapse">
+  <li><a href="#genetic-variants" id="toc-genetic-variants" class="nav-link" data-scroll-target="#genetic-variants">Genetic variants</a></li>
+  <li><a href="#some-catalogs-of-genetic-variation" id="toc-some-catalogs-of-genetic-variation" class="nav-link" data-scroll-target="#some-catalogs-of-genetic-variation">Some catalogs of genetic variation</a></li>
+  </ul></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS0-geneticTheory.out.ipynb" download="GWAS0-geneticTheory.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">HPC access</h1>
+<h1 class="title">Genetic Theory Review</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
     
   
@@ -186,45 +207,130 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<p>The Sandbox is collaborating with the two major academic high performance computing platforms in Denmark. Computerome is located at the Technical University of Denmark (and co-owned by the University of Copenhagen) while UCloud is owned by the University of Southern Denmark. These HPC platforms each have their own strengths which we leverage in the Sandbox in different ways.</p>
-<section id="ucloud" class="level2">
-<h2 class="anchored" data-anchor-id="ucloud">UCloud</h2>
-<p><a href="https://cloud.sdu.dk/app/login">UCloud</a> is a relatively new HPC platform that can be accessed by students at Danish universities (via a WAYF university login). It has a user friendly graphical user interface that supports straightforward project, user, and resource management. UCloud provides access to many tools via selectable Apps matched with a range of flexible compute resources, and the Sandbox is deploying training modules in this form such that any UCloud user can easily access Sandbox materials independently. The Sandbox is also hosting workshops and training events on UCloud in conjunction with in-person training.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Access Sandbox Apps on UCloud">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Information about this notebook">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Access Sandbox Apps on UCloud
+Information about this notebook
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p>Find detailed instructions on accessing Sandbox apps <a href="../access/UCloud.html">here</a> via UCloud. Check out UCloud’s extensive user docs <a href="https://docs.cloud.sdu.dk/index.html">here</a>.</p>
+<p>This section reviews basic genetic theory terminology to help you better understand GWAS principles. Feel free to skip it if you’re already familiar with the concepts.</p>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
+<ul>
+<li><strong>Review</strong> the basic terminology of genetic theory (DNA and genetic variation)</li>
+<li><strong>Discuss</strong> sources of human genetic variation databases</li>
+</ul>
+</section>
 </div>
 </div>
+</div>
+<section id="quick-review-of-genetic-theory" class="level2">
+<h2 class="anchored" data-anchor-id="quick-review-of-genetic-theory">Quick Review of Genetic Theory</h2>
+<p>We all carry two nuclear genomes (i.e.&nbsp;genomes located in the cell nucleus), one inherited from each of our two parents. Additionally, we have a small mitochondrial genome, <a href="http://www.pnas.org/content/early/2018/11/21/1810946115">assumed to be</a> inherited exclusively from the mother, but in this course, the term ‘genome’ refers to the nuclear genome.</p>
+<p>The human genome is a 3.2 billion <strong>nucleotide</strong> (or <strong>base pair</strong> or <strong>DNA letter</strong> A, C, G, T) long sequence (<a href="https://www.yourgenome.org/facts/what-is-dna">see yourgenome.org</a>), that is divided into separate physical pieces called <strong>chromosomes</strong> (<a href="https://www.yourgenome.org/facts/what-is-a-chromosome">see yourgenome.org</a>). There are 22 <strong>autosomal</strong> (non-sex related) chromosomes and two <strong>sex chromosomes</strong> (X and Y chromosomes). Commonly, humans have two copies of each autosome. Individuals with one copy of X and one of Y are males, whereas those with two copies of X are females. An abnormal number of chromosomes, known as <strong>aneuploidy</strong>, typically leads to severe consequences or early death when present in all cells of an individual. However, a notable non-lethal exception is Down syndrome, characterized by the presence of three copies of chromosome 21. Another condition, <strong>mosaicism</strong>, occurs when only some cells in the body have abnormal chromosome numbers, a phenomenon often observed in cancer cells.</p>
+<p>When we analyze genomes, we encounter three types of pairings:</p>
+<ol type="1">
+<li><p>DNA is typically a <strong>double-stranded molecule</strong>, where two strands (i.e.&nbsp;the two DNA molecules) are glued together by the chemical base pairings: A-T and C-G. This base pairing is crucial for DNA replication, which is necessary before any cell division [see yourgenome.org (https://www.yourgenome.org/video/dna-replication). The two DNA molecules connected through base pairing contain identical information though their sequences are complementary: A pairs with T and C pairs with G. To distinguish between the two DNA molecules, it is conventionally agreed that one is the forward strand (or positive strand) and the other is the reverse strand (or negative strand). Therefore, if the forward strand contains base A, the corresponding base on the reverse strand is T, and vice versa.</p></li>
+<li><p>The two <strong>homologous chromosomes</strong> of an individual (for example, paternal chromosome 13 with maternal chromosome 13, or in males, maternal X and paternal Y) are considered a pair. Therefore, the human genome consists of 22 autosomes plus X and Y chromosomes. Each individual possesses two copies of each homologous chromosome, resulting in a total of 46 unique chromosomes organized into 23 pairs of homologous chromosomes.</p></li>
+<li><p>Before any <strong>cell division</strong> each of the 46 unique chromosomes of an individual undergoes replication (“copies itself”). The two resulting copies (known as sister chromatids) physically pair with each other to form an X-like shape often used in chromosome pictures. This pairing of sister chromatids after replication is crucial for ensuring that each resulting cell receives the correct set of chromosomes during cell division. In mitosis (ordinary cell division), each of the two new cells receives a complete set of 46 unique chromosomes. However, in meiosis, which forms gametes (sperm and eggs), each gamete ends up with only one copy of each homologous chromosome, resulting in 23 unique chromosomes per gamete. During meiosis, the process of recombination shuffles the homologous copies of paternal and maternal chromosomes. This shuffling ensures that each offspring’s chromosomes are a mixture of segments from its grandparents’ chromosomes.</p></li>
+</ol>
+<section id="other-important-terms" class="level4">
+<h4 class="anchored" data-anchor-id="other-important-terms">Other important terms</h4>
+<ul>
+<li><p><strong>Genes:</strong> are segments of DNA that encode for proteins (<a href="https://www.yourgenome.org/video/from-dna-to-protein">see yourgenome.org</a>). Variations in the physical structure of proteins or the timing and location of protein synthesis can lead to observable traits. Therefore, understanding how genetic variation impacts gene function and the phenotypic consequences is crucial, although much of this remains to be explored. Protein-coding genes constitute less than 2% of the entire human genome, while the remaining 98% plays a critical role in regulating gene activity through various mechanisms.</p></li>
+<li><p><strong>Locus (pl. loci):</strong> refers to a continuous region of the genome, which can vary greatly in size from a single nucleotide site (1 base pair) to a region spanning millions of base pairs (e.g., 10 Mbp).</p></li>
+<li><p><strong>GWAS loci:</strong> are regions of the genome that exhibit a significant statistical association with a particular phenotype of interest.</p></li>
+</ul>
 </section>
-<section id="computerome" class="level2">
-<h2 class="anchored" data-anchor-id="computerome">Computerome</h2>
-<p><a href="https://computerome.dk/">Computerome</a> is the home of many sensitive health datasets via collaborations between DTU, KU, Rigshospitalet, and other major health sector players in the Capital Region of Denmark. Computerome has recently launched their secure cloud platform, <a href="https://computerome.dk/solutions/delphi">DELPHI</a>, and in collaboration with the Sandbox has built a <a href="https://computerome.dk/solutions/course-platform">Course Platform</a> on the same backbone such that courses and training can be conducted in the same environment as real research would be performed in the secure cloud. The Sandbox is supporting courses in the Course Platform, but it is also available for independent use by educators at Danish universities. Please see their website for more information on independent use and pricing, and <a href="mailto:nhds_sandbox@sund.ku.dk">contact us</a> if you’d like to collaborate on hosting a course on Computerome. We can help with tool installation, environment testing, and user support (ranging from using the environment to course content if we have Sandbox staff with matching expertise).</p>
-<p>Participants in courses co-hosted by the Sandbox can check <a href="Computerome.qmd">here</a> for access instructions.</p>
+<section id="genetic-variants" class="level3">
+<h3 class="anchored" data-anchor-id="genetic-variants">Genetic variants</h3>
+<p>At any given position in the genome (e.g., nucleotide site at position 13,475,383 of chromosome 1, denoted as chr1:13,475,383), variations can exist between individuals in the population. For instance, my paternal chromosome might have a base A, while my maternal chromosome has a base G (on the + strand of DNA) at that position. Such a single-nucleotide difference, at that specific position in the genome, is known as a <strong>single-nucleotide variant (SNV)</strong>, and these two versions are called <strong>alleles</strong>. In this example, I would carry both allele A and allele G at that SNV, while you might have two copies of allele A at the same SNV. My genotype would be AG, and yours would be AA.</p>
+<p>An individual who has different alleles on their two genomes is <strong>heterozygous</strong> at that locus, whereas someone with two copies of the same allele is <strong>homozygous</strong> at that locus. If neither allele is very rare in the population—specifically if the <strong>minor allele frequency (MAF)</strong> is &gt; 1%—the variant is referred to as a <strong>single-nucleotide polymorphism (SNP)</strong>. SNPs are used as markers in evolutionary biology and constitute the most common form of variation that may have consequences at the phenotypic level and be associated with certain diseases. There are over 10 million SNPs identified in the human genome.</p>
+<p>More complex genetic variations include <strong>structural variation (SV</strong>) such as copy number variants (CNVs), which include duplications or deletions of genomic regions, as well as rearrangements of the genome, like inversions or translocations of DNA segments (<a href="https://www.yourgenome.org/facts/what-types-of-mutation-are-there">see yourgenome.org</a>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/SNP.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: SNPs are DNA differences at a specific location (<a href="https://www.thetech.org/ask-a-geneticist/oca2-and-23andme">image source</a>)</figcaption>
+</figure>
+</div>
+<p>A defined set of 500,000 to 1,000,000 SNPs can be measured reliably and affordably (less than 50 euros per sample) using DNA microarrays, which has been pivotal in enabling GWAS. In this course, we primarily focus on SNPs as the standard type of genetic variation. Typically, SNPs are <strong>biallelic</strong>, meaning there are only two alleles present in the population, which is the assumption we follow. In principle, however, all four possible alleles of a SNP could be present in the population.</p>
+<section id="ambiguous-snps" class="level4">
+<h4 class="anchored" data-anchor-id="ambiguous-snps">Ambiguous SNPs</h4>
+<p>If the two alleles of an SNP are either (C,G) or (A,T) we call the SNP <em>ambiguous</em> because the strand information must be available (and accurate) to correctly interpret the genotypes at such SNP. For instance, allele C on the positive strand would be equivalent to allele G on the negative strand. If different studies report the SNP with respect to different strands, it can lead to mixed-up results. This issue does not occur with SNPs whose alleles are A, and C, because alleles T and G would correspond on the opposite strand, allowing unambiguous matching of A to T and C to G across studies. Ambiguous SNPs can generally be resolved reliably based on allele frequencies, as long as the minor allele frequency is not close to 50%. When combining multiple studies, it is crucial to begin by plotting allele frequencies between studies. This helps ensure that the alleles are consistently matched across studies before comparing frequencies to verify consistency.</p>
 </section>
-<section id="genomedk" class="level2">
-<h2 class="anchored" data-anchor-id="genomedk">GenomeDK</h2>
-<p>In development.</p>
 </section>
-<section id="any-other-computing-cluster" class="level2">
-<h2 class="anchored" data-anchor-id="any-other-computing-cluster">Any other computing cluster</h2>
-<p>In development.</p>
+<section id="some-catalogs-of-genetic-variation" class="level3">
+<h3 class="anchored" data-anchor-id="some-catalogs-of-genetic-variation">Some catalogs of genetic variation</h3>
+<p>The human genome map is constantly improving, leading to updates in SNV/SNP coordinates and new discoveries with each new build. The current build is GRCh38 (hg38), published in 2013, while its predecessor, GRCh37 (hg19), is still in use for some data sets. Always specify the genome build when sharing genomic coordinates, as positions can differ between builds. There are tools like LiftOver that can help map coordinates between builds.</p>
+<p>A large part of the genetics research over the last 30 years has been driven by international projects aiming to catalog genetic variation in the public domain.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Database</th>
+<th>Year</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.yourgenome.org/stories/what-was-the-human-genome-project-for">The Human Genome Project</a></td>
+<td>1990-2003</td>
+<td>Established a first draft of a human genome sequence. <span class="citation" data-cites="collins_human_1995">Collins and Fink (<a href="#ref-collins_human_1995" role="doc-biblioref">1995</a>)</span>.</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.genome.gov/10001688/international-hapmap-project/">The HapMap project</a></td>
+<td>2002-2009</td>
+<td>Studied the correlation structure of the common SNPs. <span class="citation" data-cites="gibbs_international_2003">Gibbs et al. (<a href="#ref-gibbs_international_2003" role="doc-biblioref">2003</a>)</span>.</td>
+</tr>
+<tr class="odd">
+<td><a href="http://www.internationalgenome.org/about">The 1000 Genomes project</a></td>
+<td>2008-2015</td>
+<td>Expanded HapMap to genome sequence information across the globe and currently remains a widely-used reference for global allele frequency information. 1000G project was able to characterize well common variation in different <em>populations</em>, but missed many rare variants of single individuals because the costs of very accurate sequencing were too high. The tremendous impact of the 1000G project stems from the fact that everyone can download the individual-level genome data of the 1000G samples from the project’s website and use it in their research. <span class="citation" data-cites="auton_global_2015">Auton et al. (<a href="#ref-auton_global_2015" role="doc-biblioref">2015</a>)</span>.</td>
+</tr>
+<tr class="even">
+<td><a href="http://exac.broadinstitute.org/">Exome Aggregation Consortium (ExAC)</a></td>
+<td>2014-2016</td>
+<td>Concentrated only on the protein-coding parts of the genome, so-called <em>exons</em>, that make up less than 2% of the genome and was able to provide accurate sequence data for the exomes of over 60,000 individuals. This effort has been particularly important for the medical interpretation of rare variants seen in clinics that diagnose patients with severe disease. ExAC provides summary-level information through browsers and downloads but individual-level data cannot be downloaded. <span class="citation" data-cites="lek_analysis_2016">Lek et al. (<a href="#ref-lek_analysis_2016" role="doc-biblioref">2016</a>)</span>.</td>
+</tr>
+<tr class="odd">
+<td><a href="http://gnomad.broadinstitute.org/">Genome Aggregation Database (gnomAD)</a></td>
+<td>2016-2020</td>
+<td>Is expanding the ExAC database and also includes additional whole genome sequencing information. It is the current state-of-the-art among the public genome variation databases. <span class="citation" data-cites="chen_genomic_2024">Chen et al. (<a href="#ref-chen_genomic_2024" role="doc-biblioref">2024</a>)</span>.</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="your-local-pc" class="level2">
-<h2 class="anchored" data-anchor-id="your-local-pc">Your local PC</h2>
-<p>In development.</p>
+</section>
+<section id="bibliography" class="level1">
+
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-auton_global_2015" class="csl-entry" role="listitem">
+Auton, Adam, Gonçalo R. Abecasis, David M. Altshuler, Richard M. Durbin, Gonçalo R. Abecasis, David R. Bentley, Aravinda Chakravarti, et al. 2015. <span>“A Global Reference for Human Genetic Variation.”</span> <em>Nature</em> 526 (7571): 68–74. <a href="https://doi.org/10.1038/nature15393">https://doi.org/10.1038/nature15393</a>.
+</div>
+<div id="ref-chen_genomic_2024" class="csl-entry" role="listitem">
+Chen, Siwei, Laurent C. Francioli, Julia K. Goodrich, Ryan L. Collins, Masahiro Kanai, Qingbo Wang, Jessica Alföldi, et al. 2024. <span>“A Genomic Mutational Constraint Map Using Variation in 76,156 Human Genomes.”</span> <em>Nature</em> 625 (7993): 92–100. <a href="https://doi.org/10.1038/s41586-023-06045-0">https://doi.org/10.1038/s41586-023-06045-0</a>.
+</div>
+<div id="ref-collins_human_1995" class="csl-entry" role="listitem">
+Collins, Francis S., and Leslie Fink. 1995. <span>“The <span>Human</span> <span>Genome</span> <span>Project</span>.”</span> <em>Alcohol Health and Research World</em> 19 (3): 190–95. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6875757/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6875757/</a>.
+</div>
+<div id="ref-gibbs_international_2003" class="csl-entry" role="listitem">
+Gibbs, Richard A., John W. Belmont, Paul Hardenbol, Thomas D. Willis, Fuli Yu, Huanming Yang, Lan-Yang Ch’ang, et al. 2003. <span>“The <span>International</span> <span>HapMap</span> <span>Project</span>.”</span> <em>Nature</em> 426 (6968): 789–96. <a href="https://doi.org/10.1038/nature02168">https://doi.org/10.1038/nature02168</a>.
+</div>
+<div id="ref-lek_analysis_2016" class="csl-entry" role="listitem">
+Lek, Monkol, Konrad J. Karczewski, Eric V. Minikel, Kaitlin E. Samocha, Eric Banks, Timothy Fennell, Anne H. O’Donnell-Luria, et al. 2016. <span>“Analysis of Protein-Coding Genetic Variation in 60,706 Humans.”</span> <em>Nature</em> 536 (7616): 285–91. <a href="https://doi.org/10.1038/nature19057">https://doi.org/10.1038/nature19057</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

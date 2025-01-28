@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Conor O’Hare">
+<meta name="author" content="Samuele Soraggi">
+<meta name="author" content="Alba Refoyo Martinez">
 
-<title>HPC access – Genome-Wide Association Studies</title>
+<title>Getting Started with the GWAS Module – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -148,7 +151,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -156,26 +159,30 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ucloud" id="toc-ucloud" class="nav-link active" data-scroll-target="#ucloud">UCloud</a></li>
-  <li><a href="#computerome" id="toc-computerome" class="nav-link" data-scroll-target="#computerome">Computerome</a></li>
-  <li><a href="#genomedk" id="toc-genomedk" class="nav-link" data-scroll-target="#genomedk">GenomeDK</a></li>
-  <li><a href="#any-other-computing-cluster" id="toc-any-other-computing-cluster" class="nav-link" data-scroll-target="#any-other-computing-cluster">Any other computing cluster</a></li>
-  <li><a href="#your-local-pc" id="toc-your-local-pc" class="nav-link" data-scroll-target="#your-local-pc">Your local PC</a></li>
+  <li><a href="#general-note-on-how-to-make-the-notebooks-work" id="toc-general-note-on-how-to-make-the-notebooks-work" class="nav-link active" data-scroll-target="#general-note-on-how-to-make-the-notebooks-work"><span class="header-section-number">1</span> General note on how to make the notebooks work</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="general-intro.out.ipynb" download="general-intro.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">HPC access</h1>
+<h1 class="title">Getting Started with the GWAS Module</h1>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Conor O’Hare </p>
+             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+          </div>
+  </div>
     
   
     
@@ -186,40 +193,39 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<p>The Sandbox is collaborating with the two major academic high performance computing platforms in Denmark. Computerome is located at the Technical University of Denmark (and co-owned by the University of Copenhagen) while UCloud is owned by the University of Southern Denmark. These HPC platforms each have their own strengths which we leverage in the Sandbox in different ways.</p>
-<section id="ucloud" class="level2">
-<h2 class="anchored" data-anchor-id="ucloud">UCloud</h2>
-<p><a href="https://cloud.sdu.dk/app/login">UCloud</a> is a relatively new HPC platform that can be accessed by students at Danish universities (via a WAYF university login). It has a user friendly graphical user interface that supports straightforward project, user, and resource management. UCloud provides access to many tools via selectable Apps matched with a range of flexible compute resources, and the Sandbox is deploying training modules in this form such that any UCloud user can easily access Sandbox materials independently. The Sandbox is also hosting workshops and training events on UCloud in conjunction with in-person training.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Access Sandbox Apps on UCloud">
+<p>In this course, we will use JupyterLab, an open-source interactive development environment (IDE) for working with Jupyter Notebooks. If you’re not familiar with this interface, check out the <a href="https://jupyterlab.readthedocs.io/en/latest/getting_started/overview.html">JupyterLab Documentation</a>. It includes numerous screenshots and videos showcasing the cool features of JupyterLab.</p>
+<p>In particular, we suggest reviewing: - <a href="https://jupyterlab.readthedocs.io/en/latest/user/files.html">Working (manage) files</a> - <a href="https://jupyterlab.readthedocs.io/en/latest/user/file_editor.html">How to edit files</a> - <a href="https://jupyterlab.readthedocs.io/en/latest/user/terminal.html">How to use Terminals</a> - <a href="https://jupyterlab.readthedocs.io/en/latest/user/running.html">Maning kernels and terminals</a></p>
+<section id="general-note-on-how-to-make-the-notebooks-work" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="general-note-on-how-to-make-the-notebooks-work"><span class="header-section-number">1</span> General note on how to make the notebooks work</h2>
+<ul>
+<li>We will primarily use <code>R</code> and <code>bash command line</code> programming languages, where <code>R</code> is used for statistical analysis of the output from various tools running in <code>bash</code>.</li>
+<li>Since we use multiple coding languages, you need to <strong>choose a kernel every time we shift from one language to another</strong>. A kernel contains a programming language and the necessary packages to run the course material. To choose a kernel, go to the menu at the top of the page, select <code>Kernel --&gt; Change Kernel</code>, and then select the preferred one.</li>
+<li>We will shift between two kernels, and along the notebook, you will see a picture indicating when to change the kernel. The two pictures are shown below:
+<center>
+<img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel <img src="Images/R.png" alt="R" width="80"> Choose the R-GWAS kernel
+</center></li>
+<li>You can run the code in each cell (grey background) by clicking the run cell sign in the toolbar, or simply by pressing <kbd>Shift</kbd>+<kbd>Enter</kbd>. When the code is done running, a small green check mark will appear on the left side.</li>
+<li>You need to <strong>run the cells sequentially</strong> to execute the analysis. Please do not run a cell until the one above is done running, and do not skip any cells.</li>
+<li>Textual descriptions accompany the code to help you understand what is happening. Please try not to focus on understanding the code itself in too much detail, but rather focus on the explanations and commands’ output.<br>
+</li>
+<li>You can create new code cells by pressing <code>+</code> in the Menu bar above or by pressing <kbd>B</kbd> after selecting a cell.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Access Sandbox Apps on UCloud
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Find detailed instructions on accessing Sandbox apps <a href="../access/UCloud.html">here</a> via UCloud. Check out UCloud’s extensive user docs <a href="https://docs.cloud.sdu.dk/index.html">here</a>.</p>
+<ul>
+<li>If a cell fails to run, verify the kernel in use, shown in the top-right corner.</li>
+<li>You don’t know the answer to the exercises? You can use Generative AI to help with the code. It can assist you when the tutorial alone isn’t enough or if you want to explore additional concepts beyond the exercise.</li>
+</ul>
 </div>
 </div>
-</section>
-<section id="computerome" class="level2">
-<h2 class="anchored" data-anchor-id="computerome">Computerome</h2>
-<p><a href="https://computerome.dk/">Computerome</a> is the home of many sensitive health datasets via collaborations between DTU, KU, Rigshospitalet, and other major health sector players in the Capital Region of Denmark. Computerome has recently launched their secure cloud platform, <a href="https://computerome.dk/solutions/delphi">DELPHI</a>, and in collaboration with the Sandbox has built a <a href="https://computerome.dk/solutions/course-platform">Course Platform</a> on the same backbone such that courses and training can be conducted in the same environment as real research would be performed in the secure cloud. The Sandbox is supporting courses in the Course Platform, but it is also available for independent use by educators at Danish universities. Please see their website for more information on independent use and pricing, and <a href="mailto:nhds_sandbox@sund.ku.dk">contact us</a> if you’d like to collaborate on hosting a course on Computerome. We can help with tool installation, environment testing, and user support (ranging from using the environment to course content if we have Sandbox staff with matching expertise).</p>
-<p>Participants in courses co-hosted by the Sandbox can check <a href="Computerome.qmd">here</a> for access instructions.</p>
-</section>
-<section id="genomedk" class="level2">
-<h2 class="anchored" data-anchor-id="genomedk">GenomeDK</h2>
-<p>In development.</p>
-</section>
-<section id="any-other-computing-cluster" class="level2">
-<h2 class="anchored" data-anchor-id="any-other-computing-cluster">Any other computing cluster</h2>
-<p>In development.</p>
-</section>
-<section id="your-local-pc" class="level2">
-<h2 class="anchored" data-anchor-id="your-local-pc">Your local PC</h2>
-<p>In development.</p>
 
 
 </section>
