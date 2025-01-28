@@ -6,9 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Conor O’Hare">
-<meta name="author" content="Samuele Soraggi">
-<meta name="author" content="Alba Refoyo Martinez">
 
 <title>Genome-Wide Association Studies - Data collection</title>
 <style>
@@ -159,7 +156,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -168,8 +165,51 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
+    <a class="dropdown-item" href="../access/index.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">Genome</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorial</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS1-WhatIsAGWAS.html">
+ <span class="dropdown-text">What is a GWAS?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS2-DataCollection.html">
+ <span class="dropdown-text">Data Collection</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS3-QualityControlA.html">
+ <span class="dropdown-text">Quality Control A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS4-QualityControlB.html">
+ <span class="dropdown-text">Quality Control B?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS5-AssociationTesting.html">
+ <span class="dropdown-text">Association Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS6-PRSAnalysis.html">
+ <span class="dropdown-text">PRS Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS7-OtherToolsAndTesting.html">
+ <span class="dropdown-text">Other tools and testing</span></a>
   </li>  
     </ul>
   </li>
@@ -190,18 +230,18 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-to-study-design" id="toc-introduction-to-study-design" class="nav-link active" data-scroll-target="#introduction-to-study-design"><span class="header-section-number">1</span> Introduction to study design</a></li>
-  <li><a href="#genotyping" id="toc-genotyping" class="nav-link" data-scroll-target="#genotyping"><span class="header-section-number">2</span> Genotyping</a></li>
-  <li><a href="#data-files" id="toc-data-files" class="nav-link" data-scroll-target="#data-files"><span class="header-section-number">3</span> Data files</a>
+  <li><a href="#introduction-to-study-design" id="toc-introduction-to-study-design" class="nav-link active" data-scroll-target="#introduction-to-study-design">Introduction to study design</a></li>
+  <li><a href="#genotyping" id="toc-genotyping" class="nav-link" data-scroll-target="#genotyping">Genotyping</a></li>
+  <li><a href="#data-files" id="toc-data-files" class="nav-link" data-scroll-target="#data-files">Data files</a>
   <ul class="collapse">
-  <li><a href="#description-of-the-data" id="toc-description-of-the-data" class="nav-link" data-scroll-target="#description-of-the-data"><span class="header-section-number">3.1</span> Description of the Data</a>
+  <li><a href="#description-of-the-data" id="toc-description-of-the-data" class="nav-link" data-scroll-target="#description-of-the-data">Description of the Data</a>
   <ul class="collapse">
-  <li><a href="#fam-file---info-on-individuals" id="toc-fam-file---info-on-individuals" class="nav-link" data-scroll-target="#fam-file---info-on-individuals"><span class="header-section-number">3.1.1</span> Fam file - Info on individuals</a></li>
-  <li><a href="#bim-file---snp-location-info" id="toc-bim-file---snp-location-info" class="nav-link" data-scroll-target="#bim-file---snp-location-info"><span class="header-section-number">3.1.2</span> Bim file - SNP location info</a></li>
-  <li><a href="#bed-file---individual-genotypes" id="toc-bed-file---individual-genotypes" class="nav-link" data-scroll-target="#bed-file---individual-genotypes"><span class="header-section-number">3.1.3</span> Bed file - Individual genotypes</a></li>
+  <li><a href="#fam-file---info-on-individuals" id="toc-fam-file---info-on-individuals" class="nav-link" data-scroll-target="#fam-file---info-on-individuals">Fam file - Info on individuals</a></li>
+  <li><a href="#bim-file---snp-location-info" id="toc-bim-file---snp-location-info" class="nav-link" data-scroll-target="#bim-file---snp-location-info">Bim file - SNP location info</a></li>
+  <li><a href="#bed-file---individual-genotypes" id="toc-bed-file---individual-genotypes" class="nav-link" data-scroll-target="#bed-file---individual-genotypes">Bed file - Individual genotypes</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography"><span class="header-section-number">4</span> Bibliography</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS2-DataCollection.out.ipynb" download="GWAS2-DataCollection.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -217,14 +257,6 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Conor O’Hare </p>
-             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-          </div>
-  </div>
     
   
     
@@ -246,23 +278,23 @@ Important notes for this notebook
 </div>
 <div class="callout-body-container callout-body">
 <p>This course module introduces fundamental concepts regarding designing and executing GWAS. We touch on data collection (which involves gathering genomic data and phenotypic information from diverse populations), potential biases, and practical considerations on the standard file formats in GWAS.</p>
-<section id="learning-outcomes" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">0.1</span> Learning outcomes</h2>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
 <li><strong>Understand and identify</strong> types of GWAS studies in the scientific literature</li>
 <li><strong>Explore</strong> the content of classical data files for GWAS through the command line</li>
 <li><strong>Apply and extend</strong> some command line programs to retrieve and explore data</li>
 </ul>
 </section>
-<section id="how-to-make-this-notebook-work" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="how-to-make-this-notebook-work"><span class="header-section-number">0.2</span> How to make this notebook work</h2>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
 <p>We will only use the <code>bash command line</code> in this notebook. Be sure to click on the menu <code>Kernel --&gt; Change Kernel --&gt; Bash</code></p>
 <p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
 </section>
 </div>
 </div>
-<section id="introduction-to-study-design" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Introduction to study design</h1>
+<section id="introduction-to-study-design" class="level1">
+<h1>Introduction to study design</h1>
 <p>GWAS often require very large sample sizes to identify reproducible genome-wide significant associations, and one would need to conduct power calculations to determine the appropriate sample size. Generally speaking, there are two types of study design depending on the nature of the trait of interest:</p>
 <ul>
 <li><strong>1)</strong> Case-control studies when the trait of interest is dichotomous (e.g.&nbsp;Type 2 diabetes)</li>
@@ -288,15 +320,15 @@ Important notes for this notebook
 <p>Recruitment strategies must be carefully considered for all study designs as these can induce various forms of bias. For example, widely used research cohorts such as the UK Biobank recruit participants through a volunteer-based strategy. What this means in practice is that participants are, on average, healthier, wealthier, and more educated than the general population. Furthermore, cohorts that enroll participants from hospitals based on their disease status (such as BioBank Japan <span class="citation" data-cites="nagai_overview_2017">(<a href="#ref-nagai_overview_2017" role="doc-biblioref">Nagai et al. 2017</a>)</span>) will have different selection biases to cohorts recruited from the general population. Unlike research studies that focus on one disease or group of people, the new American initiative known as All of Us is building a diverse database designed to inform thousands of studies on a variety of health conditions. Different ethnicities, like the example just mentioned, can be included in the same study to make better predictions for people with different backgrounds, as long as the population substructure is considered to avoid false positive results.</p>
 <p>Finally, study annotation is essential for rigorous scientific practice. This involves detailing the chosen study design, providing a thorough description of the study, and including specifics such as sample inclusion criteria (e.g., ancestry, clinical features) and the phenotype of interest in your association analysis.</p>
 </section>
-<section id="genotyping" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Genotyping</h1>
+<section id="genotyping" class="level1">
+<h1>Genotyping</h1>
 <p>Genotyping efficiently captures genetic variation by selecting informative SNPs, often in high linkage disequilibrium (LD), which reduces redundancy. Focusing on these SNPs minimizes computational load and improves cost-efficiency for a specific population.</p>
 <p>Genotypic data can be obtained through microarrays to detect common variants, or through next-generation sequencing techniques for whole-genome sequencing (WGS) or whole-exome sequencing (WES). Microarray-based genotyping is the most commonly used method for obtaining genotypes for GWAS owing to the current cost of next-generation sequencing. However, as shown in <strong>?@fig-cost</strong>, the decreasing cost per human genome is expected to make WGS the preferred method. Nevertheless, the choice of genotyping platform depends on many factors and tends to be guided by the purpose of the GWAS. For example, in a consortium-led GWAS, it is usually wise to have all individual cohorts genotyped on the same genotyping platform (to avoid problems with batch bias).</p>
 <p>To enhance the power of GWAS, large reference panels are used to impute genotype data. This statistical technique predicts unobserved genotypes in the study sample based on observed genotypes and a reference panel. In other words, imputation fills in missing genotypes, increasing the number of variants that can be tested for association with traits. As mentioned before, it is crucial for the reference panel to be large and diverse to capture the genetic diversity of the entire population.</p>
 <p><img src="Images/Cost.jpg" class="img-fluid" alt="The trend of cost of sequencing an entire genome through the years. This shows a development faster than what would be predicted by Moore’s Law, which suggests that every two years, our computational power should double.">{label:fig-cost}</p>
 </section>
-<section id="data-files" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Data files</h1>
+<section id="data-files" class="level1">
+<h1>Data files</h1>
 <p>After alignment and variant calling, genetic variation data is typically stored in formats like VCF and PLINK. While VCF is a detailed, text-based format, PLINK uses a more compact binary format that is faster and more efficient for large-scale analyses, such as GWAS. These formats are interchangeable, but we will focus on PLINK due to its common use and optimized performance for GWAS.</p>
 <p>When raw or genotype-level data is available, the genotyping parser extracts key information for each sample from the study annotation files, including:</p>
 <ul>
@@ -315,16 +347,16 @@ Important notes for this notebook
 <li><code>.fam</code>: plain text file with information about the samples (family ID, individual ID, sex).</li>
 </ul>
 <p>Visit the <a href="https://www.cog-genomics.org/plink/1.9/">PLINK website</a> for information on various file formats and helpful command lines for manipulating, processing, and analyzing genomic data.</p>
-<section id="description-of-the-data" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="description-of-the-data"><span class="header-section-number">3.1</span> Description of the Data</h2>
+<section id="description-of-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="description-of-the-data">Description of the Data</h2>
 <p>To demonstrate all analysis steps with realistic genetic data, we will use a simulated dataset (N = 165) with a binary outcome measure, based on the publicly available data from the International HapMap Project <span class="citation" data-cites="gibbs_international_2003">(<a href="#ref-gibbs_international_2003" role="doc-biblioref">Gibbs et al. 2003</a>)</span>. For this tutorial, we only included Utah residents with ancestry from Northern and Western Europe (CEU) to create an <strong>ethnically homogenous</strong> dataset. Because of the relatively small sample size of the HapMap data, genetic effect sizes in these simulations were set at values larger than usually observed in genetic studies of complex traits. It is important to note that larger sample sizes (e.g., at least in the order of thousands but likely even tens or hundreds of thousands) will be required to detect genetic risk factors of complex traits.</p>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Choose the Bash kernel.</p>
 <p>First, we link the data folder to easily access it by using the <code>ln -sf</code> command.</p>
 <div id="7e877d39-1dca-43d3-b547-cfbdb9103cc5" class="cell" data-tags="[]" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="fam-file---info-on-individuals" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="fam-file---info-on-individuals"><span class="header-section-number">3.1.1</span> Fam file - Info on individuals</h3>
+<section id="fam-file---info-on-individuals" class="level3">
+<h3 class="anchored" data-anchor-id="fam-file---info-on-individuals">Fam file - Info on individuals</h3>
 <p>We begin by looking at <code>HapMap_3_r3_1.fam</code>, which you can do using the command below (<code>head</code>), which prints and selects the first 10 lines of a file:</p>
 <div id="6a04f8ff" class="cell" data-tags="[]" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-10</span> Data/HapMap_3_r3_1.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -387,6 +419,8 @@ Solution
 </div>
 <div class="callout-body-container callout-body">
 <p>The command <code>wc</code> (which stands for Word Count) can count the words in a file. With the option <code>-l</code> it will instead count the lines of the file.</p>
+</div>
+</div>
 <div id="76132d60" class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Data/HapMap_3_r3_1.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -413,65 +447,8 @@ Solution
 </div>
 </div>
 <p>You can observe a similar thing for the mothers, where we have one less which is unknown</p>
-<div id="f0c41147-9d0f-42fb-aa24-782d45b81415" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f4</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    114 0
-      1 NA06985
-      1 NA07000
-      1 NA07031
-      1 NA07037
-      1 NA07045
-      1 NA07345
-      1 NA07346
-      1 NA11830
-      1 NA11832
-      1 NA11840
-      1 NA11882
-      1 NA11892
-      1 NA11894
-      1 NA11920
-      1 NA11931
-      1 NA11995
-      1 NA12004
-      1 NA12006
-      1 NA12058
-      1 NA12145
-      1 NA12156
-      1 NA12234
-      1 NA12236
-      1 NA12239
-      1 NA12249
-      1 NA12273
-      1 NA12275
-      1 NA12287
-      1 NA12341
-      1 NA12343
-      1 NA12348
-      1 NA12383
-      1 NA12400
-      1 NA12489
-      1 NA12717
-      1 NA12718
-      1 NA12749
-      1 NA12751
-      1 NA12761
-      1 NA12763
-      1 NA12776
-      1 NA12778
-      1 NA12813
-      1 NA12815
-      1 NA12828
-      1 NA12830
-      1 NA12843
-      1 NA12873
-      1 NA12875
-      1 NA12890
-      1 NA12892</code></pre>
-</div>
-</div>
 <div id="16816aa2-74cc-4eba-83d3-f5d1f2402715" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f4</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f4</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>52</code></pre>
 </div>
@@ -479,22 +456,20 @@ Solution
 <p><strong>Q2: There are 50 unique fathers and 51 unique mothers in the dataset.</strong></p>
 <p>Finally, we will count the occurrences of <code>0</code> and <code>-9</code> in column 6 using the <code>awk</code> command:</p>
 <div id="c2a8a535-1549-4b8a-99e1-7a24c7769784" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{if ($6 == 0 || $6 == -9) print $0}'</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{if ($6 == 0 || $6 == -9) print $0}'</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>53</code></pre>
 </div>
 </div>
 <p><strong>Q3: There are 53 individuals with missing phenotypes in the dataset.</strong></p>
 <p>End of solution</p>
-</div>
-</div>
 <hr>
 </section>
-<section id="bim-file---snp-location-info" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="bim-file---snp-location-info"><span class="header-section-number">3.1.2</span> Bim file - SNP location info</h3>
+<section id="bim-file---snp-location-info" class="level3">
+<h3 class="anchored" data-anchor-id="bim-file---snp-location-info">Bim file - SNP location info</h3>
 <p>The <code>.bim</code> file contains the genomic locations of all SNPs in the data, and looks like this:</p>
 <div id="945feb7f" class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-10</span> Data/HapMap_3_r3_1.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-10</span> Data/HapMap_3_r3_1.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs2185539   0   556738  T   C
 1   rs11510103  0   557616  G   A
@@ -533,23 +508,23 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="644ad9cb-d3bf-4deb-97d0-2a0834dd9688" class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q4 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q4 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Did you also get 1,457,897 SNPs for the HapMap data with the <code>wc -l Data/HapMap_3_r3_1.bim</code> command?</p>
 </section>
-<section id="bed-file---individual-genotypes" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="bed-file---individual-genotypes"><span class="header-section-number">3.1.3</span> Bed file - Individual genotypes</h3>
+<section id="bed-file---individual-genotypes" class="level3">
+<h3 class="anchored" data-anchor-id="bed-file---individual-genotypes">Bed file - Individual genotypes</h3>
 <p>So far, we know that the files you downloaded contain genotypes for 165 individuals, each of them genotyped for 1,457,897 SNPs. But where are the genotypes for the individual samples?</p>
 <p>These are located in the binary file called <code>HapMap_3_r3_1.bed file</code>, but unfortunately, opening it as a normal text looks like this:</p>
 <div id="74f86693-3f60-4753-b93e-736692ba075c" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-1</span> Data/HapMap_3_r3_1.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-1</span> Data/HapMap_3_r3_1.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>l�����������������������������������������������������������������������������������������������������������������������������λ������������/������������������������λ������������/�������������������������λ������������/������������������������������?�������������������������������������������������������⸿Ͼ��,��z���ο������������/����������������������������������������������������������������������������������������������������������������������������������������������������������ﮪ���������+������������������������������������������������������������誮����Ϋ������������:���*�?������������������﫿����������������������������������������������������������������������������������������������������������������������������������������������������?�������￿�����;�����������������//���������﮿������;����ή�������������?�������ʯϿ�����;����Ϯ�����������������������������������������������������������������������������������������������������������������������������������������������ʯ￾�����;����Ϯ���&lt;�������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������뿌�������Ͽ������:���Ϫ���&lt;�.�?������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������̣�������?�������������˫���������+�����̣�������?�������������˫���������+�����̣�������?�������������˫���������+��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������β�����.����������������������������������������������������?���������������������������������������������������������������������������������������������������������������������������������(������/����������</code></pre>
 </div>
 </div>
 <p>This is because the genotypes are stored in a <em>binary format</em>, which saves disk space and allows faster processing by the computer, as it’s already in a <strong>machine-readable format</strong>. It is often useful to check out the individual genotypes, for that, you will need a new command called <code>xxd</code> to open the file which can then be pipeped into the <code>head</code> command.</p>
 <div id="7660e6ce" class="cell" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Data/HapMap_3_r3_1.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Data/HapMap_3_r3_1.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>00000000: 01101100 00011011 00000001 11111111 11111111 11111111  l.....
 00000006: 11111111 11111111 11111111 11111111 11111111 11111111  ......
@@ -613,14 +588,14 @@ Wrapping up
 </section>
 </section>
 </section>
-<section id="bibliography" class="level1" data-number="4">
+<section id="bibliography" class="level1">
 
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">4 Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-gibbs_international_2003" class="csl-entry" role="listitem">
 Gibbs, Richard A., John W. Belmont, Paul Hardenbol, Thomas D. Willis, Fuli Yu, Huanming Yang, Lan-Yang Ch’ang, et al. 2003. <span>“The <span>International</span> <span>HapMap</span> <span>Project</span>.”</span> <em>Nature</em> 426 (6968): 789–96. <a href="https://doi.org/10.1038/nature02168">https://doi.org/10.1038/nature02168</a>.
 </div>

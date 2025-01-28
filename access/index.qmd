@@ -16,12 +16,6 @@ The Sandbox is collaborating with the two major academic high performance comput
 Find detailed instructions on accessing Sandbox apps [here](UCloud.qmd) via UCloud. Check out UCloud's extensive user docs [here](https://docs.cloud.sdu.dk/index.html).  
 :::
 
-## Computerome
-
-[Computerome](https://computerome.dk/) is the home of many sensitive health datasets via collaborations between DTU, KU, Rigshospitalet, and other major health sector players in the Capital Region of Denmark. Computerome has recently launched their secure cloud platform, [DELPHI](https://computerome.dk/solutions/delphi), and in collaboration with the Sandbox has built a [Course Platform](https://computerome.dk/solutions/course-platform) on the same backbone such that courses and training can be conducted in the same environment as real research would be performed in the secure cloud. The Sandbox is supporting courses in the Course Platform, but it is also available for independent use by educators at Danish universities. Please see their website for more information on independent use and pricing, and [contact us](mailto:nhds_sandbox@sund.ku.dk) if you'd like to collaborate on hosting a course on Computerome. We can help with tool installation, environment testing, and user support (ranging from using the environment to course content if we have Sandbox staff with matching expertise).
-
-Participants in courses co-hosted by the Sandbox can check [here](Computerome.qmd) for access instructions. 
-
 ## GenomeDK
 
 In development.

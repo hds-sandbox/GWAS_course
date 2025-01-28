@@ -6,9 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Conor O’Hare">
-<meta name="author" content="Samuele Soraggi">
-<meta name="author" content="Alba Refoyo Martinez">
 
 <title>Genome-Wide Association Studies - Genetic Theory Review</title>
 <style>
@@ -125,7 +122,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -134,8 +131,51 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
+    <a class="dropdown-item" href="../access/index.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">Genome</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorial</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS1-WhatIsAGWAS.html">
+ <span class="dropdown-text">What is a GWAS?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS2-DataCollection.html">
+ <span class="dropdown-text">Data Collection</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS3-QualityControlA.html">
+ <span class="dropdown-text">Quality Control A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS4-QualityControlB.html">
+ <span class="dropdown-text">Quality Control B?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS5-AssociationTesting.html">
+ <span class="dropdown-text">Association Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS6-PRSAnalysis.html">
+ <span class="dropdown-text">PRS Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS7-OtherToolsAndTesting.html">
+ <span class="dropdown-text">Other tools and testing</span></a>
   </li>  
     </ul>
   </li>
@@ -156,12 +196,12 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#quick-review-of-genetic-theory" id="toc-quick-review-of-genetic-theory" class="nav-link active" data-scroll-target="#quick-review-of-genetic-theory"><span class="header-section-number">0.2</span> Quick Review of Genetic Theory</a>
+  <li><a href="#quick-review-of-genetic-theory" id="toc-quick-review-of-genetic-theory" class="nav-link active" data-scroll-target="#quick-review-of-genetic-theory">Quick Review of Genetic Theory</a>
   <ul class="collapse">
-  <li><a href="#genetic-variants" id="toc-genetic-variants" class="nav-link" data-scroll-target="#genetic-variants"><span class="header-section-number">0.2.1</span> Genetic variants</a></li>
-  <li><a href="#some-catalogs-of-genetic-variation" id="toc-some-catalogs-of-genetic-variation" class="nav-link" data-scroll-target="#some-catalogs-of-genetic-variation"><span class="header-section-number">0.2.2</span> Some catalogs of genetic variation</a></li>
+  <li><a href="#genetic-variants" id="toc-genetic-variants" class="nav-link" data-scroll-target="#genetic-variants">Genetic variants</a></li>
+  <li><a href="#some-catalogs-of-genetic-variation" id="toc-some-catalogs-of-genetic-variation" class="nav-link" data-scroll-target="#some-catalogs-of-genetic-variation">Some catalogs of genetic variation</a></li>
   </ul></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography"><span class="header-section-number">1</span> Bibliography</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS0-geneticTheory.out.ipynb" download="GWAS0-geneticTheory.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -177,14 +217,6 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Conor O’Hare </p>
-             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-          </div>
-  </div>
     
   
     
@@ -208,8 +240,8 @@ Information about this notebook
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <p>This section reviews basic genetic theory terminology to help you better understand GWAS principles. Feel free to skip it if you’re already familiar with the concepts.</p>
-<section id="learning-outcomes" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">0.1</span> Learning outcomes</h2>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
 <li><strong>Review</strong> the basic terminology of genetic theory (DNA and genetic variation)</li>
 <li><strong>Discuss</strong> sources of human genetic variation databases</li>
@@ -218,8 +250,8 @@ Information about this notebook
 </div>
 </div>
 </div>
-<section id="quick-review-of-genetic-theory" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="quick-review-of-genetic-theory"><span class="header-section-number">0.2</span> Quick Review of Genetic Theory</h2>
+<section id="quick-review-of-genetic-theory" class="level2">
+<h2 class="anchored" data-anchor-id="quick-review-of-genetic-theory">Quick Review of Genetic Theory</h2>
 <p>We all carry two nuclear genomes (i.e.&nbsp;genomes located in the cell nucleus), one inherited from each of our two parents. Additionally, we have a small mitochondrial genome, <a href="http://www.pnas.org/content/early/2018/11/21/1810946115">assumed to be</a> inherited exclusively from the mother, but in this course, the term ‘genome’ refers to the nuclear genome.</p>
 <p>The human genome is a 3.2 billion <strong>nucleotide</strong> (or <strong>base pair</strong> or <strong>DNA letter</strong> A, C, G, T) long sequence (<a href="https://www.yourgenome.org/facts/what-is-dna">see yourgenome.org</a>), that is divided into separate physical pieces called <strong>chromosomes</strong> (<a href="https://www.yourgenome.org/facts/what-is-a-chromosome">see yourgenome.org</a>). There are 22 <strong>autosomal</strong> (non-sex related) chromosomes and two <strong>sex chromosomes</strong> (X and Y chromosomes). Commonly, humans have two copies of each autosome. Individuals with one copy of X and one of Y are males, whereas those with two copies of X are females. An abnormal number of chromosomes, known as <strong>aneuploidy</strong>, typically leads to severe consequences or early death when present in all cells of an individual. However, a notable non-lethal exception is Down syndrome, characterized by the presence of three copies of chromosome 21. Another condition, <strong>mosaicism</strong>, occurs when only some cells in the body have abnormal chromosome numbers, a phenomenon often observed in cancer cells.</p>
 <p>When we analyze genomes, we encounter three types of pairings:</p>
@@ -228,16 +260,16 @@ Information about this notebook
 <li><p>The two <strong>homologous chromosomes</strong> of an individual (for example, paternal chromosome 13 with maternal chromosome 13, or in males, maternal X and paternal Y) are considered a pair. Therefore, the human genome consists of 22 autosomes plus X and Y chromosomes. Each individual possesses two copies of each homologous chromosome, resulting in a total of 46 unique chromosomes organized into 23 pairs of homologous chromosomes.</p></li>
 <li><p>Before any <strong>cell division</strong> each of the 46 unique chromosomes of an individual undergoes replication (“copies itself”). The two resulting copies (known as sister chromatids) physically pair with each other to form an X-like shape often used in chromosome pictures. This pairing of sister chromatids after replication is crucial for ensuring that each resulting cell receives the correct set of chromosomes during cell division. In mitosis (ordinary cell division), each of the two new cells receives a complete set of 46 unique chromosomes. However, in meiosis, which forms gametes (sperm and eggs), each gamete ends up with only one copy of each homologous chromosome, resulting in 23 unique chromosomes per gamete. During meiosis, the process of recombination shuffles the homologous copies of paternal and maternal chromosomes. This shuffling ensures that each offspring’s chromosomes are a mixture of segments from its grandparents’ chromosomes.</p></li>
 </ol>
-<section id="other-important-terms" class="level4" data-number="0.2.0.1">
-<h4 data-number="0.2.0.1" class="anchored" data-anchor-id="other-important-terms"><span class="header-section-number">0.2.0.1</span> Other important terms</h4>
+<section id="other-important-terms" class="level4">
+<h4 class="anchored" data-anchor-id="other-important-terms">Other important terms</h4>
 <ul>
 <li><p><strong>Genes:</strong> are segments of DNA that encode for proteins (<a href="https://www.yourgenome.org/video/from-dna-to-protein">see yourgenome.org</a>). Variations in the physical structure of proteins or the timing and location of protein synthesis can lead to observable traits. Therefore, understanding how genetic variation impacts gene function and the phenotypic consequences is crucial, although much of this remains to be explored. Protein-coding genes constitute less than 2% of the entire human genome, while the remaining 98% plays a critical role in regulating gene activity through various mechanisms.</p></li>
 <li><p><strong>Locus (pl. loci):</strong> refers to a continuous region of the genome, which can vary greatly in size from a single nucleotide site (1 base pair) to a region spanning millions of base pairs (e.g., 10 Mbp).</p></li>
 <li><p><strong>GWAS loci:</strong> are regions of the genome that exhibit a significant statistical association with a particular phenotype of interest.</p></li>
 </ul>
 </section>
-<section id="genetic-variants" class="level3" data-number="0.2.1">
-<h3 data-number="0.2.1" class="anchored" data-anchor-id="genetic-variants"><span class="header-section-number">0.2.1</span> Genetic variants</h3>
+<section id="genetic-variants" class="level3">
+<h3 class="anchored" data-anchor-id="genetic-variants">Genetic variants</h3>
 <p>At any given position in the genome (e.g., nucleotide site at position 13,475,383 of chromosome 1, denoted as chr1:13,475,383), variations can exist between individuals in the population. For instance, my paternal chromosome might have a base A, while my maternal chromosome has a base G (on the + strand of DNA) at that position. Such a single-nucleotide difference, at that specific position in the genome, is known as a <strong>single-nucleotide variant (SNV)</strong>, and these two versions are called <strong>alleles</strong>. In this example, I would carry both allele A and allele G at that SNV, while you might have two copies of allele A at the same SNV. My genotype would be AG, and yours would be AA.</p>
 <p>An individual who has different alleles on their two genomes is <strong>heterozygous</strong> at that locus, whereas someone with two copies of the same allele is <strong>homozygous</strong> at that locus. If neither allele is very rare in the population—specifically if the <strong>minor allele frequency (MAF)</strong> is &gt; 1%—the variant is referred to as a <strong>single-nucleotide polymorphism (SNP)</strong>. SNPs are used as markers in evolutionary biology and constitute the most common form of variation that may have consequences at the phenotypic level and be associated with certain diseases. There are over 10 million SNPs identified in the human genome.</p>
 <p>More complex genetic variations include <strong>structural variation (SV</strong>) such as copy number variants (CNVs), which include duplications or deletions of genomic regions, as well as rearrangements of the genome, like inversions or translocations of DNA segments (<a href="https://www.yourgenome.org/facts/what-types-of-mutation-are-there">see yourgenome.org</a>).</p>
@@ -248,13 +280,13 @@ Information about this notebook
 </figure>
 </div>
 <p>A defined set of 500,000 to 1,000,000 SNPs can be measured reliably and affordably (less than 50 euros per sample) using DNA microarrays, which has been pivotal in enabling GWAS. In this course, we primarily focus on SNPs as the standard type of genetic variation. Typically, SNPs are <strong>biallelic</strong>, meaning there are only two alleles present in the population, which is the assumption we follow. In principle, however, all four possible alleles of a SNP could be present in the population.</p>
-<section id="ambiguous-snps" class="level4" data-number="0.2.1.1">
-<h4 data-number="0.2.1.1" class="anchored" data-anchor-id="ambiguous-snps"><span class="header-section-number">0.2.1.1</span> Ambiguous SNPs</h4>
+<section id="ambiguous-snps" class="level4">
+<h4 class="anchored" data-anchor-id="ambiguous-snps">Ambiguous SNPs</h4>
 <p>If the two alleles of an SNP are either (C,G) or (A,T) we call the SNP <em>ambiguous</em> because the strand information must be available (and accurate) to correctly interpret the genotypes at such SNP. For instance, allele C on the positive strand would be equivalent to allele G on the negative strand. If different studies report the SNP with respect to different strands, it can lead to mixed-up results. This issue does not occur with SNPs whose alleles are A, and C, because alleles T and G would correspond on the opposite strand, allowing unambiguous matching of A to T and C to G across studies. Ambiguous SNPs can generally be resolved reliably based on allele frequencies, as long as the minor allele frequency is not close to 50%. When combining multiple studies, it is crucial to begin by plotting allele frequencies between studies. This helps ensure that the alleles are consistently matched across studies before comparing frequencies to verify consistency.</p>
 </section>
 </section>
-<section id="some-catalogs-of-genetic-variation" class="level3" data-number="0.2.2">
-<h3 data-number="0.2.2" class="anchored" data-anchor-id="some-catalogs-of-genetic-variation"><span class="header-section-number">0.2.2</span> Some catalogs of genetic variation</h3>
+<section id="some-catalogs-of-genetic-variation" class="level3">
+<h3 class="anchored" data-anchor-id="some-catalogs-of-genetic-variation">Some catalogs of genetic variation</h3>
 <p>The human genome map is constantly improving, leading to updates in SNV/SNP coordinates and new discoveries with each new build. The current build is GRCh38 (hg38), published in 2013, while its predecessor, GRCh37 (hg19), is still in use for some data sets. Always specify the genome build when sharing genomic coordinates, as positions can differ between builds. There are tools like LiftOver that can help map coordinates between builds.</p>
 <p>A large part of the genetics research over the last 30 years has been driven by international projects aiming to catalog genetic variation in the public domain.</p>
 <table class="table">
@@ -295,14 +327,14 @@ Information about this notebook
 </table>
 </section>
 </section>
-<section id="bibliography" class="level1" data-number="1">
+<section id="bibliography" class="level1">
 
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">1 Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-auton_global_2015" class="csl-entry" role="listitem">
 Auton, Adam, Gonçalo R. Abecasis, David M. Altshuler, Richard M. Durbin, Gonçalo R. Abecasis, David R. Bentley, Aravinda Chakravarti, et al. 2015. <span>“A Global Reference for Human Genetic Variation.”</span> <em>Nature</em> 526 (7571): 68–74. <a href="https://doi.org/10.1038/nature15393">https://doi.org/10.1038/nature15393</a>.
 </div>

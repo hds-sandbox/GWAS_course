@@ -6,9 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Conor O’Hare">
-<meta name="author" content="Samuele Soraggi">
-<meta name="author" content="Alba Refoyo Martinez">
 
 <title>Genome-Wide Association Studies - Quality Control: initial steps</title>
 <style>
@@ -191,7 +188,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -200,8 +197,51 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
+    <a class="dropdown-item" href="../access/index.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">Genome</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorial</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS1-WhatIsAGWAS.html">
+ <span class="dropdown-text">What is a GWAS?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS2-DataCollection.html">
+ <span class="dropdown-text">Data Collection</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS3-QualityControlA.html">
+ <span class="dropdown-text">Quality Control A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS4-QualityControlB.html">
+ <span class="dropdown-text">Quality Control B?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS5-AssociationTesting.html">
+ <span class="dropdown-text">Association Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS6-PRSAnalysis.html">
+ <span class="dropdown-text">PRS Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS7-OtherToolsAndTesting.html">
+ <span class="dropdown-text">Other tools and testing</span></a>
   </li>  
     </ul>
   </li>
@@ -222,32 +262,32 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#individual-and-snp-missingness" id="toc-individual-and-snp-missingness" class="nav-link active" data-scroll-target="#individual-and-snp-missingness"><span class="header-section-number">1</span> Individual and SNP Missingness</a>
+  <li><a href="#individual-and-snp-missingness" id="toc-individual-and-snp-missingness" class="nav-link active" data-scroll-target="#individual-and-snp-missingness">Individual and SNP Missingness</a>
   <ul class="collapse">
-  <li><a href="#missingness-per-snp" id="toc-missingness-per-snp" class="nav-link" data-scroll-target="#missingness-per-snp"><span class="header-section-number">1.1</span> Missingness per SNP</a></li>
-  <li><a href="#missingness-per-individual" id="toc-missingness-per-individual" class="nav-link" data-scroll-target="#missingness-per-individual"><span class="header-section-number">1.2</span> Missingness per individual</a></li>
-  <li><a href="#first-run-of-the-plink-tool" id="toc-first-run-of-the-plink-tool" class="nav-link" data-scroll-target="#first-run-of-the-plink-tool"><span class="header-section-number">1.3</span> First run of the PLINK tool</a></li>
+  <li><a href="#missingness-per-snp" id="toc-missingness-per-snp" class="nav-link" data-scroll-target="#missingness-per-snp">Missingness per SNP</a></li>
+  <li><a href="#missingness-per-individual" id="toc-missingness-per-individual" class="nav-link" data-scroll-target="#missingness-per-individual">Missingness per individual</a></li>
+  <li><a href="#first-run-of-the-plink-tool" id="toc-first-run-of-the-plink-tool" class="nav-link" data-scroll-target="#first-run-of-the-plink-tool">First run of the PLINK tool</a></li>
   </ul></li>
-  <li><a href="#sex-discrepancy" id="toc-sex-discrepancy" class="nav-link" data-scroll-target="#sex-discrepancy"><span class="header-section-number">2</span> Sex Discrepancy</a>
+  <li><a href="#sex-discrepancy" id="toc-sex-discrepancy" class="nav-link" data-scroll-target="#sex-discrepancy">Sex Discrepancy</a>
   <ul class="collapse">
-  <li><a href="#plink-commands" id="toc-plink-commands" class="nav-link" data-scroll-target="#plink-commands"><span class="header-section-number">2.1</span> PLINK Commands</a>
+  <li><a href="#plink-commands" id="toc-plink-commands" class="nav-link" data-scroll-target="#plink-commands">PLINK Commands</a>
   <ul class="collapse">
-  <li><a href="#how-can-we-proceed" id="toc-how-can-we-proceed" class="nav-link" data-scroll-target="#how-can-we-proceed"><span class="header-section-number">2.1.1</span> How can we proceed?</a></li>
+  <li><a href="#how-can-we-proceed" id="toc-how-can-we-proceed" class="nav-link" data-scroll-target="#how-can-we-proceed">How can we proceed?</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#minor-allele-frequency-maf" id="toc-minor-allele-frequency-maf" class="nav-link" data-scroll-target="#minor-allele-frequency-maf"><span class="header-section-number">3</span> Minor Allele Frequency (MAF)</a>
+  <li><a href="#minor-allele-frequency-maf" id="toc-minor-allele-frequency-maf" class="nav-link" data-scroll-target="#minor-allele-frequency-maf">Minor Allele Frequency (MAF)</a>
   <ul class="collapse">
-  <li><a href="#plink-commands-1" id="toc-plink-commands-1" class="nav-link" data-scroll-target="#plink-commands-1"><span class="header-section-number">3.1</span> PLINK commands</a></li>
+  <li><a href="#plink-commands-1" id="toc-plink-commands-1" class="nav-link" data-scroll-target="#plink-commands-1">PLINK commands</a></li>
   </ul></li>
-  <li><a href="#hardy-weinberg-equilibrium-hwe" id="toc-hardy-weinberg-equilibrium-hwe" class="nav-link" data-scroll-target="#hardy-weinberg-equilibrium-hwe"><span class="header-section-number">4</span> Hardy-Weinberg Equilibrium (HWE)</a>
+  <li><a href="#hardy-weinberg-equilibrium-hwe" id="toc-hardy-weinberg-equilibrium-hwe" class="nav-link" data-scroll-target="#hardy-weinberg-equilibrium-hwe">Hardy-Weinberg Equilibrium (HWE)</a>
   <ul class="collapse">
-  <li><a href="#plink-commands-2" id="toc-plink-commands-2" class="nav-link" data-scroll-target="#plink-commands-2"><span class="header-section-number">4.1</span> PLINK commands</a></li>
+  <li><a href="#plink-commands-2" id="toc-plink-commands-2" class="nav-link" data-scroll-target="#plink-commands-2">PLINK commands</a></li>
   </ul></li>
-  <li><a href="#heterozygosity-rate" id="toc-heterozygosity-rate" class="nav-link" data-scroll-target="#heterozygosity-rate"><span class="header-section-number">5</span> Heterozygosity Rate</a>
+  <li><a href="#heterozygosity-rate" id="toc-heterozygosity-rate" class="nav-link" data-scroll-target="#heterozygosity-rate">Heterozygosity Rate</a>
   <ul class="collapse">
-  <li><a href="#plink-commands-3" id="toc-plink-commands-3" class="nav-link" data-scroll-target="#plink-commands-3"><span class="header-section-number">5.1</span> PLINK commands</a></li>
+  <li><a href="#plink-commands-3" id="toc-plink-commands-3" class="nav-link" data-scroll-target="#plink-commands-3">PLINK commands</a></li>
   </ul></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography"><span class="header-section-number">6</span> Bibliography</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS3-QualityControlA.out.ipynb" download="GWAS3-QualityControlA.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -263,14 +303,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Conor O’Hare </p>
-             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-          </div>
-  </div>
     
   
     
@@ -292,8 +324,8 @@ Important notes for this notebook
 </div>
 <div class="callout-body-container callout-body">
 <p>After gathering your data and genotyping, there are many checks to do to determine the quality of the data. It is crucial to <strong>perform quality control before</strong> carrying out any GWAS, otherwise, there is the risk that some of the associations are spurious.</p>
-<section id="learning-outcomes" class="level2" data-number="0.1">
-<h2 data-number="0.1" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">0.1</span> Learning outcomes</h2>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
 <li><strong>Distinguish</strong> the various QC steps</li>
 <li><strong>Discuss and choose</strong> thresholds on plink</li>
@@ -301,8 +333,8 @@ Important notes for this notebook
 <li><strong>Hypothesize</strong> the effects of various <code>plink</code> commands and <strong>verify</strong> your hypothesis using the analysis in <code>R</code></li>
 </ul>
 </section>
-<section id="how-to-make-this-notebook-work" class="level2" data-number="0.2">
-<h2 data-number="0.2" class="anchored" data-anchor-id="how-to-make-this-notebook-work"><span class="header-section-number">0.2</span> How to make this notebook work</h2>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
 <ul>
 <li>In this notebook, we will use both <code>R</code> and <code>bash command line</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images. We will first run <code>Bash</code> commands.</li>
 </ul>
@@ -324,17 +356,26 @@ Important notes for this notebook
 </li>
 <li>Heterozygosity Rate</li>
 </ol>
-<section id="individual-and-snp-missingness" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Individual and SNP Missingness</h1>
-<section id="missingness-per-snp" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="missingness-per-snp"><span class="header-section-number">1.1</span> Missingness per SNP</h2>
+<section id="individual-and-snp-missingness" class="level1">
+<h1>Individual and SNP Missingness</h1>
+<section id="missingness-per-snp" class="level2">
+<h2 class="anchored" data-anchor-id="missingness-per-snp">Missingness per SNP</h2>
 <p>Overall, the SNP genotyping platform is very reliable and delivers stable results when it comes to determining genotypes. Of course, it is not flawless. One of the most frequent problems is that some of the SNPs are just not well-genotyped in the entire population. These should be removed to improve the overall data quality.</p>
 <p>Certainly, we can’t remove every SNP with any missing values, as that would result in losing a significant portion of our data. Instead, we adopt some <strong>thresholds</strong>. However, determining these thresholds isn’t governed by strict rules. You have the flexibility to set them within “reasonable” limits. To find out what constitutes “reasonable,” consulting relevant literature for your species of interest is advisable. For humans, a common starting point is a threshold of 0.2, meaning we exclude SNPs where 20% or more of the genotypes are missing in our population.</p>
 </section>
-<section id="missingness-per-individual" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="missingness-per-individual"><span class="header-section-number">1.2</span> Missingness per individual</h2>
+<section id="missingness-per-individual" class="level2">
+<h2 class="anchored" data-anchor-id="missingness-per-individual">Missingness per individual</h2>
 <p>The reliability of SNP chips is also high when it comes to individual genotypes. In some cases, however, some of the individuals contain a large number of missing SNPs. The reason could be low DNA sample quality, the wrong chip type used (e.g.&nbsp;cattle chip for deer samples), or other technical issues. Regardless of the reason, you should remove the worst offenders from your data set, to not compromise the overall quality of your results.</p>
-<p>:::{.callout-important title=“Stop - Read - Solve”}</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Have a look at the following toy example:</p>
 <table class="table">
 <thead>
@@ -396,9 +437,11 @@ Important notes for this notebook
 <li>Then remove individuals with &gt;= 40% missingness</li>
 </ul>
 <p>Which variants and individuals are we removing?</p>
+</div>
+</div>
 <p>In practice, you want to <strong>remove the SNPs based on missingness before the individuals</strong>. This is simply because we generally have a lot more SNPs than individuals, and would thus lose less information by removing SNPs than individuals. This will remove “bad” SNPs first, leaving a lower rate of missingness for all the individuals.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -407,7 +450,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Variant-level threshold</strong>: In this example, we would only remove SNP2 since it exceeds this threshold, with 80% missingness (4 out of 5 missing values).</p>
 <p><strong>Individual-level threshold</strong>: IND4 is removed from the data set, as there is missing genotype information for 2/4 = 50% SNPs (after filtering out SNP2).</p>
@@ -415,8 +458,8 @@ Solution
 </div>
 </div>
 </section>
-<section id="first-run-of-the-plink-tool" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="first-run-of-the-plink-tool"><span class="header-section-number">1.3</span> First run of the PLINK tool</h2>
+<section id="first-run-of-the-plink-tool" class="level2">
+<h2 class="anchored" data-anchor-id="first-run-of-the-plink-tool">First run of the PLINK tool</h2>
 <p>Using PLINK, we can address missing data using two functions; one operates at the variant level and the other at the individual level:</p>
 <ul>
 <li><code>--geno</code>: This will remove SNPs with a specified proportion of missingness (e.g.&nbsp;<code>--geno 0.01</code> will remove SNPs with 1% missingness).</li>
@@ -667,7 +710,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - bed file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -676,7 +719,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 
 </div>
@@ -717,11 +760,11 @@ Solution
 <hr>
 </section>
 </section>
-<section id="sex-discrepancy" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Sex Discrepancy</h1>
+<section id="sex-discrepancy" class="level1">
+<h1>Sex Discrepancy</h1>
 <p>One useful check is verifying if the indicated sex is correct. Using PLINK, you can calculate the inbreeding coefficient on the X chromosome under the assumption that it is an autosomal chromosome. This approach is insightful because PLINK treats haploid chromosomes (like the X chromosome in males) as homozygotes due to technical reasons. Consequently, assuming the X chromosome is autosomal makes males appear highly inbred on the X, whereas females do not (since they have two X chromosomes). As a result, the inbreeding coefficient estimates will be close to 1 for males and 0 for females.</p>
-<section id="plink-commands" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="plink-commands"><span class="header-section-number">2.1</span> PLINK Commands</h2>
+<section id="plink-commands" class="level2">
+<h2 class="anchored" data-anchor-id="plink-commands">PLINK Commands</h2>
 <p>This sex check can be performed in PLINK using the <code>--check-sex</code> option. The results are outputted in the file with extension <code>.sexcheck</code> (in the <code>Results/GWAS4</code> folder) in which the sex is in column <code>PEDSEX</code> (1 means male and 2 means female) and the inbreeding coefficient is in column <code>F</code>).</p>
 <p>Generally, males should have an X chromosome homozygosity estimate &gt;0.8 and females should have a value &lt;0.2. So we could simply remove any individuals where the homozygosity estimate (F) does not match their specified sex. Subjects who do not fulfill these requirements are flagged “PROBLEM” by PLINK in the output file.</p>
 <p>Note the option <code>--silent</code> to avoid long texts printed out on the screen.</p>
@@ -770,7 +813,7 @@ Solution
 <pre><code>Saving 7 x 7 in image
 Saving 7 x 7 in image</code></pre>
 </div>
-<div id="fig-f" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-tags="[]" data-execution_count="9">
+<div id="fig-f" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-execution_count="9" data-tags="[]">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-f-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -843,7 +886,7 @@ Solution
 <ol type="A">
 <li><p>Yes.</p></li>
 <li><p>Code for the histogram below.</p></li>
-<li><p>The inbreeding coefficient plot of <strong>?@fig-F</strong> indicates that there is one woman with a sex discrepancy (F value of 0.99). When using other datasets often a few discrepancies might be found.</p></li>
+<li><p>The inbreeding coefficient plot indicates that there is one woman with a sex discrepancy (F value of 0.99). When using other datasets often a few discrepancies might be found.</p></li>
 </ol>
 </div>
 </div>
@@ -877,8 +920,8 @@ Solution
 </div>
 </div>
 </div>
-<section id="how-can-we-proceed" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="how-can-we-proceed"><span class="header-section-number">2.1.1</span> How can we proceed?</h3>
+<section id="how-can-we-proceed" class="level3">
+<h3 class="anchored" data-anchor-id="how-can-we-proceed">How can we proceed?</h3>
 <p>We have two options when dealing with sex discrepancy. One is to simply remove any individual with sex discrepancy. In our case, this would involve removing the female with the F value of 0.99.</p>
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>Removal can be done with the command below. Use <code>grep</code> to find lines in the sexcheck file that contain <code>PROBLEM</code>. Then, pipe (send) the output to the command <code>awk</code> (using the so-called pipe symbol <code>|</code>). <code>awk</code> will extract the first two columns from each line identified by the <code>grep</code> command and redirect them to the file <code>sex_discrepancy.txt</code> using the symbol <code>&gt;</code> (redirecting the output away from the screen/terminal).</p>
@@ -926,16 +969,16 @@ Alternative approach
 </section>
 </section>
 </section>
-<section id="minor-allele-frequency-maf" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Minor Allele Frequency (MAF)</h1>
+<section id="minor-allele-frequency-maf" class="level1">
+<h1>Minor Allele Frequency (MAF)</h1>
 <p>Excluding SNPs based on minor allele frequency (MAF) is somewhat controversial. In a sense, it has little to do with quality control – there is no reason to think there are any errors in the data. The main justification is statistical:</p>
 <ul>
 <li>If MAF is low, and the SNP is rare, then the power is low (i.e.&nbsp;don’t spend multiple testing corrections on tests that are unlikely to find anything anyway).</li>
 <li>Some statistical methods perform badly with low MAF (e.g.&nbsp;the chi-squared-test).</li>
 </ul>
 <p>An appropriate cutoff definitely depends on sample size – the larger the sample, the greater your ability to include rare SNPs. Typically, researchers utilize thresholds of 0.1 or 0.05 (<span class="citation" data-cites="kanaka_concepts_2023">Kanaka et al. (<a href="#ref-kanaka_concepts_2023" role="doc-biblioref">2023</a>)</span>).</p>
-<section id="plink-commands-1" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="plink-commands-1"><span class="header-section-number">3.1</span> PLINK commands</h2>
+<section id="plink-commands-1" class="level2">
+<h2 class="anchored" data-anchor-id="plink-commands-1">PLINK commands</h2>
 <p>Filtering data based on the minor allele frequencies is done in a similar way to previous commands. If you want to get rid only of the fixed SNPs, you specify a MAF threshold of 0, which can be done by the command <code>--maf 0</code></p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -974,7 +1017,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write your code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -983,9 +1026,12 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>SNPs are saved in the output <code>bim</code> file and the first column contains the chromosome names. So, we just need to extract the first column, and check the unique names (as extra, we count how many times each chromosome occurs):</p>
+</div>
+</div>
+</div>
 <div id="9bd82caf-88b2-4140-b302-bf3dce3ae505" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1 Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1011,9 +1057,6 @@ Solution
   36631 20
   19427 21
   20314 22</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <hr>
@@ -1044,7 +1087,7 @@ Commands include --make-bed, --recode, --flip-scan, --merge-list,
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot of the MAF distribution.</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/MAF_check <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Let’s plot the MAF histogram using <code>R</code>. We will have a second plot, which is a zoom-in version with MAF up to 0.1 to better observe the low MAF values. Note: The zoom-in version will throw some warnings as data points are removed, but don’t worry about it.</p>
 <div class="cell" data-tags="[]" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
@@ -1086,7 +1129,7 @@ Warning message:
 “Removed 2 rows containing missing values or values outside the scale range
 (`geom_bar()`).”</code></pre>
 </div>
-<div id="fig-maf" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-tags="[]" data-execution_count="16">
+<div id="fig-maf" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-execution_count="16" data-tags="[]">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div id="fig-maf-1" class="cell-output cell-output-display quarto-figure quarto-figure-center quarto-float anchored">
@@ -1182,6 +1225,8 @@ Solution
 </div>
 <div class="callout-body-container callout-body">
 <p>Check the number of lines of the <code>.bim</code> file using <code>wc -l</code> and modify the plink command from above:</p>
+</div>
+</div>
 <div id="c3466a68-a536-4265-b80a-9c9474424410" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_5.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1198,14 +1243,12 @@ Solution
 </div>
 </div>
 <p>There would be 1,073,788 variants left with the more lenient cutoff and 1,182,154 with the stringent one. The different is ~100,000 SNPS</p>
-</div>
-</div>
 <hr>
 <p>It is worth noting that no matter what the sample size is, monomorphic SNPs (i.e., SNPs that show no genetic variation whatsoever in the sample) are usually problematic and should always be removed. Some code crashes when monomorphic SNPs are included; even if this wasn’t the case, these SNPs cannot possibly be informative in a genome-wide association study.</p>
 </section>
 </section>
-<section id="hardy-weinberg-equilibrium-hwe" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Hardy-Weinberg Equilibrium (HWE)</h1>
+<section id="hardy-weinberg-equilibrium-hwe" class="level1">
+<h1>Hardy-Weinberg Equilibrium (HWE)</h1>
 <p>The Hardy-Weinberg rule from population genetics states that genetic variation (thus, allele and genotype frequencies) in a population will remain constant unless certain disturbing factors are introduced. his implies that once we know the allele frequencies for <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span>, the genotype frequencies will be defined as <span class="math inline">\(p^2\)</span>, <span class="math inline">\(2pq\)</span>, and <span class="math inline">\(q^2\)</span>.</p>
 <p>Let’s say the frequency of allele A (<span class="math inline">\(p\)</span> in the equation) is 0.4, and that of allele B (<span class="math inline">\(q\)</span>) is 0.6. This means for the H-W scenario the genotype frequencies will be 0.16 for AA, 0.48 for AB, and 0.36 for BB. In a population of e.g.&nbsp;1000 individuals with the mentioned allele frequencies we expect to see 160 AA, 480 AB, and 360 BB individuals. Of course, we rarely see exact H-W distributions in real populations. The question then becomes, what is the difference between the expected H-W and observed proportions? There are typically two reasons why a SNP is not in HWE:</p>
 <ul>
@@ -1227,8 +1270,8 @@ HWE and binomial distribution
 <p>You can find a clear explanation of HWE at (<span class="citation" data-cites="lachance_hardyweinberg_2016">Lachance (<a href="#ref-lachance_hardyweinberg_2016" role="doc-biblioref">2016</a>)</span>).</p>
 </div>
 </div>
-<section id="plink-commands-2" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="plink-commands-2"><span class="header-section-number">4.1</span> PLINK commands</h2>
+<section id="plink-commands-2" class="level2">
+<h2 class="anchored" data-anchor-id="plink-commands-2">PLINK commands</h2>
 <p>We can use the option <code>--hardy</code> in PLINK to generate H-W p-values (as well as observed and expected heterozygosity). Then, use <code>awk</code> to select SNPs (column 9 of the file) with HWE p-value &lt; 0.0001, indicating a strong deviation from HWE.</p>
 <div id="67839627" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hardy</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--silent</span></span>
@@ -1266,7 +1309,7 @@ HWE and binomial distribution
 <div class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-hwetables" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-tags="[]" data-execution_count="4">
+<div id="fig-hwetables" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-execution_count="4" data-tags="[]">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hwetables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div id="fig-hwetables-1" class="cell-output cell-output-display quarto-figure quarto-figure-center quarto-float anchored">
@@ -1543,7 +1586,7 @@ Figure&nbsp;3: A data.frame: 6 × 10
 <span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="kw">{</span></span>
 <span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.hwe, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histhwe.png"</span><span class="kw">);</span></span>
 <span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.hwe_below_threshold, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histhwe_below_threshold.png"</span><span class="kw">);})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-hwe" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-scrolled="true" data-execution_count="11" data-tags="[]">
+<div id="fig-hwe" class="cell quarto-figure quarto-figure-center quarto-float anchored" data-tags="[]" data-execution_count="11" data-scrolled="true">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display">
@@ -1589,11 +1632,11 @@ Figure&nbsp;4
 </div>
 </section>
 </section>
-<section id="heterozygosity-rate" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Heterozygosity Rate</h1>
+<section id="heterozygosity-rate" class="level1">
+<h1>Heterozygosity Rate</h1>
 <p>We filter individuals based on their heterozygosity rate, which is similar to HWE but applied at the individual level. If an individual has an unusually high number of heterozygous calls (A/B) and no homozygous calls (A/A or B/B), or vice versa, it could indicate data issues.</p>
-<section id="plink-commands-3" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="plink-commands-3"><span class="header-section-number">5.1</span> PLINK commands</h2>
+<section id="plink-commands-3" class="level2">
+<h2 class="anchored" data-anchor-id="plink-commands-3">PLINK commands</h2>
 <p>PLINK does not provide a summary of individual heterozygosity. To assess this, we first prune the dataset by excluding highly correlated SNPs, as they reduce analysis power. We use <code>--indep-pairwise &lt;window size&gt;['kb'] &lt;step size (variant ct)&gt; &lt;r^2 threshold&gt;</code> to prune SNPs, excluding high inversion regions (<code>--exclude</code> with <code>Data/inversion.txt</code>). For more information, click <a href="https://www.cog-genomics.org/plink/1.9/ld">here</a>.</p>
 <p>In our case, the parameters for the <code>--indep-pairwise</code> are <code>50 5 0.2</code> representing the window size, shift-window step count, and correlation threshold for pruning. Once we have the pruned list, we will check heterozygosity on the <strong>set of SNPs that are not highly correlated</strong>.</p>
 <div id="6cb3ed80" class="cell" data-tags="[]" data-execution_count="3">
@@ -1603,7 +1646,7 @@ Figure&nbsp;4
 <div id="a551b42f" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--het</span> <span class="at">--out</span> Results/GWAS3/R_check <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Now, let’s plot the distribution of heterozygosity rates. Again, we will first examine the heterozygosity table. The <code>--het</code> option in PLINK generates an output table with the following columns:</p>
 <ul>
 <li>FID: Individual’s Family ID.</li>
@@ -1772,7 +1815,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1781,7 +1824,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We can count 3 lines (one is the header), meaning there are two individuals to be filtered out. To use the file in PLINK, we need only the first two columns (Family ID and Individual ID) as shown below</p>
 <p><code>wc -l Results/GWAS3/fail-het-qc.txt</code></p>
@@ -1918,14 +1961,14 @@ Wrapping up
 </div>
 </section>
 </section>
-<section id="bibliography" class="level1" data-number="6">
+<section id="bibliography" class="level1">
 
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">6 Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-kanaka_concepts_2023" class="csl-entry" role="listitem">
 Kanaka, K. K., Nidhi Sukhija, Rangasai Chandra Goli, Sanjeev Singh, Indrajit Ganguly, S. P. Dixit, Aishwarya Dash, and Anoop Anand Malik. 2023. <span>“On the Concepts and Measures of Diversity in the Genomics Era.”</span> <em>Current Plant Biology</em> 33 (January): 100278. <a href="https://doi.org/10.1016/j.cpb.2023.100278">https://doi.org/10.1016/j.cpb.2023.100278</a>.
 </div>
