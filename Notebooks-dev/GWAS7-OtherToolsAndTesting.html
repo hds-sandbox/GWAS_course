@@ -6,9 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Conor O’Hare">
-<meta name="author" content="Samuele Soraggi">
-<meta name="author" content="Alba Refoyo Martinez">
 
 <title>Genome-Wide Association Studies - Other tools &amp; conclusions</title>
 <style>
@@ -191,7 +188,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -200,8 +197,51 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
+    <a class="dropdown-item" href="../access/index.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">Genome</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorial</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS1-WhatIsAGWAS.html">
+ <span class="dropdown-text">What is a GWAS?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS2-DataCollection.html">
+ <span class="dropdown-text">Data Collection</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS3-QualityControlA.html">
+ <span class="dropdown-text">Quality Control A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS4-QualityControlB.html">
+ <span class="dropdown-text">Quality Control B?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS5-AssociationTesting.html">
+ <span class="dropdown-text">Association Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS6-PRSAnalysis.html">
+ <span class="dropdown-text">PRS Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS7-OtherToolsAndTesting.html">
+ <span class="dropdown-text">Other tools and testing</span></a>
   </li>  
     </ul>
   </li>
@@ -222,8 +262,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#ldak" id="toc-ldak" class="nav-link active" data-scroll-target="#ldak"><span class="header-section-number">1.3</span> LDAK</a></li>
-  <li><a href="#overview-of-functionality" id="toc-overview-of-functionality" class="nav-link" data-scroll-target="#overview-of-functionality"><span class="header-section-number">1.4</span> Overview of functionality</a></li>
+  <li><a href="#ldak" id="toc-ldak" class="nav-link active" data-scroll-target="#ldak">LDAK</a></li>
+  <li><a href="#overview-of-functionality" id="toc-overview-of-functionality" class="nav-link" data-scroll-target="#overview-of-functionality">Overview of functionality</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS7-OtherToolsAndTesting.out.ipynb" download="GWAS7-OtherToolsAndTesting.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -239,14 +279,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Conor O’Hare </p>
-             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-          </div>
-  </div>
     
   
     
@@ -266,17 +298,17 @@ window.Quarto = {
 Important notes for this notebook
 </div>
 </div>
-<section id="important-notes-for-this-notebook" class="level1 callout-body-container callout-body" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Important notes for this notebook</h1>
-<section id="learning-outcomes" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">1.1</span> Learning outcomes</h2>
+<section id="important-notes-for-this-notebook" class="level1 callout-body-container callout-body">
+<h1>Important notes for this notebook</h1>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
 <li><strong>Explore</strong> LDAK software and some of its functionalities</li>
 <li><strong>Discuss</strong> other tools and conclusions from this tutorial</li>
 </ul>
 </section>
-<section id="how-to-make-this-notebook-work" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="how-to-make-this-notebook-work"><span class="header-section-number">1.2</span> How to make this notebook work</h2>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
 <ul>
 <li>In this notebook, we will only use the <code>bash command line</code>. Be sure to click on the menu <code>Kernel --&gt; Change Kernel --&gt; Bash</code></li>
 </ul>
@@ -284,13 +316,13 @@ Important notes for this notebook
 </section>
 </section>
 </div>
-<section id="ldak" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="ldak"><span class="header-section-number">1.3</span> LDAK</h2>
+<section id="ldak" class="level2">
+<h2 class="anchored" data-anchor-id="ldak">LDAK</h2>
 <p>Throughout this tutorial, we have used PLINK as the main method of our GWAS analysis. This is, in large part, due to its popularity in modern literature and its ease of use. But it is by no means the only method of GWAS.</p>
 <p>One tool that has been developed in recent years is <em><a href="https://dougspeed.com/">LDAK</a></em>, by Dough Speed <span class="citation" data-cites="speed2012improved">(<a href="#ref-speed2012improved" role="doc-biblioref">2012</a>)</span>. One of the most significant improvements of this program is the genetic prediction of complex traits from both individual-level data and summary statistics. Most prediction tools assume the <a href="https://yanglab.westlake.edu.cn/software/gcta/#Overview">GCTA</a> model, whereby each SNP is expected to contribute equally to the phenotype (as is the case with PLINK). If we replace the GCTA Model with the BLD-LDAK Model, the squared correlation between observed and predicted phenotypes (<span class="math inline">\(R^2\)</span>) increases by an average of 14% (s.d. 1%).</p>
 </section>
-<section id="overview-of-functionality" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="overview-of-functionality"><span class="header-section-number">1.4</span> Overview of functionality</h2>
+<section id="overview-of-functionality" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-functionality">Overview of functionality</h2>
 <p>Using LDAK is very similar to PLINK. As with PLINK, you will require the <code>.bed</code>, <code>.bim</code>, and <code>.fam</code> files of your cohort. Beyond this, you will need additional files:</p>
 <ul>
 <li><code>.info</code> - information scores for SNPs</li>

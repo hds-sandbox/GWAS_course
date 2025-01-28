@@ -6,9 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Conor O’Hare">
-<meta name="author" content="Samuele Soraggi">
-<meta name="author" content="Alba Refoyo Martinez">
 
 <title>Genome-Wide Association Studies - Polygenic Score analysis</title>
 <style>
@@ -188,7 +185,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.qmd"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -197,8 +194,51 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
         <li>
+    <a class="dropdown-item" href="../access/index.html">
+ <span class="dropdown-text">General</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">Genome</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorial</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS1-WhatIsAGWAS.html">
+ <span class="dropdown-text">What is a GWAS?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS2-DataCollection.html">
+ <span class="dropdown-text">Data Collection</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS3-QualityControlA.html">
+ <span class="dropdown-text">Quality Control A</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS4-QualityControlB.html">
+ <span class="dropdown-text">Quality Control B?</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS5-AssociationTesting.html">
+ <span class="dropdown-text">Association Testing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS6-PRSAnalysis.html">
+ <span class="dropdown-text">PRS Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Notebooks-dev/GWAS7-OtherToolsAndTesting.html">
+ <span class="dropdown-text">Other tools and testing</span></a>
   </li>  
     </ul>
   </li>
@@ -219,15 +259,15 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#computing-a-prs" id="toc-computing-a-prs" class="nav-link active" data-scroll-target="#computing-a-prs"><span class="header-section-number">3</span> 1. Computing a PRS</a></li>
-  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link" data-scroll-target="#conducting-polygenic-risk-prediction-analyses"><span class="header-section-number">4</span> 2. Conducting polygenic risk prediction analyses</a></li>
-  <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2"><span class="header-section-number">5</span> 3. Polygenic risk score analysis with PRSice-2</a>
+  <li><a href="#computing-a-prs" id="toc-computing-a-prs" class="nav-link active" data-scroll-target="#computing-a-prs">1. Computing a PRS</a></li>
+  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">2. Conducting polygenic risk prediction analyses</a></li>
+  <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">3. Polygenic risk score analysis with PRSice-2</a>
   <ul class="collapse">
-  <li><a href="#prsice-analysis" id="toc-prsice-analysis" class="nav-link" data-scroll-target="#prsice-analysis"><span class="header-section-number">5.1</span> 3.1 PRSice analysis</a></li>
-  <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results"><span class="header-section-number">5.2</span> 3.2 Interpreting the results</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.3</span> Conclusion</a></li>
+  <li><a href="#prsice-analysis" id="toc-prsice-analysis" class="nav-link" data-scroll-target="#prsice-analysis">3.1 PRSice analysis</a></li>
+  <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">3.2 Interpreting the results</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><span class="header-section-number">6</span> Further Reading</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS6-PRSAnalysis.out.ipynb" download="GWAS6-PRSAnalysis.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -243,14 +283,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Authors</div>
-    <div class="quarto-title-meta-contents">
-             <p>Conor O’Hare </p>
-             <p>Samuele Soraggi <a href="mailto:samuele@birc.au.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-1159-5535" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-             <p>Alba Refoyo Martinez <a href="mailto:alba.martinez@sund.ku.dk" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0002-3674-4007" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
-          </div>
-  </div>
     
   
     
@@ -271,16 +303,16 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>SOMETHING SOMETHING</p>
-<section id="learning-outcomes" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">1</span> Learning outcomes</h2>
+<p>This notebook focuses on polygenic scores, which are used to estimate an individual’s genetic predisposition to complex traits or diseases by combining information from multiple genetic variants previously identified in the GWAS study. It provides a step-by-step guide to performing a basic PRS analysis using PRSice and explains how to interpret the results.</p>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
 <li><strong>Discuss and choose</strong> the PRS equation</li>
 <li><strong>Discuss</strong> PRS scores and biases</li>
 </ul>
 </section>
-<section id="how-to-make-this-notebook-work" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="how-to-make-this-notebook-work"><span class="header-section-number">2</span> How to make this notebook work</h2>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
 <ul>
 <li>In this notebook, we will only use the <code>bash command line</code>. Be sure to click on the menu <code>Kernel --&gt; Change Kernel --&gt; Bash</code></li>
 </ul>
@@ -289,14 +321,14 @@ Important notes for this notebook
 </div>
 </div>
 <p>While most individual associations found in GWAS studies are of small effect, information about them can be combined across the genome, to create a <strong>polygenic score (PGS)</strong>. These scores can be used to make <strong>genome-based predictions about the overall risk of having a particular trait or disease or about the genetic value for continuous traits</strong>. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).</p>
-<section id="computing-a-prs" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="computing-a-prs"><span class="header-section-number">3</span> 1. Computing a PRS</h2>
+<section id="computing-a-prs" class="level2">
+<h2 class="anchored" data-anchor-id="computing-a-prs">1. Computing a PRS</h2>
 <p>Single variant association analysis has been the primary method in GWAS but requires very large sample sizes to detect more than a handful of SNPs for many complex traits. In contrast, PRS analysis does not aim to identify individual SNPs but instead aggregates genetic risk across the genome in a single individual polygenic score for a trait of interest. One straightforward way to obtain a PGS, for a given population, is summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect size after ensuring these variants are approximately independent (e.g.&nbsp;via LD pruning).</p>
 <p>In this approach, a large discovery sample is required to reliably determine how much each SNP is expected to contribute to the polygenic score (“weights”) of a specific trait. Subsequently, in an independent target sample, which can be more modest in size <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>, polygenic scores can be calculated based on genetic DNA profiles and these weights (see below for details on the calculations). As a rule of thumb, a target sample of around <strong>2,000 subjects</strong> provides sufficient power to detect a significant proportion of variance explained. Furthermore, the discovery and target samples should have the same number of subjects until the target sample includes 2,000 subjects. If more samples are available, additional subjects should be included in the discovery sample to maximize the accuracy of the estimation of the effect sizes <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>.</p>
 <p>Although PRS is not powerful enough to predict disease risk on the individual level <span class="citation" data-cites="wray2013pitfalls">(<a href="#ref-wray2013pitfalls" role="doc-biblioref">Wray et al. 2013</a>)</span>, it has been successfully used to show significant associations both within and across traits. For example, a PRS analysis of schizophrenia showed for the first time that an aggregate measure of the genetic risk of developing schizophrenia, estimated based on the effects of common SNPs (from the discovery sample) that showed nominally significant associations with disease risk, was significantly associated with schizophrenia risk in an independent (target) sample. A significant association was found even though the available sample sizes were too small to detect genome‐wide significant SNPs <span class="citation" data-cites="international2009common">(<a href="#ref-international2009common" role="doc-biblioref">Purcell Shaun M. shaun@ pngu. mgh. harvard. edu 1 2 b Wray Naomi R. 5 Stone Jennifer L. 1 2 3 4 Visscher Peter M. 5 O’Donovan Michael C. 6 Sullivan Patrick F. 7 Sklar Pamela 1 2 3 4 et al. 2009</a>)</span>. In addition, GWAS for schizophrenia (the discovery sample) has been used to significantly predict the risk in target samples with various phenotypes, such as bipolar disorder, level of creativity, and even risk of immune disorders <span class="citation" data-cites="power2015polygenic stringer2014genetic">(<a href="#ref-power2015polygenic" role="doc-biblioref">Power et al. 2015</a>; <a href="#ref-stringer2014genetic" role="doc-biblioref">Stringer et al. 2014</a>)</span>.</p>
 </section>
-<section id="conducting-polygenic-risk-prediction-analyses" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses"><span class="header-section-number">4</span> 2. Conducting polygenic risk prediction analyses</h2>
+<section id="conducting-polygenic-risk-prediction-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses">2. Conducting polygenic risk prediction analyses</h2>
 <p>To conduct PRS analysis, trait‐specific weights (beta’s for continuous traits and the log of the odds ratios for binary traits) are obtained from a discovery GWAS. In the target sample, a PRS is calculated for each individual based on the weighted sum of the number of risk alleles that they carry multiplied by the trait‐specific weights. For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).</p>
 <p>Although in principle all common SNPs could be used in a PRS analysis, it is customary to first clump the GWAS results before computing risk scores. P-value thresholds are typically used to remove SNPs that show little or no statistical evidence for association (e.g., only keep SNPs with p-values &lt;0.05 or &lt;0.01). Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.</p>
 <p>Once PRS have been calculated for all subjects in the target sample, the scores can be used in a (logistic) regression analysis to predict any trait that is expected to show genetic overlap with the trait of interest. The prediction accuracy can be expressed with the (pseudo‐) <span class="math inline">\(R^2\)</span> measure of the regression analysis. It is important to include at least a few MDS components as covariates in the regression analysis to control for population stratification. To estimate how much variation is explained by the PRS, the <span class="math inline">\(R^2\)</span> of a model that includes only the covariates (e.g., MDS components) and the <span class="math inline">\(R^2\)</span> of a model that includes covariates + PRS will be compared. The increase in <span class="math inline">\(R^2\)</span> due to the PRS indicates the increase in prediction accuracy explained by genetic risk factors.</p>
@@ -308,8 +340,8 @@ Important notes for this notebook
 </figure>
 </div>
 </section>
-<section id="polygenic-risk-score-analysis-with-prsice-2" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="polygenic-risk-score-analysis-with-prsice-2"><span class="header-section-number">5</span> 3. Polygenic risk score analysis with PRSice-2</h2>
+<section id="polygenic-risk-score-analysis-with-prsice-2" class="level2">
+<h2 class="anchored" data-anchor-id="polygenic-risk-score-analysis-with-prsice-2">3. Polygenic risk score analysis with PRSice-2</h2>
 <p>To perform polygenic risk score analysis, one possible tool is <a href="https://choishingwan.github.io/PRSice/">PRSice</a>. In this tutorial, we provide a step-by-step guide to perform a simple polygenic risk score analysis using PRSice and explain how to interpret the results.</p>
 <p>We have supplied PRSice-2 with this course material ready to use.</p>
 <p>The installed package will include an R script that is straightforward to run. It requires the following information:</p>
@@ -331,8 +363,8 @@ Note
 <p>It would be ideal at this point to apply this method to our HapMap dataset. However, as mentioned above, PRS requires a sample size of around 2000 for it to show meaningful results. Our dataset, meanwhile, contains only about 150 individuals. Hence, we will use a <em>toy dataset</em> for didactic purposes.</p>
 </div>
 </div>
-<section id="prsice-analysis" class="level3" data-number="5.1">
-<h3 data-number="5.1" class="anchored" data-anchor-id="prsice-analysis"><span class="header-section-number">5.1</span> 3.1 PRSice analysis</h3>
+<section id="prsice-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="prsice-analysis">3.1 PRSice analysis</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:</p>
 <div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
@@ -477,8 +509,8 @@ Solution
 </div>
 <p>For simplicity’s sake, we did not include principal components or covariates in this analysis, however, when conducting your analyses we <strong>strongly recommend</strong> including these.</p>
 </section>
-<section id="interpreting-the-results" class="level3" data-number="5.2">
-<h3 data-number="5.2" class="anchored" data-anchor-id="interpreting-the-results"><span class="header-section-number">5.2</span> 3.2 Interpreting the results</h3>
+<section id="interpreting-the-results" class="level3">
+<h3 class="anchored" data-anchor-id="interpreting-the-results">3.2 Interpreting the results</h3>
 <p>By default, PRSice saves two plots and several text files. The first plot is <code>PRSice_BARPLOT_&lt;date&gt;.png</code>(<strong>which you need to open from the folder Result/GWAS6 using the file browser</strong> since the name depends on the current date. Below, you can see a screenshot of the figure). This plot shows the predictive value (Nagelkerke’s) in the target sample of models based on SNPs with p-values below specific thresholds in the base sample. In addition, for each model, a p-value is provided.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -520,13 +552,13 @@ Solution
 <p><img src="Images/PRSice_HIGH-RES_PLOT.png" class="img-fluid" width="600"></p>
 <p>Both figures demonstrate that many SNPs associated with the trait in the base sample can help predict the trait in the target sample. The traits being compared can be either the same or different. If the same trait is used, the predictive power is related to the trait’s heritability and the base sample size. When different traits are analyzed, the predictive power also depends on the genetic correlation between the two traits. Some studies have suggested that polygenic risk score analyses using models with more lenient p-value thresholds (i.e., including more SNPs) often capture smaller effects that are important for complex traits involving many variants with very small effects. Conversely, more stringent thresholds reduce noise, making it easier to understand the polygenic architecture. Finding the right balance between including informative SNPs and minimizing noise is crucial for maximizing predictive power while maintaining meaningful interpretation.</p>
 </section>
-<section id="conclusion" class="level3" data-number="5.3">
-<h3 data-number="5.3" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.3</span> Conclusion</h3>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and how to interpret its results. When PLINK genotype target files are available, PRSice provides a relatively easy way of performing polygenic risk score analysis. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates, and principal components and adjusting clumping parameters. It is therefore recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
 </section>
 </section>
-<section id="further-reading" class="level2" data-number="6">
-<h2 data-number="6" class="anchored" data-anchor-id="further-reading"><span class="header-section-number">6</span> Further Reading</h2>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
 <div class="callout callout-style-default callout-tip callout-titled" title="Other take-home messages">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
