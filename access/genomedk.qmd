@@ -9,7 +9,7 @@ hide:
   - toc
 ---
 
-If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with `singularity`, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have `conda` installed and is shown [in the page dedicate to the access with any computing cluster](./otherHPC.qmd).
+If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with `singularity`, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have `conda` installed and is shown in the page dedicate to the access with [any computing cluster](./otherHPC.qmd).
 
 :::{.callout-warning title="Technical prerequisites"}
 
@@ -18,8 +18,7 @@ If you are using GenomeDK, you have two options. One is to use a pre-packaged Do
 - you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. [Follow these instructions to request a project.](https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project). Please do not create a project only to run this course, but use an existing project folder.
 
 - In Windows and the Powershell command line, commands might need `.exe` at the end, such as `ssh.exe` instead of `ssh`. Newer versions of Windows do not require that, though.
-
-
+:::
 
 ## Singularity container
 
@@ -78,8 +77,6 @@ tmux
 The command line will change a bit its aspect. Now it's time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for the first three modules, and 2 CPUs and 64GB of RAM for the single-cell analysis. For the first configuration suggested, for example, you get resources using 
 
 ```{.bash}
-
-
 srun --mem=32g --cores=1 --time=4:0:0  --account=MYPROJECT --pty /bin/bash
 
 ```
@@ -109,11 +106,9 @@ wget -qO-  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhu
 ```
 
 
-
-
 **7.** You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.
 
-![](../images/nodeAndUsername.png){width=600px}
+![](../img/nodeAndUsername.png){width=600px}
 
 
 Wrote down node and ID? Last step is to create a tunnel between your computer and genomeDK to be able to see jupyterlab in your browser. Now you need to **use the node name and the user id** you wrote down before! **Open a new terminal window** on your laptop and write
@@ -131,7 +126,7 @@ where you substitute `USERID` and `NODENAME` as you wrote down before, and then 
 
 **9.** Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder `Notebooks`. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!
 
-![](../images/startNotebook.gif)
+![](../img/startNotebook.gif)
 
 :::{.callout-tip}
 

@@ -9,7 +9,7 @@ To keep the website up to date, stage your changes with `git add`, commit them, 
 
 Check the GitHub workflows to see how this is done. 
 
-Acknowledgements: 
+Contributors: 
 - Samuele Soraggi 
 - Alba Refoyo Martinez
 - Conor O'Hare

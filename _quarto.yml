@@ -9,30 +9,39 @@ website:
   navbar:
     logo: /img/logo.png
     left:
-      - href: index.qmd
+      - href: develop/index.qmd
         text: Home
       - text: Access
         menu: 
-          - href: access/index.qmd
-            text: General
           - href: access/UCloud.qmd
             text: UCloud
           - href: access/genomedk.qmd
             text: Genome
-      - text: Tutorial
-        menu: 
-          - href: develop/GWAS1-WhatIsAGWAS.ipynb
-            text: What is a GWAS?
-          - href: develop/GWAS2-DataCollection.ipynb
-            text: Data Collection
-          - href: develop/GWAS4-QualityControlB.ipynb
-            text: Quality Control B?
-          - href: develop/GWAS5-AssociationTesting.ipynb
-            text: Association Testing
-          - href: develop/GWAS6-PRSAnalysis.ipynb
-            text: PRS Analysis
-          - href: develop/GWAS7-OtherToolsAndTesting.ipynb
-            text: Other tools and testing
+      - text: Tutorials
+        href: develop/GWAS1-WhatIsAGWAS.qmd
+
+  sidebar:
+    - title: "Introduction"
+      style: "docked"
+      search: true
+      contents:
+        - href: develop/general-intro.qmd
+          text: Instructions
+        - section: "Introduction"
+          contents:
+            - develop/GWAS0-geneticTheory.qmd
+            - develop/GWAS1-WhatIsAGWAS.qmd
+            - develop/GWAS2-DataCollectionA.qmd
+            - develop/GWAS2-DataCollection.ipynb
+        - section: "Quality Control"
+          contents:
+            - develop/GWAS4-QualityControlB.ipynb
+        - section: "Association Testing"
+          contents:
+            - develop/GWAS5-AssociationTesting.ipynb
+            - develop/GWAS6-PRSAnalysis.ipynb
+            - develop/GWAS7-OtherToolsAndTesting.ipynb
+
  #         - href: develop/GWAS3-QualityControlA.ipynb
  #           text: Quality Control A
 

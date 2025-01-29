@@ -1,6 +1,8 @@
 ---
-layout: webpage
-title: Accessing the GWAS workshop on
+format: 
+    html:
+      toc: true
+      toc-location: left
 parent: Access
 has_children: false
 nav_order: 2
@@ -9,47 +11,45 @@ hide:
   - toc
 ---
 
-**1.** User accounts on UCloud are enabled by university login credentials using WAYF (Where Are You From). Access the WAYF login portal with the button below [here](https://cloud.sdu.dk/), and then find your affiliated university or institution using the search bar. 
+
+## Using UCloud 
+
+[UCloud](https://cloud.sdu.dk) is a relatively new HPC platform accessible to all researchers and students at Danish universities (via a WAYF university login). It features a user-friendly graphical interface that simplifies project, user, and resource management. UCloud offers access to numerous tools via selectable apps and a variety of flexible compute resources. Check out UCloud’s extensive user docs [here](https://docs.cloud.sdu.dk/index.html).
+
+If you’d like a more detailed explanation and guide on UCloud, including how to navigate and understand the dashboard better, feel free to check our guidelines on how to access our sandbox app and get started: [Sandbox guidelines](https://hds-sandbox.github.io/access/UCloud.html).
+
+### Step 1
+Log onto UCloud at the address http://cloud.sdu.dk using university credentials.
+
+### Step 2
+
+When logged in, choose the project from the dashboard (top-right side) from which you would like to utilize compute resources. Every user has their personal workspace (`My workspace`). You can also provision your own project (check with your local DeiC office if you’re new to UCloud) or you can be invited to someone else’s project. If you’ve previously selected a project, it will be launched by default. If it’s your first time, you’ll be in your workspace. 
+
+
+### Step 3
+
+:::{.callout-warning}
+# Only for participants at the workshop
+
+If you are participating in the GWAS workshop, you need to select `Sandbox Workshop` (see image below, top-right corner). This will allow us to provide a pre-configured environment with everything you need installed, along with access to our resources.
+:::
+
+If you haven't joined our workspace yet, please click below:
 
 &nbsp;
 
  <p align="center">
-  <a href="https://cloud.sdu.dk" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-    UCloud Access
-    - click here
+  <a href="https://cloud.sdu.dk/app/projects/invite/d68169ad-6bb1-422d-b0df-d21e2751f8fb" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    Invite link to
+    UCloud workspace
   </a>
 </p>
 
 &nbsp;
 
-:::{.callout-warning title="GWAS with the sandbox"}
+Once you are an approved user of UCloud, you are met with a dashboard interface as below. Here you can see a **summary of the workspace** you are using, like the hours of computing, the storage available, and other details. The workspace you are working on is shown in the top-right corner (red circle). On the left side of the screen you have a toolbar menu.
 
-If you are participating in the NGS Summer Course 2024 in Aarhus, click **AFTER logging in** on the button below. This will add you to a project on uCloud, where we have data and extra computing credit for the course. You should see a message on your browser where you have to accept the invitation to the project. The link expires 30 days after the course.
-
-&nbsp; 
-
-# <p align="center">
-#  <a href="https://cloud.sdu.dk/app/projects/invite/f11a81aa-9064-4df3-9601-2607c2812f2a" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-#    Invite link
-#    for the course
-#  </a>
-# </p>
-
-&nbsp; 
-
-:::
-
-**2.** Once you are an approved user of UCloud, you are met with a dashboard interface as below. Here you can see a **summary of the workspace** you are using, like the hours of computing, the storage available, and other informations. The workspace you are working on is shown in the top-right corner (red circle). On the left side of the screen you have a toolbar menu.
-
-![](../images/dashboard_edit.png)
-
-&nbsp;
-
-:::{.callout-warning title="NGS summer school"}
-
-If you are participating in the NGS Summer Course 2024 in Aarhus, choose the workspace **NGS summer school**.
-
-:::
+![Dashboard](../img/step1.png)
 
 <!--
 :::{.callout-warning title="Exercise: drives and file explorer"}
@@ -63,49 +63,40 @@ Now you have created your drive! If you click into this, you can see new top but
 :::
 -->
 
-**3.**  The left-side menu can be used to access the stored data, applications, running programs and settings. Use the **Applications** symbol (red circle) and click on the **Health Science** store (green circle). 
+### Step 4  
+The left-side menu can be used to access the stored data, applications, running programs and settings. Use the **Applications** symbol (in gray). Search for the **Genomics Sandbox** application to open its settings.
 
-![](../images/appsMenu_edit.png)
+![](../img/genomics_app.png)
 
-**5.**  Your screen will show some apps falling in the Health Science subcategory. Click on the **Genomics Sandbox** application to open its settings.
 
-![](../images/genomicsSandbox.png)
+### Step 5 
+Choose any Job Name (Nr 1 in the figure below), how many hours you want to use for the job (Nr 2, choose at least 2 hours, you can increase this later), and how many CPUs (Nr 3, choose at least 4 CPUs for the first three exercises, but use at least 8 CPUs to run the single cell analysis). Select the `Introduction to NGS Data Analysis` as course (Nr 4). Then click on `Submit` (Nr 5).
 
-**6.** Choose any Job Name (Nr 1 in the figure below), how many hours you want to use for the job (Nr 2, choose at least 2 hours, you can increase this later), and how many CPUs (Nr 3, choose at least 4 CPUs for the first three exercises, but use at least 8 CPUs to run the single cell analysis). Select the `Introduction to NGS Data Analysis` as course (Nr 4). Then click on `Submit` (Nr 5).
 
-![](../images/appSetup_edited.png)
+You will be waiting in a queue looking like this:
 
-**7.** You will be waiting in a queue looking like this
 
-![](../images/waitingInQueue.png)
+### Step 6 
+As soon as there are resources, you will have them available, and in a short time the course will be ready to run. The screen you get is in the image below. Here you can increase the number of hours you want the session to run (red circle), close the session (green circle) and open the interface for coding (blue circle)
 
-**8.** As soon as there are resources, you will have them available, and in a short time the course will be ready to run. The screen you get is in the image below. Here you can increase the number of hours you want the session to run (red circle), close the session (green circle) and open the interface for coding (blue circle)
-
-![](../images/afterTheQueue_edited.png)
 
 :::{.callout-tip}
 
 Once you open the coding interface, it does not matter if you close the browser tab with the countdown timer. You can always access it again from the toolbar menu of uCloud. Simply click on `jobs` and choose your session from the list of running softwares:
 
-![](../images/recoverJobs.gif)
 
 :::
 
-**9.** Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder `Notebooks`. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!
+Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder `Notebooks`. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!
 
-![](../images/startNotebook.gif)
 
-# Recovering the material from your previous session
+#### Recovering the material from your previous session
 
 It would be annoying to start from scratch at each session, with all the analysis to be executed again. You can of course find all the notebooks and results in your personal user folder in the workspace in which you are working.
 
 To retrieve your work add the folders `Data` and `Notebooks` in the submission page of the Genomics App. Those are inside your user folder (called `member Files: NameSurname#Number`) under `Jobs/Genomics Sandbox/SessionName`. For example, look at how the `Data` folder is added from a previous session:
 
-![](../images/retrieveFolderData.gif)
-
-You need to do the same thing for the folder `Notebooks`. In the end you should have two folders added in your setup page just as below:
-
-![](../images/retrievedFolders.png)
+You need to do the same thing for the folder `Notebooks`. In the end you should have two folders added in your setup page. Now, you are set to start running the notebooks! 
 
 
 

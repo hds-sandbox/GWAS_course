@@ -1,0 +1,46 @@
+---
+title: "Getting Started with the GWAS Module"
+author:
+  - name: Conor O'Hare
+  - name: Samuele Soraggi
+    orcid: 0000-0002-1159-5535
+    email: samuele@birc.au.dk
+  - name: Alba Refoyo Martinez
+    orcid: 0000-0002-3674-4007
+    email: alba.martinez@sund.ku.dk
+format: 
+  html:
+    toc: false
+---
+
+In this course, we will use JupyterLab, an open-source interactive development environment (IDE) for working with Jupyter Notebooks. If you’re not familiar with this interface, check out the [JupyterLab Documentation](https://jupyterlab.readthedocs.io/en/latest/getting_started/overview.html). It includes numerous screenshots and videos showcasing the cool features of JupyterLab.
+
+In particular, we suggest reviewing:
+
+- [Working (manage) files](https://jupyterlab.readthedocs.io/en/latest/user/files.html)
+- [How to edit files](https://jupyterlab.readthedocs.io/en/latest/user/file_editor.html)
+- [How to use Terminals](https://jupyterlab.readthedocs.io/en/latest/user/terminal.html)
+- [Maning kernels and terminals](https://jupyterlab.readthedocs.io/en/latest/user/running.html)
+
+### General note on how to make the notebooks work
+
+* We will primarily use `R` and `bash command line` programming languages, where `R` is used for statistical analysis of the output from various tools running in `bash`.
+* Since we use multiple coding languages, you need to **choose a kernel every time we shift from one language to another**. A kernel contains a programming language and the necessary packages to run the course material. To choose a kernel, go to the menu at the top of the page, select `Kernel --> Change Kernel`, and then select the preferred one.
+* We will shift between two kernels, and along the notebook, you will see a picture indicating when to change the kernel. The two pictures are shown below:
+
+<center>
+<img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel
+<img src="Images/R.png" alt="R" width="80"> Choose the R kernel
+</center>
+
+* You can run the code in each cell (grey background) by clicking the run cell sign in the toolbar, or simply by pressing <kbd>Shift</kbd>+<kbd>Enter</kbd>. When the code is done running, a small green check mark will appear on the left side.
+* You need to **run the cells sequentially** to execute the analysis. Please do not run a cell until the one above is done running, and do not skip any cells. 
+* Textual descriptions accompany the code to help you understand what is happening. Please try not to focus on understanding the code itself in too much detail, but rather focus on the explanations and commands' output.  
+* You can create new code cells by pressing `+` in the Menu bar above or by pressing <kbd>B</kbd> after selecting a cell.
+ 
+
+:::{.callout-warning}
+- If a cell fails to run, verify the kernel in use, shown in the top-right corner.
+- You don't know the answer to the exercises? You can use Generative AI to help with the code. It can assist you when the tutorial alone isn't enough or if you want to explore additional concepts beyond the exercise.
+
+:::
