@@ -1,10 +1,10 @@
 # GWAS with the Genomics Sandbox 
 
-Repository for the GWAS with the genomics Sandbox. 
+Repository for the GWAS with the genomics Sandbox. Tutorials can be found under the `Notebooks` folder. 
 
 This course introduces and applies bioinformatic tools to perform a whole population genomics analysis. 
 
-This workshop is based on the materials from *A tutorial on conducting genome-wide association studies: Quality control and statistical analysis*: https://pmc.ncbi.nlm.nih.gov/articles/PMC6001694/ 
+This workshop is based on the materials from *A tutorial on conducting genome-wide association studies: Quality control and statistical analysis*: https://pmc.ncbi.nlm.nih.gov/articles/PMC6001694/.  
 
 ### Goals: 
 - Learn and explain fundamental population genetics concepts, applying them during data analysis.
