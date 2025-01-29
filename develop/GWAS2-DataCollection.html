@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data collection – Genome-Wide Association Studies</title>
+<title>Data exploration – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -190,7 +190,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollection.html">Data collection</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollection.html">Data exploration</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -246,7 +246,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS2-DataCollection.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Data collection</span></a>
+ <span class="menu-text">Data exploration</span></a>
   </div>
 </li>
       </ul>
@@ -307,9 +307,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-to-study-design" id="toc-introduction-to-study-design" class="nav-link active" data-scroll-target="#introduction-to-study-design">Introduction to study design</a></li>
-  <li><a href="#genotyping" id="toc-genotyping" class="nav-link" data-scroll-target="#genotyping">Genotyping</a></li>
-  <li><a href="#data-files" id="toc-data-files" class="nav-link" data-scroll-target="#data-files">Data files</a>
+  <li><a href="#data-files" id="toc-data-files" class="nav-link active" data-scroll-target="#data-files">Data files</a>
   <ul class="collapse">
   <li><a href="#description-of-the-data" id="toc-description-of-the-data" class="nav-link" data-scroll-target="#description-of-the-data">Description of the Data</a>
   <ul class="collapse">
@@ -325,9 +323,9 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollection.html">Data collection</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollection.html">Data exploration</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Data collection</h1>
+<h1 class="title">Data exploration</h1>
 </div>
 
 
@@ -354,11 +352,10 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This course module introduces fundamental concepts regarding designing and executing GWAS. We touch on data collection (which involves gathering genomic data and phenotypic information from diverse populations), potential biases, and practical considerations on the standard file formats in GWAS.</p>
+<p>This course module covers practical considerations regarding the standard file formats used in GWAS.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
-<li><strong>Understand and identify</strong> types of GWAS studies in the scientific literature</li>
 <li><strong>Explore</strong> the content of classical data files for GWAS through the command line</li>
 <li><strong>Apply and extend</strong> some command line programs to retrieve and explore data</li>
 </ul>
@@ -370,40 +367,6 @@ Important notes for this notebook
 </section>
 </div>
 </div>
-<section id="introduction-to-study-design" class="level1">
-<h1>Introduction to study design</h1>
-<p>GWAS often require very large sample sizes to identify reproducible genome-wide significant associations, and one would need to conduct power calculations to determine the appropriate sample size. Generally speaking, there are two types of study design depending on the nature of the trait of interest:</p>
-<ul>
-<li><strong>1)</strong> Case-control studies when the trait of interest is dichotomous (e.g.&nbsp;Type 2 diabetes)</li>
-<li><strong>2)</strong> Quantitative measurements on the whole study sample when the trait is quantitative (e.g.&nbsp;height)</li>
-</ul>
-<p>In addition, one can choose between population-based and family-based designs. The choice generally depends on the data you have available - that is, if you have fewer samples, you can control for close relationships in your analyses rather than removing related individuals.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/design.png" class="img-fluid figure-img" style="width:75.0%"></p>
-<figcaption>Figure 1. Potential study designs</figcaption>
-</figure>
-</div>
-<p>The goal of data collection is to ensure you have all the essential information required for downstream analyses. These areas of information could include:</p>
-<ul>
-<li>Biological samples: blood samples or similar (for later genotyping)</li>
-<li>Information about the traits of interest</li>
-<li>Clinical data: disease status e.g.&nbsp;have diabetes (case) vs do not have diabetes (control)</li>
-<li>Quantitative measurements e.g.&nbsp;biometric data, cholesterol, blood pressure, or blood sugar</li>
-<li>Questionnaires: additional potentially relevant info, like sex, age, or lifestyle</li>
-</ul>
-<p>It is crucial to understand that any method used to obtain the required data will require informed consent and ethical approval. Achieving this can be quite challenging in practice, which is why publicly available biobanks are so widely utilized.</p>
-<p>GWAS can be conducted using data from resources such as biobanks, cohorts with disease-focused or population-based recruitment, or direct-to-consumer studies. Several excellent public resources provide access to large cohorts with genotypic and phenotypic information, and the majority of GWAS are conducted using these preexisting resources. Some notable examples include the UK Biobank, FinnGen, Biobank Japan, and the All of Us Research Program.</p>
-<p>Recruitment strategies must be carefully considered for all study designs as these can induce various forms of bias. For example, widely used research cohorts such as the UK Biobank recruit participants through a volunteer-based strategy. What this means in practice is that participants are, on average, healthier, wealthier, and more educated than the general population. Furthermore, cohorts that enroll participants from hospitals based on their disease status (such as BioBank Japan <span class="citation" data-cites="nagai_overview_2017">(<a href="#ref-nagai_overview_2017" role="doc-biblioref">Nagai et al. 2017</a>)</span>) will have different selection biases to cohorts recruited from the general population. Unlike research studies that focus on one disease or group of people, the new American initiative known as All of Us is building a diverse database designed to inform thousands of studies on a variety of health conditions. Different ethnicities, like the example just mentioned, can be included in the same study to make better predictions for people with different backgrounds, as long as the population substructure is considered to avoid false positive results.</p>
-<p>Finally, study annotation is essential for rigorous scientific practice. This involves detailing the chosen study design, providing a thorough description of the study, and including specifics such as sample inclusion criteria (e.g., ancestry, clinical features) and the phenotype of interest in your association analysis.</p>
-</section>
-<section id="genotyping" class="level1">
-<h1>Genotyping</h1>
-<p>Genotyping efficiently captures genetic variation by selecting informative SNPs, often in high linkage disequilibrium (LD), which reduces redundancy. Focusing on these SNPs minimizes computational load and improves cost-efficiency for a specific population.</p>
-<p>Genotypic data can be obtained through microarrays to detect common variants, or through next-generation sequencing techniques for whole-genome sequencing (WGS) or whole-exome sequencing (WES). Microarray-based genotyping is the most commonly used method for obtaining genotypes for GWAS owing to the current cost of next-generation sequencing. However, as shown in the figure below, the decreasing cost per human genome is expected to make WGS the preferred method. Nevertheless, the choice of genotyping platform depends on many factors and tends to be guided by the purpose of the GWAS. For example, in a consortium-led GWAS, it is usually wise to have all individual cohorts genotyped on the same genotyping platform (to avoid problems with batch bias).</p>
-<p>To enhance the power of GWAS, large reference panels are used to impute genotype data. This statistical technique predicts unobserved genotypes in the study sample based on observed genotypes and a reference panel. In other words, imputation fills in missing genotypes, increasing the number of variants that can be tested for association with traits. As mentioned before, it is crucial for the reference panel to be large and diverse to capture the genetic diversity of the entire population.</p>
-<p><img src="Images/Cost.jpg" class="img-fluid" alt="The trend of cost of sequencing an entire genome through the years. This shows a development faster than what would be predicted by Moore’s Law, which suggests that every two years, our computational power should double.">{label:fig-cost}</p>
-</section>
 <section id="data-files" class="level1">
 <h1>Data files</h1>
 <p>After alignment and variant calling, genetic variation data is typically stored in formats like VCF and PLINK. While VCF is a detailed, text-based format, PLINK uses a more compact binary format that is faster and more efficient for large-scale analyses, such as GWAS. These formats are interchangeable, but we will focus on PLINK due to its common use and optimized performance for GWAS.</p>
@@ -675,9 +638,6 @@ Wrapping up
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-gibbs_international_2003" class="csl-entry" role="listitem">
 Gibbs, Richard A., John W. Belmont, Paul Hardenbol, Thomas D. Willis, Fuli Yu, Huanming Yang, Lan-Yang Ch’ang, et al. 2003. <span>“The <span>International</span> <span>HapMap</span> <span>Project</span>.”</span> <em>Nature</em> 426 (6968): 789–96. <a href="https://doi.org/10.1038/nature02168">https://doi.org/10.1038/nature02168</a>.
-</div>
-<div id="ref-nagai_overview_2017" class="csl-entry" role="listitem">
-Nagai, Akiko, Makoto Hirata, Yoichiro Kamatani, Kaori Muto, Koichi Matsuda, Yutaka Kiyohara, Toshiharu Ninomiya, et al. 2017. <span>“Overview of the <span>BioBank</span> <span>Japan</span> <span>Project</span>: <span>Study</span> Design and Profile.”</span> <em>Journal of Epidemiology</em> 27 (3 Suppl): S2–8. <a href="https://doi.org/10.1016/j.je.2016.12.005">https://doi.org/10.1016/j.je.2016.12.005</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
