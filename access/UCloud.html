@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Accessing the GWAS workshop on – Genome-Wide Association Studies</title>
+<title>ucloud – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -39,8 +39,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-c206d4d102799b8289765bafb7c260f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -81,7 +81,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 </head>
 
-<body class="nav-fixed">
+<body class="docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -102,7 +102,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../develop/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -110,10 +110,6 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
  <span class="menu-text">Access</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
-        <li>
-    <a class="dropdown-item" href="../access/index.html">
- <span class="dropdown-text">General</span></a>
-  </li>  
         <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
@@ -124,37 +120,10 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
   </li>  
     </ul>
   </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tutorial</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS1-WhatIsAGWAS.html">
- <span class="dropdown-text">What is a GWAS?</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/GWAS1-WhatIsAGWAS.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS2-DataCollection.html">
- <span class="dropdown-text">Data Collection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS4-QualityControlB.html">
- <span class="dropdown-text">Quality Control B?</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS5-AssociationTesting.html">
- <span class="dropdown-text">Association Testing</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS6-PRSAnalysis.html">
- <span class="dropdown-text">PRS Analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS7-OtherToolsAndTesting.html">
- <span class="dropdown-text">Other tools and testing</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -166,90 +135,72 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#recovering-the-material-from-your-previous-session" id="toc-recovering-the-material-from-your-previous-session" class="nav-link active" data-scroll-target="#recovering-the-material-from-your-previous-session">Recovering the material from your previous session</a></li>
+  <li><a href="#using-ucloud" id="toc-using-ucloud" class="nav-link active" data-scroll-target="#using-ucloud">Using UCloud</a>
+  <ul class="collapse">
+  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Step 1</a></li>
+  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2">Step 2</a></li>
+  <li><a href="#step-3" id="toc-step-3" class="nav-link" data-scroll-target="#step-3">Step 3</a></li>
+  <li><a href="#step-4" id="toc-step-4" class="nav-link" data-scroll-target="#step-4">Step 4</a></li>
+  <li><a href="#step-5" id="toc-step-5" class="nav-link" data-scroll-target="#step-5">Step 5</a></li>
+  <li><a href="#step-6" id="toc-step-6" class="nav-link" data-scroll-target="#step-6">Step 6</a></li>
+  </ul></li>
   </ul>
 </nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Accessing the GWAS workshop on</h1>
+
+
+
+<section id="using-ucloud" class="level2">
+<h2 class="anchored" data-anchor-id="using-ucloud">Using UCloud</h2>
+<p><a href="https://cloud.sdu.dk">UCloud</a> is a relatively new HPC platform accessible to all researchers and students at Danish universities (via a WAYF university login). It features a user-friendly graphical interface that simplifies project, user, and resource management. UCloud offers access to numerous tools via selectable apps and a variety of flexible compute resources. Check out UCloud’s extensive user docs <a href="https://docs.cloud.sdu.dk/index.html">here</a>.</p>
+<p>If you’d like a more detailed explanation and guide on UCloud, including how to navigate and understand the dashboard better, feel free to check our guidelines on how to access our sandbox app and get started: <a href="https://hds-sandbox.github.io/access/UCloud.html">Sandbox guidelines</a>.</p>
+<section id="step-1" class="level3">
+<h3 class="anchored" data-anchor-id="step-1">Step 1</h3>
+<p>Log onto UCloud at the address http://cloud.sdu.dk using university credentials.</p>
+</section>
+<section id="step-2" class="level3">
+<h3 class="anchored" data-anchor-id="step-2">Step 2</h3>
+<p>When logged in, choose the project from the dashboard (top-right side) from which you would like to utilize compute resources. Every user has their personal workspace (<code>My workspace</code>). You can also provision your own project (check with your local DeiC office if you’re new to UCloud) or you can be invited to someone else’s project. If you’ve previously selected a project, it will be launched by default. If it’s your first time, you’ll be in your workspace.</p>
+</section>
+<section id="step-3" class="level3">
+<h3 class="anchored" data-anchor-id="step-3">Step 3</h3>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p><strong>1.</strong> User accounts on UCloud are enabled by university login credentials using WAYF (Where Are You From). Access the WAYF login portal with the button below <a href="https://cloud.sdu.dk/">here</a>, and then find your affiliated university or institution using the search bar.</p>
+<div class="callout-title-container flex-fill">
+Only for participants at the workshop
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are participating in the GWAS workshop, you need to select <code>Sandbox Workshop</code> (see image below, top-right corner). This will allow us to provide a pre-configured environment with everything you need installed, along with access to our resources.</p>
+</div>
+</div>
+<p>If you haven’t joined our workspace yet, please click below:</p>
 <p>&nbsp;</p>
 <p align="center">
-<a href="https://cloud.sdu.dk" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> UCloud Access - click here </a>
+<a href="https://cloud.sdu.dk/app/projects/invite/d68169ad-6bb1-422d-b0df-d21e2751f8fb" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Invite link to UCloud workspace </a>
 </p>
 <p>&nbsp;</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="GWAS with the sandbox">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-GWAS with the sandbox
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you are participating in the NGS Summer Course 2024 in Aarhus, click <strong>AFTER logging in</strong> on the button below. This will add you to a project on uCloud, where we have data and extra computing credit for the course. You should see a message on your browser where you have to accept the invitation to the project. The link expires 30 days after the course.</p>
-<p>&nbsp;</p>
-#
-<p align="center">
-</p><section id="section" class="level1">
-<h1><a href="https://cloud.sdu.dk/app/projects/invite/f11a81aa-9064-4df3-9601-2607c2812f2a" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"></a></h1><a href="https://cloud.sdu.dk/app/projects/invite/f11a81aa-9064-4df3-9601-2607c2812f2a" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-</a></section><a href="https://cloud.sdu.dk/app/projects/invite/f11a81aa-9064-4df3-9601-2607c2812f2a" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-<section id="invite-link" class="level1">
-<h1>Invite link</h1>
-</section>
-<section id="for-the-course" class="level1">
-<h1>for the course</h1>
-</section>
-</a><section id="section-1" class="level1"><a href="https://cloud.sdu.dk/app/projects/invite/f11a81aa-9064-4df3-9601-2607c2812f2a" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
-</a><h1><a href="https://cloud.sdu.dk/app/projects/invite/f11a81aa-9064-4df3-9601-2607c2812f2a" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"></a></h1>
-#
-<p></p>
-<p>&nbsp;</p>
-</section>
-</div>
-</div>
-<p><strong>2.</strong> Once you are an approved user of UCloud, you are met with a dashboard interface as below. Here you can see a <strong>summary of the workspace</strong> you are using, like the hours of computing, the storage available, and other informations. The workspace you are working on is shown in the top-right corner (red circle). On the left side of the screen you have a toolbar menu.</p>
-<p><img src="../images/dashboard_edit.png" class="img-fluid"></p>
-<p>&nbsp;</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="NGS summer school">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-NGS summer school
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you are participating in the NGS Summer Course 2024 in Aarhus, choose the workspace <strong>NGS summer school</strong>.</p>
-</div>
+<p>Once you are an approved user of UCloud, you are met with a dashboard interface as below. Here you can see a <strong>summary of the workspace</strong> you are using, like the hours of computing, the storage available, and other details. The workspace you are working on is shown in the top-right corner (red circle). On the left side of the screen you have a toolbar menu.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/step1.png" class="img-fluid figure-img"></p>
+<figcaption>Dashboard</figcaption>
+</figure>
 </div>
 <!--
 :::{.callout-warning title="Exercise: drives and file explorer"}
@@ -262,16 +213,20 @@ Now you have created your drive! If you click into this, you can see new top but
 
 :::
 -->
-<p><strong>3.</strong> The left-side menu can be used to access the stored data, applications, running programs and settings. Use the <strong>Applications</strong> symbol (red circle) and click on the <strong>Health Science</strong> store (green circle).</p>
-<p><img src="../images/appsMenu_edit.png" class="img-fluid"></p>
-<p><strong>5.</strong> Your screen will show some apps falling in the Health Science subcategory. Click on the <strong>Genomics Sandbox</strong> application to open its settings.</p>
-<p><img src="../images/genomicsSandbox.png" class="img-fluid"></p>
-<p><strong>6.</strong> Choose any Job Name (Nr 1 in the figure below), how many hours you want to use for the job (Nr 2, choose at least 2 hours, you can increase this later), and how many CPUs (Nr 3, choose at least 4 CPUs for the first three exercises, but use at least 8 CPUs to run the single cell analysis). Select the <code>Introduction to NGS Data Analysis</code> as course (Nr 4). Then click on <code>Submit</code> (Nr 5).</p>
-<p><img src="../images/appSetup_edited.png" class="img-fluid"></p>
-<p><strong>7.</strong> You will be waiting in a queue looking like this</p>
-<p><img src="../images/waitingInQueue.png" class="img-fluid"></p>
-<p><strong>8.</strong> As soon as there are resources, you will have them available, and in a short time the course will be ready to run. The screen you get is in the image below. Here you can increase the number of hours you want the session to run (red circle), close the session (green circle) and open the interface for coding (blue circle)</p>
-<p><img src="../images/afterTheQueue_edited.png" class="img-fluid"></p>
+</section>
+<section id="step-4" class="level3">
+<h3 class="anchored" data-anchor-id="step-4">Step 4</h3>
+<p>The left-side menu can be used to access the stored data, applications, running programs and settings. Use the <strong>Applications</strong> symbol (in gray). Search for the <strong>Genomics Sandbox</strong> application to open its settings.</p>
+<p><img src="../img/genomics_app.png" class="img-fluid"></p>
+</section>
+<section id="step-5" class="level3">
+<h3 class="anchored" data-anchor-id="step-5">Step 5</h3>
+<p>Choose any Job Name (Nr 1 in the figure below), how many hours you want to use for the job (Nr 2, choose at least 2 hours, you can increase this later), and how many CPUs (Nr 3, choose at least 4 CPUs for the first three exercises, but use at least 8 CPUs to run the single cell analysis). Select the <code>Introduction to NGS Data Analysis</code> as course (Nr 4). Then click on <code>Submit</code> (Nr 5).</p>
+<p>You will be waiting in a queue looking like this:</p>
+</section>
+<section id="step-6" class="level3">
+<h3 class="anchored" data-anchor-id="step-6">Step 6</h3>
+<p>As soon as there are resources, you will have them available, and in a short time the course will be ready to run. The screen you get is in the image below. Here you can increase the number of hours you want the session to run (red circle), close the session (green circle) and open the interface for coding (blue circle)</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -283,20 +238,18 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p>Once you open the coding interface, it does not matter if you close the browser tab with the countdown timer. You can always access it again from the toolbar menu of uCloud. Simply click on <code>jobs</code> and choose your session from the list of running softwares:</p>
-<p><img src="../images/recoverJobs.gif" class="img-fluid"></p>
 </div>
 </div>
-<p><strong>9.</strong> Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
-<p><img src="../images/startNotebook.gif" class="img-fluid"></p>
-<section id="recovering-the-material-from-your-previous-session" class="level1">
-<h1>Recovering the material from your previous session</h1>
+<p>Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
+<section id="recovering-the-material-from-your-previous-session" class="level4">
+<h4 class="anchored" data-anchor-id="recovering-the-material-from-your-previous-session">Recovering the material from your previous session</h4>
 <p>It would be annoying to start from scratch at each session, with all the analysis to be executed again. You can of course find all the notebooks and results in your personal user folder in the workspace in which you are working.</p>
 <p>To retrieve your work add the folders <code>Data</code> and <code>Notebooks</code> in the submission page of the Genomics App. Those are inside your user folder (called <code>member Files: NameSurname#Number</code>) under <code>Jobs/Genomics Sandbox/SessionName</code>. For example, look at how the <code>Data</code> folder is added from a previous session:</p>
-<p><img src="../images/retrieveFolderData.gif" class="img-fluid"></p>
-<p>You need to do the same thing for the folder <code>Notebooks</code>. In the end you should have two folders added in your setup page just as below:</p>
-<p><img src="../images/retrievedFolders.png" class="img-fluid"></p>
+<p>You need to do the same thing for the folder <code>Notebooks</code>. In the end you should have two folders added in your setup page. Now, you are set to start running the notebooks!</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

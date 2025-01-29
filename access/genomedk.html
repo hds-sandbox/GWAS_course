@@ -73,8 +73,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-c206d4d102799b8289765bafb7c260f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -136,7 +136,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../develop/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -144,10 +144,6 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
  <span class="menu-text">Access</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
-        <li>
-    <a class="dropdown-item" href="../access/index.html">
- <span class="dropdown-text">General</span></a>
-  </li>  
         <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
@@ -158,37 +154,10 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
   </li>  
     </ul>
   </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tutorial</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS1-WhatIsAGWAS.html">
- <span class="dropdown-text">What is a GWAS?</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/GWAS1-WhatIsAGWAS.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS2-DataCollection.html">
- <span class="dropdown-text">Data Collection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS4-QualityControlB.html">
- <span class="dropdown-text">Quality Control B?</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS5-AssociationTesting.html">
- <span class="dropdown-text">Association Testing</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS6-PRSAnalysis.html">
- <span class="dropdown-text">PRS Analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS7-OtherToolsAndTesting.html">
- <span class="dropdown-text">Other tools and testing</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -201,8 +170,18 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#singularity-container" id="toc-singularity-container" class="nav-link active" data-scroll-target="#singularity-container">Singularity container</a>
+  <ul class="collapse">
+  <li><a href="#what-if-my-internet-connection-drops" id="toc-what-if-my-internet-connection-drops" class="nav-link" data-scroll-target="#what-if-my-internet-connection-drops">What if my internet connection drops?</a></li>
+  <li><a href="#recovering-the-material-from-your-previous-session" id="toc-recovering-the-material-from-your-previous-session" class="nav-link" data-scroll-target="#recovering-the-material-from-your-previous-session">Recovering the material from your previous session</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -226,7 +205,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<p>If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with <code>singularity</code>, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have <code>conda</code> installed and is shown <a href="../access/otherHPC.html">in the page dedicate to the access with any computing cluster</a>.</p>
+<p>If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with <code>singularity</code>, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have <code>conda</code> installed and is shown in the page dedicate to the access with <a href="../access/otherHPC.html">any computing cluster</a>.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Technical prerequisites">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -242,6 +221,8 @@ Technical prerequisites
 <li><p>you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. <a href="https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project">Follow these instructions to request a project.</a>. Please do not create a project only to run this course, but use an existing project folder.</p></li>
 <li><p>In Windows and the Powershell command line, commands might need <code>.exe</code> at the end, such as <code>ssh.exe</code> instead of <code>ssh</code>. Newer versions of Windows do not require that, though.</p></li>
 </ul>
+</div>
+</div>
 <section id="singularity-container" class="level2">
 <h2 class="anchored" data-anchor-id="singularity-container">Singularity container</h2>
 <p><strong>1.</strong> Log into the cluster using the command line, and substituting <code>USERNAME</code> with your actual user name:</p>
@@ -286,9 +267,7 @@ Warning
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The command line will change a bit its aspect. Now it’s time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for the first three modules, and 2 CPUs and 64GB of RAM for the single-cell analysis. For the first configuration suggested, for example, you get resources using</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>1 <span class="at">--time</span><span class="op">=</span>4:0:0  <span class="at">--account</span><span class="op">=</span>MYPROJECT <span class="at">--pty</span> /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>1 <span class="at">--time</span><span class="op">=</span>4:0:0  <span class="at">--account</span><span class="op">=</span>MYPROJECT <span class="at">--pty</span> /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -310,14 +289,14 @@ Note
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.sslVerify false</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span>  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhus/docker/scripts/courseMaterial.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>7.</strong> You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.</p>
-<p><img src="../images/nodeAndUsername.png" class="img-fluid" width="600"></p>
+<p><img src="../img/nodeAndUsername.png" class="img-fluid" width="600"></p>
 <p>Wrote down node and ID? Last step is to create a tunnel between your computer and genomeDK to be able to see jupyterlab in your browser. Now you need to <strong>use the node name and the user id</strong> you wrote down before! <strong>Open a new terminal window</strong> on your laptop and write</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>where you substitute <code>USERID</code> and <code>NODENAME</code> as you wrote down before, and then USERNAME is your account name on GenomeDK. For example <code>ssh -L 6835:s21n81:6835 samuele@login.genome.au.dk</code> according to the figure above for a user with name <code>samuele</code>.</p>
 <p><strong>8.</strong> Open your browser and go to the address http://127.0.0.1:USERID/lab, where you need your user id again instead of USERID. For example <code>http://127.0.0.1:6835/lab</code> from the figure above. Jupyterlab opens in your browser.</p>
 <p><strong>9.</strong> Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
-<p><img src="../images/startNotebook.gif" class="img-fluid"></p>
+<p><img src="../img/startNotebook.gif" class="img-fluid"></p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -345,8 +324,6 @@ Tip
 
 </section>
 </section>
-</div>
-</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -59,8 +59,8 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6a832b3d02efe1efaa77b2feeb968a3a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-dec82d7d67ffaf4cc5ad31c049d979b1.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-c206d4d102799b8289765bafb7c260f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -130,7 +130,7 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -151,7 +151,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../develop/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -159,10 +159,6 @@ window.Quarto = {
  <span class="menu-text">Access</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
-        <li>
-    <a class="dropdown-item" href="../access/index.html">
- <span class="dropdown-text">General</span></a>
-  </li>  
         <li>
     <a class="dropdown-item" href="../access/UCloud.html">
  <span class="dropdown-text">UCloud</span></a>
@@ -173,37 +169,10 @@ window.Quarto = {
   </li>  
     </ul>
   </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tutorial</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS1-WhatIsAGWAS.html">
- <span class="dropdown-text">What is a GWAS?</span></a>
+  <li class="nav-item">
+    <a class="nav-link active" href="../develop/GWAS1-WhatIsAGWAS.html" aria-current="page"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS2-DataCollection.html">
- <span class="dropdown-text">Data Collection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS4-QualityControlB.html">
- <span class="dropdown-text">Quality Control B?</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS5-AssociationTesting.html">
- <span class="dropdown-text">Association Testing</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS6-PRSAnalysis.html">
- <span class="dropdown-text">PRS Analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../develop/GWAS7-OtherToolsAndTesting.html">
- <span class="dropdown-text">Other tools and testing</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -211,33 +180,141 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS1-WhatIsAGWAS.html">What is a GWAS?</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/general-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Theory Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS1-WhatIsAGWAS.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">What is a GWAS?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data collection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data collection</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Quality Control</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Relatedness &amp; Population Stratification</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Association Testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5-AssociationTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Association testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic Score analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS7-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Other tools &amp; conclusions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-a-genome-wide-association-study" id="toc-what-is-a-genome-wide-association-study" class="nav-link active" data-scroll-target="#what-is-a-genome-wide-association-study">What is a genome-wide association study?</a>
-  <ul class="collapse">
-  <li><a href="#general-concepts" id="toc-general-concepts" class="nav-link" data-scroll-target="#general-concepts">General concepts</a></li>
+  <li><a href="#general-concepts" id="toc-general-concepts" class="nav-link active" data-scroll-target="#general-concepts">General concepts</a></li>
   <li><a href="#key-concepts" id="toc-key-concepts" class="nav-link" data-scroll-target="#key-concepts">Key concepts</a></li>
   <li><a href="#gwas-output" id="toc-gwas-output" class="nav-link" data-scroll-target="#gwas-output">GWAS output</a></li>
-  </ul></li>
   <li><a href="#gwas-examples" id="toc-gwas-examples" class="nav-link" data-scroll-target="#gwas-examples">GWAS examples</a></li>
   <li><a href="#overview-of-gwas-steps" id="toc-overview-of-gwas-steps" class="nav-link" data-scroll-target="#overview-of-gwas-steps">Overview of GWAS Steps</a></li>
   <li><a href="#software-overview-for-each-gwas-steps" id="toc-software-overview-for-each-gwas-steps" class="nav-link" data-scroll-target="#software-overview-for-each-gwas-steps">Software overview for each GWAS Steps</a></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS1-WhatIsAGWAS.out.ipynb" download="GWAS1-WhatIsAGWAS.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS1-WhatIsAGWAS.html">What is a GWAS?</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">What is a GWAS?</h1>
 </div>
@@ -256,13 +333,13 @@ window.Quarto = {
 </header>
 
 
-<div class="callout callout-style-default callout-note no-icon callout-titled" title="Information about this notebooks">
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Information about this notebook">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Information about this notebooks
+Information about this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -277,8 +354,6 @@ Information about this notebooks
 </section>
 </div>
 </div>
-<section id="what-is-a-genome-wide-association-study" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-a-genome-wide-association-study">What is a genome-wide association study?</h2>
 <p>A Genome-Wide Association Study (GWAS) aims to link genotype and phenotype information by identifying genetic variants that have a statistical association with a trait. A <strong>phenotype</strong>, also called <strong>trait</strong>, can be any measured or observed property of an individual. Phenotypes can include quantitative traits, like standing height or body mass index (BMI), as well as binary traits, such as diagnoses of multiple sclerosis or schizophrenia.</p>
 <p>GWAS are used to explore the genetic architecture of complex traits and address questions about the distribution of variants contributing to the resulting phenotype, and their associated effect size on the trait. To understand GWAS, it is important to familiarise yourself with the key components and terminology involved in these studies:</p>
 <section id="general-concepts" class="level3">
@@ -297,8 +372,16 @@ Information about this notebooks
 <section id="key-concepts" class="level3">
 <h3 class="anchored" data-anchor-id="key-concepts">Key concepts</h3>
 <p>GWAS have shown us that, in general, <strong>complex traits and common diseases are highly polygenic</strong>, influenced by many common variants with small effects. Identifying the exact causal variants for each phenotype is challenging due to the correlation structure among genetic variants (i.e., linkage disequilibrium, genetic interactions, etc.). Additionally, understanding the impact of rare variants on phenotypes requires very large sample sizes analyzed using genome sequencing techniques, rather than just SNP arrays.</p>
-<p>In GWAS, it is also crucial to account for potential <strong>confounding factors</strong>. This refers to variables that are linked to both the genetic variants and the trait of interest (i.e., population stratification). Failing to control for these factors can lead to spurious relationships between genetic variants and a trait. We’ll discuss how to address the issue in notebook 4 (Quality control).</p>
-<p>Here are some terms and concepts that you need to be familiar with: * <strong>Population stratification</strong> is the presence of multiple genetically distinct subpopulations that differ in their average phenotypic values (e.g., the distribution of north and south European individuals in PCA and the height of those individuals). When not accounted for, this can lead to spurious genetic associations. * <strong>Heritability</strong> is the proportion of variance of the phenotype that is due to genetic differences between individuals (recommended article: <span class="citation" data-cites="visscher2008heritability">Visscher, Hill, and Wray (<a href="#ref-visscher2008heritability" role="doc-biblioref">2008</a>)</span>). * <strong>Linkage disequilibrium, also known as LD,</strong> is the non-random association of alleles at different loci within a population. LD arises because alleles that are physically close on the same chromosome tend to be inherited together over generations (due to limited recombination), leading to a non-independent assortment of alleles at these loci. This means that certain genetic variants (SNPs, for instance) that are physically close to each other on the genome are often inherited together as a block. Tools like LDPred are key to tackling this problem (recommended reading: <span class="citation" data-cites="vilhjalmsson2015modeling">Vilhjálmsson et al. (<a href="#ref-vilhjalmsson2015modeling" role="doc-biblioref">2015</a>)</span>). * <strong>Winner’s curse</strong> effect size of newly discovered alleles tends to be overestimated. * <strong>Multiple testing</strong> refers to the statistical issue that arises when conducting multiple hypothesis tests simultaneously. In the context of GWAS, millions of genetic variants are tested for association with a trait. Researchers commonly apply the Bonferroni testing threshold by dividing the significant threshold by the number of independent tests. We will look further into other correction methods in Notebook 5. * <strong>Linear regression</strong> is the statistical method commonly used in GWAS to identify genetic variants associated with traits.</p>
+<p>In GWAS, it is also crucial to account for potential <strong>confounding factors</strong>. This refers to variables that are linked to both the genetic variants and the trait of interest (i.e., population stratification). Failing to control for these factors can lead to spurious relationships between genetic variants and a trait. We’ll discuss how to address the issue in notebook GWAS4 (Quality control).</p>
+<p>Here are some terms and concepts that you need to be familiar with:</p>
+<ul>
+<li><strong>Population stratification</strong> is the presence of multiple genetically distinct subpopulations that differ in their average phenotypic values (e.g., the distribution of north and south European individuals in PCA and the height of those individuals). When not accounted for, this can lead to spurious genetic associations.</li>
+<li><strong>Heritability</strong> is the proportion of variance of the phenotype that is due to genetic differences between individuals (recommended article: <span class="citation" data-cites="visscher2008heritability">Visscher, Hill, and Wray (<a href="#ref-visscher2008heritability" role="doc-biblioref">2008</a>)</span>).</li>
+<li><strong>Linkage disequilibrium, also known as LD,</strong> is the non-random association of alleles at different loci within a population. LD arises because alleles that are physically close on the same chromosome tend to be inherited together over generations (due to limited recombination), leading to a non-independent assortment of alleles at these loci. This means that certain genetic variants (SNPs, for instance) that are physically close to each other on the genome are often inherited together as a block. Tools like LDPred are key to tackling this problem (recommended reading: <span class="citation" data-cites="vilhjalmsson2015modeling">Vilhjálmsson et al. (<a href="#ref-vilhjalmsson2015modeling" role="doc-biblioref">2015</a>)</span>).</li>
+<li><strong>Winner’s curse</strong> effect size of newly discovered alleles tends to be overestimated.</li>
+<li><strong>Multiple testing</strong> refers to the statistical issue that arises when conducting multiple hypothesis tests simultaneously. In the context of GWAS, millions of genetic variants are tested for association with a trait. Researchers commonly apply the Bonferroni testing threshold by dividing the significant threshold by the number of independent tests. We will look further into other correction methods in Notebook 5.</li>
+<li><strong>Linear regression</strong> is the statistical method commonly used in GWAS to identify genetic variants associated with traits.</li>
+</ul>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -318,7 +401,6 @@ Why mixed models are important
 <p>The primary outcome of GWAS is <strong>summary statistics</strong>, which consist of a table detailing various attributes for each tested SNP, including the <strong>effect size</strong>. This metric quantifies the magnitude of association between the SNP and the trait, typically expressed as an odds ratio (OR) for binary traits or beta coefficients for quantitative traits. The summary statistics file includes essential information such as SNP ID, SNP chromosome (CHR), genomic position, alleles, strand orientation, effect size with standard error, P-value or test statistic, minor allele frequency, and sample size.</p>
 <p>Summary statistics can be used to calculate polygenic scores for a particular trait. A polygenic score (PGS) is an expression of the predicted genetic predisposition of an individual or a population of having a trait. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).</p>
 </section>
-</section>
 <section id="gwas-examples" class="level2">
 <h2 class="anchored" data-anchor-id="gwas-examples">GWAS examples</h2>
 <p>Now, let’s look at some recent examples of GWAS. There are two primary types, a) studies focusing on quantitative traits and b) those investigating disease phenotypes.</p>
@@ -328,7 +410,7 @@ Why mixed models are important
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/BMI.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 2: Manhattan plot displaying the <span class="math inline">\(–log_{10}\)</span> P-value of each SNP tested in a GWAS, such as the BMI study by <span class="citation" data-cites="locke2015genetic">Locke et al. (<a href="#ref-locke2015genetic" role="doc-biblioref">2015</a>)</span>. Although Manhattan plots will be explained later in the course, the key idea is that by setting a genome-wide significance threshold at p=5e-8, equivalent to <span class="math inline">\(–log_{10}(p)\)</span> = 7.3, we can identify variants significantly associated with the phenotype under study. In this plot, previously identified loci are shown in blue, new discoveries are in red, and each locus is labeled with a nearby gene (though the labeled gene may not necessarily be the causal one).</figcaption>
+<figcaption>Figure 1: Manhattan plot displaying the <span class="math inline">\(–log_{10}\)</span> P-value of each SNP tested in a GWAS, such as the BMI study by <span class="citation" data-cites="locke2015genetic">Locke et al. (<a href="#ref-locke2015genetic" role="doc-biblioref">2015</a>)</span>. Although Manhattan plots will be explained later in the course, the key idea is that by setting a genome-wide significance threshold at p=5e-8, equivalent to <span class="math inline">\(–log_{10}(p)\)</span> = 7.3, we can identify variants significantly associated with the phenotype under study. In this plot, previously identified loci are shown in blue, new discoveries are in red, and each locus is labeled with a nearby gene (though the labeled gene may not necessarily be the causal one).</figcaption>
 </figure>
 </div>
 </section>
@@ -338,7 +420,7 @@ Why mixed models are important
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/migraine.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 3: Manhattan plot from GWAS study on migraines by <span class="citation" data-cites="gormley_meta-analysis_2016">Gormley et al. (<a href="#ref-gormley_meta-analysis_2016" role="doc-biblioref">2016</a>)</span>.</figcaption>
+<figcaption>Figure 2: Manhattan plot from GWAS study on migraines by <span class="citation" data-cites="gormley_meta-analysis_2016">Gormley et al. (<a href="#ref-gormley_meta-analysis_2016" role="doc-biblioref">2016</a>)</span>.</figcaption>
 </figure>
 </div>
 <p>A third type of GWAS, known as <em>Trait GWAS</em>, focuses on investigating variants linked to specific traits or characteristics that are not quantitative but may not necessarily be a disease (e.g., eye color, hair texture, response to medicaments, etc. ).</p>
@@ -349,8 +431,8 @@ Why mixed models are important
 <p>The aim of genome‐wide association studies (GWAS) is to identify single nucleotide polymorphisms (SNPs)-of which the allele frequencies vary systematically-as a function of phenotypic trait values (e.g., between cases with schizophrenia and healthy controls, or between individuals with high vs.&nbsp;low scores on neuroticism). The identification of trait‐associated SNPs can provide new insights into the biological mechanisms underlying these phenotypes. Advances in technology have made it possible to study the effects of numerous SNPs spread across the genome. Before diving into the procedure, let’s review some essential concepts. The typical steps involved in a GWAS are illustrated in the figure below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Images/GWAS_Overview.webp" class="img-fluid figure-img"></p>
-<figcaption>Figure 4: Overview of GWAS Steps <span class="citation" data-cites="uffelmann_genome-wide_2021">(<a href="#ref-uffelmann_genome-wide_2021" role="doc-biblioref">Uffelmann et al. 2021</a>)</span></figcaption>
+<p><img src="Images/GWAS_Overview.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: Overview of GWAS Steps <span class="citation" data-cites="uffelmann_genome-wide_2021">(<a href="#ref-uffelmann_genome-wide_2021" role="doc-biblioref">Uffelmann et al. 2021</a>)</span></figcaption>
 </figure>
 </div>
 <ul>
@@ -366,7 +448,7 @@ Why mixed models are important
 </section>
 <section id="software-overview-for-each-gwas-steps" class="level2">
 <h2 class="anchored" data-anchor-id="software-overview-for-each-gwas-steps">Software overview for each GWAS Steps</h2>
-<p>Numerous software tools are available for conducting GWAS. <a href="https://www.nature.com/articles/s43586-021-00056-9/tables/1">This table</a> by <span class="citation" data-cites="uffelmann_genome-wide_2021">(<a href="#ref-uffelmann_genome-wide_2021" role="doc-biblioref">Uffelmann et al. 2021</a>)</span> provides an overview of state-of-the-art tools, categorized by each step in the analysis process.</p>
+<p>Numerous software tools are available for conducting GWAS. <a href="https://www.nature.com/articles/s43586-021-00056-9/tables/1">This table</a> by <span class="citation" data-cites="uffelmann_genome-wide_2021">Uffelmann et al. (<a href="#ref-uffelmann_genome-wide_2021" role="doc-biblioref">2021</a>)</span> provides an overview of state-of-the-art tools, categorized by each step in the analysis process.</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Wrapping up">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -391,18 +473,20 @@ Powerful and robust tools
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>There are more advanced tools such as LDAK, BOLT-LMM and Regenie. - LDAK contains non-standard models for GWAS and PRS analysis which are periodically updated. - BOLT-LMM is highly efficient for large datasets and more powerful at controlling for false positives due to the mixed model approach. - Regenie is written in C++ and fast at whole genome regression models on very large genome-wide association studies. These tools are computationally more intensive but necessary when the size of a study scales up considerably.</p>
+<p>There are more advanced tools such as LDAK, BOLT-LMM and Regenie.</p>
+<ul>
+<li>LDAK contains non-standard models for GWAS and PRS analysis which are periodically updated.</li>
+<li>BOLT-LMM is highly efficient for large datasets and more powerful at controlling for false positives due to the mixed model approach.</li>
+<li>Regenie is written in C++ and fast at whole genome regression models on very large genome-wide association studies. These tools are computationally more intensive but necessary when the size of a study scales up considerably.</li>
+</ul>
 </div>
 </div>
-</section>
-<section id="bibliography" class="level1">
-
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-gormley_meta-analysis_2016" class="csl-entry" role="listitem">
 Gormley, Padhraig, Verneri Anttila, Bendik S. Winsvold, Priit Palta, Tonu Esko, Tune H. Pers, Kai-How Farh, et al. 2016. <span>“Meta-Analysis of 375,000 Individuals Identifies 38 Susceptibility Loci for Migraine.”</span> <em>Nature Genetics</em> 48 (8): 856–66. <a href="https://doi.org/10.1038/ng.3598">https://doi.org/10.1038/ng.3598</a>.
 </div>
