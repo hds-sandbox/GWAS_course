@@ -31,6 +31,10 @@ A basic understanding of R programming and Unix is strongly recommended, along w
 - Conor O'Hare
 
 ### Acknowledgements: 
-- Center for Health Data Science, University of Copenhagen.
-- University of Helsinki, Marri Pirinen: https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course/
-- Andries T. Marees, check out [repo](https://github.com/MareesAT/GWA_tutorial/) accompanying the paper *A Tutorial on Conducting Genome‐Wide Association Studies: Quality Control and Statistical Analysis. DOI: 10.1002/mpr.1608 *
+- [Center for Health Data Science](https://heads.ku.dk/), University of Copenhagen
+- [Matti Pirinen, PhD](https://www.mv.helsinki.fi/home/mjxpirin/), University of Helsinki
+- [Andries T. Marees](https://research.vu.nl/en/persons/andries-marees), Vrije Universiteit Amsterdam
+
+### Resources 
+- GWAS course at the University of Helsinki by Marri Pirinen: https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course/
+- GWAS tutorials by Andries T. Marees, check out [repo](https://github.com/MareesAT/GWA_tutorial/) accompanying the paper *A Tutorial on Conducting Genome‐Wide Association Studies: Quality Control and Statistical Analysis*. DOI: 10.1002/mpr.1608.
