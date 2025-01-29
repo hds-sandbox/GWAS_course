@@ -1,0 +1,35 @@
+{
+  "develop/cards/AlbaMartinez.qmd": {
+    "AlbaMartinez.html": "d9d1ddda"
+  },
+  "develop/cards/SamueleSoraggi.qmd": {
+    "SamueleSoraggi.html": "bb46fded"
+  },
+  "develop/index.qmd": {
+    "index.html": "222f712e"
+  },
+  "access/index.qmd": {
+    "index.html": "6fc4c32b"
+  },
+  "access/otherHPC.qmd": {
+    "otherHPC.html": "d4c39b80"
+  },
+  "access/genomedk.qmd": {
+    "genomedk.html": "60bb3d69"
+  },
+  "develop/GWAS1-WhatIsAGWAS.qmd": {
+    "GWAS1-WhatIsAGWAS.html": "099092f1"
+  },
+  "develop/GWAS2-DataCollectionA.qmd": {
+    "GWAS2-DataCollectionA.html": "22b093b9"
+  },
+  "develop/GWAS0-geneticTheory.qmd": {
+    "GWAS0-geneticTheory.html": "834cc25b"
+  },
+  "access/UCloud.qmd": {
+    "UCloud.html": "1ab27ff8"
+  },
+  "develop/general-intro.qmd": {
+    "general-intro.html": "29901604"
+  }
+}
