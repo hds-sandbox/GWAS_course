@@ -5,7 +5,7 @@ listing:
   type: grid
   image-height: 175px
   grid-columns: 6
-css: ../index.css
+css: ../css/index.css
 author:
     - name: Conor O'Hare
     - name: Samuele Soraggi

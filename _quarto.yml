@@ -12,13 +12,9 @@ website:
       - href: develop/index.qmd
         text: Home
       - text: Access
-        menu: 
-          - href: access/UCloud.qmd
-            text: UCloud
-          - href: access/genomedk.qmd
-            text: Genome
+        href: access/setup.qmd
       - text: Tutorials
-        href: develop/GWAS1-WhatIsAGWAS.qmd
+        href: develop/general-intro.qmd
 
   sidebar:
     - title: "Introduction"
@@ -33,6 +29,7 @@ website:
             - develop/GWAS1-WhatIsAGWAS.qmd
             - develop/GWAS2-DataCollectionA.qmd
             - develop/GWAS2-DataCollection.ipynb
+            - develop/GWAS3-QualityControlA.ipynb
         - section: "Quality Control"
           contents:
             - develop/GWAS4-QualityControlB.ipynb
@@ -41,9 +38,17 @@ website:
             - develop/GWAS5-AssociationTesting.ipynb
             - develop/GWAS6-PRSAnalysis.ipynb
             - develop/GWAS7-OtherToolsAndTesting.ipynb
-
- #         - href: develop/GWAS3-QualityControlA.ipynb
- #           text: Quality Control A
+    - title: "General"
+      style: "docked"
+      search: true
+      contents:
+        - href: access/setup.qmd
+          text: General
+        - section: "Systems"
+          contents:
+            - access/UCloud.qmd
+            - access/genomedk.qmd
+            - access/otherHPC.qmd
 
 format:
   html:
