@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Accessing the NGS summer school on a computing cluster – Genome-Wide Association Studies</title>
+<title>Independent users – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -39,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c206d4d102799b8289765bafb7c260f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5b87d046f10a8b9497136065ba503507.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -81,7 +115,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -105,23 +139,12 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <a class="nav-link" href="../develop/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Access</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
-        <li>
-    <a class="dropdown-item" href="../access/UCloud.html">
- <span class="dropdown-text">UCloud</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../access/genomedk.html">
- <span class="dropdown-text">Genome</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../develop/GWAS1-WhatIsAGWAS.html"> 
+    <a class="nav-link active" href="../access/setup.html" aria-current="page"> 
+<span class="menu-text">Access</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
 </ul>
@@ -131,10 +154,70 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/UCloud.html">Systems</a></li><li class="breadcrumb-item"><a href="../access/otherHPC.html">Independent users</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">General</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/UCloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UCloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/genomedk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GenomeDK</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/otherHPC.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Independent users</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
@@ -142,9 +225,9 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/UCloud.html">Systems</a></li><li class="breadcrumb-item"><a href="../access/otherHPC.html">Independent users</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Accessing the NGS summer school on a computing cluster</h1>
+<h1 class="title">Independent users</h1>
 </div>
 
 
@@ -161,8 +244,26 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
+<p>The app is a <strong>Docker image</strong> that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command <code>start-app -c "Intro-to-GWAS"</code> (example below).</p>
+<p>Link: https://hub.docker.com/r/hdssandbox/genomicsapp.</p>
+<section id="pull-docker-image" class="level4">
+<h4 class="anchored" data-anchor-id="pull-docker-image">Pull docker image</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># docker</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull hdssandbox/genomicsapp</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># singularity</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull genomicsapp.sif docker://hdssandbox/genomicsapp </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="run-the-container" class="level4">
+<h4 class="anchored" data-anchor-id="run-the-container">Run the container</h4>
+<p>You can customize the port by using the <code>-p</code> option to select a different port for running the application. Additionally, if you already have data and notebooks locally, you can bind them to the container, avoiding the need for any new downloads. The command to run the container with these options looks like this:</p>
+<ul>
+<li><code>--rm</code>: This option removes the container after running, preventing your disk from filling up with cached images.</li>
+<li>Add <code>-v</code> /path/to/data to bind your local data/notebooks to the container</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-rm</span> <span class="at">-p</span> <span class="va">$PORT</span>:<span class="va">$PORT</span> genomicsapp.sif start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS"</span> <span class="at">-p</span> <span class="va">$PORT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

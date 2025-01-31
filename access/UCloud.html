@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c206d4d102799b8289765bafb7c260f9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-5b87d046f10a8b9497136065ba503507.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -81,7 +81,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 </head>
 
-<body class="docked nav-fixed">
+<body class="nav-sidebar docked nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -105,23 +105,12 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <a class="nav-link" href="../develop/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Access</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
-        <li>
-    <a class="dropdown-item" href="../access/UCloud.html">
- <span class="dropdown-text">UCloud</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../access/genomedk.html">
- <span class="dropdown-text">Genome</span></a>
-  </li>  
-    </ul>
-  </li>
   <li class="nav-item">
-    <a class="nav-link" href="../develop/GWAS1-WhatIsAGWAS.html"> 
+    <a class="nav-link active" href="../access/setup.html" aria-current="page"> 
+<span class="menu-text">Access</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
 </ul>
@@ -131,39 +120,80 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/UCloud.html">Systems</a></li><li class="breadcrumb-item"><a href="../access/UCloud.html">UCloud</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#using-ucloud" id="toc-using-ucloud" class="nav-link active" data-scroll-target="#using-ucloud">Using UCloud</a>
-  <ul class="collapse">
-  <li><a href="#step-1" id="toc-step-1" class="nav-link" data-scroll-target="#step-1">Step 1</a></li>
-  <li><a href="#step-2" id="toc-step-2" class="nav-link" data-scroll-target="#step-2">Step 2</a></li>
-  <li><a href="#step-3" id="toc-step-3" class="nav-link" data-scroll-target="#step-3">Step 3</a></li>
-  <li><a href="#step-4" id="toc-step-4" class="nav-link" data-scroll-target="#step-4">Step 4</a></li>
-  <li><a href="#step-5" id="toc-step-5" class="nav-link" data-scroll-target="#step-5">Step 5</a></li>
-  <li><a href="#step-6" id="toc-step-6" class="nav-link" data-scroll-target="#step-6">Step 6</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">General</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/UCloud.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">UCloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/genomedk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GenomeDK</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/otherHPC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Independent users</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/UCloud.html">Systems</a></li><li class="breadcrumb-item"><a href="../access/UCloud.html">UCloud</a></li></ol></nav></header>
 
 
 
 
-<section id="using-ucloud" class="level2">
-<h2 class="anchored" data-anchor-id="using-ucloud">Using UCloud</h2>
+<section id="ucloud" class="level1">
+<h1>UCloud</h1>
 <p><a href="https://cloud.sdu.dk">UCloud</a> is a relatively new HPC platform accessible to all researchers and students at Danish universities (via a WAYF university login). It features a user-friendly graphical interface that simplifies project, user, and resource management. UCloud offers access to numerous tools via selectable apps and a variety of flexible compute resources. Check out UCloud’s extensive user docs <a href="https://docs.cloud.sdu.dk/index.html">here</a>.</p>
 <p>If you’d like a more detailed explanation and guide on UCloud, including how to navigate and understand the dashboard better, feel free to check our guidelines on how to access our sandbox app and get started: <a href="https://hds-sandbox.github.io/access/UCloud.html">Sandbox guidelines</a>.</p>
 <section id="step-1" class="level3">
@@ -202,17 +232,6 @@ Only for participants at the workshop
 <figcaption>Dashboard</figcaption>
 </figure>
 </div>
-<!--
-:::{.callout-warning title="Exercise: drives and file explorer"}
-
-Click on the first button of the left menu (Files). The **Files** window will open. Here you can create **drives**, which are virtual storage units resembling the drives of a computer, where you can store, delete and move files around.
-
-Create a drive using the button on top of the window (`Create drive`), choose the resources available from the dropdown menu (in the workspace `My workspace` you probably have `u1-cephfs`) and assign a name. 
-
-Now you have created your drive! If you click into this, you can see new top buttons, for example to upload a file, create a folder and sync with another computer (which needs a software - click on the button to read more). When you have a drive, you can **mount** it into a software you want to use (mount means to make it available for the software to read/write from and to).
-
-:::
--->
 </section>
 <section id="step-4" class="level3">
 <h3 class="anchored" data-anchor-id="step-4">Step 4</h3>
@@ -221,7 +240,7 @@ Now you have created your drive! If you click into this, you can see new top but
 </section>
 <section id="step-5" class="level3">
 <h3 class="anchored" data-anchor-id="step-5">Step 5</h3>
-<p>Choose any Job Name (Nr 1 in the figure below), how many hours you want to use for the job (Nr 2, choose at least 2 hours, you can increase this later), and how many CPUs (Nr 3, choose at least 4 CPUs for the first three exercises, but use at least 8 CPUs to run the single cell analysis). Select the <code>Introduction to NGS Data Analysis</code> as course (Nr 4). Then click on <code>Submit</code> (Nr 5).</p>
+<p>Choose any Job Name (#1 in the figure below), how many hours you want to use for the job (#2, choose at least 2 hours, you can increase this later), and how many CPUs (#3, choose at least 4 CPUs for the first three exercises, but use at least 8 CPUs to run the single cell analysis). Select the <code>Introduction to GWAS</code> as course (#4). Then click on <code>Submit</code> (#5). The App needs to download data and packages which can take some time. See below <strong>how to reuse the data and avoid long waiting time</strong> (you need however to download data the first time you run the app).</p>
 <p>You will be waiting in a queue looking like this:</p>
 </section>
 <section id="step-6" class="level3">
@@ -243,12 +262,17 @@ Tip
 <p>Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
 <section id="recovering-the-material-from-your-previous-session" class="level4">
 <h4 class="anchored" data-anchor-id="recovering-the-material-from-your-previous-session">Recovering the material from your previous session</h4>
-<p>It would be annoying to start from scratch at each session, with all the analysis to be executed again. You can of course find all the notebooks and results in your personal user folder in the workspace in which you are working.</p>
-<p>To retrieve your work add the folders <code>Data</code> and <code>Notebooks</code> in the submission page of the Genomics App. Those are inside your user folder (called <code>member Files: NameSurname#Number</code>) under <code>Jobs/Genomics Sandbox/SessionName</code>. For example, look at how the <code>Data</code> folder is added from a previous session:</p>
-<p>You need to do the same thing for the folder <code>Notebooks</code>. In the end you should have two folders added in your setup page. Now, you are set to start running the notebooks!</p>
-
-
+<p>It would be annoying to start from scratch at each session, with all the analysis to be executed again. You can use data and notebooks running in a previous session of the App. <strong>Otherwise, the app will download the data and the notebooks every time</strong>.</p>
+<p>To choose the data from previous sessions, click on <code>Add folders</code> on the browsing bar appearing in the gray option box (red circle in the figure below). Then, find your latest session of the sandbox (inside the folder <code>Jobs/Genomics Sandbox</code> under your personal user folder as shown below) and choose the folder you need. In this example, accepted folders are <code>Data</code> and <code>Notebooks</code>.</p>
+<p><img src="../img/add_folder.png" class="img-fluid"></p>
 </section>
+</section>
+<section id="download-the-data-you-generated" class="level2">
+<h2 class="anchored" data-anchor-id="download-the-data-you-generated">Download the data you generated</h2>
+<p>You can easily download files you generated by right-clicking on selected files in the browser of Jupyterlab, and by choosing download (see figure below).</p>
+<p><img src="../img/download.png" class="img-fluid"></p>
+
+
 </section>
 </section>
 

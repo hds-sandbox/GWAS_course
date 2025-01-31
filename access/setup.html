@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Genome-Wide Association Studies</title>
+<title>Setup guidelines – Genome-Wide Association Studies</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,61 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../../">
-<script src="../../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5b87d046f10a8b9497136065ba503507.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -111,149 +77,240 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<link rel="stylesheet" href="../css/index.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../../img/logo.png" alt="" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Genome-Wide Association Studies</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> 
+    <a class="nav-link" href="../develop/index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Access</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
-        <li>
-    <a class="dropdown-item" href="../../../access/index.html">
- <span class="dropdown-text">General</span></a>
+  <li class="nav-item">
+    <a class="nav-link active" href="../access/setup.html" aria-current="page"> 
+<span class="menu-text">Access</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../../access/UCloud.html">
- <span class="dropdown-text">UCloud</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/general-intro.html"> 
+<span class="menu-text">Tutorials</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="../../../access/genomedk.html">
- <span class="dropdown-text">Genome</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorial" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Tutorial</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-tutorial">    
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS1-WhatIsAGWAS.html">
- <span class="dropdown-text">What is a GWAS?</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS2-DataCollection.html">
- <span class="dropdown-text">Data Collection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS3-QualityControlA.html">
- <span class="dropdown-text">Quality Control A</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS4-QualityControlB.html">
- <span class="dropdown-text">Quality Control B?</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS5-AssociationTesting.html">
- <span class="dropdown-text">Association Testing</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS6-PRSAnalysis.html">
- <span class="dropdown-text">PRS Analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../../../Notebooks-dev/GWAS7-OtherToolsAndTesting.html">
- <span class="dropdown-text">Other tools and testing</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/setup.html">General</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/setup.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">General</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/UCloud.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">UCloud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/genomedk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GenomeDK</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../access/otherHPC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Independent users</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
     </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Setup guidelines</h1>
+</div>
 
 
 
+<div class="quarto-title-meta column-page-right">
 
-<div id="6500d45d-84b5-4d77-ba56-f092467b3dba" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">.libPaths</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<ol class="list-inline">
-    <li>'/usr/local/spark-3.5.1-bin-hadoop3/R/lib'</li>
-    <li>'/work/projects/samuelealba_GWAS/Environment/lib/R/library'</li>
-</ol>
-</div>
-</div>
-<div id="c74ad7d6-2ea2-4ae9-a73f-024331d2ab70" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r.version <span class="ot">&lt;-</span> <span class="st">"2.3.3"</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"trevorld/r-optparse"</span>,<span class="at">lib=</span><span class="fu">.libPaths</span>()[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Downloading GitHub repo trevorld/r-optparse@HEAD
-Running `R CMD build`...
-Warning message in i.p(...):
-“installation of package ‘/tmp/Rtmp7XsPI5/file204473a4db96/optparse_1.7.5.tar.gz’ had non-zero exit status”</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-* checking for file ‘/tmp/Rtmp7XsPI5/remotes2044255d978d/trevorld-r-optparse-a7f641d/DESCRIPTION’ ... OK
-* preparing ‘optparse’:
-* checking DESCRIPTION meta-information ... OK
-* checking for LF line-endings in source and make files and shell scripts
-* checking for empty or unneeded directories
-* building ‘optparse_1.7.5.tar.gz’</code></pre>
-</div>
-</div>
-<div id="64bbc6f3-a38c-4e19-b60e-2506f3820f47" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"optparse"</span>,<span class="at">version=</span><span class="st">"1.7.5"</span> ,<span class="at">lib=</span><span class="fu">.libPaths</span>()[<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning message:
-“package ‘optparse’ is not available (for R version 3.4.3)”</code></pre>
-</div>
-</div>
+    
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<p>Here, you’ll find the guidelines for using the “Introduction to GWAS” module from our genomics app, developed by the <strong><a href="https://hds-sandbox.github.io">Health Data Science sandbox</a></strong>. We build our training modules as Docker images for easy deployment and use. This Docker container includes course tutorials, datasets, and tools for research or self-learning. The genomics app consists of several modules, with each course item built on JupyterLab. JupyterLab is a web-based integrated development environment for Jupyter notebooks, code, and data.</p>
+<section id="available-material" class="level2">
+<h2 class="anchored" data-anchor-id="available-material">Available material</h2>
+<p>Items are periodically added to this app and can be accessed differently depending on the platform/system. Each item can be a course, a setup to work with specific software, or a research workflow example. They come with all necessary packages installed, notebooks with computer code and explanations, and a dedicated webpage with additional material (notes, slides, recordings, etc.).</p>
+<section id="courses" class="level3">
+<h3 class="anchored" data-anchor-id="courses">Courses</h3>
+<p>The available modules are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Course name</th>
+<th>Description</th>
+<th>Links</th>
+<th>Programming language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Introduction to NGS data analysis</strong></td>
+<td>A one-week course to introduce NGS data, from data alignment to bioinformatics analysis</td>
+<td><a href="https://hds-sandbox.github.io/NGS_summer_course_Aarhus/">Webpage</a></td>
+<td>Python, R, bash</td>
+</tr>
+<tr class="even">
+<td><strong>Introduction to Population genomics</strong></td>
+<td>A course introducing and applying bioinformatics tool to perform a whole population genomics analysis</td>
+<td><a href="https://hds-sandbox.github.io/PopulationGenomicsCourse/">Webpage</a></td>
+<td>bash, R, python</td>
+</tr>
+<tr class="odd">
+<td><strong>Introduction to GWAS</strong></td>
+<td>An introductory course in Genome-Wide Association Studies</td>
+<td><a href="https://hds-sandbox.github.io/GWAS_course/">Webpage</a></td>
+<td>bash, R</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tools" class="level3">
+<h3 class="anchored" data-anchor-id="tools">Tools</h3>
+<p>The available tools are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tool name</th>
+<th>Description</th>
+<th>Links</th>
+<th>Programming language</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>IGV - Integrative Genomics viewer</strong></td>
+<td>A High-performance, easy-to-use, interactive tool for the visual exploration of genomic data. It supports flexible integration of all the common types of genomic data and metadata, investigator-generated or publicly available</td>
+<td><a href="https://igvteam.github.io/igv-webapp/">Official Manual</a></td>
+<td>Interactive User Interface</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="download-the-course-data-and-notebooks" class="level2">
+<h2 class="anchored" data-anchor-id="download-the-course-data-and-notebooks">Download the course data and notebooks</h2>
+<p>Each course is open-source, and the data is freely available. Here is the link to all repositories, where you can download the datasets and the notebooks.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Course name</th>
+<th>Data Repository</th>
+<th>Notebooks repo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Introduction to NGS data analysis</strong></td>
+<td><a href="https://zenodo.org/record/7670370">Zenodo Link</a></td>
+<td><a href="https://github.com/hds-sandbox/NGS_summer_course_Aarhus">GitHub repo</a></td>
+</tr>
+<tr class="even">
+<td><strong>Introduction to Population genomics</strong></td>
+<td><a href="https://zenodo.org/record/7670839">Zenodo Link</a></td>
+<td><a href="https://github.com/hds-sandbox/PopulationGenomicsCourse">GitHub repo</a></td>
+</tr>
+<tr class="odd">
+<td><strong>Introduction to GWAS</strong></td>
+<td><a href="https://github.com/hds-sandbox/GWAS_course">Zenodo Link</a></td>
+<td><a href="https://github.com/hds-sandbox/GWAS_course">GitHub repo</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="select-your-system" class="level2">
+<h2 class="anchored" data-anchor-id="select-your-system">Select your system</h2>
+<p>Select the appropriate system and follow the corresponding instructions:</p>
+<ul>
+<li><a href="../access/UCloud.html">UCloud</a></li>
+<li><a href="../access/genomedk.html">GenomeDK</a></li>
+<li><a href="../access/otherHPC.html">Independent Users</a></li>
+</ul>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -435,18 +492,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -478,7 +524,45 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -513,7 +597,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -561,7 +649,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
