@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS1-WhatIsAGWAS.html</loc>
+    <lastmod>2025-01-31T10:56:44.942Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/GWAS_course/develop/index.html</loc>
+    <lastmod>2025-01-31T13:49:19.064Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/GWAS_course/access/setup.html</loc>
+    <lastmod>2025-01-31T15:05:26.891Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/GWAS_course/access/UCloud.html</loc>
+    <lastmod>2025-02-03T09:44:16.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/GWAS_course/access/genomedk.html</loc>
+    <lastmod>2025-02-03T09:59:51.511Z</lastmod>
+  </url>
+  <url>
+    <loc>https://hds-sandbox.github.io/GWAS_course/access/otherHPC.html</loc>
+    <lastmod>2025-01-31T14:26:42.661Z</lastmod>
+  </url>
+</urlset>

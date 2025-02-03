@@ -2,12 +2,15 @@ project:
   type: website
 
 website:
-  title: "Genome-Wide Association Studies"
+  title: "GWAS"
+  site-url: 'https://hds-sandbox.github.io/GWAS_course/'
   google-analytics: 
     tracking-id: "G-EXW13D5861"
     anonymize-ip: true
   navbar:
     logo: /img/logo.png
+    logo-href: http://hds-sandbox.github.io/ 
+    background: primary
     left:
       - href: develop/index.qmd
         text: Home
@@ -15,6 +18,13 @@ website:
         href: access/setup.qmd
       - text: Tutorials
         href: develop/general-intro.qmd
+    right: 
+      - icon: github
+        href: https://github.com/hds-sandbox
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/company/ucph-heads/
+        aria-label: LinkedIn
 
   sidebar:
     - title: "Introduction"
@@ -50,9 +60,13 @@ website:
             - access/genomedk.qmd
             - access/otherHPC.qmd
 
+copyright: CC-BY-SA 4.0 license
+
 format:
   html:
     theme: 
       light: [materia, css/materialight.scss]
       dark: darkly
     toc: true
+filters:
+  - css/custom-callout.lua

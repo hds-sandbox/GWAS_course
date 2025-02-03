@@ -12,15 +12,22 @@ hide:
   - toc
 ---
 
-If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with `singularity`, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have `conda` installed and is shown in the page dedicate to the access with [any computing cluster](./otherHPC.qmd).
+If you are using GenomeDK as the HPC of your choice, you can use the pre-packaged Docker container, which contains JupyterLab and the necessary packages to run all the notebooks for our genomics app. GenomeDK comes with 'Singularity', which can import and execute Docker containers, ensuring full reproducibility of the analysis. Instructions for using the container through the terminal or desktop are available.
 
 :::{.callout-warning title="Technical prerequisites"}
 
-- if you do not yet have an account on GenomeDK, please get one [Click on this link to get to the account request.](https://console.genome.au.dk/user-requests/create/) and follow the instructions for the 2-factor authentication.
+- if you do not yet have an account on GenomeDK, please get one [here](https://console.genome.au.dk/user-requests/create/) and follow the instructions for the 2-factor authentication.
 
-- you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. [Follow these instructions to request a project.](https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project). Please do not create a project only to run this course, but use an existing project folder.
+- you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. [Follow these instructions to request a project](https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project). Please do not create a project only to run this course, but use an existing project folder.
 
 - In Windows and the Powershell command line, commands might need `.exe` at the end, such as `ssh.exe` instead of `ssh`. Newer versions of Windows do not require that, though.
+:::
+
+Follow the instructions below to get started.
+
+:::{.callout-warning}
+Whether you're using the terminal or desktop, **avoid working directly in your home folder `/home/username`**, as this has a limit of 100GB of space available. Work instead inside a previously established project folder. 
+
 :::
 
 ## Using GenomeDK Desktop
@@ -48,8 +55,6 @@ We recommend using [GenomeDK Desktop](https://desktop.genome.au.dk/) - a browser
 
 ## Using the terminal 
 
-#### Singularity container
-
 **1.** Log into the cluster using the command line, and substituting `USERNAME` with your actual user name:
 
 ```{.bash}
@@ -69,12 +74,6 @@ rm -rf ~/.singularity/cache/*
 cd MYPROJECT/ngsSummerSchool
 ```
 
-:::{.callout-warning}
-
-Do not work directly in your home folder `/home/username`, as this has a limit of 100GB of space available. Work instead inside a previously established project folder. 
-
-:::
-
 **3.** Use `singularity` to download the container of the course. This will take some time and show a lot of text, and at the end a file called `course.sif` is created into the folder.
 
 ```{.bash}
@@ -82,29 +81,24 @@ singularity pull course.sif docker://hdssandbox/ngssummerschool:2024.07
 ```
 
 :::{.callout-warning}
-
 You need to do this step only once!
-
 :::
 
-**4.**  Activate `tmux`: this will make things run in backround. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command 
+**4.**  Activate `tmux`: this will make things run in background. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command 
 
 
 ```{.bash}
 tmux
 ```
 
-The command line will change a bit its aspect. Now it's time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for the first three modules, and 2 CPUs and 64GB of RAM for the single-cell analysis. For the first configuration suggested, for example, you get resources using 
+The command line will change a bit its aspect. Now it's time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for this module. For the first configuration suggested, for example, you get resources using 
 
 ```{.bash}
 srun --mem=32g --cores=1 --time=4:0:0  --account=MYPROJECT --pty /bin/bash
 ```
 
 :::{.callout-note}
-
-Note you always need your project name, and you can also choose for how long you want the resources to be available to you. **Asking for resources means waiting for some time in a queue before they are assigned.** 
-
-In the example above `time` is 4 hours. After this time, whatever you are doing will be closed, so be sure to save your work in progress.
+You’ll need your project name and can choose how long you want resources available. * Requesting resources may involve a wait in the queue**. In the example above `time` is 4 hours, after which your session will be closed, so save your progress.
 
 :::
 
@@ -122,7 +116,6 @@ Note that the command line shows now `Apptainer>` on its left. We are *inside* t
 git config --global http.sslVerify false
 wget -qO-  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhus/docker/scripts/courseMaterial.sh | bash
 ```
-
 
 **7.** You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.
 

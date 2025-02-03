@@ -86,3 +86,23 @@ $footer-bg: #4266A1;
     border-radius: 30px;
     border: none;
   }
+
+ /* navbar sandbox logo, text not clickable */
+
+.navbar-brand img {
+  pointer-events: auto;
+  transform: scale(2);  /* Scale the image 2 times */
+  height: auto; /* Maintain aspect ratio */
+  width: auto; /* Maintain aspect ratio */
+}
+  
+.navbar-brand {
+  padding: 15px 15px !important; /* Adjust padding to maintain the layout */
+  pointer-events: none;
+}
+  
+.navbar-title {
+  pointer-events: none; /* Disable pointer events to make the title non-clickable */
+  cursor: none;
+  text-decoration: none;
+}

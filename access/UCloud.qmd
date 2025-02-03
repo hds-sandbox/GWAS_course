@@ -13,9 +13,9 @@ hide:
 
 # UCloud 
 
-[UCloud](https://cloud.sdu.dk) is a relatively new HPC platform accessible to all researchers and students at Danish universities (via a WAYF university login). It features a user-friendly graphical interface that simplifies project, user, and resource management. UCloud offers access to numerous tools via selectable apps and a variety of flexible compute resources. Check out UCloud’s extensive user docs [here](https://docs.cloud.sdu.dk/index.html).
+[UCloud](https://cloud.sdu.dk) is an HPC platform available to researchers and students at Danish universities (via a WAYF university login). It features a user-friendly graphical interface that simplifies project, user, and resource management. UCloud offers access to numerous tools via selectable apps and a variety of flexible compute resources. Check out UCloud’s extensive user docs [here](https://docs.cloud.sdu.dk/index.html). For a more detailed information on navigating UCloud and using our apps, check out the[Sandbox guidelines](https://hds-sandbox.github.io/access/UCloud.html).
 
-If you’d like a more detailed explanation and guide on UCloud, including how to navigate and understand the dashboard better, feel free to check our guidelines on how to access our sandbox app and get started: [Sandbox guidelines](https://hds-sandbox.github.io/access/UCloud.html).
+**If you’ve chosen UCloud as your HPC platform to use the Genomics app, follow the steps below.**
 
 ### Step 1
 Log onto UCloud at the address http://cloud.sdu.dk using university credentials.
