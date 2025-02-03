@@ -12,7 +12,7 @@ website:
     logo-href: http://hds-sandbox.github.io/ 
     background: primary
     left:
-      - href: develop/index.qmd
+      - href: ./index.qmd
         text: Home
       - text: Access
         href: access/setup.qmd
