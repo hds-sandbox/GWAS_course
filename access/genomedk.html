@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GenomeDK – Genome-Wide Association Studies</title>
+<title>GenomeDK – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,8 +73,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5b87d046f10a8b9497136065ba503507.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-861115e7b8f297c733bf121987cba69a.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4ad911697a1f4ed6b833b601edd3f225.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d63578fe8a621e50d47efdd6270a38ac.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,11 +122,11 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
     <img src="../img/logo.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Genome-Wide Association Studies</span>
+    <a class="navbar-brand" href="http://hds-sandbox.github.io/">
+    <span class="navbar-title">GWAS</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -146,6 +146,18 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
   <li class="nav-item">
     <a class="nav-link" href="../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hds-sandbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/ucph-heads/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -255,7 +267,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<p>If you are using GenomeDK, you have two options. One is to use a pre-packaged Docker container, which contains jupyterlab and the necessary packages to run all the notebooks. GenomeDK comes with <code>singularity</code>, which can import and execute Docker containers and is able to ensure full reproducibility of the analysis. The second option is to download the github repository of the course and create your own conda environment: this solution works also on any computing cluster where you can have <code>conda</code> installed and is shown in the page dedicate to the access with <a href="../access/otherHPC.html">any computing cluster</a>.</p>
+<p>If you are using GenomeDK as the HPC of your choice, you can use the pre-packaged Docker container, which contains JupyterLab and the necessary packages to run all the notebooks for our genomics app. GenomeDK comes with ‘Singularity’, which can import and execute Docker containers, ensuring full reproducibility of the analysis. Instructions for using the container through the terminal or desktop are available.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Technical prerequisites">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -267,10 +279,24 @@ Technical prerequisites
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>if you do not yet have an account on GenomeDK, please get one <a href="https://console.genome.au.dk/user-requests/create/">Click on this link to get to the account request.</a> and follow the instructions for the 2-factor authentication.</p></li>
-<li><p>you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. <a href="https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project">Follow these instructions to request a project.</a>. Please do not create a project only to run this course, but use an existing project folder.</p></li>
+<li><p>if you do not yet have an account on GenomeDK, please get one <a href="https://console.genome.au.dk/user-requests/create/">here</a> and follow the instructions for the 2-factor authentication.</p></li>
+<li><p>you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. <a href="https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project">Follow these instructions to request a project</a>. Please do not create a project only to run this course, but use an existing project folder.</p></li>
 <li><p>In Windows and the Powershell command line, commands might need <code>.exe</code> at the end, such as <code>ssh.exe</code> instead of <code>ssh</code>. Newer versions of Windows do not require that, though.</p></li>
 </ul>
+</div>
+</div>
+<p>Follow the instructions below to get started.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Whether you’re using the terminal or desktop, <strong>avoid working directly in your home folder <code>/home/username</code></strong>, as this has a limit of 100GB of space available. Work instead inside a previously established project folder.</p>
 </div>
 </div>
 <section id="using-genomedk-desktop" class="level2">
@@ -299,8 +325,6 @@ Technical prerequisites
 </section>
 <section id="using-the-terminal" class="level2">
 <h2 class="anchored" data-anchor-id="using-the-terminal">Using the terminal</h2>
-<section id="singularity-container" class="level4">
-<h4 class="anchored" data-anchor-id="singularity-container">Singularity container</h4>
 <p><strong>1.</strong> Log into the cluster using the command line, and substituting <code>USERNAME</code> with your actual user name:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>and be sure to run those two commands to remove space-filling cache data, which can make everything slower after a few times you run tutorials</p>
@@ -308,19 +332,6 @@ Technical prerequisites
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.singularity/cache/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>2.</strong> Get into a folder inside your project, for example</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MYPROJECT/ngsSummerSchool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Do not work directly in your home folder <code>/home/username</code>, as this has a limit of 100GB of space available. Work instead inside a previously established project folder.</p>
-</div>
-</div>
 <p><strong>3.</strong> Use <code>singularity</code> to download the container of the course. This will take some time and show a lot of text, and at the end a file called <code>course.sif</code> is created into the folder.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull course.sif docker://hdssandbox/ngssummerschool:2024.07</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -336,9 +347,9 @@ Warning
 <p>You need to do this step only once!</p>
 </div>
 </div>
-<p><strong>4.</strong> Activate <code>tmux</code>: this will make things run in backround. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command</p>
+<p><strong>4.</strong> Activate <code>tmux</code>: this will make things run in background. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The command line will change a bit its aspect. Now it’s time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for the first three modules, and 2 CPUs and 64GB of RAM for the single-cell analysis. For the first configuration suggested, for example, you get resources using</p>
+<p>The command line will change a bit its aspect. Now it’s time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for this module. For the first configuration suggested, for example, you get resources using</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>1 <span class="at">--time</span><span class="op">=</span>4:0:0  <span class="at">--account</span><span class="op">=</span>MYPROJECT <span class="at">--pty</span> /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -350,8 +361,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Note you always need your project name, and you can also choose for how long you want the resources to be available to you. <strong>Asking for resources means waiting for some time in a queue before they are assigned.</strong></p>
-<p>In the example above <code>time</code> is 4 hours. After this time, whatever you are doing will be closed, so be sure to save your work in progress.</p>
+<p>You’ll need your project name and can choose how long you want resources available. * Requesting resources may involve a wait in the queue**. In the example above <code>time</code> is 4 hours, after which your session will be closed, so save your progress.</p>
 </div>
 </div>
 <p><strong>5.</strong> execute the container with</p>
@@ -381,7 +391,6 @@ Tip
 <p>Right click on a notebook or a saved results file, and use the download option to save it locally on your computer.</p>
 </div>
 </div>
-</section>
 <section id="what-if-my-internet-connection-drops" class="level3">
 <h3 class="anchored" data-anchor-id="what-if-my-internet-connection-drops">What if my internet connection drops?</h3>
 <p>Now worries, <code>tmux</code> kept your material up and running. You only need a new terminal window to run the tunneling</p>
@@ -396,7 +405,7 @@ Tip
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
