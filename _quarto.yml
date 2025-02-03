@@ -3,7 +3,7 @@ project:
 
 website:
   title: "GWAS"
-  site-url: 'https://hds-sandbox.github.io/GWAS_course/'
+  site-url: 'https://hds-sandbox.github.io/GWAS_course/develop/'
   google-analytics: 
     tracking-id: "G-EXW13D5861"
     anonymize-ip: true
