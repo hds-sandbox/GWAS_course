@@ -1,1 +1,1 @@
-Sitemap: https://hds-sandbox.github.io/GWAS_course/sitemap.xml
+Sitemap: https://hds-sandbox.github.io/GWAS_course/develop/sitemap.xml
