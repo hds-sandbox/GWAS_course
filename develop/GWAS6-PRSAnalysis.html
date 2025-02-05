@@ -343,8 +343,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#computing-a-prs" id="toc-computing-a-prs" class="nav-link active" data-scroll-target="#computing-a-prs">1. Computing a PRS</a></li>
-  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">2. Conducting polygenic risk prediction analyses</a></li>
+  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">1. Conducting polygenic risk prediction analyses</a></li>
   <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">3. Polygenic risk score analysis with PRSice-2</a>
   <ul class="collapse">
   <li><a href="#prsice-analysis" id="toc-prsice-analysis" class="nav-link" data-scroll-target="#prsice-analysis">3.1 PRSice analysis</a></li>
@@ -387,7 +386,7 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This notebook focuses on polygenic scores, which are used to estimate an individual’s genetic predisposition to complex traits or diseases by combining information from multiple genetic variants previously identified in the GWAS study. It provides a step-by-step guide to performing a basic PRS analysis using <a href="https://choishingwan.github.io/PRSice/">PRSice</a> and explains how to interpret the results.</p>
+<p>Polygenic scores (PRS) estimate an individual’s genetic predisposition to complex traits or diseases by combining information from multiple genetic variants previously identified in the GWAS study. This notebook provides a step-by-step guide to performing a basic PRS analysis using <a href="https://choishingwan.github.io/PRSice/">PRSice</a> and explains how to interpret the results.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
@@ -405,22 +404,16 @@ Important notes for this notebook
 </div>
 </div>
 <p>While most individual associations found in GWAS studies are of small effect, information about them can be combined across the genome, to create a <strong>polygenic score (PGS)</strong>. These scores can be used to make <strong>genome-based predictions about the overall risk of having a particular trait or disease or about the genetic value for continuous traits</strong>. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).</p>
-<section id="computing-a-prs" class="level2">
-<h2 class="anchored" data-anchor-id="computing-a-prs">1. Computing a PRS</h2>
-<p>Single-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.</p>
-<p>A straightforward way to calculate a PGS is by summing the allele frequencies of statistically significant trait-associated variants, weighting them by their effect size, and ensuring independence among them (e.g.&nbsp;via LD pruning). A large discovery sample is required to accurately estimate SNP effect sizes (“contributions/weights”). However, when the target sample comes from the same ancestry, information from larger studies can be leveraged, making a sample of ~2,000 individuals sufficient to detect a meaningful proportion of the trait’s variance explained by the genome <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>. If additional samples are available, they should be prioritized for the discovery dataset to improve effect size accuracy.</p>
-<p>Although PRS are not powerful enough to predict individual disease risk <span class="citation" data-cites="wray2013pitfalls">(<a href="#ref-wray2013pitfalls" role="doc-biblioref">Wray et al. 2013</a>)</span>, it has been successfully used to show significant associations across traits. For example, a PRS analysis of schizophrenia demonstrated that an aggregate genetic risk score–derived from common SNPs with nominally significant associations discovery sample–was significantly associated with schizophrenia risk in an independent (target) sample. A significant association was identified, despite the available sample sizes being too small to detect genome-wide significant SNPs <span class="citation" data-cites="international2009common">(<a href="#ref-international2009common" role="doc-biblioref">Purcell Shaun M. shaun@ pngu. mgh. harvard. edu 1 2 b Wray Naomi R. 5 Stone Jennifer L. 1 2 3 4 Visscher Peter M. 5 O’Donovan Michael C. 6 Sullivan Patrick F. 7 Sklar Pamela 1 2 3 4 et al. 2009</a>)</span>. Additionally, GWAS for schizophrenia has been used to predict the risk in target samples with various related phenotypes, such as bipolar disorder, level of creativity, and even immune disorders <span class="citation" data-cites="power2015polygenic stringer2014genetic">(<a href="#ref-power2015polygenic" role="doc-biblioref">Power et al. 2015</a>; <a href="#ref-stringer2014genetic" role="doc-biblioref">Stringer et al. 2014</a>)</span>.</p>
-</section>
 <section id="conducting-polygenic-risk-prediction-analyses" class="level2">
-<h2 class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses">2. Conducting polygenic risk prediction analyses</h2>
-<p>To perform PRS analysis, trait-specific weights (betas for continuous traits and log odds ratios for binary traits) are obtained from a discovery GWAS. In the target sample, a PRS can be calculated for each individual or population by summing the weighted risk alleles. For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).</p>
-<p>A common practice involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Multiple PRS analyses are conducted with different thresholds. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.</p>
-<p>Once PRS are calculated, they are used in (logistic) regression models to predict how much of the variance in a specific trait is explained by the PRS. The prediction accuracy is measured by <span class="math inline">\(R^2\)</span> of the regression analysis. To estimate the variation explained by the PRS, the <span class="math inline">\(R^2\)</span> of a model with only covariates (e.g., MDS components) is compared to the <span class="math inline">\(R^2\)</span> of a model that includes both covariates and PRS. The increase in <span class="math inline">\(R^2\)</span> reflects the additional prediction accuracy explained by genetic risk factors. The prediction accuracy depends on trait heritability, SNP number, and discovery sample size, with a few thousand individuals typically sufficient for reliable <span class="math inline">\(R^2\)</span> estimates.</p>
+<h2 class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses">1. Conducting polygenic risk prediction analyses</h2>
+<p>Single-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.</p>
+<p>A PGS is typically calculated by summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect sizes, while ensuring independence among them (e.g., via LD pruning). These effect sizes—betas for continuous traits and log odds ratios for binary traits—are obtained from a discovery GWAS. Large discovery samples (also known as base or training samples) are needed for accurate estimates, but if the target sample shares ancestry, effect sizes from larger studies can be leveraged. A target sample of ~2,000 individuals may be sufficient to detect meaningful genetic contributions to trait variance <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>. For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).</p>
+<p>A common practice to calculate PRS involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.</p>
+<p>Once PRS are calculated, they are used in (logistic) regression models to assess the contribution to the trait variance. Prediction accuracy is measured by the increase in <span class="math inline">\(R^2\)</span>, comparing a baseline model with only covariates (e.g., MDS components) to a model that also includes PRS. This increase reflects the proportion of variance explained by genetic risk factors. Accuracy depends on trait heritability, SNP count, and discovery sample size, with a few thousand individuals typically sufficient for reliable estimates.</p>
 </section>
 <section id="polygenic-risk-score-analysis-with-prsice-2" class="level2">
 <h2 class="anchored" data-anchor-id="polygenic-risk-score-analysis-with-prsice-2">3. Polygenic risk score analysis with PRSice-2</h2>
-<p>To perform polygenic risk score analysis, one possible tool is <a href="https://choishingwan.github.io/PRSice/">PRSice</a>. In this tutorial, we provide a step-by-step guide to perform a simple polygenic risk score analysis using PRSice and explain how to interpret the results.</p>
-<p>We have supplied PRSice-2 with this course material ready to use.</p>
+<p><a href="https://choishingwan.github.io/PRSice/">PRSice</a> is a widely used tool for polygenic risk score analysis. This tutorial offers a step-by-step guide on its use and result interpretation.</p>
 <p>The installed package will include an R script that is straightforward to run. It requires the following information:</p>
 <ul>
 <li><code>--prsice</code>: the binary executable file</li>
@@ -443,16 +436,14 @@ Note
 <section id="prsice-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="prsice-analysis">3.1 PRSice analysis</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:</p>
-<div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="1">
+<div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> Results/GWAS6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data and software</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Software</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Create two links to data and softwares</p>
-<div id="c54ef0a9-e316-427a-8750-eea5c4289afb" class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Software</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We will apply PRSice by running the <code>R</code> script <code>PRSice.R</code>, which will create all necessary input files for <code>./Software/PRSice</code>. We then provide the results of association testing and specify the column names that contain information about SNPs, chromosomes, and other relevant data. This step is necessary because different association tools produce varying header formats. Finally, we will specify the location of our data, which is <code>TOY_TARGET_DATA</code>, and the phenotype format (binary: 0s and 1s).</p>
+<p>We will apply PRSice by running the <code>R</code> script <code>PRSice.R</code>, which will create all necessary input files for <code>./Software/PRSice</code>. We then provide the results of association testing and specify the column names that contain information about SNPs, chromosomes, and other relevant data. This step is necessary because association tools produce different header formats. Finally, we will specify the location of our data, which is <code>TOY_TARGET_DATA</code>, and the phenotype format (binary: 0s and 1s).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -466,19 +457,22 @@ Warning
 <p>If you get an error in the following command, try to restart the kernel in the <code>Kernel</code> menu. Sometimes links to folders are not recognized immediately.</p>
 </div>
 </div>
-<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ./Software/PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  </span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ./Software/PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ./Data/PRSice.R <span class="at">--out</span> Results/GWAS6/PRSice <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--prsice ./Software/PRSice <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--base ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ./Data/PRSice.R <span class="at">--out</span> Results/GWAS6/PRSice <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--prsice ./Software/PRSice <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>--base ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>PRSice 2.3.5 (2021-09-20) 
+<pre><code>Trying to install data.table in ./lib
+Cannot install data.table, will fall back and use read.table instead
+Note: It will be slower when reading large files
+PRSice 2.3.3 (2020-08-05) 
 https://github.com/choishingwan/PRSice
 (C) 2016-2020 Shing Wan (Sam) Choi and Paul F. O'Reilly
 GNU General Public License v3
@@ -486,7 +480,7 @@ If you use PRSice in any published work, please cite:
 Choi SW, O'Reilly PF.
 PRSice-2: Polygenic Risk Score Software for Biobank-Scale Data.
 GigaScience 8, no. 7 (July 1, 2019)
-2024-08-07 12:08:59
+2025-02-05 14:59:15
 ./Software/PRSice \
     --a1 A1 \
     --a2 A2 \
@@ -504,7 +498,7 @@ GigaScience 8, no. 7 (July 1, 2019)
     --or  \
     --out Results/GWAS6/PRSice \
     --pvalue P \
-    --seed 1252005307 \
+    --seed 173747611 \
     --snp SNP \
     --stat OR \
     --target ./Data/TOY_TARGET_DATA \
@@ -520,7 +514,22 @@ Base file: ./Data/TOY_BASE_GWAS.assoc
 Header of file is: 
 SNP CHR BP A1 A2 P OR 
 
-Reading 31.61%</code></pre>
+Reading 31.59%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>IOPub message rate exceeded.
+The Jupyter server will temporarily stop sending output
+to the client in order to avoid crashing it.
+To change this limit, set the config variable
+`--ServerApp.iopub_msg_rate_limit`.
+
+Current values:
+ServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
+ServerApp.rate_limit_window=3.0 (secs)
+</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Clumping Progress: 62.23%</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>IOPub message rate exceeded.
@@ -551,8 +560,8 @@ Plotting the high resolution plot
 </div>
 </div>
 <ul>
-<li>The <code>--base</code> parameter refers to the file with summary statistics from the base sample (also known as discovery or training samples). These summary statistics contain for each genetic variant at least an effect size and p-value.</li>
-<li>The <code>--target</code> parameter refers to the prefix of the files (without file extension) that contain the genotype data in binary plink format (i.e., .bed,.bim,.fam file extensions). The base and target samples are also known as validation or test samples. This target sample should be completely independent of the base sample that was used to compute the summary statistics. Sample overlap across the discovery and target sample will greatly inflate the association between the polygenic risk score and the disease trait.</li>
+<li>The <code>--base</code> parameter refers to the file with summary statistics from the base sample. Each line represents a single SNP and includes details such as effect size and p-value.</li>
+<li>The <code>--target</code> parameter specifies the prefix of genotype data files in binary PLINK format (.bed, .bim, .fam). The base and target samples must be independent to avoid inflated polygenic risk score associations.</li>
 </ul>
 <p>If the type effect (<code>--stat</code>) or data type (<code>--binary-target</code>) were not specified, PRSice will try to determine this information based on the header of the base file.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
@@ -566,11 +575,11 @@ Stop - Read - Solve
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Can you use all genomic variants for calculating PRS?</li>
-<li>How can you determine which variants should be used?</li>
-<li>Are LD blocks shared among populations of different ancestry?</li>
+<li>Can all genomic variants be used for calculating PRS? Why or why not?</li>
+<li>How can you determine which variants should be included in the PRS calculation?</li>
+<li>Are linkage disequilibrium (LD) blocks shared across populations with different ancestry? Explain your reasoning.</li>
 </ul>
-<p>Hint: read the [PRSice user manual](https://choishingwan.github.io/PRSice/step_by_step and <span class="citation" data-cites="berisa2016approximately">Berisa and Pickrell (<a href="#ref-berisa2016approximately" role="doc-biblioref">2016</a>)</span></p>
+<p>Hint: read the [PRSice user manual](https://choishingwan.github.io/PRSice/step_by_step and <span class="citation" data-cites="berisa2016approximately">Berisa and Pickrell (<a href="#ref-berisa2016approximately" role="doc-biblioref">2016</a>)</span>.</p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
@@ -583,15 +592,18 @@ Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Handling correlated SNPs is crucial in polygenic risk score (PRS) analysis, particularly for variants in high linkage disequilibrium (LD). It is not advisable to use all genetic variants without considering LD as it would lead to inflated significance and false positives. A common method to tackle this issue is <a href="https://choishingwan.github.io/PRS-Tutorial/ldpred/">LD Pred2</a>, which employs a Bayesian approach to adjust SNP effect sizes by accounting for LD patterns.</p>
-<p>PRSice uses a different approach called <strong>clumping</strong>, where within each block of correlated SNPs, the SNP with the lowest p-value from the discovery set is selected, and the remaining SNPs are excluded from further analysis. This clumping process is automatically performed by PRSice but can be customized using various clumping parameters. For more detailed information about clumping and other available options, refer to the <a href="https://choishingwan.github.io/PRSice/step_by_step/#clumping">PRSice user manual</a>.</p>
+<ul>
+<li>No, not all variants should be used. Variants in high LD (highly correlated) should be handled carefully to avoid inflated significance and false positives.</li>
+<li>Variants should be selected based on their association with the trait and their independence from other variants. Two common approaches for handling correlated SNPs are: - LD clumping (e.g., <a href="https://choishingwan.github.io/PRSice/step_by_step/#clumping">PRSice</a>): correlated SNPs within each LD block are filtered by selecting the one with the lowest p-value from the discovery set. Other SNPs in the same block are excluded. Clumping parameters can be customized. - Bayesian adjustments (e.g., <a href="https://choishingwan.github.io/PRS-Tutorial/ldpred/">LD Pred2</a>) use a Bayesian framework to adjust the effect sizes of SNPs by accounting for LD patterns across the genome. This helps refine PRS calculations and corrects for correlated SNPs.</li>
+<li>No, LD blocks can differ between populations of different ancestry due to genetic history and environment. It is essential to account for these differences when calculating PRS, especially when using cross-population data.</li>
+</ul>
 </div>
 </div>
 <p>For simplicity’s sake, we did not include principal components or covariates in this analysis, however, when conducting your analyses we <strong>strongly recommend</strong> including these.</p>
 </section>
 <section id="interpreting-the-results" class="level3">
 <h3 class="anchored" data-anchor-id="interpreting-the-results">3.2 Interpreting the results</h3>
-<p>By default, PRSice saves two plots and several text files. The first plot is <code>PRSice_BARPLOT_&lt;date&gt;.png</code>(<strong>which you need to open from the folder Result/GWAS6 using the file browser</strong> since the name depends on the current date. Below, you can see a screenshot of the figure). This plot shows the predictive value (Nagelkerke’s) in the target sample of models based on SNPs with p-values below specific thresholds in the base sample. In addition, for each model, a p-value is provided.</p>
+<p>By default, PRSice saves two plots and several text files. The first plot is <code>PRSice_BARPLOT_&lt;date&gt;.png</code>(<strong>which you find in Result/GWAS6 using the file browser</strong>, the filename depends on the current date). This plot illustrates the predictive value (Nagelkerke’s R²) in the target sample based on SNPs with p-values below specific thresholds in the base sample. A p-value is also provided for each model.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Images/PRSice_BARPLOT.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
@@ -624,17 +636,17 @@ Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>As shown in the plot, a model using SNPs with a p-value up to 0.4463 achieves the highest predictive value in the target sample with a p-value of 4.7e-18. However, as is often the case in polygenic risk scores analysis with relatively small samples, the predictive value is relatively low (Nagelkerke’s around 5%). The text files include the exact values for each p-value threshold (check them!).</p>
-<p>The phenotypic variation (PRS.R2) explained by these variants is 0.05. - PRS.R2: quantifies hoe much of the trait variation is attributable to the genetic variants used in the analysis - Full.R2_ represents the total variance explained by the full model (genetic variants and any other covariates used) - Null.R3: indicated the variance explained by the model without the PRS component (i.e., just the covariates)</p>
+<p>As shown in the plot, a model using SNPs with a p-value &lt; 0.4463 achieves the highest predictive value in the target sample (p-value= 4.7e-18). However, as is often the case in polygenic risk scores analysis with relatively small samples, the predictive value is relatively low (Nagelkerke’s around 5%). The text files include the exact values for each p-value threshold (check them!).</p>
+<p>The phenotypic variation (<code>PRS.R2</code>) explained by these variants is 0.05. - PRS.R2: quantifies how much of the trait variation is attributable to the genetic variants used in the analysis - Full.R2: represents the total variance explained by the full model (genetic variants and any other covariates used) - Null.R3: indicates the variance explained by the model without the PRS component (i.e., just the covariates)</p>
 </div>
 </div>
-<p>The second plot <code>PRSice_HIGH-RES_PLOT_&lt;date&gt;.png</code> (<strong>which you again need to manually open</strong>, but we show also a screenshot below) shows many different p-value thresholds. The p-value of the predictive effect is in black together with an aggregated trend line in green.</p>
+<p>The second plot <code>PRSice_HIGH-RES_PLOT_&lt;date&gt;.png</code> (<strong>which you again can manually open</strong>) shows many different p-value thresholds. The p-value of the predictive effect is in black together with an aggregated trend line in green.</p>
 <p><img src="Images/PRSice_HIGH-RES_PLOT.png" class="img-fluid" width="600"></p>
-<p>Both figures demonstrate that many SNPs associated with the trait in the base sample can help predict the trait in the target sample. The traits being compared can be either the same or different. If the same trait is used, the predictive power is related to the trait’s heritability and the base sample size. When different traits are analyzed, the predictive power also depends on the genetic correlation between the two traits. Some studies have suggested that polygenic risk score analyses using models with more lenient p-value thresholds (i.e., including more SNPs) often capture smaller effects that are important for complex traits involving many variants with very small effects. Conversely, more stringent thresholds reduce noise, making it easier to understand the polygenic architecture. Finding the right balance between including informative SNPs and minimizing noise is crucial for maximizing predictive power while maintaining meaningful interpretation.</p>
+<p>Both figures show that trait-associated SNPs in the base sample can predict the trait in the target sample. If the same trait is used, predictive power depends on the trait’s heritability and base sample size. When using related but different traits, the predictive power also depends on their genetic correlation. Studies suggest that models with more lenient p-value thresholds capture smaller effects important for complex traits, while stricter thresholds reduce noise, aiding interpretation and the understanding of the underlying genetic architecture. Balancing informative SNPs and minimizing noise is key to maximizing predictive power.</p>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and how to interpret its results. When PLINK genotype target files are available, PRSice provides a relatively easy way of performing polygenic risk score analysis. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates, and principal components and adjusting clumping parameters. It is therefore recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
+<p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is therefore recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
 </section>
 </section>
 <section id="further-reading" class="level2">
@@ -651,9 +663,9 @@ Other take-home messages
 <div class="callout-body-container callout-body">
 <ul>
 <li>Population structure can be handled with PCs and mixed models (e.g., BOLT-LMM) (although never perfectly)</li>
-<li>In large meta-analyses, unlikely that bias would be consistent in most studies</li>
 <li>Replication in (several) other cohorts provides convincing evidence</li>
 <li>Applying stringent statistics (P&lt;5e-8) helps to reduce the likelihood of false-positive results</li>
+<li>Controlling for population structure is important, as bias from population structure is unlikely to be consistent across most studies in large meta-analyses.</li>
 </ul>
 </div>
 </div>
@@ -669,18 +681,6 @@ Berisa, Tomaz, and Joseph K Pickrell. 2016. <span>“Approximately Independent L
 </div>
 <div id="ref-dudbridge2013power" class="csl-entry" role="listitem">
 Dudbridge, Frank. 2013. <span>“Power and Predictive Accuracy of Polygenic Risk Scores.”</span> <em>PLoS Genetics</em> 9 (3): e1003348.
-</div>
-<div id="ref-power2015polygenic" class="csl-entry" role="listitem">
-Power, Robert A, Stacy Steinberg, Gyda Bjornsdottir, Cornelius A Rietveld, Abdel Abdellaoui, Michel M Nivard, Magnus Johannesson, et al. 2015. <span>“Polygenic Risk Scores for Schizophrenia and Bipolar Disorder Predict Creativity.”</span> <em>Nature Neuroscience</em> 18 (7): 953–55.
-</div>
-<div id="ref-international2009common" class="csl-entry" role="listitem">
-Purcell Shaun M. shaun@ pngu. mgh. harvard. edu 1 2 b Wray Naomi R. 5 Stone Jennifer L. 1 2 3 4 Visscher Peter M. 5 O’Donovan Michael C. 6 Sullivan Patrick F. 7 Sklar Pamela 1 2 3 4, International Schizophrenia Consortium Manuscript preparation, Polygene analyses subgroup Wray Naomi R. 5 Macgregor Stuart 5 Sklar Pamela sklar@ chgr. mgh. harvard. edu 1 2 3 4 d Sullivan Patrick F. 7 O’Donovan Michael C. 6 Visscher Peter M. 5, Hugh Gurling, Douglas HR Blackwood, Aiden Corvin, Nick J Craddock, Michael Gill, Christina M Hultman, George K Kirov, et al. 2009. <span>“Common Polygenic Variation Contributes to Risk of Schizophrenia and Bipolar Disorder.”</span> <em>Nature</em> 460 (7256): 748–52.
-</div>
-<div id="ref-stringer2014genetic" class="csl-entry" role="listitem">
-Stringer, Sven, René S Kahn, Lot D de Witte, Roel A Ophoff, and Eske M Derks. 2014. <span>“Genetic Liability for Schizophrenia Predicts Risk of Immune Disorders.”</span> <em>Schizophrenia Research</em> 159 (2-3): 347–52.
-</div>
-<div id="ref-wray2013pitfalls" class="csl-entry" role="listitem">
-Wray, Naomi R, Jian Yang, Ben J Hayes, Alkes L Price, Michael E Goddard, and Peter M Visscher. 2013. <span>“Pitfalls of Predicting Complex Traits from SNPs.”</span> <em>Nature Reviews Genetics</em> 14 (7): 507–15.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
