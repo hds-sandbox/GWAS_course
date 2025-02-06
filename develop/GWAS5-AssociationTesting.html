@@ -346,16 +346,16 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#modelling" id="toc-modelling" class="nav-link active" data-scroll-target="#modelling">6.1 Modelling</a>
+  <li><a href="#modelling" id="toc-modelling" class="nav-link active" data-scroll-target="#modelling">Modelling</a>
   <ul class="collapse">
   <li><a href="#the-linear-regression-model" id="toc-the-linear-regression-model" class="nav-link" data-scroll-target="#the-linear-regression-model">The linear regression model</a></li>
   <li><a href="#plink-in-association-testing" id="toc-plink-in-association-testing" class="nav-link" data-scroll-target="#plink-in-association-testing">PLINK in association testing</a></li>
-  <li><a href="#analysis-with-plink" id="toc-analysis-with-plink" class="nav-link" data-scroll-target="#analysis-with-plink">6.1.1 Analysis with PLINK</a></li>
+  <li><a href="#analysis-with-plink" id="toc-analysis-with-plink" class="nav-link" data-scroll-target="#analysis-with-plink">Analysis with PLINK</a></li>
   </ul></li>
-  <li><a href="#correction-for-multiple-testing" id="toc-correction-for-multiple-testing" class="nav-link" data-scroll-target="#correction-for-multiple-testing">6.2 Correction for multiple testing</a>
+  <li><a href="#correction-for-multiple-testing" id="toc-correction-for-multiple-testing" class="nav-link" data-scroll-target="#correction-for-multiple-testing">Correction for multiple testing</a>
   <ul class="collapse">
   <li><a href="#examining-plink---assoc-output" id="toc-examining-plink---assoc-output" class="nav-link" data-scroll-target="#examining-plink---assoc-output">Examining PLINK <code>--assoc</code> output</a></li>
-  <li><a href="#commands" id="toc-commands" class="nav-link" data-scroll-target="#commands">6.3.1 Commands</a></li>
+  <li><a href="#plink-commands" id="toc-plink-commands" class="nav-link" data-scroll-target="#plink-commands">PLINK Commands</a></li>
   <li><a href="#manhattan-and-qq-plots" id="toc-manhattan-and-qq-plots" class="nav-link" data-scroll-target="#manhattan-and-qq-plots">Manhattan and QQ-plots</a></li>
   </ul></li>
   </ul>
@@ -437,7 +437,7 @@ Some theory
 <p>In GWAS, linear models have been typically used for continuous phenotypes (e.g.&nbsp;BMI, height, blood pressure) and logistic models for binary traits (e.g.&nbsp;disease presence). These models account for fixed effects (such as genotype) but also need to consider random effects, represented as an error term, <span class="math inline">\(e\)</span>, to minimize the influence of covariates, like sex of population structure.</p>
 <p>Linear mixed models (LMMs) are increasingly popular as an alternative to standard linear models and have proven to be effective for analyzing complex traits. They adjust for confounding factors such as population stratification, family structure, and cryptic relatedness, resulting in more reliable test statistics. However, they are usually more computationally demanding.</p>
 <section id="modelling" class="level1">
-<h1>6.1 Modelling</h1>
+<h1>Modelling</h1>
 <section id="the-linear-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="the-linear-regression-model">The linear regression model</h3>
 <p>The basic linear regression model is written as:</p>
@@ -458,7 +458,7 @@ Some theory
 <p>However, non‐additive tests are not widely applied, because the statistical power to detect non‐additivity is low in practice. More complex analyses (e.g., Cox regression analysis) can be performed by using R‐based “plug‐in” functions in PLINK.</p>
 </section>
 <section id="analysis-with-plink" class="level3">
-<h3 class="anchored" data-anchor-id="analysis-with-plink">6.1.1 Analysis with PLINK</h3>
+<h3 class="anchored" data-anchor-id="analysis-with-plink">Analysis with PLINK</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>We link the data folder again and create a folder for output files.</p>
 <div id="fc7317ea-43cf-4538-80f5-88d38de2e2c4" class="cell" data-tags="[]" data-execution_count="5">
@@ -543,7 +543,7 @@ Note
 </section>
 </section>
 <section id="correction-for-multiple-testing" class="level1">
-<h1>6.2 Correction for multiple testing</h1>
+<h1>Correction for multiple testing</h1>
 <p>Modern genotyping arrays can test up to 4 million markers, increasing the risk of false positives due to multiple testing. While a single comparison has a low error rate, analyzing millions of markers amplifies this risk. Common methods to address this include:</p>
 <ul>
 <li><strong>Bonferroni Correction</strong>: Adjusts the p-value threshold by dividing <span class="math inline">\(0.05\)</span> by the number of tests, controlling false positives. It controls the probability of at least one false positive but may be overly strict due to SNP correlation caused by linkage disequilibrium (hence, increased FN).</li>
@@ -619,8 +619,8 @@ Solution
 </div>
 <hr>
 </section>
-<section id="commands" class="level3">
-<h3 class="anchored" data-anchor-id="commands">6.3.1 Commands</h3>
+<section id="plink-commands" class="level3">
+<h3 class="anchored" data-anchor-id="plink-commands">PLINK Commands</h3>
 <p>We know that no SNPs would pass the strict BF cutoff, is this also the case for other correction approaches?</p>
 <section id="adjustment-for-multiple-testing" class="level4">
 <h4 class="anchored" data-anchor-id="adjustment-for-multiple-testing">Adjustment for multiple testing</h4>

@@ -343,11 +343,11 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">1. Conducting polygenic risk prediction analyses</a></li>
-  <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">3. Polygenic risk score analysis with PRSice-2</a>
+  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">Conducting polygenic risk prediction analyses</a></li>
+  <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">Polygenic risk score analysis with PRSice-2</a>
   <ul class="collapse">
-  <li><a href="#prsice-analysis" id="toc-prsice-analysis" class="nav-link" data-scroll-target="#prsice-analysis">3.1 PRSice analysis</a></li>
-  <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">3.2 Interpreting the results</a></li>
+  <li><a href="#prsice-analysis" id="toc-prsice-analysis" class="nav-link" data-scroll-target="#prsice-analysis">2.1 PRSice analysis</a></li>
+  <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the results</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
@@ -405,14 +405,14 @@ Important notes for this notebook
 </div>
 <p>While most individual associations found in GWAS studies are of small effect, information about them can be combined across the genome, to create a <strong>polygenic score (PGS)</strong>. These scores can be used to make <strong>genome-based predictions about the overall risk of having a particular trait or disease or about the genetic value for continuous traits</strong>. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).</p>
 <section id="conducting-polygenic-risk-prediction-analyses" class="level2">
-<h2 class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses">1. Conducting polygenic risk prediction analyses</h2>
+<h2 class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses">Conducting polygenic risk prediction analyses</h2>
 <p>Single-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.</p>
 <p>A PGS is typically calculated by summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect sizes, while ensuring independence among them (e.g., via LD pruning). These effect sizes—betas for continuous traits and log odds ratios for binary traits—are obtained from a discovery GWAS. Large discovery samples (also known as base or training samples) are needed for accurate estimates, but if the target sample shares ancestry, effect sizes from larger studies can be leveraged. A target sample of ~2,000 individuals may be sufficient to detect meaningful genetic contributions to trait variance <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>. For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).</p>
 <p>A common practice to calculate PRS involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.</p>
 <p>Once PRS are calculated, they are used in (logistic) regression models to assess the contribution to the trait variance. Prediction accuracy is measured by the increase in <span class="math inline">\(R^2\)</span>, comparing a baseline model with only covariates (e.g., MDS components) to a model that also includes PRS. This increase reflects the proportion of variance explained by genetic risk factors. Accuracy depends on trait heritability, SNP count, and discovery sample size, with a few thousand individuals typically sufficient for reliable estimates.</p>
 </section>
 <section id="polygenic-risk-score-analysis-with-prsice-2" class="level2">
-<h2 class="anchored" data-anchor-id="polygenic-risk-score-analysis-with-prsice-2">3. Polygenic risk score analysis with PRSice-2</h2>
+<h2 class="anchored" data-anchor-id="polygenic-risk-score-analysis-with-prsice-2">Polygenic risk score analysis with PRSice-2</h2>
 <p><a href="https://choishingwan.github.io/PRSice/">PRSice</a> is a widely used tool for polygenic risk score analysis. This tutorial offers a step-by-step guide on its use and result interpretation.</p>
 <p>The installed package will include an R script that is straightforward to run. It requires the following information:</p>
 <ul>
@@ -434,7 +434,7 @@ Note
 </div>
 </div>
 <section id="prsice-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="prsice-analysis">3.1 PRSice analysis</h3>
+<h3 class="anchored" data-anchor-id="prsice-analysis">2.1 PRSice analysis</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:</p>
 <div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
@@ -602,7 +602,7 @@ Solution
 <p>For simplicity’s sake, we did not include principal components or covariates in this analysis, however, when conducting your analyses we <strong>strongly recommend</strong> including these.</p>
 </section>
 <section id="interpreting-the-results" class="level3">
-<h3 class="anchored" data-anchor-id="interpreting-the-results">3.2 Interpreting the results</h3>
+<h3 class="anchored" data-anchor-id="interpreting-the-results">Interpreting the results</h3>
 <p>By default, PRSice saves two plots and several text files. The first plot is <code>PRSice_BARPLOT_&lt;date&gt;.png</code>(<strong>which you find in Result/GWAS6 using the file browser</strong>, the filename depends on the current date). This plot illustrates the predictive value (Nagelkerke’s R²) in the target sample based on SNPs with p-values below specific thresholds in the base sample. A p-value is also provided for each model.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -646,7 +646,7 @@ Solution
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is therefore recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
+<p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
 </section>
 </section>
 <section id="further-reading" class="level2">

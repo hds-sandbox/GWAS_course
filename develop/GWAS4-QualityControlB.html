@@ -346,14 +346,14 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#relatedness" id="toc-relatedness" class="nav-link active" data-scroll-target="#relatedness">4.1 Relatedness</a>
+  <li><a href="#a.-relatedness" id="toc-a.-relatedness" class="nav-link active" data-scroll-target="#a.-relatedness">A. Relatedness</a>
   <ul class="collapse">
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">4.1.1 Analysis</a></li>
+  <li><a href="#analysis-with-plink" id="toc-analysis-with-plink" class="nav-link" data-scroll-target="#analysis-with-plink">Analysis with PLINK</a></li>
   <li><a href="#write-answer-here" id="toc-write-answer-here" class="nav-link" data-scroll-target="#write-answer-here"><em>Write answer here</em></a></li>
   </ul></li>
-  <li><a href="#population-stratification" id="toc-population-stratification" class="nav-link" data-scroll-target="#population-stratification">4.2 Population Stratification</a>
+  <li><a href="#b.-population-stratification" id="toc-b.-population-stratification" class="nav-link" data-scroll-target="#b.-population-stratification">B. Population Stratification</a>
   <ul class="collapse">
-  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1">4.2.1 Analysis</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
   <li><a href="#perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data." id="toc-perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data." class="nav-link" data-scroll-target="#perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data.">Perform MDS on HapMap-CEU data anchored by 1000 Genomes data.</a></li>
   </ul></li>
   <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
@@ -414,8 +414,8 @@ Important notes for this notebook
 </section>
 </div>
 </div>
-<section id="relatedness" class="level2">
-<h2 class="anchored" data-anchor-id="relatedness">4.1 Relatedness</h2>
+<section id="a.-relatedness" class="level2">
+<h2 class="anchored" data-anchor-id="a.-relatedness">A. Relatedness</h2>
 <p>Relatedness refers to the presence of genetically related individuals in a study sample, which can introduce confounding factors into association analyses. Since most statistical methods assume that samples are independent, including related individuals, like siblings, violates this assumption. Addressing relatedness is crucial as a quality control step to ensure that genomes in the dataset are no more similar than expected for unrelated individuals. This process is essential to preserve the validity of the study’s findings.</p>
 <p>While all humans share some genetic relatedness, the degree of relatedness varies among individuals. In genome-wide association studies (GWAS), these variations must be accounted for to avoid biasing the statistical associations between genotypes and phenotypes. <strong>Cryptic relatedness</strong> (genetic relatedness of individuals not expected to be in a family relationship) can interfere with the association analysis <span class="citation" data-cites="voight2005confounding">(<a href="#ref-voight2005confounding" role="doc-biblioref">Voight and Pritchard 2005</a>)</span>.</p>
 <p>In a <strong>family-based study</strong> (e.g., parent-offspring), you do not need to remove related pairs, but the statistical analysis should account for family relatedness. However, for a <strong>population-based study</strong>, we suggest using a <span class="math inline">\(\hat{\pi}\)</span> threshold of 0.2. <span class="math inline">\(\hat{\pi}\)</span> is computed as a probability P(IBD = 2) + 0.5 × P(IBD = 1), where IBD refers to “identical-by-descent”. This measures the proportion of alleles shared between individuals due to inheritance from a common ancestor. <span class="math inline">\(\hat{\pi}\)</span> ranges between 0 (no relationship) to 1 (identical genomes).</p>
@@ -425,8 +425,8 @@ Important notes for this notebook
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="analysis" class="level3">
-<h3 class="anchored" data-anchor-id="analysis">4.1.1 Analysis</h3>
+<section id="analysis-with-plink" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-with-plink">Analysis with PLINK</h3>
 <p>We will use the set of independent SNPs (generated in the previous section) and the <code>--genome</code> option in PLINK for our analysis.</p>
 <p>The HapMap dataset is known to contain parent-offspring relationships. Assuming a random population sample, we will exclude all individuals above the <span class="math inline">\(\hat{\pi}\)</span> threshold of 0.2 (dealing with cryptic relatedness) using the commands below. Thresholds for relatedness can be changed using the <code>--min</code> and <code>--max</code> options.</p>
 <div id="aafefbaf" class="cell" data-tags="[]" data-execution_count="7">
@@ -936,7 +936,7 @@ Stop - Read - Solve
 </div>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
-<div id="fd1c7d1a-5a3b-40f4-9e6c-d12e63393cc6" class="cell">
+<div id="fd1c7d1a-5a3b-40f4-9e6c-d12e63393cc6" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
@@ -996,18 +996,8 @@ Solution
 <hr>
 </section>
 </section>
-<section id="population-stratification" class="level2">
-<h2 class="anchored" data-anchor-id="population-stratification">4.2 Population Stratification</h2>
-<div class="callout callout-style-default callout-note callout-titled" title="Some theory">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Some theory
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<section id="b.-population-stratification" class="level2">
+<h2 class="anchored" data-anchor-id="b.-population-stratification">B. Population Stratification</h2>
 <p>Population stratification presents a significant source of systematic bias in GWAS, arising <strong>when subpopulations exhibit systematic differences in allele frequencies</strong>. Research indicates that even subtle degrees of population stratification can exist within a single ethnic population <span class="citation" data-cites="abdellaoui2013population">(<a href="#ref-abdellaoui2013population" role="doc-biblioref">Abdellaoui et al. 2013</a>)</span>. Thus, testing and controlling for the presence of population stratification is an essential QC step.</p>
 <p>The population structure (or in other words, the ancestral relationship of the populations) is a so-called <strong>confounding factor</strong>. This means that it affects both the dependent and independent variables, as shown in the figure below, where both the genotype and traits are influenced by population structure (e.g., the distribution of north and south European individuals in the PCA space and the height of those individuals).</p>
 <p><img src="Images/ancestryBias.png" class="img-fluid">{fig-align=“center”, width=400px}</p>
@@ -1015,7 +1005,7 @@ Some theory
 <p><img src="Images/popStruct.png" class="img-fluid">{fig-align=“center”, width=400px}</p>
 <p>The same problem arises in population studies without Case-control categories. Imagine having a population of randomly sampled individuals, each from a different ethnicity (the blue and red minor alleles in the example below). The final group of individuals will have a different proportion of MAFs depending on the sampling of various ethnicities.</p>
 <p><img src="Images/popSampling.png" class="img-fluid">{fig-align=“center”, width=400px}</p>
-<p>There are several methods to correct for population stratification <span class="citation" data-cites="price2010new">(<a href="#ref-price2010new" role="doc-biblioref">Price et al. 2010</a>, price_principal_2006)</span>. Here, we illustrate a method integrated into PLINK: the <strong>multidimensional scaling (MDS)</strong> approach. MDS calculates the genome-wide average proportion of shared alleles between any pair of individuals to generate quantitative indices (components) of the genetic variation for each individual. <strong>The individual component scores can be visualized to identify groups of genetically similar individuals.</strong> For instance, in a genetic study including subjects from Asia and Europe, MDS analysis would reveal that Asians are genetically more similar to each other than to Europeans and Africans. Figure below shows another example of MDS using HapMap, Genome diversity project, and authors’ data:</p>
+<p>There are several methods to correct for population stratification <span class="citation" data-cites="price2010new">(<a href="#ref-price2010new" role="doc-biblioref">Price et al. 2010</a>, price_principal_2006)</span>. Here, we illustrate a method integrated into PLINK: the <strong>multidimensional scaling (MDS)</strong> approach. MDS calculates the genome-wide average proportion of shared alleles between any pair of individuals to generate quantitative indices (components) of the genetic variation for each individual. <strong>The individual component scores can be visualized to identify groups of genetically similar individuals.</strong> For instance, in a genetic study including subjects from Asia and Europe, MDS analysis would reveal that Asians are genetically more similar to each other than to Europeans and Africans. The figure below shows another example of MDS using HapMap, Genome diversity project, and authors’ data:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="./Images/MDSexample2.png" class="img-fluid figure-img" data-label="fig-MDSexample" width="500"></p>
@@ -1026,8 +1016,6 @@ Some theory
 <p>Outliers identified based on MDS analysis should be excluded from further analyses. Following their removal, a new MDS analysis must be conducted, and its primary components are utilized as covariates in association tests to correct for any residual population stratification within the population. The number of components to include depends on the population structure and sample size (usually 10-20).</p>
 <p>The MDS from <span class="citation" data-cites="cortellari_climatic_2021">Cortellari et al. (<a href="#ref-cortellari_climatic_2021" role="doc-biblioref">2021</a>)</span> shows a distinct goat population outlier. The second axis is dominated by this outlier, obscuring structure in the other populations. Removing the outlier reveals a clearer structure among the remaining populations.</p>
 <p><img src="./Images/MDSout1.png" class="img-fluid" width="400"> <img src="./Images/MDSout2.png" class="img-fluid" width="400"></p>
-</div>
-</div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1041,8 +1029,8 @@ Stop - Read - Solve
 <p>It is also possible to correct for relatedness (family structure). <strong>Should we also do it?</strong></p>
 </div>
 </div>
-<section id="analysis-1" class="level3">
-<h3 class="anchored" data-anchor-id="analysis-1">4.2.1 Analysis</h3>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
 <p>We aim to merge the HapMap and 1000GP datasets, using 1000GP Phase I as the anchor for HapMap. Our goal is to check if we can identify the ethnicity of the HapMap data based on the ethnicities in the 1000GP dataset. There are several steps to ensure compatibility between the datasets, so stay with us!</p>
 <section id="gp-data-download" class="level4">
 <h4 class="anchored" data-anchor-id="gp-data-download">1000GP data download</h4>
@@ -1319,7 +1307,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1328,7 +1316,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We will first print out the SNPs from the reference file to know which line corresponds to each dataset (since we know we used the 1000 Genomes Project as the reference). If there are strand issues, the SNP will need to be flipped in the dataset that wasn’t used as the reference.</p>
 </div>
@@ -1416,7 +1404,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb86"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1425,7 +1413,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>PLINK attempts to flip all SNPs in the list, but an error occurs when A1 does not match the one in the reference.</p>
 </div>
