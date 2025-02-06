@@ -38,3 +38,4 @@ A basic understanding of R programming and Unix is strongly recommended, along w
 ### Resources 
 - GWAS course at the University of Helsinki by Marri Pirinen: https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course/
 - GWAS tutorials by Andries T. Marees, check out [repo](https://github.com/MareesAT/GWA_tutorial/) accompanying the paper *A Tutorial on Conducting Genome‐Wide Association Studies: Quality Control and Statistical Analysis*. DOI: 10.1002/mpr.1608.
+- Basic GWAS tutorial for PRS by Shing Wan Choi Shing Wan Choi [website](https://choishingwan.github.io/PRS-Tutorial/) 
