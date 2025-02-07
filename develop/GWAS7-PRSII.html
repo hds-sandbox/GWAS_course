@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Association testing II – GWAS</title>
+<title>Association testing II and PRS – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -171,15 +171,21 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prsice-analysis-for-quantitative-traits" id="toc-prsice-analysis-for-quantitative-traits" class="nav-link active" data-scroll-target="#prsice-analysis-for-quantitative-traits">PRSice analysis for quantitative traits</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS7-PRSII.out.ipynb" download="GWAS7-PRSII.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Association testing II</h1>
+<h1 class="title">Association testing II and PRS</h1>
 </div>
 
 
@@ -196,19 +202,6 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<div id="bb49a685-b48e-4ef6-8a1c-ec0d89da7164" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>title: <span class="st">"Association testing"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">format</span>:</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  html:</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    code<span class="op">-</span>fold: false</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    toc: true</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  ipynb:</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    toc: true</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    number<span class="op">-</span>sections: false</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>bibliography: references<span class="op">/</span>references_5.bib</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -234,8 +227,172 @@ Important notes for this notebook
 </section>
 </div>
 </div>
+<section id="prsice-analysis-for-quantitative-traits" class="level1">
+<h1>PRSice analysis for quantitative traits</h1>
+<p>In this tutorial, we will incorporate covariates and principal components (PCs) in the polygenic score calculation.</p>
+<p>We will be working with a new preprocessed simulated dataset that has already undergone quality control. Our analysis includes summary statistics from a powerful base GWAS (in this case, for height) and a target dataset consisting of European individuals in PLINK format.</p>
+<p>Let’s create a folder for the output files.</p>
+<div id="db774569-7628-425f-bac2-eb24c509279a" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p Results<span class="sc">/</span>GWAS7</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data and software</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Data</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Software</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You have already run the PRSice software for binary traits. Now, write the command to run it for quantitative traits using the new dataset.</p>
+<p>The data: - <strong>height.QC.gz</strong>: post-QC summary statistics - <strong>EUR.QC.</strong>: prefix of plink files for the target sample - <strong>EUR.covariate</strong>: this file contains the principal components and sex as covariates. Since PRSice only accepts a single covariate file, you may need to merge the <em>.cov and </em>.eigenvec files if you used PLINK for quality control.</p>
+<p>Please, apply the following filter to the base GWAS: - Filter out SNPs with MAF &lt; 0.01 in the GWAS summary statistics, using information in the <code>MAF</code> column - Filter out SNPs with INFO &lt; 0.8 in the GWAS summary statistics, using information in the <code>INFO</code> column</p>
+<p>Check out the user manual for help: https://choishingwan.github.io/PRSice/</p>
+</div>
+</div>
+<div id="150eb3ab-6bdb-4ca9-bc85-93748cdb89ab" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Once you have the PRS results, answer the following questions:</p>
+<ul>
+<li>Which P-value threshold generated the “best-fit” PRS?</li>
+<li>How much phenotypic variation does the “best-fit” PRS explain?</li>
+</ul>
+<p>Hint: Check the <code>&lt;PREFIX&gt;.summary</code> file.</p>
+</div>
+</div>
+<div id="7b29b47d-6677-4c84-9e1b-f5e17f3e98a2" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since height differs across sexes, let’s focus on visualizing the relationship between the “best-fit” PRS and the phenotype of interest, colored according to sex.</p>
+</div>
+</div>
+<div id="e48d3d70-80ed-4bb0-ba40-380339dbb6fe" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code for plotting here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution 1">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You need to perform the PRS analysis on the simulated dataset in the following way:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode .bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ./Data/PRSice.R <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--prsice</span> ./Software/PRSice <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--base</span> ./Data/height.QC.gz <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--target</span> ./Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--binary-target</span> F <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--pheno</span> ./Data/EUR.height <span class="dt">\</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cov</span> ./Data/EUR.covariate <span class="dt">\</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--base-maf</span> MAF:0.01 <span class="dt">\</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--base-info</span> INFO:0.8 <span class="dt">\</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--stat</span> BETA <span class="dt">\</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS7/EUR.PRSice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution 2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution 2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Best-fit P-value is ~0.4</li>
+<li>Phenotypic variation explained by the best-fi model is ~0.16</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution 3">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution 3
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Code example</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode .r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the files</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Results/GWAS7/EUR.PRSice.best"</span>, <span class="at">header=</span>T)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.height"</span>, <span class="at">header=</span>T)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.cov"</span>, <span class="at">header=</span>T)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the sex</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>sex<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(sex<span class="sc">$</span>Sex)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex<span class="sc">$</span>Sex) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the files</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">merge</span>(prs, height), sex)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Start plotting</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x=</span>SCORE, <span class="at">y=</span>Height, <span class="at">color=</span>Sex))<span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Polygenic Score"</span>, <span class="at">y=</span><span class="st">"Height"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="c0e42b3e-2493-44d5-be6e-d69c94cee2bb" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the files</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Results/GWAS7/EUR.PRSice.best"</span>, <span class="at">header=</span>T)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.height"</span>, <span class="at">header=</span>T)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.cov"</span>, <span class="at">header=</span>T)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the sex</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>sex<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(sex<span class="sc">$</span>Sex)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex<span class="sc">$</span>Sex) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the files</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">merge</span>(prs, height), sex)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Start plotting</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x=</span>PRS, <span class="at">y=</span>Height, <span class="at">color=</span>Sex))<span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Polygenic Score"</span>, <span class="at">y=</span><span class="st">"Height"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS7-PRSII_files/figure-html/cell-6-output-1.png" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

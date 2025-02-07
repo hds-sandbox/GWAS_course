@@ -346,7 +346,7 @@ window.Quarto = {
   <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">Conducting polygenic risk prediction analyses</a></li>
   <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">Polygenic risk score analysis with PRSice-2</a>
   <ul class="collapse">
-  <li><a href="#prsice-analysis" id="toc-prsice-analysis" class="nav-link" data-scroll-target="#prsice-analysis">2.1 PRSice analysis</a></li>
+  <li><a href="#prsice-analysis-for-binary-traits" id="toc-prsice-analysis-for-binary-traits" class="nav-link" data-scroll-target="#prsice-analysis-for-binary-traits">PRSice analysis for binary traits</a></li>
   <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the results</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
@@ -430,11 +430,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It would be ideal at this point to apply this method to our HapMap dataset. However, as mentioned above, PRS requires a sample size of around 2000 for it to show meaningful results. Our dataset, meanwhile, contains only about 150 individuals. Hence, we will use a <em>toy dataset</em> for didactic purposes.</p>
+<p>We would apply this method to our HapMap dataset, but PRS analysis typically requires a sample size of around 2,000 to produce meaningful results, while our dataset includes only about 150 individuals. To facilitate learning, we will instead use a toy dataset. In this notebook, we will focus on analyzing a <strong>binary trait</strong>.</p>
+<p>Ideally, the summary statistics should come from the most powerful GWAS available for the phenotype of interest. Commonly, the target dataset is typically generated within your lab or obtained through collaborations.</p>
 </div>
 </div>
-<section id="prsice-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="prsice-analysis">2.1 PRSice analysis</h3>
+<section id="prsice-analysis-for-binary-traits" class="level3">
+<h3 class="anchored" data-anchor-id="prsice-analysis-for-binary-traits">PRSice analysis for binary traits</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:</p>
 <div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
@@ -443,7 +444,7 @@ Note
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Software</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We will apply PRSice by running the <code>R</code> script <code>PRSice.R</code>, which will create all necessary input files for <code>./Software/PRSice</code>. We then provide the results of association testing and specify the column names that contain information about SNPs, chromosomes, and other relevant data. This step is necessary because association tools produce different header formats. Finally, we will specify the location of our data, which is <code>TOY_TARGET_DATA</code>, and the phenotype format (binary: 0s and 1s).</p>
+<p>We will run the <code>PRSice.R</code> script using the association test results (<code>TOY_BASE_GWAS.assoc</code>) and specify the column names for SNPs, chromosomes, and other relevant data. This is necessary because different association tools generate varying header formats. Finally, we will specify the location of our data (<code>TOY_TARGET_DATA</code>) and define the phenotype format as binary (0s and 1s).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -457,17 +458,29 @@ Warning
 <p>If you get an error in the following command, try to restart the kernel in the <code>Kernel</code> menu. Sometimes links to folders are not recognized immediately.</p>
 </div>
 </div>
-<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="25">
+<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ./Software/PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SNP CHR BP A1 A2 P OR
+SNP_22857 4 103593179 1 2 0.2852 13.29
+SNP_13879 2 237416793 1 2 0.8784 21.624
+SNP_20771 4 16957461 1 2 0.1994 91.265
+SNP_13787 2 235355721 1 2 0.7234 3.178
+SNP_25383 4 189927377 1 2 0.3309 3.167
+SNP_25290 4 187995996 1 2 0.6327 0.427
+SNP_21478 4 40161304 1 2 0.06454 5.066
+SNP_12129 2 176643771 1 2 0.9378 1.276
+SNP_22809 4 101441465 1 2 0.8111 0.004</code></pre>
+</div>
 </div>
 <div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ./Data/PRSice.R <span class="at">--out</span> Results/GWAS6/PRSice <span class="dt">\</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>--prsice ./Software/PRSice <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>--base ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ./Data/PRSice.R <span class="at">--out</span> Results/GWAS6/PRSice <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--prsice ./Software/PRSice <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--base ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Trying to install data.table in ./lib
 Cannot install data.table, will fall back and use read.table instead
