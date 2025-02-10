@@ -2,94 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/access/otherHPC.html</loc>
-    <lastmod>2025-02-07T15:20:53.266Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/access/setup.html</loc>
-    <lastmod>2025-02-07T15:20:53.266Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS2-DataCollection.html</loc>
-    <lastmod>2025-02-07T15:21:25.340Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.161Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/general-intro.html</loc>
-    <lastmod>2025-02-07T15:20:53.282Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.423Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/exercises/gwas3-mice.html</loc>
-    <lastmod>2025-02-07T15:21:25.346Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.167Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/lib/getopt/NEWS.html</loc>
-    <lastmod>2025-02-07T15:21:25.346Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.168Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWASx_corr_assoc.html</loc>
-    <lastmod>2025-02-07T15:21:25.342Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.163Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS4-QualityControlB.html</loc>
-    <lastmod>2025-02-07T15:21:25.340Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.162Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS3-QualityControlA.html</loc>
-    <lastmod>2025-02-07T15:21:25.340Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.162Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/cards/AlbaMartinez.html</loc>
-    <lastmod>2025-02-07T15:20:53.281Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.422Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS7-PRSII.html</loc>
-    <lastmod>2025-02-07T15:21:25.341Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.163Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/index.html</loc>
-    <lastmod>2025-02-07T15:20:53.293Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.434Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS2-DataCollectionA.html</loc>
-    <lastmod>2025-02-07T15:20:53.267Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/cards/SamueleSoraggi.html</loc>
-    <lastmod>2025-02-07T15:20:53.281Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.422Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS0-geneticTheory.html</loc>
-    <lastmod>2025-02-07T15:20:53.266Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS5-AssociationTesting.html</loc>
-    <lastmod>2025-02-07T15:21:25.341Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.162Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS7-OtherToolsAndTesting.html</loc>
-    <lastmod>2025-02-07T15:21:25.341Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.163Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/lib/optparse/NEWS.html</loc>
-    <lastmod>2025-02-07T15:21:25.347Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.169Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS1-WhatIsAGWAS.html</loc>
-    <lastmod>2025-02-07T15:20:53.267Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/exercises/gwas2-mice.html</loc>
-    <lastmod>2025-02-07T15:21:25.346Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.167Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/develop/GWAS6-PRSAnalysis.html</loc>
-    <lastmod>2025-02-07T15:21:25.341Z</lastmod>
+    <lastmod>2025-02-10T10:49:21.162Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/access/genomedk.html</loc>
-    <lastmod>2025-02-07T15:20:53.266Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
   <url>
     <loc>https://hds-sandbox.github.io/GWAS_course/access/UCloud.html</loc>
-    <lastmod>2025-02-07T15:20:53.266Z</lastmod>
+    <lastmod>2025-02-10T10:48:52.407Z</lastmod>
   </url>
 </urlset>

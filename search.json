@@ -341,21 +341,36 @@
     "href": "develop/GWAS7-PRSII.html",
     "title": "Association testing II and PRS",
     "section": "",
-    "text": "Important notes for this notebook\n\n\n\n\n\n\nAssess whether population stratification influences your association test.\n\n\n\n\n\nIn this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel"
+    "text": "Important notes for this notebook\n\n\n\n\n\n\nAssess whether population stratification influences your association test.\n\n\n\n\n\nIn this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Association Testing",
+      "Association testing II and PRS"
+    ]
   },
   {
     "objectID": "develop/GWAS7-PRSII.html#learning-outcomes",
     "href": "develop/GWAS7-PRSII.html#learning-outcomes",
     "title": "Association testing II and PRS",
     "section": "",
-    "text": "Assess whether population stratification influences your association test."
+    "text": "Assess whether population stratification influences your association test.",
+    "crumbs": [
+      "Tutorials",
+      "Association Testing",
+      "Association testing II and PRS"
+    ]
   },
   {
     "objectID": "develop/GWAS7-PRSII.html#how-to-make-this-notebook-work",
     "href": "develop/GWAS7-PRSII.html#how-to-make-this-notebook-work",
     "title": "Association testing II and PRS",
     "section": "",
-    "text": "In this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel"
+    "text": "In this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Association Testing",
+      "Association testing II and PRS"
+    ]
   },
   {
     "objectID": "index.html",
@@ -484,60 +499,35 @@
     "href": "develop/GWAS7-OtherToolsAndTesting.html",
     "title": "Other tools & conclusions",
     "section": "",
-    "text": "Important notes for this notebook\n\n\n\n\n\n\n\nExplore LDAK software and some of its functionalities\nDiscuss other tools and conclusions from this tutorial\n\n\n\n\n\nIn this notebook, we will only use the bash command line. Be sure to click on the menu Kernel --&gt; Change Kernel --&gt; Bash\n\n Choose the Bash kernel",
-    "crumbs": [
-      "Tutorials",
-      "Association Testing",
-      "Other tools & conclusions"
-    ]
+    "text": "Important notes for this notebook\n\n\n\n\n\n\n\nExplore LDAK software and some of its functionalities\nDiscuss other tools and conclusions from this tutorial\n\n\n\n\n\nIn this notebook, we will only use the bash command line. Be sure to click on the menu Kernel --&gt; Change Kernel --&gt; Bash\n\n Choose the Bash kernel"
   },
   {
     "objectID": "develop/GWAS7-OtherToolsAndTesting.html#learning-outcomes",
     "href": "develop/GWAS7-OtherToolsAndTesting.html#learning-outcomes",
     "title": "Other tools & conclusions",
     "section": "",
-    "text": "Explore LDAK software and some of its functionalities\nDiscuss other tools and conclusions from this tutorial",
-    "crumbs": [
-      "Tutorials",
-      "Association Testing",
-      "Other tools & conclusions"
-    ]
+    "text": "Explore LDAK software and some of its functionalities\nDiscuss other tools and conclusions from this tutorial"
   },
   {
     "objectID": "develop/GWAS7-OtherToolsAndTesting.html#how-to-make-this-notebook-work",
     "href": "develop/GWAS7-OtherToolsAndTesting.html#how-to-make-this-notebook-work",
     "title": "Other tools & conclusions",
     "section": "",
-    "text": "In this notebook, we will only use the bash command line. Be sure to click on the menu Kernel --&gt; Change Kernel --&gt; Bash\n\n Choose the Bash kernel",
-    "crumbs": [
-      "Tutorials",
-      "Association Testing",
-      "Other tools & conclusions"
-    ]
+    "text": "In this notebook, we will only use the bash command line. Be sure to click on the menu Kernel --&gt; Change Kernel --&gt; Bash\n\n Choose the Bash kernel"
   },
   {
     "objectID": "develop/GWAS7-OtherToolsAndTesting.html#ldak",
     "href": "develop/GWAS7-OtherToolsAndTesting.html#ldak",
     "title": "Other tools & conclusions",
     "section": "LDAK",
-    "text": "LDAK\nThroughout this tutorial, we have used PLINK as the main method of our GWAS analysis. This is, in large part, due to its popularity in modern literature and its ease of use. But it is by no means the only method of GWAS.\nOne tool that has been developed in recent years is LDAK, by Dough Speed (2012). One of the most significant improvements of this program is the genetic prediction of complex traits from both individual-level data and summary statistics. Most prediction tools assume the GCTA model, whereby each SNP is expected to contribute equally to the phenotype (as is the case with PLINK). If we replace the GCTA Model with the BLD-LDAK Model, the squared correlation between observed and predicted phenotypes (\\(R^2\\)) increases by an average of 14% (s.d. 1%).",
-    "crumbs": [
-      "Tutorials",
-      "Association Testing",
-      "Other tools & conclusions"
-    ]
+    "text": "LDAK\nThroughout this tutorial, we have used PLINK as the main method of our GWAS analysis. This is, in large part, due to its popularity in modern literature and its ease of use. But it is by no means the only method of GWAS.\nOne tool that has been developed in recent years is LDAK, by Dough Speed (2012). One of the most significant improvements of this program is the genetic prediction of complex traits from both individual-level data and summary statistics. Most prediction tools assume the GCTA model, whereby each SNP is expected to contribute equally to the phenotype (as is the case with PLINK). If we replace the GCTA Model with the BLD-LDAK Model, the squared correlation between observed and predicted phenotypes (\\(R^2\\)) increases by an average of 14% (s.d. 1%)."
   },
   {
     "objectID": "develop/GWAS7-OtherToolsAndTesting.html#overview-of-functionality",
     "href": "develop/GWAS7-OtherToolsAndTesting.html#overview-of-functionality",
     "title": "Other tools & conclusions",
     "section": "Overview of functionality",
-    "text": "Overview of functionality\nUsing LDAK is very similar to PLINK. As with PLINK, you will require the .bed, .bim, and .fam files of your cohort. Beyond this, you will need additional files:\n\n.info - information scores for SNPs\n.pheno - a phenotype\n.covar - covariates\n.ind.hers - estimates of per-SNP heritabilities\n.genefile - (real) RefSeq human gene annotations\n\n If we call our prefix human, then very simply, we can compute summary statistics in the following way:\n\n# link the data and create output directory \nln -sf ../Data\nmkdir Results/GWAS7\n\n# Run ldak software\n../Software/ldak --calc-stats Results/GWAS7/human --bfile Data/ldak_data/human\n\nmkdir: cannot create directory ‘Results/GWAS7’: File exists\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere are 2 pairs of arguments:\n--calc-stats Results/GWAS7/human\n--bfile Data/ldak_data/human\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nCalculating predictor and individual statistics\n\nTo run the parallel version of LDAK, use \"--max-threads\" (this will only reduce runtime for some commands)\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nReading IDs for 424 samples from Data/ldak_data/human.fam\n\nReading details for 3289 predictors from Data/ldak_data/human.bim\n\nData contain 424 samples and 3289 predictors\n\nCalculating statistics for Chunk 1 of 1\n\nStatistics saved in Results/GWAS7/human.stats and Results/GWAS7/human.missing\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nMission completed. All your basepair are belong to us :)\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\n\nThis command asks LDAK to read the data stored in Binary PLINK format with the prefix human, then save the results to files with the prefix “human”. Remember that software command line arguments, can be provided in any order (generally, there is no strict order requirement), so that the command above would be equivalent to ../Software/ldak --bfile Data/ldak_data/human --calc-stats Data/ldak_data/human\nThe output files are called human.stats and human.missing and found in the folder Results/GWAS7. By accessing the columns of human.stats, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:\n\n######### FOR EXERCISE\n\nsnpmiss &lt;- read.table(file=\"Results/GWAS7/human.stats\", header=TRUE)\n\nhead(snpmiss)\n\nhist(snpmiss$MAF, breaks = 50) \n\n#  geom_histogram(binwidth = 0.001, col = \"black\", fill=\"tomato\") + \n#  labs(title = \"Frequency of missingness rates in individuals\") + \n#  xlab(\"Frequency\") + \n# ylab(\"Missingness in Individuals\") + \n# theme_bw()\n\n\n###########################\n\n\nA data.frame: 6 × 7\n\n\n\nPredictor\nA1\nA2\nA1_Mean\nMAF\nCall_Rate\nInfo\n\n\n\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;dbl&gt;\n&lt;dbl&gt;\n&lt;int&gt;\n&lt;int&gt;\n\n\n\n\n1\n21:14642464\nA\nG\n0.884434\n0.442217\n1\n-1\n\n\n2\n21:14649798\nA\nC\n0.974057\n0.487028\n1\n-1\n\n\n3\n21:14669931\nG\nA\n0.969340\n0.484670\n1\n-1\n\n\n4\n21:14688825\nT\nC\n0.983491\n0.491745\n1\n-1\n\n\n5\n21:14736298\nC\nT\n0.858491\n0.429245\n1\n-1\n\n\n6\n21:14757043\nT\nC\n0.929245\n0.464623\n1\n-1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 7.1: Genomic properties are easily accessible by parsing through the outputted summary statistics\n\n\nIf you wish to perform single-SNP association analysis using linear regression. We would use the main argument --linear in this case. Each main argument requires different options. Remember to check the Documentation at www.dougspeed.com. Most software have a --help option, but LDAK doesn’t, so an alternative is to run the main argument, which will print out the options required and missing for a successful run:\n\n../Software/ldak --linear linear\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere is one pair of arguments:\n--linear linear\n\nError, you must use \"--pheno\" to provide phenotypes\n\n\n\n: 1\n\n\nThe output can be used to obtain GWAS plots of interest, such as a Manhattan plot:\n\n\n\nFigure 7.2: Manhattan plot outputted by LDAK\n\n\nFurthermore, LDAK offers various additional methods and features, such as the explicit incorporation of covariates and PRS. For those interested, we recommend following the tutorials available here. Additionally, we have included the dataset accompanying this tutorial in the Data folder, conveniently named extra_data.zip. All you need is to run the commands in the tutorial.\nThe takeaway is that while more advanced tools exist, PLINK serves as an excellent starting point for conducting focused and specific analyses, particularly for educational purposes.",
-    "crumbs": [
-      "Tutorials",
-      "Association Testing",
-      "Other tools & conclusions"
-    ]
+    "text": "Overview of functionality\nUsing LDAK is very similar to PLINK. As with PLINK, you will require the .bed, .bim, and .fam files of your cohort. Beyond this, you will need additional files:\n\n.info - information scores for SNPs\n.pheno - a phenotype\n.covar - covariates\n.ind.hers - estimates of per-SNP heritabilities\n.genefile - (real) RefSeq human gene annotations\n\n If we call our prefix human, then very simply, we can compute summary statistics in the following way:\n\n# link the data and create output directory \nln -sf ../Data\nmkdir Results/GWAS7\n\n# Run ldak software\n../Software/ldak --calc-stats Results/GWAS7/human --bfile Data/ldak_data/human\n\nmkdir: cannot create directory ‘Results/GWAS7’: File exists\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere are 2 pairs of arguments:\n--calc-stats Results/GWAS7/human\n--bfile Data/ldak_data/human\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nCalculating predictor and individual statistics\n\nTo run the parallel version of LDAK, use \"--max-threads\" (this will only reduce runtime for some commands)\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nReading IDs for 424 samples from Data/ldak_data/human.fam\n\nReading details for 3289 predictors from Data/ldak_data/human.bim\n\nData contain 424 samples and 3289 predictors\n\nCalculating statistics for Chunk 1 of 1\n\nStatistics saved in Results/GWAS7/human.stats and Results/GWAS7/human.missing\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nMission completed. All your basepair are belong to us :)\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\n\nThis command asks LDAK to read the data stored in Binary PLINK format with the prefix human, then save the results to files with the prefix “human”. Remember that software command line arguments, can be provided in any order (generally, there is no strict order requirement), so that the command above would be equivalent to ../Software/ldak --bfile Data/ldak_data/human --calc-stats Data/ldak_data/human\nThe output files are called human.stats and human.missing and found in the folder Results/GWAS7. By accessing the columns of human.stats, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:\n\n######### FOR EXERCISE\n\nsnpmiss &lt;- read.table(file=\"Results/GWAS7/human.stats\", header=TRUE)\n\nhead(snpmiss)\n\nhist(snpmiss$MAF, breaks = 50) \n\n#  geom_histogram(binwidth = 0.001, col = \"black\", fill=\"tomato\") + \n#  labs(title = \"Frequency of missingness rates in individuals\") + \n#  xlab(\"Frequency\") + \n# ylab(\"Missingness in Individuals\") + \n# theme_bw()\n\n\n###########################\n\n\nA data.frame: 6 × 7\n\n\n\nPredictor\nA1\nA2\nA1_Mean\nMAF\nCall_Rate\nInfo\n\n\n\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;dbl&gt;\n&lt;dbl&gt;\n&lt;int&gt;\n&lt;int&gt;\n\n\n\n\n1\n21:14642464\nA\nG\n0.884434\n0.442217\n1\n-1\n\n\n2\n21:14649798\nA\nC\n0.974057\n0.487028\n1\n-1\n\n\n3\n21:14669931\nG\nA\n0.969340\n0.484670\n1\n-1\n\n\n4\n21:14688825\nT\nC\n0.983491\n0.491745\n1\n-1\n\n\n5\n21:14736298\nC\nT\n0.858491\n0.429245\n1\n-1\n\n\n6\n21:14757043\nT\nC\n0.929245\n0.464623\n1\n-1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 7.1: Genomic properties are easily accessible by parsing through the outputted summary statistics\n\n\nIf you wish to perform single-SNP association analysis using linear regression. We would use the main argument --linear in this case. Each main argument requires different options. Remember to check the Documentation at www.dougspeed.com. Most software have a --help option, but LDAK doesn’t, so an alternative is to run the main argument, which will print out the options required and missing for a successful run:\n\n../Software/ldak --linear linear\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere is one pair of arguments:\n--linear linear\n\nError, you must use \"--pheno\" to provide phenotypes\n\n\n\n: 1\n\n\nThe output can be used to obtain GWAS plots of interest, such as a Manhattan plot:\n\n\n\nFigure 7.2: Manhattan plot outputted by LDAK\n\n\nFurthermore, LDAK offers various additional methods and features, such as the explicit incorporation of covariates and PRS. For those interested, we recommend following the tutorials available here. Additionally, we have included the dataset accompanying this tutorial in the Data folder, conveniently named extra_data.zip. All you need is to run the commands in the tutorial.\nThe takeaway is that while more advanced tools exist, PLINK serves as an excellent starting point for conducting focused and specific analyses, particularly for educational purposes."
   },
   {
     "objectID": "develop/lib/optparse/NEWS.html",
