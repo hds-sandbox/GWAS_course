@@ -323,23 +323,29 @@ window.Quarto = {
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">develop/GWAS5b-PopulationStratification.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population stratification in GWAS</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Polygenic Score analysis</span></a>
+ <span class="menu-text">PRS binary traits</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Association testing II and PRS</span></a>
+ <span class="menu-text">PRS quantitative traits</span></a>
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">develop/GWAS8-OtherToolsAndTesting.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Other tools &amp; conclusions</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -936,9 +942,9 @@ Solution
 <div class="callout-body-container callout-body">
 <ul>
 <li>In the first plot (<code>--logistic</code>), the observed values are lower than the expected ones (consistent with what we saw in the Manhattan plot). This suggests an unexpected lack of significant findings. This could be due to overly conservative corrections, biases in the dataset, or poor study power (small sample size or very small effect sizes).</li>
-<li>On the other hand, in the <code>assoc</code> QQ-plot, some SNPs show stronger associations than expected (observed p-values lower than expected), deviating from the diagonal which suggests a potential true association.</li>
+<li>On the other hand, in the <code>assoc</code> QQ-plot, some SNPs show stronger associations than expected (observed p-values lower than expected), deviating from the diagonal which suggests a potential true association. However, before trusting these results, we need to conduct further analyses, particularly to assess population stratification. Even if we have confidence in our association test and sufficient power to detect associated variants, careful evaluation is necessary to rule out confounding factors.</li>
 </ul>
-<p>It’s important to remember that, while this suggests an association between these SNPs and the studied phenotype, there isn’t sufficient information here to determine the <strong>causal variant</strong>. In fact, there could potentially be multiple causal variants and the causal variants could be in LD with some of the significant variants. Identifying the causal variants would require further investigation using biological methods. However, this analysis has significantly reduced the number of SNPs that need to be studied.</p>
+<p>Moreover, it is important to remember that, while this suggests an association between these SNPs and the studied phenotype, there isn’t sufficient information here to determine the <strong>causal variant</strong>. In fact, there could potentially be multiple causal variants and the causal variants could be in LD with some of the significant variants. Identifying the causal variants would require further investigation using biological methods. However, this analysis has significantly reduced the number of SNPs that need to be studied.</p>
 </div>
 </div>
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Polygenic Score analysis – GWAS</title>
+<title>PRS binary traits – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -220,7 +220,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">Polygenic Score analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">PRS binary traits</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -320,23 +320,29 @@ window.Quarto = {
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">develop/GWAS5b-PopulationStratification.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population stratification in GWAS</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Polygenic Score analysis</span></a>
+ <span class="menu-text">PRS binary traits</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Association testing II and PRS</span></a>
+ <span class="menu-text">PRS quantitative traits</span></a>
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">develop/GWAS8-OtherToolsAndTesting.ipynb</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Other tools &amp; conclusions</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -363,9 +369,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">Polygenic Score analysis</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">PRS binary traits</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Polygenic Score analysis</h1>
+<h1 class="title">PRS binary traits</h1>
 </div>
 
 
@@ -666,6 +672,7 @@ Solution
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
+<p>Now, you will need to do the same for a quantitative trait and explore the results.</p>
 </section>
 </section>
 <section id="further-reading" class="level2">
@@ -681,10 +688,9 @@ Other take-home messages
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Population structure can be handled with PCs and mixed models (e.g., BOLT-LMM) (although never perfectly)</li>
 <li>Replication in (several) other cohorts provides convincing evidence</li>
 <li>Applying stringent statistics (P&lt;5e-8) helps to reduce the likelihood of false-positive results</li>
-<li>Controlling for population structure is important, as bias from population structure is unlikely to be consistent across most studies in large meta-analyses.</li>
+<li>An external reference panel can be used to improve LD estimation for clumping, providing more accurate definitions of LD blocks and refining the selection of variants for PRS analysis, especially when sample size is limited (e.g.&nbsp;~500 samples).</li>
 </ul>
 </div>
 </div>
