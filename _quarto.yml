@@ -46,8 +46,10 @@ website:
         - section: "Association Testing"
           contents:
             - develop/GWAS5-AssociationTesting.ipynb
+            - develop/GWAS5b-PopulationStratification.ipynb
             - develop/GWAS6-PRSAnalysis.ipynb
-            - develop/GWAS7-OtherToolsAndTesting.ipynb
+            - develop/GWAS7-PRSII.ipynb
+            - develop/GWAS8-OtherToolsAndTesting.ipynb
     - title: "General"
       style: "docked"
       search: true
