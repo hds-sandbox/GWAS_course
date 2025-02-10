@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>PRS binary traits – GWAS</title>
+<title>Polygenic scores I – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -220,7 +220,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">PRS binary traits</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">Polygenic scores I</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -322,19 +322,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Population stratification in GWAS</span></a>
+ <span class="menu-text">Population stratification</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">PRS binary traits</span></a>
+ <span class="menu-text">Polygenic scores I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PRS quantitative traits</span></a>
+ <span class="menu-text">Polygenic scores II</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -355,7 +355,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#conducting-polygenic-risk-prediction-analyses" id="toc-conducting-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#conducting-polygenic-risk-prediction-analyses">Conducting polygenic risk prediction analyses</a></li>
+  <li><a href="#polygenic-risk-prediction-analyses" id="toc-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#polygenic-risk-prediction-analyses">Polygenic risk prediction analyses</a></li>
   <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">Polygenic risk score analysis with PRSice-2</a>
   <ul class="collapse">
   <li><a href="#prsice-analysis-for-binary-traits" id="toc-prsice-analysis-for-binary-traits" class="nav-link" data-scroll-target="#prsice-analysis-for-binary-traits">PRSice analysis for binary traits</a></li>
@@ -369,9 +369,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">PRS binary traits</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">Polygenic scores I</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">PRS binary traits</h1>
+<h1 class="title">Polygenic scores I</h1>
 </div>
 
 
@@ -416,8 +416,8 @@ Important notes for this notebook
 </div>
 </div>
 <p>While most individual associations found in GWAS studies are of small effect, information about them can be combined across the genome, to create a <strong>polygenic score (PGS)</strong>. These scores can be used to make <strong>genome-based predictions about the overall risk of having a particular trait or disease or about the genetic value for continuous traits</strong>. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).</p>
-<section id="conducting-polygenic-risk-prediction-analyses" class="level2">
-<h2 class="anchored" data-anchor-id="conducting-polygenic-risk-prediction-analyses">Conducting polygenic risk prediction analyses</h2>
+<section id="polygenic-risk-prediction-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="polygenic-risk-prediction-analyses">Polygenic risk prediction analyses</h2>
 <p>Single-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.</p>
 <p>A PGS is typically calculated by summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect sizes, while ensuring independence among them (e.g., via LD pruning). These effect sizes—betas for continuous traits and log odds ratios for binary traits—are obtained from a discovery GWAS. Large discovery samples (also known as base or training samples) are needed for accurate estimates, but if the target sample shares ancestry, effect sizes from larger studies can be leveraged. A target sample of ~2,000 individuals may be sufficient to detect meaningful genetic contributions to trait variance <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>. For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).</p>
 <p>A common practice to calculate PRS involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.</p>

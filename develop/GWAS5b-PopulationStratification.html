@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Population stratification in GWAS – GWAS</title>
+<title>Population stratification – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,7 +57,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -111,9 +111,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -174,7 +171,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS5b-PopulationStratification.html">Population stratification in GWAS</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS5b-PopulationStratification.html">Population stratification</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -276,19 +273,19 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Population stratification in GWAS</span></a>
+ <span class="menu-text">Population stratification</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PRS binary traits</span></a>
+ <span class="menu-text">Polygenic scores I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PRS quantitative traits</span></a>
+ <span class="menu-text">Polygenic scores II</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -310,16 +307,15 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
    
   <ul>
   <li><a href="#correlation-between-pc-loadings-and-effect-sizes" id="toc-correlation-between-pc-loadings-and-effect-sizes" class="nav-link active" data-scroll-target="#correlation-between-pc-loadings-and-effect-sizes">Correlation between PC loadings and effect sizes</a></li>
-  <li><a href="#a.-binary-trait---assoc-test" id="toc-a.-binary-trait---assoc-test" class="nav-link" data-scroll-target="#a.-binary-trait---assoc-test">A. Binary trait <code>--assoc</code> test</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS5b-PopulationStratification.html">Population stratification in GWAS</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS5b-PopulationStratification.html">Population stratification</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Population stratification in GWAS</h1>
+<h1 class="title">Population stratification</h1>
 </div>
 
 
@@ -346,6 +342,7 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p>As we’ve discussed, removing population structure is crucial, as residual population stratification—highlighted by <span class="citation" data-cites="sohail2019polygenic">[@sohail2019polygenic]</span>—can even be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores and other downstream analyses. In this notebook, we will further explore one way of detecting population stratification in GWAS. Since we were uncertain whether we were being too strict when correcting for population structure, or if the GWAS lacked sufficient power, this analysis will help us clarify if we can trust our results.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
@@ -361,20 +358,18 @@ Important notes for this notebook
 </section>
 </div>
 </div>
-<p>As we have discussed, it is important to remove population structure, as residual population stratification, as shown by <span class="citation" data-cites="sohail2019polygenic">[@sohail2019polygenic]</span>, can be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores (PRS) and other downstream analyses.</p>
 <section id="correlation-between-pc-loadings-and-effect-sizes" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-between-pc-loadings-and-effect-sizes">Correlation between PC loadings and effect sizes</h3>
 <p>We followed a similar approach from <span class="citation" data-cites="sohail2019polygenic">[@sohail2019polygenic]</span> to examine GWAS stratification along different PCA axes of population structure. We began by performing a PCA on the genotype data from the 1000 Genomes Project used in the previous notebook. Then, we computed the correlation between the first 10 PCA loadings and the effect size estimates from the GWAS conducted on the Hapmap data. We visualized these PC-specific correlations to explore patterns of stratification along different axes of genetic variation. Additionally, it would be very useful to consider allele frequency differences across different populations when analyzing such stratification.</p>
-<p>We use PLINK to get the PC loadings using the <code>--pca var-wts</code> as follows:</p>
+<p>We use PLINK’s <code>--pca var-wts</code> command on the set of independent variants (<code>indepSNP.prune.in</code>) to obtain the PC loadings.</p>
 <div id="356bce29-20f8-4bca-842c-3c4ca3cf5559" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span><span class="dv">1</span>kG_MDS6 <span class="sc">--</span>pca <span class="dv">10</span> var<span class="sc">-</span>wts <span class="sc">--</span>out Results<span class="sc">/</span>GWAS4<span class="sc">/</span>PCA_1kg <span class="sc">--</span>silent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span><span class="dv">1</span>kG_MDS6  <span class="sc">--</span>extract Results<span class="sc">/</span>GWAS3<span class="sc">/</span>indepSNP.prune.in <span class="sc">--</span>pca <span class="dv">10</span> var<span class="sc">-</span>wts <span class="sc">--</span>out Results<span class="sc">/</span>GWAS4<span class="sc">/</span>PCA_1kg <span class="sc">--</span>silent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Now we will plot the correlation between the loadings and the effect sizes for both GWAS results from GWAS5.</p>
-</section>
-<section id="a.-binary-trait---assoc-test" class="level3">
-<h3 class="anchored" data-anchor-id="a.-binary-trait---assoc-test">A. Binary trait <code>--assoc</code> test</h3>
-<div id="ca04bc63-8c6b-46d4-8a06-d4e23e2daedb" class="cell" data-execution_count="1">
+<section id="a.-summary-statistics-from---assoc-test" class="level4">
+<h4 class="anchored" data-anchor-id="a.-summary-statistics-from---assoc-test">A. Summary statistics from <code>--assoc</code> test</h4>
+<div id="ca04bc63-8c6b-46d4-8a06-d4e23e2daedb" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load the data </span></span>
@@ -386,7 +381,7 @@ Important notes for this notebook
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>merged_tab <span class="ot">&lt;-</span> <span class="fu">merge</span>(results_as, data, <span class="at">by=</span><span class="dv">2</span>)</span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># compute correlations </span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>correlations <span class="ot">&lt;-</span> <span class="fu">apply</span>(merged_tab[, <span class="dv">14</span><span class="sc">:</span><span class="dv">23</span>], <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">cor</span>(merged_tab<span class="sc">$</span>OR, x, <span class="at">method=</span><span class="st">"pearson"</span>, <span class="at">use=</span><span class="st">"complete.obs"</span>))</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>correlations</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>dataCor <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">pc =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">corr =</span> correlations)</span>
@@ -396,69 +391,47 @@ Important notes for this notebook
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="fu">expression</span>(<span class="fu">rho</span>(PC, OR))) <span class="sc">+</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, <span class="at">position=</span><span class="st">'dodge'</span>, <span class="at">col=</span><span class="st">'black'</span>)<span class="sc">+</span></span>
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'PC'</span>) <span class="sc">+</span> </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.20</span>)) <span class="sc">+</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.1</span>)) <span class="sc">+</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1</span>), <span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.1</span>))<span class="sc">+</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid.minor=</span><span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line =</span> <span class="fu">element_line</span>(), <span class="at">axis.text=</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title=</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning message:
-“package ‘ggplot2’ was built under R version 4.2.3”</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class="dl-inline"><dt>PC1</dt><dd>-0.0132296406618313</dd><dt>PC2</dt><dd>0.0148094129747471</dd><dt>PC3</dt><dd>0.000108710904731628</dd><dt>PC4</dt><dd>0.0128764323145316</dd><dt>PC5</dt><dd>-0.0126458445839562</dd><dt>PC6</dt><dd>-0.0318036207335605</dd><dt>PC7</dt><dd>-0.0118702516316677</dd><dt>PC8</dt><dd>0.0426472424393875</dd><dt>PC9</dt><dd>-0.00809390306591933</dd><dt>PC10</dt><dd>0.0915926823759537</dd></dl>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GWAS5b-PopulationStratification_files/figure-html/cell-3-output-3.png" width="420" height="420" class="figure-img"></p>
+<p><img src="GWAS5b-PopulationStratification_files/figure-html/cell-3-output-1.png" width="420" height="420" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="810b6e62-7c32-4df3-b61a-69dd1af7d5a2" class="cell" data-execution_count="95">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#eigen &lt;- read.table(file="Results/GWAS4/PCA_1kg.eigenvec", header=F) </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#colnames(eigen) &lt;-  c("FID", "IID", paste0("PC", 1:10))</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file=</span><span class="st">"Results/GWAS4/popfile.txt"</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">merge</span>(eigen,pop,<span class="at">by=</span><span class="fu">c</span>(<span class="st">"FID"</span>,<span class="st">"IID"</span>))</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.cov"</span>, <span class="at">header=</span>T)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Metapopulation information for the population in the 1000GP dataset</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>superpop <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JPT"</span> <span class="ot">=</span> <span class="st">"ASN"</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ASW"</span> <span class="ot">=</span> <span class="st">"AFR"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CEU"</span> <span class="ot">=</span> <span class="st">"EUR"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHB"</span> <span class="ot">=</span> <span class="st">"ASN"</span>,</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHD"</span> <span class="ot">=</span> <span class="st">"ASN"</span>,</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"YRI"</span> <span class="ot">=</span> <span class="st">"AFR"</span>,</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LWK"</span> <span class="ot">=</span> <span class="st">"AFR"</span>,</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TSI"</span> <span class="ot">=</span> <span class="st">"EUR"</span>,</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MXL"</span> <span class="ot">=</span> <span class="st">"AMR"</span>,</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GBR"</span> <span class="ot">=</span> <span class="st">"EUR"</span>,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FIN"</span> <span class="ot">=</span> <span class="st">"EUR"</span>,</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHS"</span> <span class="ot">=</span> <span class="st">"ASN"</span>,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PUR"</span> <span class="ot">=</span> <span class="st">"AMR"</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># add metapopulation and assign cols  </span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>SUPERPOP <span class="ot">&lt;-</span> superpop[df<span class="sc">$</span>POP]</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>eur_col <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CEU"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"TSI"</span> <span class="ot">=</span> <span class="st">"green"</span>, <span class="st">"GBR"</span> <span class="ot">=</span> <span class="st">"purple"</span>, <span class="st">"FIN"</span> <span class="ot">=</span> <span class="st">"orange"</span>)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>all_cols <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">ifelse</span>(superpop <span class="sc">==</span> <span class="st">"EUR"</span>, eur_col[<span class="fu">names</span>(superpop)], <span class="st">"grey"</span>), <span class="fu">names</span>(superpop))                  </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>color <span class="ot">&lt;-</span> all_cols[df<span class="sc">$</span>POP]</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(PC1, PC10,<span class="at">color=</span>POP)) <span class="sc">+</span> </span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">5</span>, <span class="at">alpha=</span>.<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> all_cols) <span class="sc">+</span></span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">15</span>), </span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>), <span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>))</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="b.-summary-statistics-from---logistic-test" class="level4">
+<h4 class="anchored" data-anchor-id="b.-summary-statistics-from---logistic-test">B. Summary statistics from <code>--logistic</code> test</h4>
+<p>Let’s calculate Pearson correlations using the logistic model results.</p>
+<div id="3b1447d5-aced-4d74-8fb8-6de8cf03e0af" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load results logistic model </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>results_log <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/logistic_results.assoc_2.logistic"</span>, <span class="at">head=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>merged_log <span class="ot">&lt;-</span> <span class="fu">merge</span>(results_log, data, <span class="at">by=</span><span class="dv">2</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># compute correlations </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>correlationsLog <span class="ot">&lt;-</span> <span class="fu">apply</span>(merged_log[, <span class="dv">13</span><span class="sc">:</span><span class="dv">22</span>], <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">cor</span>(merged_log<span class="sc">$</span>OR, x, <span class="at">method=</span><span class="st">"pearson"</span>, <span class="at">use=</span><span class="st">"complete.obs"</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>dataCorLog <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">pc =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">corr =</span> correlationsLog)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(dataCorLog), <span class="fu">aes</span>(pc, corr)) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="fu">expression</span>(<span class="fu">rho</span>(PC, OR))) <span class="sc">+</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, <span class="at">position=</span><span class="st">'dodge'</span>, <span class="at">col=</span><span class="st">'black'</span>)<span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'PC'</span>) <span class="sc">+</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>,<span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">1</span>), <span class="at">expand=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.1</span>))<span class="sc">+</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">panel.grid.minor=</span><span class="fu">element_blank</span>(), <span class="at">panel.background =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line =</span> <span class="fu">element_line</span>(), <span class="at">axis.text=</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title=</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -467,7 +440,8 @@ Important notes for this notebook
 </div>
 </div>
 </div>
-<p>This exploration of the results suggests that the correlation between PC loadings and effect sizes could explain why the logistic approach, which includes covariates, did not produce significant peaks in the Manhattan plot. So, perhaps the lack of significant associations is not due to being overly cautious but rather reflects the true absence of strong signals. Further exploration is needed to better understand these results.</p>
+<p>There should be no correlation if we had corrected for population structure, as the effect size estimates wouldn’t be influenced by that. In contrast, for the model that doesn’t account for covariates, the correlations are higher than those observed in the logistic model. These correlations may help explain why the logistic model, which accounts for covariates, did not produce significant peaks in the Manhattan plot. Therefore, the lack of significant associations might not be due to being overly cautious but could rather indicate the true absence of strong signals. Further investigation is needed to better understand these results.</p>
+<p>For interpretation, coloring the bar plot results based on the correlation between the PCs and the allele frequency difference between the populations represented in your target sample would help highlight any patterns or trends.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Other take-home messages">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -486,6 +460,7 @@ Other take-home messages
 </div>
 
 
+</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->

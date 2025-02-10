@@ -325,19 +325,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Population stratification in GWAS</span></a>
+ <span class="menu-text">Population stratification</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PRS binary traits</span></a>
+ <span class="menu-text">Polygenic scores I</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PRS quantitative traits</span></a>
+ <span class="menu-text">Polygenic scores II</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -432,10 +432,10 @@ Important notes for this notebook
 <div id="8518d95f" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># link the data and create output directory </span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Results/GWAS7</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Results/GWAS8</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run ldak software</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">../Software/ldak</span> <span class="at">--calc-stats</span> Results/GWAS7/human <span class="at">--bfile</span> Data/ldak_data/human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">../Software/ldak</span> <span class="at">--calc-stats</span> Results/GWAS8/human <span class="at">--bfile</span> Data/ldak_data/human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mkdir: cannot create directory ‘Results/GWAS7’: File exists
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -471,11 +471,11 @@ Mission completed. All your basepair are belong to us :)
 </div>
 </div>
 <p>This command asks LDAK to read the data stored in Binary PLINK format with the prefix human, then save the results to files with the prefix “human”. Remember that software command line arguments, can be provided in any order (generally, there is no strict order requirement), so that the command above would be equivalent to <code>../Software/ldak --bfile Data/ldak_data/human --calc-stats Data/ldak_data/human</code></p>
-<p>The output files are called <code>human.stats</code> and <code>human.missing</code> and found in the folder <code>Results/GWAS7</code>. By accessing the columns of <code>human.stats</code>, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:</p>
+<p>The output files are called <code>human.stats</code> and <code>human.missing</code> and found in the folder <code>Results/GWAS8</code>. By accessing the columns of <code>human.stats</code>, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:</p>
 <div id="3394d4aa-e8ad-4a09-9249-6ddc062c71fc" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">######### FOR EXERCISE</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">snpmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS7/human.stats"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">snpmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS8/human.stats"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">snpmiss</span><span class="kw">)</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>

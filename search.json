@@ -108,7 +108,7 @@
     "href": "develop/GWAS8-OtherToolsAndTesting.html#overview-of-functionality",
     "title": "Other tools & conclusions",
     "section": "Overview of functionality",
-    "text": "Overview of functionality\nUsing LDAK is very similar to PLINK. As with PLINK, you will require the .bed, .bim, and .fam files of your cohort. Beyond this, you will need additional files:\n\n.info - information scores for SNPs\n.pheno - a phenotype\n.covar - covariates\n.ind.hers - estimates of per-SNP heritabilities\n.genefile - (real) RefSeq human gene annotations\n\n If we call our prefix human, then very simply, we can compute summary statistics in the following way:\n\n# link the data and create output directory \nln -sf ../Data\nmkdir Results/GWAS7\n\n# Run ldak software\n../Software/ldak --calc-stats Results/GWAS7/human --bfile Data/ldak_data/human\n\nmkdir: cannot create directory ‘Results/GWAS7’: File exists\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere are 2 pairs of arguments:\n--calc-stats Results/GWAS7/human\n--bfile Data/ldak_data/human\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nCalculating predictor and individual statistics\n\nTo run the parallel version of LDAK, use \"--max-threads\" (this will only reduce runtime for some commands)\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nReading IDs for 424 samples from Data/ldak_data/human.fam\n\nReading details for 3289 predictors from Data/ldak_data/human.bim\n\nData contain 424 samples and 3289 predictors\n\nCalculating statistics for Chunk 1 of 1\n\nStatistics saved in Results/GWAS7/human.stats and Results/GWAS7/human.missing\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nMission completed. All your basepair are belong to us :)\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\n\nThis command asks LDAK to read the data stored in Binary PLINK format with the prefix human, then save the results to files with the prefix “human”. Remember that software command line arguments, can be provided in any order (generally, there is no strict order requirement), so that the command above would be equivalent to ../Software/ldak --bfile Data/ldak_data/human --calc-stats Data/ldak_data/human\nThe output files are called human.stats and human.missing and found in the folder Results/GWAS7. By accessing the columns of human.stats, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:\n\n######### FOR EXERCISE\n\nsnpmiss &lt;- read.table(file=\"Results/GWAS7/human.stats\", header=TRUE)\n\nhead(snpmiss)\n\nhist(snpmiss$MAF, breaks = 50) \n\n#  geom_histogram(binwidth = 0.001, col = \"black\", fill=\"tomato\") + \n#  labs(title = \"Frequency of missingness rates in individuals\") + \n#  xlab(\"Frequency\") + \n# ylab(\"Missingness in Individuals\") + \n# theme_bw()\n\n\n###########################\n\n\nA data.frame: 6 × 7\n\n\n\nPredictor\nA1\nA2\nA1_Mean\nMAF\nCall_Rate\nInfo\n\n\n\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;dbl&gt;\n&lt;dbl&gt;\n&lt;int&gt;\n&lt;int&gt;\n\n\n\n\n1\n21:14642464\nA\nG\n0.884434\n0.442217\n1\n-1\n\n\n2\n21:14649798\nA\nC\n0.974057\n0.487028\n1\n-1\n\n\n3\n21:14669931\nG\nA\n0.969340\n0.484670\n1\n-1\n\n\n4\n21:14688825\nT\nC\n0.983491\n0.491745\n1\n-1\n\n\n5\n21:14736298\nC\nT\n0.858491\n0.429245\n1\n-1\n\n\n6\n21:14757043\nT\nC\n0.929245\n0.464623\n1\n-1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 7.1: Genomic properties are easily accessible by parsing through the outputted summary statistics\n\n\nIf you wish to perform single-SNP association analysis using linear regression. We would use the main argument --linear in this case. Each main argument requires different options. Remember to check the Documentation at www.dougspeed.com. Most software have a --help option, but LDAK doesn’t, so an alternative is to run the main argument, which will print out the options required and missing for a successful run:\n\n../Software/ldak --linear linear\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere is one pair of arguments:\n--linear linear\n\nError, you must use \"--pheno\" to provide phenotypes\n\n\n\n: 1\n\n\nThe output can be used to obtain GWAS plots of interest, such as a Manhattan plot:\n\n\n\nFigure 7.2: Manhattan plot outputted by LDAK\n\n\nFurthermore, LDAK offers various additional methods and features, such as the explicit incorporation of covariates and PRS. For those interested, we recommend following the tutorials available here. Additionally, we have included the dataset accompanying this tutorial in the Data folder, conveniently named extra_data.zip. All you need is to run the commands in the tutorial.\nThe takeaway is that while more advanced tools exist, PLINK serves as an excellent starting point for conducting focused and specific analyses, particularly for educational purposes.",
+    "text": "Overview of functionality\nUsing LDAK is very similar to PLINK. As with PLINK, you will require the .bed, .bim, and .fam files of your cohort. Beyond this, you will need additional files:\n\n.info - information scores for SNPs\n.pheno - a phenotype\n.covar - covariates\n.ind.hers - estimates of per-SNP heritabilities\n.genefile - (real) RefSeq human gene annotations\n\n If we call our prefix human, then very simply, we can compute summary statistics in the following way:\n\n# link the data and create output directory \nln -sf ../Data\nmkdir Results/GWAS8\n\n# Run ldak software\n../Software/ldak --calc-stats Results/GWAS8/human --bfile Data/ldak_data/human\n\nmkdir: cannot create directory ‘Results/GWAS7’: File exists\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere are 2 pairs of arguments:\n--calc-stats Results/GWAS7/human\n--bfile Data/ldak_data/human\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nCalculating predictor and individual statistics\n\nTo run the parallel version of LDAK, use \"--max-threads\" (this will only reduce runtime for some commands)\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nReading IDs for 424 samples from Data/ldak_data/human.fam\n\nReading details for 3289 predictors from Data/ldak_data/human.bim\n\nData contain 424 samples and 3289 predictors\n\nCalculating statistics for Chunk 1 of 1\n\nStatistics saved in Results/GWAS7/human.stats and Results/GWAS7/human.missing\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nMission completed. All your basepair are belong to us :)\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\n\nThis command asks LDAK to read the data stored in Binary PLINK format with the prefix human, then save the results to files with the prefix “human”. Remember that software command line arguments, can be provided in any order (generally, there is no strict order requirement), so that the command above would be equivalent to ../Software/ldak --bfile Data/ldak_data/human --calc-stats Data/ldak_data/human\nThe output files are called human.stats and human.missing and found in the folder Results/GWAS8. By accessing the columns of human.stats, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:\n\n######### FOR EXERCISE\n\nsnpmiss &lt;- read.table(file=\"Results/GWAS8/human.stats\", header=TRUE)\n\nhead(snpmiss)\n\nhist(snpmiss$MAF, breaks = 50) \n\n#  geom_histogram(binwidth = 0.001, col = \"black\", fill=\"tomato\") + \n#  labs(title = \"Frequency of missingness rates in individuals\") + \n#  xlab(\"Frequency\") + \n# ylab(\"Missingness in Individuals\") + \n# theme_bw()\n\n\n###########################\n\n\nA data.frame: 6 × 7\n\n\n\nPredictor\nA1\nA2\nA1_Mean\nMAF\nCall_Rate\nInfo\n\n\n\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;chr&gt;\n&lt;dbl&gt;\n&lt;dbl&gt;\n&lt;int&gt;\n&lt;int&gt;\n\n\n\n\n1\n21:14642464\nA\nG\n0.884434\n0.442217\n1\n-1\n\n\n2\n21:14649798\nA\nC\n0.974057\n0.487028\n1\n-1\n\n\n3\n21:14669931\nG\nA\n0.969340\n0.484670\n1\n-1\n\n\n4\n21:14688825\nT\nC\n0.983491\n0.491745\n1\n-1\n\n\n5\n21:14736298\nC\nT\n0.858491\n0.429245\n1\n-1\n\n\n6\n21:14757043\nT\nC\n0.929245\n0.464623\n1\n-1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 7.1: Genomic properties are easily accessible by parsing through the outputted summary statistics\n\n\nIf you wish to perform single-SNP association analysis using linear regression. We would use the main argument --linear in this case. Each main argument requires different options. Remember to check the Documentation at www.dougspeed.com. Most software have a --help option, but LDAK doesn’t, so an alternative is to run the main argument, which will print out the options required and missing for a successful run:\n\n../Software/ldak --linear linear\n\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\nLDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More\nVersion 5.2 - Help pages at http://www.ldak.org\n-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\nThere is one pair of arguments:\n--linear linear\n\nError, you must use \"--pheno\" to provide phenotypes\n\n\n\n: 1\n\n\nThe output can be used to obtain GWAS plots of interest, such as a Manhattan plot:\n\n\n\nFigure 7.2: Manhattan plot outputted by LDAK\n\n\nFurthermore, LDAK offers various additional methods and features, such as the explicit incorporation of covariates and PRS. For those interested, we recommend following the tutorials available here. Additionally, we have included the dataset accompanying this tutorial in the Data folder, conveniently named extra_data.zip. All you need is to run the commands in the tutorial.\nThe takeaway is that while more advanced tools exist, PLINK serves as an excellent starting point for conducting focused and specific analyses, particularly for educational purposes.",
     "crumbs": [
       "Tutorials",
       "Association Testing",
@@ -118,73 +118,73 @@
   {
     "objectID": "develop/GWAS6-PRSAnalysis.html",
     "href": "develop/GWAS6-PRSAnalysis.html",
-    "title": "PRS binary traits",
+    "title": "Polygenic scores I",
     "section": "",
     "text": "Important notes for this notebook\n\n\n\nPolygenic scores (PRS) estimate an individual’s genetic predisposition to complex traits or diseases by combining information from multiple genetic variants previously identified in the GWAS study. This notebook provides a step-by-step guide to performing a basic PRS analysis using PRSice and explains how to interpret the results.\n\n\n\nDiscuss and choose the PRS equation\nDiscuss PRS scores and biases\n\n\n\n\n\nIn this notebook, we will only use the bash command line. Be sure to click on the menu Kernel --&gt; Change Kernel --&gt; Bash\n\n Choose the Bash kernel\nWhile most individual associations found in GWAS studies are of small effect, information about them can be combined across the genome, to create a polygenic score (PGS). These scores can be used to make genome-based predictions about the overall risk of having a particular trait or disease or about the genetic value for continuous traits. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS binary traits"
+      "Polygenic scores I"
     ]
   },
   {
     "objectID": "develop/GWAS6-PRSAnalysis.html#learning-outcomes",
     "href": "develop/GWAS6-PRSAnalysis.html#learning-outcomes",
-    "title": "PRS binary traits",
+    "title": "Polygenic scores I",
     "section": "",
     "text": "Discuss and choose the PRS equation\nDiscuss PRS scores and biases",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS binary traits"
+      "Polygenic scores I"
     ]
   },
   {
     "objectID": "develop/GWAS6-PRSAnalysis.html#how-to-make-this-notebook-work",
     "href": "develop/GWAS6-PRSAnalysis.html#how-to-make-this-notebook-work",
-    "title": "PRS binary traits",
+    "title": "Polygenic scores I",
     "section": "",
     "text": "In this notebook, we will only use the bash command line. Be sure to click on the menu Kernel --&gt; Change Kernel --&gt; Bash\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS binary traits"
+      "Polygenic scores I"
     ]
   },
   {
-    "objectID": "develop/GWAS6-PRSAnalysis.html#conducting-polygenic-risk-prediction-analyses",
-    "href": "develop/GWAS6-PRSAnalysis.html#conducting-polygenic-risk-prediction-analyses",
-    "title": "PRS binary traits",
-    "section": "Conducting polygenic risk prediction analyses",
-    "text": "Conducting polygenic risk prediction analyses\nSingle-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.\nA PGS is typically calculated by summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect sizes, while ensuring independence among them (e.g., via LD pruning). These effect sizes—betas for continuous traits and log odds ratios for binary traits—are obtained from a discovery GWAS. Large discovery samples (also known as base or training samples) are needed for accurate estimates, but if the target sample shares ancestry, effect sizes from larger studies can be leveraged. A target sample of ~2,000 individuals may be sufficient to detect meaningful genetic contributions to trait variance (Dudbridge 2013). For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).\nA common practice to calculate PRS involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.\nOnce PRS are calculated, they are used in (logistic) regression models to assess the contribution to the trait variance. Prediction accuracy is measured by the increase in \\(R^2\\), comparing a baseline model with only covariates (e.g., MDS components) to a model that also includes PRS. This increase reflects the proportion of variance explained by genetic risk factors. Accuracy depends on trait heritability, SNP count, and discovery sample size, with a few thousand individuals typically sufficient for reliable estimates.",
+    "objectID": "develop/GWAS6-PRSAnalysis.html#polygenic-risk-prediction-analyses",
+    "href": "develop/GWAS6-PRSAnalysis.html#polygenic-risk-prediction-analyses",
+    "title": "Polygenic scores I",
+    "section": "Polygenic risk prediction analyses",
+    "text": "Polygenic risk prediction analyses\nSingle-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.\nA PGS is typically calculated by summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect sizes, while ensuring independence among them (e.g., via LD pruning). These effect sizes—betas for continuous traits and log odds ratios for binary traits—are obtained from a discovery GWAS. Large discovery samples (also known as base or training samples) are needed for accurate estimates, but if the target sample shares ancestry, effect sizes from larger studies can be leveraged. A target sample of ~2,000 individuals may be sufficient to detect meaningful genetic contributions to trait variance (Dudbridge 2013). For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).\nA common practice to calculate PRS involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.\nOnce PRS are calculated, they are used in (logistic) regression models to assess the contribution to the trait variance. Prediction accuracy is measured by the increase in \\(R^2\\), comparing a baseline model with only covariates (e.g., MDS components) to a model that also includes PRS. This increase reflects the proportion of variance explained by genetic risk factors. Accuracy depends on trait heritability, SNP count, and discovery sample size, with a few thousand individuals typically sufficient for reliable estimates.",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS binary traits"
+      "Polygenic scores I"
     ]
   },
   {
     "objectID": "develop/GWAS6-PRSAnalysis.html#polygenic-risk-score-analysis-with-prsice-2",
     "href": "develop/GWAS6-PRSAnalysis.html#polygenic-risk-score-analysis-with-prsice-2",
-    "title": "PRS binary traits",
+    "title": "Polygenic scores I",
     "section": "Polygenic risk score analysis with PRSice-2",
     "text": "Polygenic risk score analysis with PRSice-2\nPRSice is a widely used tool for polygenic risk score analysis. This tutorial offers a step-by-step guide on its use and result interpretation.\nThe installed package will include an R script that is straightforward to run. It requires the following information:\n\n--prsice: the binary executable file\n--base: the .assoc file that contains statistical information\n--target: the PLINK-formatted dataset\n\n\n\n\n\n\n\nNote\n\n\n\nWe would apply this method to our HapMap dataset, but PRS analysis typically requires a sample size of around 2,000 to produce meaningful results, while our dataset includes only about 150 individuals. To facilitate learning, we will instead use a toy dataset. In this notebook, we will focus on analyzing a binary trait.\nIdeally, the summary statistics should come from the most powerful GWAS available for the phenotype of interest. Commonly, the target dataset is typically generated within your lab or obtained through collaborations.\n\n\n\nPRSice analysis for binary traits\n Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:\n\nmkdir -p Results/GWAS6\n\n# Create two links to data and software\nln -sf ../Data\nln -sf ../Software\n\nWe will run the PRSice.R script using the association test results (TOY_BASE_GWAS.assoc) and specify the column names for SNPs, chromosomes, and other relevant data. This is necessary because different association tools generate varying header formats. Finally, we will specify the location of our data (TOY_TARGET_DATA) and define the phenotype format as binary (0s and 1s).\n\n\n\n\n\n\nWarning\n\n\n\nIf you get an error in the following command, try to restart the kernel in the Kernel menu. Sometimes links to folders are not recognized immediately.\n\n\n\n# Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  \n# ./Software/PRSice -h\n\nSNP CHR BP A1 A2 P OR\nSNP_22857 4 103593179 1 2 0.2852 13.29\nSNP_13879 2 237416793 1 2 0.8784 21.624\nSNP_20771 4 16957461 1 2 0.1994 91.265\nSNP_13787 2 235355721 1 2 0.7234 3.178\nSNP_25383 4 189927377 1 2 0.3309 3.167\nSNP_25290 4 187995996 1 2 0.6327 0.427\nSNP_21478 4 40161304 1 2 0.06454 5.066\nSNP_12129 2 176643771 1 2 0.9378 1.276\nSNP_22809 4 101441465 1 2 0.8111 0.004\n\n\n\nRscript ./Data/PRSice.R --out Results/GWAS6/PRSice \\\n--prsice ./Software/PRSice \\\n--base ./Data/TOY_BASE_GWAS.assoc \\\n--snp SNP --chr CHR --bp BP --A1 A1 --A2 A2 --stat OR --pvalue P \\\n--target ./Data/TOY_TARGET_DATA \\\n--binary-target T \n\nTrying to install data.table in ./lib\nCannot install data.table, will fall back and use read.table instead\nNote: It will be slower when reading large files\nPRSice 2.3.3 (2020-08-05) \nhttps://github.com/choishingwan/PRSice\n(C) 2016-2020 Shing Wan (Sam) Choi and Paul F. O'Reilly\nGNU General Public License v3\nIf you use PRSice in any published work, please cite:\nChoi SW, O'Reilly PF.\nPRSice-2: Polygenic Risk Score Software for Biobank-Scale Data.\nGigaScience 8, no. 7 (July 1, 2019)\n2025-02-05 14:59:15\n./Software/PRSice \\\n    --a1 A1 \\\n    --a2 A2 \\\n    --bar-levels 0.001,0.05,0.1,0.2,0.3,0.4,0.5,1 \\\n    --base ./Data/TOY_BASE_GWAS.assoc \\\n    --binary-target T \\\n    --bp BP \\\n    --chr CHR \\\n    --clump-kb 250kb \\\n    --clump-p 1.000000 \\\n    --clump-r2 0.100000 \\\n    --interval 5e-05 \\\n    --lower 5e-08 \\\n    --num-auto 22 \\\n    --or  \\\n    --out Results/GWAS6/PRSice \\\n    --pvalue P \\\n    --seed 173747611 \\\n    --snp SNP \\\n    --stat OR \\\n    --target ./Data/TOY_TARGET_DATA \\\n    --thread 1 \\\n    --upper 0.5\n\nInitializing Genotype file: ./Data/TOY_TARGET_DATA (bed) \n\nStart processing TOY_BASE_GWAS \n================================================== \n\nBase file: ./Data/TOY_BASE_GWAS.assoc \nHeader of file is: \nSNP CHR BP A1 A2 P OR \n\nReading 31.59%\n\n\nIOPub message rate exceeded.\nThe Jupyter server will temporarily stop sending output\nto the client in order to avoid crashing it.\nTo change this limit, set the config variable\n`--ServerApp.iopub_msg_rate_limit`.\n\nCurrent values:\nServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)\nServerApp.rate_limit_window=3.0 (secs)\n\n\n\nClumping Progress: 62.23%\n\n\nIOPub message rate exceeded.\nThe Jupyter server will temporarily stop sending output\nto the client in order to avoid crashing it.\nTo change this limit, set the config variable\n`--ServerApp.iopub_msg_rate_limit`.\n\nCurrent values:\nServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)\nServerApp.rate_limit_window=3.0 (secs)\n\n\n\nProcessing 100.00%\nThere are 1 region(s) with p-value less than 1e-5. Please \nnote that these results are inflated due to the overfitting \ninherent in finding the best-fit PRS (but it's still best \nto find the best-fit PRS!). \nYou can use the --perm option (see manual) to calculate an \nempirical P-value. \n\nBegin plotting\nCurrent Rscript version = 4.3.2\nPlotting Bar Plot\nPlotting the high resolution plot\n\n\n\n\nThe --base parameter refers to the file with summary statistics from the base sample. Each line represents a single SNP and includes details such as effect size and p-value.\nThe --target parameter specifies the prefix of genotype data files in binary PLINK format (.bed, .bim, .fam). The base and target samples must be independent to avoid inflated polygenic risk score associations.\n\nIf the type effect (--stat) or data type (--binary-target) were not specified, PRSice will try to determine this information based on the header of the base file.\n\n\n\n\n\n\nStop - Read - Solve\n\n\n\n\nCan all genomic variants be used for calculating PRS? Why or why not?\nHow can you determine which variants should be included in the PRS calculation?\nAre linkage disequilibrium (LD) blocks shared across populations with different ancestry? Explain your reasoning.\n\nHint: read the [PRSice user manual](https://choishingwan.github.io/PRSice/step_by_step and Berisa and Pickrell (2016).\n\n\n\n\n\n\n\n\nSolution\n\n\n\n\nNo, not all variants should be used. Variants in high LD (highly correlated) should be handled carefully to avoid inflated significance and false positives.\nVariants should be selected based on their association with the trait and their independence from other variants. Two common approaches for handling correlated SNPs are: - LD clumping (e.g., PRSice): correlated SNPs within each LD block are filtered by selecting the one with the lowest p-value from the discovery set. Other SNPs in the same block are excluded. Clumping parameters can be customized. - Bayesian adjustments (e.g., LD Pred2) use a Bayesian framework to adjust the effect sizes of SNPs by accounting for LD patterns across the genome. This helps refine PRS calculations and corrects for correlated SNPs.\nNo, LD blocks can differ between populations of different ancestry due to genetic history and environment. It is essential to account for these differences when calculating PRS, especially when using cross-population data.\n\n\n\nFor simplicity’s sake, we did not include principal components or covariates in this analysis, however, when conducting your analyses we strongly recommend including these.\n\n\nInterpreting the results\nBy default, PRSice saves two plots and several text files. The first plot is PRSice_BARPLOT_&lt;date&gt;.png(which you find in Result/GWAS6 using the file browser, the filename depends on the current date). This plot illustrates the predictive value (Nagelkerke’s R²) in the target sample based on SNPs with p-values below specific thresholds in the base sample. A p-value is also provided for each model.\n\n\n\n\n\n\n\n\n\n\n\nStop - Read - Solve\n\n\n\n\nWhich P-value threshold generated the “best-fit” PRS?\nHow much phenotypic variation does the “best-fit” PRS explain?\n\nHint: Check the PRSice.summary file.\n\n\n\n\n\n\n\n\nSolution\n\n\n\nAs shown in the plot, a model using SNPs with a p-value &lt; 0.4463 achieves the highest predictive value in the target sample (p-value= 4.7e-18). However, as is often the case in polygenic risk scores analysis with relatively small samples, the predictive value is relatively low (Nagelkerke’s around 5%). The text files include the exact values for each p-value threshold (check them!).\nThe phenotypic variation (PRS.R2) explained by these variants is 0.05. - PRS.R2: quantifies how much of the trait variation is attributable to the genetic variants used in the analysis - Full.R2: represents the total variance explained by the full model (genetic variants and any other covariates used) - Null.R3: indicates the variance explained by the model without the PRS component (i.e., just the covariates)\n\n\nThe second plot PRSice_HIGH-RES_PLOT_&lt;date&gt;.png (which you again can manually open) shows many different p-value thresholds. The p-value of the predictive effect is in black together with an aggregated trend line in green.\n\nBoth figures show that trait-associated SNPs in the base sample can predict the trait in the target sample. If the same trait is used, predictive power depends on the trait’s heritability and base sample size. When using related but different traits, the predictive power also depends on their genetic correlation. Studies suggest that models with more lenient p-value thresholds capture smaller effects important for complex traits, while stricter thresholds reduce noise, aiding interpretation and the understanding of the underlying genetic architecture. Balancing informative SNPs and minimizing noise is key to maximizing predictive power.\n\n\nConclusion\nIn this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.\nNow, you will need to do the same for a quantitative trait and explore the results.",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS binary traits"
+      "Polygenic scores I"
     ]
   },
   {
     "objectID": "develop/GWAS6-PRSAnalysis.html#further-reading",
     "href": "develop/GWAS6-PRSAnalysis.html#further-reading",
-    "title": "PRS binary traits",
+    "title": "Polygenic scores I",
     "section": "Further Reading",
     "text": "Further Reading\n\n\n\n\n\n\nOther take-home messages\n\n\n\n\nReplication in (several) other cohorts provides convincing evidence\nApplying stringent statistics (P&lt;5e-8) helps to reduce the likelihood of false-positive results\nAn external reference panel can be used to improve LD estimation for clumping, providing more accurate definitions of LD blocks and refining the selection of variants for PRS analysis, especially when sample size is limited (e.g. ~500 samples).\n\n\n\nThere is only so much one can discuss in a beginner’s practical guide to GWAS. As such, for those who want to expand their knowledge of GWAS, we have provided a comprehensive list of resources for you to read/try out below.",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS binary traits"
+      "Polygenic scores I"
     ]
   },
   {
@@ -355,37 +355,37 @@
   {
     "objectID": "develop/GWAS7-PRSII.html",
     "href": "develop/GWAS7-PRSII.html",
-    "title": "PRS quantitative traits",
+    "title": "Polygenic scores II",
     "section": "",
-    "text": "Important notes for this notebook\n\n\n\n\n\n\nAssess whether population stratification influences your association test.\n\n\n\n\n\nIn this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "text": "Important notes for this notebook\n\n\n\nIn this notebook, we have data for a toy quantitative trait, so you’ll need to perform a basic polygenic risk score analysis and explore the results in a manner similar to what we did in the previous notebook.\n\n\n\nDiscuss and choose the PRS equation\nDiscuss PRS scores and biases\n\n\n\n\n\nWe will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS quantitative traits"
+      "Polygenic scores II"
     ]
   },
   {
     "objectID": "develop/GWAS7-PRSII.html#learning-outcomes",
     "href": "develop/GWAS7-PRSII.html#learning-outcomes",
-    "title": "PRS quantitative traits",
+    "title": "Polygenic scores II",
     "section": "",
-    "text": "Assess whether population stratification influences your association test.",
+    "text": "Discuss and choose the PRS equation\nDiscuss PRS scores and biases",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS quantitative traits"
+      "Polygenic scores II"
     ]
   },
   {
     "objectID": "develop/GWAS7-PRSII.html#how-to-make-this-notebook-work",
     "href": "develop/GWAS7-PRSII.html#how-to-make-this-notebook-work",
-    "title": "PRS quantitative traits",
+    "title": "Polygenic scores II",
     "section": "",
-    "text": "In this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "text": "We will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "PRS quantitative traits"
+      "Polygenic scores II"
     ]
   },
   {
@@ -429,37 +429,37 @@
   {
     "objectID": "develop/GWAS5b-PopulationStratification.html",
     "href": "develop/GWAS5b-PopulationStratification.html",
-    "title": "Population stratification in GWAS",
+    "title": "Population stratification",
     "section": "",
-    "text": "Important notes for this notebook\n\n\n\n\n\n\nIdentify potential population stratification in our GWAS output.\n\n\n\n\n\nIn this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel\nAs we have discussed, it is important to remove population structure, as residual population stratification, as shown by [@sohail2019polygenic], can be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores (PRS) and other downstream analyses.",
+    "text": "Important notes for this notebook\n\n\n\nAs we’ve discussed, removing population structure is crucial, as residual population stratification—highlighted by [@sohail2019polygenic]—can even be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores and other downstream analyses. In this notebook, we will further explore one way of detecting population stratification in GWAS. Since we were uncertain whether we were being too strict when correcting for population structure, or if the GWAS lacked sufficient power, this analysis will help us clarify if we can trust our results.\n\n\n\nIdentify potential population stratification in our GWAS output.\n\n\n\n\n\nIn this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "Population stratification in GWAS"
+      "Population stratification"
     ]
   },
   {
     "objectID": "develop/GWAS5b-PopulationStratification.html#learning-outcomes",
     "href": "develop/GWAS5b-PopulationStratification.html#learning-outcomes",
-    "title": "Population stratification in GWAS",
+    "title": "Population stratification",
     "section": "",
     "text": "Identify potential population stratification in our GWAS output.",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "Population stratification in GWAS"
+      "Population stratification"
     ]
   },
   {
     "objectID": "develop/GWAS5b-PopulationStratification.html#how-to-make-this-notebook-work",
     "href": "develop/GWAS5b-PopulationStratification.html#how-to-make-this-notebook-work",
-    "title": "Population stratification in GWAS",
+    "title": "Population stratification",
     "section": "",
     "text": "In this notebook, we will use both R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
       "Association Testing",
-      "Population stratification in GWAS"
+      "Population stratification"
     ]
   },
   {
