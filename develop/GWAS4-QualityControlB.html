@@ -1617,7 +1617,7 @@ Note
 <p><strong>What values would you select or apply in this context, and why?</strong> Hint: look at the plot above.</p>
 <p>Preview of the MDS results:</p>
 <div id="89a3b1b8-0600-4970-bbd8-26c61e593aa3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> Results/GWAS4/MDS_merge2.mds <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-6</span> <span class="at">-d</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> Results/GWAS4/MDS_merge.mds <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-6</span> <span class="at">-d</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    FID       IID    SOL           C1           C2           C3           C4           C5           C6           C7           C8           C9          C10 
    1328   NA06984      0   -0.0218368  -0.00620683  -0.00464884   0.00121512 -0.000413235   0.00221093    0.0104188  -0.00199382    0.0173257   -0.0131241 
@@ -1627,9 +1627,9 @@ Note
 <p>Based on the position of the target population’s cluster in the MDS plot, we will exclude individuals with MDS component 1 values less than 0 and MDS component 2 values less than -0.05.</p>
 <p>The selection has to be done for the individuals we want to keep, so the area to be chosen has to be mirrored into &gt;0 and &gt;-0.05. We provide the MDS component values in columns 4 and 5 of the file (corresponding to the first 2 components), and extract the individuals using <code>--keep</code></p>
 <div id="3e022245" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($4 &gt;0 || $5 &gt;-0.05) print $1,$2 }'</span> Results/GWAS4/MDS_merge2.mds <span class="op">&gt;</span> Results/GWAS4/EUR_MDS_merge2</span>
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($4 &gt;0 || $5 &gt;-0.05) print $1,$2 }'</span> Results/GWAS4/MDS_merge.mds <span class="op">&gt;</span> Results/GWAS4/EUR_MDS_merge</span>
 <span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--keep</span> Results/GWAS4/EUR_MDS_merge2 <span class="at">--make-bed</span>  <span class="dt">\</span></span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--keep</span> Results/GWAS4/EUR_MDS_merge <span class="at">--make-bed</span>  <span class="dt">\</span></span>
 <span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
