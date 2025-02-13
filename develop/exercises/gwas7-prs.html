@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Data collection – GWAS</title>
+<title>PRSice exercise – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,47 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea0b82cd5f822071eb0559dd9120d05c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-82b651110b069aa65eb395552b20c80d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ea0b82cd5f822071eb0559dd9120d05c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-82b651110b069aa65eb395552b20c80d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,7 +115,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -109,7 +123,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
-    <img src="../img/logo.png" alt="" class="navbar-logo">
+    <img src="../../img/logo.png" alt="" class="navbar-logo">
     </a>
     <a class="navbar-brand" href="http://hds-sandbox.github.io/">
     <span class="navbar-title">GWAS</span>
@@ -122,15 +136,15 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../access/setup.html"> 
+    <a class="nav-link" href="../../access/setup.html"> 
 <span class="menu-text">Access</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../develop/general-intro.html" aria-current="page"> 
+    <a class="nav-link" href="../../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
   </li>  
 </ul>
@@ -152,158 +166,20 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollectionA.html">Data collection</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/general-intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Instructions</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Introduction</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Genetic Theory Review</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS1-WhatIsAGWAS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">What is a GWAS?</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Data collection</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS2-DataCollection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data exploration</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS3-QualityControlA.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quality Control: initial steps</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Quality Control</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS4-QualityControlB.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quality Control: Relatedness &amp; Population Stratification</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Association Testing</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS5-AssociationTesting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Association testing</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Population stratification</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Polygenic scores I</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Polygenic scores II</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other tools &amp; conclusions</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction-to-study-design" id="toc-introduction-to-study-design" class="nav-link active" data-scroll-target="#introduction-to-study-design">Introduction to study design</a></li>
-  <li><a href="#genotyping" id="toc-genotyping" class="nav-link" data-scroll-target="#genotyping">Genotyping</a></li>
-  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollectionA.html">Data collection</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data collection</h1>
+<h1 class="title">PRSice exercise</h1>
 </div>
 
 
@@ -320,89 +196,229 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<p>Explore the base GWAS and compute polygenic scores for height in Europeans using PRSice2.</p>
+<p><img src="../Images/R.png" alt="R" width="40"> R kernel.</p>
+<div id="03046a6d-0950-434c-a29d-b47aa43ea69d" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>..<span class="sc">/</span>Data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Important notes for this notebook
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This course module introduces fundamental concepts regarding designing and executing GWAS. We touch on data collection (which involves gathering genomic data and phenotypic information from diverse populations), potential biases, and practical considerations on the standard file formats in GWAS.</p>
-<section id="learning-outcomes" class="level2">
-<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
-<ul>
-<li><strong>Understand and identify</strong> types of GWAS studies in the scientific literature</li>
-</ul>
-</section>
-</div>
-</div>
-<section id="introduction-to-study-design" class="level1">
-<h1>Introduction to study design</h1>
-<p>GWAS often require very large sample sizes to identify reproducible genome-wide significant associations, and one would need to conduct power calculations to determine the appropriate sample size. Generally speaking, there are two types of study design depending on the nature of the trait of interest:</p>
-<ul>
-<li><strong>1)</strong> Case-control studies when the trait of interest is dichotomous (e.g.&nbsp;Type 2 diabetes)</li>
-<li><strong>2)</strong> Quantitative measurements on the whole study sample when the trait is quantitative (e.g.&nbsp;height)</li>
-</ul>
-<p>In addition, one can choose between population-based and family-based designs. The choice generally depends on the data you have available - that is, if you have fewer samples, you can control for close relationships in your analyses rather than removing related individuals.</p>
-<div class="quarto-figure quarto-figure-center">
+<div id="557ca4a2-7d58-469d-9889-9b61946c3117" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">jupyter.plot_mimetypes =</span> <span class="st">'image/png'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(<span class="st">"qqman"</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>height_eur <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/Height.QC.gz"</span>, <span class="at">head=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(height_eur, <span class="at">main =</span> <span class="st">"Manhattan plot height GWAS"</span>, <span class="at">cex.axis=</span><span class="fl">1.1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">## QQ plot </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">qq</span>(height_eur<span class="sc">$</span>P, <span class="at">main =</span> <span class="st">"Q-Q plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="Images/design.png" class="img-fluid figure-img" style="width:75.0%"></p>
-<figcaption>Figure 1. Potential study designs</figcaption>
+<p><img src="gwas7-prs_files/figure-html/cell-3-output-1.png" width="420" height="420" class="figure-img"></p>
 </figure>
 </div>
-<p>The goal of data collection is to ensure you have all the essential information required for downstream analyses. These areas of information could include:</p>
-<ul>
-<li>Biological samples: blood samples or similar (for later genotyping)</li>
-<li>Information about the traits of interest</li>
-<li>Clinical data: disease status e.g.&nbsp;have diabetes (case) vs do not have diabetes (control)</li>
-<li>Quantitative measurements e.g.&nbsp;biometric data, cholesterol, blood pressure, or blood sugar</li>
-<li>Questionnaires: additional potentially relevant info, like sex, age, or lifestyle</li>
-</ul>
-<p>It is crucial to understand that any method used to obtain the required data will require informed consent and ethical approval. Achieving this can be quite challenging in practice, which is why publicly available biobanks are so widely utilized.</p>
-<p>GWAS can be conducted using data from resources such as biobanks, cohorts with disease-focused or population-based recruitment, or direct-to-consumer studies. Several excellent public resources provide access to large cohorts with genotypic and phenotypic information, and the majority of GWAS are conducted using these preexisting resources. Some notable examples include the UK Biobank, FinnGen, Biobank Japan, and the All of Us Research Program.</p>
-<p>Recruitment strategies must be carefully considered for all study designs as these can induce various forms of bias. For example, widely used research cohorts such as the UK Biobank recruit participants through a volunteer-based strategy. What this means in practice is that participants are, on average, healthier, wealthier, and more educated than the general population. Furthermore, cohorts that enroll participants from hospitals based on their disease status (such as BioBank Japan <span class="citation" data-cites="nagai_overview_2017">(<a href="#ref-nagai_overview_2017" role="doc-biblioref">Nagai et al. 2017</a>)</span>) will have different selection biases to cohorts recruited from the general population. Unlike research studies that focus on one disease or group of people, the new American initiative known as All of Us is building a diverse database designed to inform thousands of studies on a variety of health conditions. Different ethnicities, like the example just mentioned, can be included in the same study to make better predictions for people with different backgrounds, as long as the population substructure is considered to avoid false positive results.</p>
-<p>Finally, study annotation is essential for rigorous scientific practice. This involves detailing the chosen study design, providing a thorough description of the study, and including specifics such as sample inclusion criteria (e.g., ancestry, clinical features) and the phenotype of interest in your association analysis.</p>
-</section>
-<section id="genotyping" class="level1">
-<h1>Genotyping</h1>
-<p>Genotyping efficiently captures genetic variation by selecting informative SNPs, often in high linkage disequilibrium (LD), which reduces redundancy. Focusing on these SNPs minimizes computational load and improves cost-efficiency for a specific population.</p>
-<p>Genotypic data can be obtained through microarrays to detect common variants, or through next-generation sequencing techniques for whole-genome sequencing (WGS) or whole-exome sequencing (WES). Microarray-based genotyping is the most commonly used method for obtaining genotypes for GWAS owing to the current cost of next-generation sequencing. However, as shown in the figure below, the decreasing cost per human genome is expected to make WGS the preferred method. Nevertheless, the choice of genotyping platform depends on many factors and tends to be guided by the purpose of the GWAS. For example, in a consortium-led GWAS, it is usually wise to have all individual cohorts genotyped on the same genotyping platform (to avoid problems with batch bias).</p>
-<p>To enhance the power of GWAS, large reference panels are used to impute genotype data. This statistical technique predicts unobserved genotypes in the study sample based on observed genotypes and a reference panel. In other words, imputation fills in missing genotypes, increasing the number of variants that can be tested for association with traits. As mentioned before, it is crucial for the reference panel to be large and diverse to capture the genetic diversity of the entire population.</p>
-<div class="quarto-figure quarto-figure-center">
+</div>
+<div class="cell-output cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="Images/Cost.jpg" class="img-fluid figure-img"></p>
-<figcaption>Figure 2. The trend of cost of sequencing an entire genome through the years. This shows a development faster than what would be predicted by Moore’s Law, which suggests that every two years, our computational power should double.</figcaption>
+<p><img src="gwas7-prs_files/figure-html/cell-3-output-2.png" width="420" height="420" class="figure-img"></p>
 </figure>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Wrapping up">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Wrapping up
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>We have learned about the principles of study design for GWAS and the genotyping process. Let’s put it into practice.</p>
+<p>Does the plot surprise you? You can notice extreme deviations in the QQ-plot and an overwhelming number of significant variants. To refine your analysis and avoid false positives, you should perform MAF and INFO filtering to exclude rare variants and poorly imputed or uncertain variants that could lead to false associations.</p>
+<p><img src="../Images/bash.png" alt="Bash" width="40"> Bash kernel.</p>
+<p>You need to perform the PRS analysis on the simulated dataset in the following way:</p>
+<div id="cfdab610-f718-43d7-8080-2504794caded" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Rscript .<span class="sc">/</span>Data<span class="sc">/</span>PRSice.R \</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>prsice .<span class="sc">/</span>Software<span class="sc">/</span>PRSice \</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base .<span class="sc">/</span>Data<span class="sc">/</span>Height.QC.gz \</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>target .<span class="sc">/</span>Data<span class="sc">/</span>EUR.QC \</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>binary<span class="sc">-</span>target F \</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>pheno .<span class="sc">/</span>Data<span class="sc">/</span>EUR.height \</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>cov .<span class="sc">/</span>Data<span class="sc">/</span>EUR.covariate \</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base<span class="sc">-</span>maf MAF<span class="sc">:</span><span class="fl">0.01</span> \</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base<span class="sc">-</span>info INFO<span class="sc">:</span><span class="fl">0.8</span> \</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>stat BETA \</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS7<span class="sc">/</span>EUR.PRSice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Trying to install data.table in ./lib
+Cannot install data.table, will fall back and use read.table instead
+Note: It will be slower when reading large files
+PRSice 2.3.3 (2020-08-05) 
+https://github.com/choishingwan/PRSice
+(C) 2016-2020 Shing Wan (Sam) Choi and Paul F. O'Reilly
+GNU General Public License v3
+If you use PRSice in any published work, please cite:
+Choi SW, O'Reilly PF.
+PRSice-2: Polygenic Risk Score Software for Biobank-Scale Data.
+GigaScience 8, no. 7 (July 1, 2019)
+2025-02-13 11:17:33
+./Software/PRSice \
+    --a1 A1 \
+    --a2 A2 \
+    --bar-levels 0.001,0.05,0.1,0.2,0.3,0.4,0.5,1 \
+    --base ./Data/Height.QC.gz \
+    --base-info INFO:0.8 \
+    --base-maf MAF:0.01 \
+    --beta  \
+    --binary-target F \
+    --bp BP \
+    --chr CHR \
+    --clump-kb 250kb \
+    --clump-p 1.000000 \
+    --clump-r2 0.100000 \
+    --cov ./Data/EUR.covariate \
+    --interval 5e-05 \
+    --lower 5e-08 \
+    --num-auto 22 \
+    --out Results/GWAS7/EUR.PRSice \
+    --pheno ./Data/EUR.height \
+    --pvalue P \
+    --seed 3670089626 \
+    --snp SNP \
+    --stat BETA \
+    --target ./Data/EUR.QC \
+    --thread 1 \
+    --upper 0.5
+
+Initializing Genotype file: ./Data/EUR.QC (bed) 
+
+Start processing Height.QC 
+================================================== 
+
+Base file: ./Data/Height.QC.gz 
+GZ file detected. Header of file is: 
+CHR BP  SNP A1  A2  N   SE  P   BETA    INFO    MAF 
+
+Reading 100.00%
+499617 variant(s) observed in base file, with: 
+499617 total variant(s) included from base file 
+
+Loading Genotype info from target 
+================================================== 
+
+483 people (232 male(s), 251 female(s)) observed 
+483 founder(s) included 
+
+489805 variant(s) included 
+
+Phenotype file: ./Data/EUR.height 
+Column Name of Sample ID: FID+IID 
+Note: If the phenotype file does not contain a header, the 
+column name will be displayed as the Sample ID which is 
+expected. 
+
+There are a total of 1 phenotype to process 
+
+Start performing clumping 
+
+Clumping Progress: 29.98%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>IOPub message rate exceeded.
+The Jupyter server will temporarily stop sending output
+to the client in order to avoid crashing it.
+To change this limit, set the config variable
+`--ServerApp.iopub_msg_rate_limit`.
+
+Current values:
+ServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
+ServerApp.rate_limit_window=3.0 (secs)
+</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Clumping Progress: 100.00%
+Number of variant(s) after clumping : 193758 
+
+Processing the 1 th phenotype 
+
+Height is a continuous phenotype 
+11 sample(s) without phenotype 
+472 sample(s) with valid phenotype 
+
+Processing the covariate file: ./Data/EUR.covariate 
+============================== 
+
+Include Covariates: 
+Name    Missing Number of levels 
+Sex 0   - 
+PC1 0   - 
+PC2 0   - 
+PC3 0   - 
+PC4 0   - 
+PC5 0   - 
+PC6 0   - 
+
+After reading the covariate file, 472 sample(s) included in 
+the analysis 
+
+
+Start Processing
+Processing 27.49%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>IOPub message rate exceeded.
+The Jupyter server will temporarily stop sending output
+to the client in order to avoid crashing it.
+To change this limit, set the config variable
+`--ServerApp.iopub_msg_rate_limit`.
+
+Current values:
+ServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
+ServerApp.rate_limit_window=3.0 (secs)
+</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting the high resolution plot
+</code></pre>
 </div>
 </div>
-</section>
-<section id="bibliography" class="level1">
+<p>By looking at the output file *.summary, we can conclude that:</p>
+<ul>
+<li>Best-fit P-value is ~0.4</li>
+<li>Phenotypic variation explained by the best-fi model is ~0.16</li>
+</ul>
+<p><img src="../Images/R.png" alt="R" width="40"> R kernel.</p>
+<p>Below is an example of how you could create a plot in R to visualize height PGS differences across sex:</p>
+<div id="697e022d-0e51-40b0-b60f-49308bb43e99" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the files</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>prs <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Results/GWAS7/EUR.PRSice.best"</span>, <span class="at">header=</span>T)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.height"</span>, <span class="at">header=</span>T)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"./Data/EUR.cov"</span>, <span class="at">header=</span>T)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Rename the sex</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>sex<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(sex<span class="sc">$</span>Sex)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(sex<span class="sc">$</span>Sex) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge the files</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">merge</span>(<span class="fu">merge</span>(prs, height), sex)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Start plotting</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x=</span>PRS, <span class="at">y=</span>Height, <span class="at">color=</span>Sex))<span class="sc">+</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Polygenic Score"</span>, <span class="at">y=</span><span class="st">"Height"</span>) <span class="sc">+</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>), <span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>), <span class="at">legend.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),<span class="at">legend.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gwas7-prs_files/figure-html/cell-5-output-1.png" width="420" height="420" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 
-
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-nagai_overview_2017" class="csl-entry" role="listitem">
-Nagai, Akiko, Makoto Hirata, Yoichiro Kamatani, Kaori Muto, Koichi Matsuda, Yutaka Kiyohara, Toshiharu Ninomiya, et al. 2017. <span>“Overview of the <span>BioBank</span> <span>Japan</span> <span>Project</span>: <span>Study</span> Design and Profile.”</span> <em>Journal of Epidemiology</em> 27 (3 Suppl): S2–8. <a href="https://doi.org/10.1016/j.je.2016.12.005">https://doi.org/10.1016/j.je.2016.12.005</a>.
-</div>
-</div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
