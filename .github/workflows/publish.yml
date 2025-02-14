@@ -27,7 +27,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           git clone https://github.com/hds-sandbox/GWAS_course.git temp_repo
-          cp -r temp_repo/Notebooks-dev/* develop
+          cp -r temp_repo/Notebooks/* develop
           rm -rf temp_repo
 
       - name: Render and Publish
