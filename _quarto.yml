@@ -39,9 +39,9 @@ website:
             - develop/GWAS1-WhatIsAGWAS.qmd
             - develop/GWAS2-DataCollectionA.qmd
             - develop/GWAS2-DataCollection.ipynb
-            - develop/GWAS3-QualityControlA.ipynb
         - section: "Quality Control"
           contents:
+            - develop/GWAS3-QualityControlA.ipynb
             - develop/GWAS4-QualityControlB.ipynb
         - section: "Association Testing"
           contents:
