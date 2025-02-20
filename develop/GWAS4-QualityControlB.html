@@ -361,7 +361,6 @@ window.Quarto = {
   <li><a href="#a.-relatedness" id="toc-a.-relatedness" class="nav-link active" data-scroll-target="#a.-relatedness">A. Relatedness</a>
   <ul class="collapse">
   <li><a href="#analysis-with-plink" id="toc-analysis-with-plink" class="nav-link" data-scroll-target="#analysis-with-plink">Analysis with PLINK</a></li>
-  <li><a href="#write-answer-here" id="toc-write-answer-here" class="nav-link" data-scroll-target="#write-answer-here"><em>Write answer here</em></a></li>
   </ul></li>
   <li><a href="#b.-population-stratification" id="toc-b.-population-stratification" class="nav-link" data-scroll-target="#b.-population-stratification">B. Population Stratification</a>
   <ul class="collapse">
@@ -670,7 +669,12 @@ Stop - Read - Solve
 <li><strong>How many pairs of samples have PI_HAT values above the specified cutoff(s) are?</strong></li>
 <li>Replot the z-values, <strong>which relationship categories remain?</strong></li>
 </ul>
-<p>Hint: - Use the file <code>Results/GWAS4/pihat_exercise.log</code> to answer the first question. They are labeled as non-founders. - Count the lines of the new output vs.&nbsp;the pre-filtered one. - Modify the code above to plot the z-values for the <code>pihat_exercise.genome</code>.</p>
+<p>Hint:</p>
+<ul>
+<li>Use the file <code>Results/GWAS4/pihat_exercise.log</code> to answer the first question. They are labeled as non-founders.</li>
+<li>Count the lines of the new output vs.&nbsp;the pre-filtered one.</li>
+<li>Modify the code above to plot the z-values for the <code>pihat_exercise.genome</code>.</li>
+</ul>
 </div>
 </div>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
@@ -823,11 +827,11 @@ Stop - Read - Solve
 </ul>
 </div>
 </div>
-</section>
-<section id="write-answer-here" class="level3">
-<h3 class="anchored" data-anchor-id="write-answer-here"><em>Write answer here</em></h3>
+<div id="862d2e88-6982-4485-82a0-724cd6c29fca" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div id="ddcb10c8-f5e0-4b21-9b17-cd38fc50d03b" class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
@@ -849,7 +853,7 @@ Solution
 </div>
 </div>
 <div id="e30d95c1" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="va">relatedness</span><span class="op">[</span>relatedness<span class="va">$Z0</span> &lt; 0.5,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="va">relatedness</span><span class="op">[</span>relatedness<span class="va">$Z0</span> &lt; 0.5,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>A data.frame: 1 × 14</caption>
@@ -918,12 +922,12 @@ Solution
 <hr>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <div id="7d55dc5d-2663-489e-b2bf-2637a577e716" class="cell" data-tags="[]">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, find the two individuals from the output file using <code>grep</code> and sorting descendingly by missing rate (EZ, column 6)</p>
 <div id="3fa5e705-a478-4e76-91b7-8105c41c0a01" class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the output</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_3_r3_8.imiss <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">'NA07045|NA12813'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k6,6nr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the output</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_3_r3_8.imiss <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">'NA07045|NA12813'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k6,6nr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  13291   NA07045          N     2560  1073788 0.002384
    1454   NA12813          N     1956  1073788 0.001822</code></pre>
@@ -944,12 +948,16 @@ Stop - Read - Solve
 <li><strong>Plot the distribution of missing rates from <code>HapMap_3_r3_8</code>. What is the value for <code>NA07045</code>?</strong></li>
 <li><strong>Remove <code>NA07045</code> from the PLINK files</strong></li>
 </ul>
-<p>Hint: - Use the <code>imiss</code> file to plot a histogram of the missing scores from the file <code>HapMap_3_r3_8.imiss</code> in <code>R</code> (check previous notebooks for help). Is the score of <code>NA07045</code> amongst the higher/lower ones? You can add a vertical line in the histogram representing the value for <code>NA07045</code> using <code>geom_vline</code>. - Create a file with the sample ID to remove and use the <code>--remove</code> option in PLINK.</p>
+<p>Hint:</p>
+<ul>
+<li>Use the <code>imiss</code> file to plot a histogram of the missing scores from the file <code>HapMap_3_r3_8.imiss</code> in <code>R</code> (check previous notebooks for help). Is the score of <code>NA07045</code> amongst the higher/lower ones? You can add a vertical line in the histogram representing the value for <code>NA07045</code> using <code>geom_vline</code>.</li>
+<li>Create a file with the sample ID to remove and use the <code>--remove</code> option in PLINK.</li>
+</ul>
 </div>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <div id="fd1c7d1a-5a3b-40f4-9e6c-d12e63393cc6" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center">
@@ -965,23 +973,23 @@ Solution
 </div>
 </div>
 <div id="8adba97a-30f1-4fe5-a956-5b3337744491" class="cell" data-editable="true" data-scrolled="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="ex">imiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/HapMap_3_r3_8.imiss"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="va">data</span><span class="op">=</span>imiss, <span class="ex">aes</span><span class="er">(</span><span class="ex">F_MISS</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill = <span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_vline</span><span class="er">(</span><span class="ex">xintercept</span> = 0.002384, color = <span class="st">"red"</span>, linetype = <span class="st">"dashed"</span>, size = 1<span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of missing rates"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Missing rate"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.relatedness</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="ex">imiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/HapMap_3_r3_8.imiss"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="va">data</span><span class="op">=</span>imiss, <span class="ex">aes</span><span class="er">(</span><span class="ex">F_MISS</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill = <span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_vline</span><span class="er">(</span><span class="ex">xintercept</span> = 0.002384, color = <span class="st">"red"</span>, linetype = <span class="st">"dashed"</span>, size = 1<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of missing rates"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Missing rate"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.relatedness</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning message:
 “Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
@@ -991,7 +999,7 @@ Solution
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GWAS4-QualityControlB_files/figure-html/cell-23-output-2.png" width="540" height="240" class="figure-img"></p>
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-24-output-2.png" width="540" height="240" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -999,11 +1007,11 @@ Solution
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>To remove the individual from the data, we create a file containing its number and ID, and provide it to PLINK with the option <code>--remove</code></p>
 <div id="5007aa3f" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"13291  NA07045"</span> <span class="op">&gt;</span> Results/GWAS4/id_remove.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"13291  NA07045"</span> <span class="op">&gt;</span> Results/GWAS4/id_remove.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="d08763c4" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the individuals with the lowest call rate in 'related' pairs with a pihat &gt; 0.2 </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--remove</span> Results/GWAS4/id_remove.txt <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the individuals with the lowest call rate in 'related' pairs with a pihat &gt; 0.2 </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="at">--remove</span> Results/GWAS4/id_remove.txt <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -1050,9 +1058,9 @@ Stop - Read - Solve
 <ul>
 <li>1000 Genomes Project - Phase I: genetic information for 629 individuals from various ethnic groups (&gt;60GB). <em>Phase III is now available, and we recommend using it for research purposes.</em></li>
 </ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/release/20100804/ALL.2of4intersection.20100804.genotypes.vcf.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp-trace.ncbi.nih.gov/1000genomes/ftp/release/20100804/ALL.2of4intersection.20100804.genotypes.vcf.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The data was converted from the <code>vcf</code> file (Variant Call Format) to plink format (<code>bim</code>, <code>fam</code>, <code>bed</code>):</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> ALL.2of4intersection.20100804.genotypes.vcf.gz <span class="at">--make-bed</span> <span class="at">--out</span> ALL.2of4intersection.20100804.genotypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--vcf</span> ALL.2of4intersection.20100804.genotypes.vcf.gz <span class="at">--make-bed</span> <span class="at">--out</span> ALL.2of4intersection.20100804.genotypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1068,9 +1076,9 @@ Note
 </div>
 <p>Let’s unzip the files and see how many samples we have.</p>
 <div id="26e3a83a" class="cell" data-tags="[]" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> <span class="at">-o</span> Data/1000genomes.zip <span class="at">-d</span> Results/GWAS4</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># count lines in fam </span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/1000genomes.genotypesA.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> <span class="at">-o</span> Data/1000genomes.zip <span class="at">-d</span> Results/GWAS4</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># count lines in fam </span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/1000genomes.genotypesA.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Archive:  Data/1000genomes.zip
   inflating: Results/GWAS4/1000genomes.genotypesA.bed  
@@ -1083,7 +1091,7 @@ Note
 </div>
 <p>We have a subset of <strong>37 individuals</strong>. Now, let’s explore the <code>bim</code> file.</p>
 <div id="6d50c492" class="cell" data-tags="[]" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/1000genomes.genotypesA.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/1000genomes.genotypesA.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs112750067 0   10327   C   T
 1   .   0   11508   A   G
@@ -1094,12 +1102,12 @@ Note
 </div>
 <p>One should note that the file <code>1000genomes.genotypes.bim</code> contains SNPs without an rs-identifier (or Reference SNP cluster ID). The missing rs-identifiers (noted as <code>.</code>) are not a problem for this tutorial. However, for good practice, we will assign unique identifiers to the SNPs (using available information):</p>
 <div id="3d7a9271" class="cell" data-tags="[]" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1000genomes.genotypesA <span class="at">--set-missing-var-ids</span> @:#<span class="pp">[</span><span class="ss">b37</span><span class="pp">]</span><span class="dt">\$</span>1,\$2 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1000genomes.genotypesA <span class="at">--set-missing-var-ids</span> @:#<span class="pp">[</span><span class="ss">b37</span><span class="pp">]</span><span class="dt">\$</span>1,\$2 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, let’s visualize the data to check the SNP names assigned. These are derived from the format <code>@:#[b37]\$1,\$2</code> in the command above, which PLINK interprets as <code>chromosome:locus[b37]Allele1,Allele2</code>:</p>
 <div id="bc59444d" class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show changes on the bim file</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show changes on the bim file</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs112750067 0   10327   C   T
 1   1:11508[b37]A,G 0   11508   A   G
@@ -1114,14 +1122,14 @@ Note
 <h4 class="anchored" data-anchor-id="qc-on-1000gp-data">QC on 1000GP data</h4>
 <p>As we covered in the GWAS3 notebook, it’s important to account for missingness, sex discrepancies, and minor allele frequency. We’ll apply standard QC thresholds to the 1000 GP data before merging it with HapMap data.</p>
 <div id="162f5bf0" class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs <span class="at">--geno</span> 0.02  <span class="dt">\</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1kG_MDS <span class="at">--silent</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS <span class="at">--mind</span> 0.02  <span class="dt">\</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1kG_MDS2 <span class="at">--silent</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS2 <span class="at">--maf</span> 0.05 <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span>   <span class="dt">\</span></span>
-<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS4/1kG_MDS3 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1000genomes.genotypesA_no_missing_IDs <span class="at">--geno</span> 0.02  <span class="dt">\</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1kG_MDS <span class="at">--silent</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS <span class="at">--mind</span> 0.02  <span class="dt">\</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/1kG_MDS2 <span class="at">--silent</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS2 <span class="at">--maf</span> 0.05 <span class="at">--allow-no-sex</span> <span class="at">--make-bed</span>   <span class="dt">\</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS4/1kG_MDS3 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="snps-matching-between-datasets" class="level4">
@@ -1129,16 +1137,16 @@ Note
 <p>N.B: Ensure that the datasets you want to merge share the same genomic build! Otherwise, you’ll need to include a liftover step.</p>
 <p>We want to only consider SNPs that both datasets have in common. First, extract SNP names from the HapMap data and filter the 1000GP data to include only matching SNPs.</p>
 <div id="7893d82e-6625-4904-905c-2dc4f36a7d1d" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Print out SNPs from the HapMap data</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2}'</span> Results/GWAS4/HapMap_3_r3_9.bim <span class="op">&gt;</span> Results/GWAS4/HapMap_SNPs.txt</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap SNPs from the 1000GP data</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS3 <span class="at">--extract</span> Results/GWAS4/HapMap_SNPs.txt <span class="dt">\</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/1kG_MDS4 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Print out SNPs from the HapMap data</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2}'</span> Results/GWAS4/HapMap_3_r3_9.bim <span class="op">&gt;</span> Results/GWAS4/HapMap_SNPs.txt</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap SNPs from the 1000GP data</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS3 <span class="at">--extract</span> Results/GWAS4/HapMap_SNPs.txt <span class="dt">\</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/1kG_MDS4 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is how part of the list of SNP names looks like:</p>
 <div id="a1009efb-9f10-4021-ab18-6f2357206551" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_SNPs.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_SNPs.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs3131972
 rs3131969
@@ -1149,12 +1157,12 @@ rs12124819</code></pre>
 </div>
 <p>Now we take the variants from the reduced 1000GP data, and go the other way around. We extract 1000GP variants from the HapMap data. In other words, the two extraction passages will intersect the SNPs. Below is the code to use the SNPs of the 1000GP data to reduce the HapMap data.</p>
 <div id="584c7e2c-6a8b-48cb-98f2-4ccd5ab564ab" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Print out SNPs from the HapMap data</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2}'</span> Results/GWAS4/1kG_MDS4.bim <span class="op">&gt;</span> Results/GWAS4/1kG_MDS4_SNPs.txt</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap SNPs from the 1000GP data</span></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--extract</span> Results/GWAS4/1kG_MDS4_SNPs.txt <span class="at">--recode</span> <span class="dt">\</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/HapMap_MDS <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Print out SNPs from the HapMap data</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2}'</span> Results/GWAS4/1kG_MDS4.bim <span class="op">&gt;</span> Results/GWAS4/1kG_MDS4_SNPs.txt</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap SNPs from the 1000GP data</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--extract</span> Results/GWAS4/1kG_MDS4_SNPs.txt <span class="at">--recode</span> <span class="dt">\</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/HapMap_MDS <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Look at the SNP names. Now, they are matching between the two <code>bim</code> files.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
@@ -1172,7 +1180,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="70beb88f-7099-4233-83d8-53efe75b0de4" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/HapMap_MDS.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/HapMap_MDS.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs3131969   0   744045  A   G
 1   rs12562034  0   758311  A   G
@@ -1187,7 +1195,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="6a54e180-24d6-4cb3-ac15-b27434b40a86" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/1kG_MDS4.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/1kG_MDS4.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs3131969   0   754182  A   G
 1   rs12562034  0   768448  A   G
@@ -1207,12 +1215,12 @@ Stop - Read - Solve
 <p>Genomic data is based on a reference genome, and our datasets use different human reference versions. Since the reference genome improves over time, SNP positions may differ between datasets from different versions.</p>
 <p>We extract SNP names and positions from the HapMap data and align the 1000GP data to match these SNPs using the <code>--update-map</code> option in PLINK.</p>
 <div id="e7ad8313-f257-4f10-b396-34d4c03b83d7" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap variant coordinates</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$4}'</span> Results/GWAS4/HapMap_MDS.map <span class="op">&gt;</span> Results/GWAS4/buildhapmap.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract the HapMap variant coordinates</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$4}'</span> Results/GWAS4/HapMap_MDS.map <span class="op">&gt;</span> Results/GWAS4/buildhapmap.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is how the list of SNPs look like:</p>
 <div id="0af685c3-65f1-4a27-a251-d250abfe3825" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/buildhapmap.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/buildhapmap.txt <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs3131969 744045
 rs12562034 758311
@@ -1223,8 +1231,8 @@ rs1806509 843817</code></pre>
 </div>
 <p>We run PLINK to update the 1000GP variant coordinates based on HapMap, ignoring the warning about non-ascending positions:</p>
 <div id="58fba51d-c89b-449f-8a45-e639a19dfa8e" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS4 <span class="at">--update-map</span> Results/GWAS4/buildhapmap.txt <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/1kG_MDS5 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS4 <span class="at">--update-map</span> Results/GWAS4/buildhapmap.txt <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/1kG_MDS5 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Base-pair positions are now unsorted!</code></pre>
 </div>
@@ -1242,12 +1250,12 @@ rs1806509 843817</code></pre>
 <p><strong>1.</strong> We’ve matched SNP positions, but we also need to ensure the reference alleles align. Remember that most PLINK analyses <strong>consider the A1 allele (typically the minor allele) as the reference allele</strong>, which is logical when dealing exclusively with biallelic variants.</p>
 <p>Below, we generate a list of SNPs ID and ‘reference alleles’ (corresponding to A1, column 5) from 1000GP.</p>
 <div id="97848c6a-85fb-4c1b-a515-f3120c21bf03" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract variant coordinates and reference alleles from 1000GP data</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5}'</span> Results/GWAS4/1kG_MDS5.bim <span class="op">&gt;</span> Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract variant coordinates and reference alleles from 1000GP data</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5}'</span> Results/GWAS4/1kG_MDS5.bim <span class="op">&gt;</span> Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How the list looks like:</p>
 <div id="7c4cecdd-737c-43ce-b38c-011d074e90f7" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs3131969 A
 rs12562034 A
@@ -1258,18 +1266,18 @@ rs1806509 A</code></pre>
 </div>
 <p>Then, we assign them to the HapMap data <code>--reference-allele</code> option (aliases for <code>--a1-allele</code>). We use <code>&amp;&gt; /dev/null</code> to redirect many warning messages away from the screen (<em>Warning: Impossible A1 allele assignment for variant rs11488462</em>). This warning flags variants with genotype mismatches. To address these warnings, we will first check for strand orientation issues before excluding any problematic variants.</p>
 <div id="af745a46-efdb-482e-af1a-f428d5b7302a" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_MDS <span class="at">--reference-allele</span> Results/GWAS4/1kg_ref-list.txt <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap-adj <span class="op">&amp;&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_MDS <span class="at">--reference-allele</span> Results/GWAS4/1kg_ref-list.txt <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap-adj <span class="op">&amp;&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>2.</strong> To resolve strand issues, we flip SNPs found in both datasets with complementary alleles (i.e.&nbsp;they were reported in opposite strands). We generate SNP lists (ID and alleles) for both datasets, identify unique SNPs, and visualize differences in allele reporting. If a SNP is unique but reports alleles differently, it will appear twice. Below are examples of SNPs with strand issues from the 1000GP and HapMap data:</p>
 <div id="33e5be15-6808-4ea3-bbdb-56192f731cd6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/1kG_MDS5.bim <span class="op">&gt;</span> Results/GWAS4/1kGMDS5_tmp</span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/HapMap-adj.bim <span class="op">&gt;</span> Results/GWAS4/HapMap-adj_tmp</span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> Results/GWAS4/1kGMDS5_tmp Results/GWAS4/HapMap-adj_tmp <span class="kw">|</span><span class="fu">uniq</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/1kG_MDS5.bim <span class="op">&gt;</span> Results/GWAS4/1kGMDS5_tmp</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/HapMap-adj.bim <span class="op">&gt;</span> Results/GWAS4/HapMap-adj_tmp</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> Results/GWAS4/1kGMDS5_tmp Results/GWAS4/HapMap-adj_tmp <span class="kw">|</span><span class="fu">uniq</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="3e7a86f1-803e-4107-b13f-40c37ed1d35d" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-6</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-6</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs10006274 C T
 rs10006274 G A
@@ -1281,7 +1289,7 @@ rs10088098 G A</code></pre>
 </div>
 <p><strong>How many of these differences are there?</strong></p>
 <div id="eb2444e5-1267-4bcd-bae8-055b3e96d4e9" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>604 Results/GWAS4/all_differences.txt</code></pre>
 </div>
@@ -1290,13 +1298,13 @@ rs10088098 G A</code></pre>
 <p>Let’s look at this variant <code>rs10006274</code>. <strong>Will it be flipped in the HapMap dataset?</strong></p>
 <p>The answer is yes! If we look at the reference allele in <code>1kg_ref-list.txt</code>, it shows <code>C</code>. This means the SNP is on the forward strand in 1000GP (C/T) and on the reverse strand in HapMap (G/A).</p>
 <div id="12dc2f26-f2e6-402b-9be1-382e47845b2c" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/1kg_ref-list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs10006274 C</code></pre>
 </div>
 </div>
 <div id="3c51a907-1301-4fc0-b4d8-5e505b6153f1" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs10006274 C T
 rs10006274 G A</code></pre>
@@ -1316,7 +1324,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="b8b0ba37-79a7-4d83-8c72-55355a101f1d" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
@@ -1335,13 +1343,13 @@ Solution
 </div>
 </div>
 <div id="ad77cb69-bb65-4cfb-92f0-426568021ae0" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs9614750 A</code></pre>
 </div>
 </div>
 <div id="1b33052c-eee2-4d7d-a6ef-fbd0eaa48eda" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs9614750 A G
 rs9614750 C G</code></pre>
@@ -1349,13 +1357,13 @@ rs9614750 C G</code></pre>
 </div>
 <p>For <code>rs9614750</code>, the genotype is reported as <code>A/G</code> in the 1000GP data, while in HapMap, it is <code>C/G</code>. This discrepancy between the two datasets means that the SNP will need to be removed later.</p>
 <div id="dc56146a-aefa-45ae-9acd-772df3d3eac4" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10088098 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10088098 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs10088098 C</code></pre>
 </div>
 </div>
 <div id="5cabdd69-57d1-4223-a2cc-525ca87d5b3f" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10088098 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10088098 Results/GWAS4/all_differences.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs10088098 C T
 rs10088098 G A</code></pre>
@@ -1365,19 +1373,19 @@ rs10088098 G A</code></pre>
 <hr>
 <p>Now we take only the SNP names and give them to PLINK (option <code>--flip</code>), together with the reference genome (option <code>--reference-allele</code>):</p>
 <div id="d2bb696b-4d7b-423c-a0aa-1df7393af08b" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Flip SNPs for resolving strand issues.</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Print SNP-identifier and remove duplicates.</span></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS4/all_differences.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Flip SNPs for resolving strand issues.</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Print SNP-identifier and remove duplicates.</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS4/all_differences.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="cbda06fc-d78e-4487-ad6a-1835c0dc5ea2" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>302 Results/GWAS4/flip_list.txt</code></pre>
 </div>
 </div>
 <p>These are the SNP ID of non-corresponding SNPs (N=302) between the two files.</p>
 <div id="e5f8b6e7-9452-4dc2-9430-4227ecedcf82" class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/flip_list.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs10006274
 rs1008660
@@ -1389,8 +1397,8 @@ rs1023098
 </div>
 <p>Apply the flipping option:</p>
 <div id="436c134e-9986-4218-86a0-98d8f5e3ee29" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap-adj <span class="at">--flip</span> Results/GWAS4/flip_list.txt <span class="at">--reference-allele</span> Results/GWAS4/1kg_ref-list.txt <span class="dt">\</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/corrected_hapmap <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap-adj <span class="at">--flip</span> Results/GWAS4/flip_list.txt <span class="at">--reference-allele</span> Results/GWAS4/1kg_ref-list.txt <span class="dt">\</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/corrected_hapmap <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: Impossible A1 allele assignment for variant rs2581195.
 Warning: Impossible A1 allele assignment for variant rs9614750.</code></pre>
@@ -1413,7 +1421,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="75f90b6d-911e-49a0-8cf1-2a09b4c63d16" class="cell">
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
@@ -1433,13 +1441,13 @@ Solution
 </div>
 <p>Notice how this SNP has changed as we predicted:</p>
 <div id="bfb8bbac-66f1-40ba-a92b-7beecc1743ff" class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/corrected_hapmap.bim </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/corrected_hapmap.bim </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4   rs10006274  0   124165369   C   T</code></pre>
 </div>
 </div>
 <div id="ffa6dcc8-a48a-4e7b-8ca5-ea18a1a04045" class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/HapMap-adj.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/HapMap-adj.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4   rs10006274  0   124165369   G   A</code></pre>
 </div>
@@ -1447,13 +1455,13 @@ Solution
 <p><code>rs10006274</code> was flipped and has the same strand orientation in both datasets (same alleles in A1 and A2).</p>
 <p>What happened to this one? PLINK attempts to resolve the mismatch by flipping the alleles but throws an error because the complementary alleles do not match the reference!</p>
 <div id="a120ca9c-d0e3-4f98-b531-2d70989b07ff" class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/corrected_hapmap.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/corrected_hapmap.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>22  rs9614750   0   44436371    G   C</code></pre>
 </div>
 </div>
 <div id="26921fb5-c05a-4818-add4-fb9758238055" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/HapMap-adj.bim </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/HapMap-adj.bim </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>22  rs9614750   0   44436371    C   G</code></pre>
 </div>
@@ -1474,20 +1482,20 @@ Note
 <p><strong>3.</strong> After flipping SNPs, some differ in their alleles when comparing datasets to each other (e.g.&nbsp;SNP <code>rs9614750</code>) and such SNPs must be removed.</p>
 <p>We extract the SNPs from the corrected HapMap data and search for unique SNP (ID, A1, and A2), comparing them with those from the 1000GP data.</p>
 <div id="1f3db957-1b52-42ea-bcf7-4f542a627600" class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/corrected_hapmap.bim <span class="op">&gt;</span> Results/GWAS4/corrected_hapmap_tmp</span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> Results/GWAS4/1kGMDS5_tmp Results/GWAS4/corrected_hapmap_tmp <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-u</span>  <span class="op">&gt;</span> Results/GWAS4/uncorresponding_SNPs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$2,$5,$6}'</span> Results/GWAS4/corrected_hapmap.bim <span class="op">&gt;</span> Results/GWAS4/corrected_hapmap_tmp</span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> Results/GWAS4/1kGMDS5_tmp Results/GWAS4/corrected_hapmap_tmp <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-u</span>  <span class="op">&gt;</span> Results/GWAS4/uncorresponding_SNPs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>How many SNP missmatches are there?</strong></p>
 <div id="3ecd7c1a-c504-4c26-9df3-117282576a3e" class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/uncorresponding_SNPs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/uncorresponding_SNPs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>24 Results/GWAS4/uncorresponding_SNPs.txt</code></pre>
 </div>
 </div>
 <p>This corresponds to 12 unique SNP IDs with mismatched information.</p>
 <div id="a0cd231c-0467-4d12-b37d-a9d7d0d765ec" class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/uncorresponding_SNPs.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS4/uncorresponding_SNPs.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>rs11524965 T C
 rs11524965 T G
@@ -1503,17 +1511,17 @@ rs2060424 G C</code></pre>
 </div>
 <p>We extract again the SNP IDs from the file above, and exclude them using the PLINK option <code>--exclude</code> in both datasets</p>
 <div id="c847f8ba-c42a-4cbe-933b-a8f7b44472f4" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS4/uncorresponding_SNPs.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/SNPs_for_exclusion.txt</span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/corrected_hapmap <span class="at">--exclude</span> Results/GWAS4/SNPs_for_exclusion.txt <span class="dt">\</span></span>
-<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/HapMap_MDS3 <span class="at">--silent</span></span>
-<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS5 <span class="at">--exclude</span> Results/GWAS4/SNPs_for_exclusion.txt <span class="dt">\</span></span>
-<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/1kG_MDS6 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS4/uncorresponding_SNPs.txt <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-u</span> <span class="op">&gt;</span> Results/GWAS4/SNPs_for_exclusion.txt</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/corrected_hapmap <span class="at">--exclude</span> Results/GWAS4/SNPs_for_exclusion.txt <span class="dt">\</span></span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/HapMap_MDS3 <span class="at">--silent</span></span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS5 <span class="at">--exclude</span> Results/GWAS4/SNPs_for_exclusion.txt <span class="dt">\</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>--make-bed <span class="at">--out</span> Results/GWAS4/1kG_MDS6 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>5.</strong> We can finally merge the data! We provide our dataset (<code>-bfile</code>) and the one to add (<code>--bmerge</code> option):</p>
 <div id="02eb4e5a-5904-4b27-9fab-45ca16d4f608" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/corrected_hapmap <span class="at">--bmerge</span> Results/GWAS4/1kG_MDS6.bed Results/GWAS4/1kG_MDS6.bim Results/GWAS4/1kG_MDS6.fam <span class="dt">\</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>--allow-no-sex <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/corrected_hapmap <span class="at">--bmerge</span> Results/GWAS4/1kG_MDS6.bed Results/GWAS4/1kG_MDS6.bim Results/GWAS4/1kG_MDS6.fam <span class="dt">\</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>--allow-no-sex <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -1521,25 +1529,25 @@ rs2060424 G C</code></pre>
 <h3 class="anchored" data-anchor-id="perform-mds-on-hapmap-ceu-data-anchored-by-1000-genomes-data.">Perform MDS on HapMap-CEU data anchored by 1000 Genomes data.</h3>
 <p>MDS is typically performed on independent SNPs (pruned SNPs). We have previously identified such SNPs in this course, so we will extract only these SNPs for the analysis.</p>
 <div id="07f84ea8" class="cell" data-tags="[]" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/MDS_merge <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="dt">\</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genome</span> <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/MDS_merge <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="dt">\</span></span>
+<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--genome</span> <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, we can use PLINK to run MDS with the option <code>---mds-plot</code> specifying the number of components to calculate.</p>
 <div id="fc3a311a-58e6-4d28-9cf0-127257a924c3" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mds-plot</span></span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/MDS_merge <span class="at">--read-genome</span> Results/GWAS4/MDS_merge.genome <span class="dt">\</span></span>
-<span id="cb103-3"><a href="#cb103-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cluster</span> <span class="at">--mds-plot</span> 10 <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mds-plot</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/MDS_merge <span class="at">--read-genome</span> Results/GWAS4/MDS_merge.genome <span class="dt">\</span></span>
+<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--cluster</span> <span class="at">--mds-plot</span> 10 <span class="at">--out</span> Results/GWAS4/MDS_merge <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>For visualization purposes, we downloaded the 1000 Genomes Project (1000GP) panel, which includes individual names and their corresponding population information.</p>
 <div id="5a3f6fea-bb10-4d5c-8909-ab682020a41c" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20100804/20100804.ALL.panel <span class="at">-P</span> Results/GWAS4 <span class="at">-q</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20100804/20100804.ALL.panel <span class="at">-P</span> Results/GWAS4 <span class="at">-q</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To determine the population origins of HapMap individuals, we created a new file that combines the 1000GP panel information with the HapMap data, labeling the population HapMap entries as ‘OWN’.</p>
 <div id="ac3d0b03-be57-4fc2-964e-8d32f9d6a4b2" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1,$2,"OWN"}'</span> Results/GWAS4/HapMap_MDS.fam <span class="op">&gt;</span> Results/GWAS4/popfile_own.txt</span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1,$1,$2}'</span> Results/GWAS4/20100804.ALL.panel <span class="op">&gt;</span> Results/GWAS4/20100804.ALL.panel.txt</span>
-<span id="cb105-3"><a href="#cb105-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-4"><a href="#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;(</span><span class="bu">echo</span> <span class="st">"FID IID POP"</span><span class="op">)</span> Results/GWAS4/20100804.ALL.panel.txt Results/GWAS4/popfile_own.txt <span class="op">&gt;</span> Results/GWAS4/popfile.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1,$2,"OWN"}'</span> Results/GWAS4/HapMap_MDS.fam <span class="op">&gt;</span> Results/GWAS4/popfile_own.txt</span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1,$1,$2}'</span> Results/GWAS4/20100804.ALL.panel <span class="op">&gt;</span> Results/GWAS4/20100804.ALL.panel.txt</span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="op">&lt;(</span><span class="bu">echo</span> <span class="st">"FID IID POP"</span><span class="op">)</span> Results/GWAS4/20100804.ALL.panel.txt Results/GWAS4/popfile_own.txt <span class="op">&gt;</span> Results/GWAS4/popfile.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1558,52 +1566,52 @@ Note
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Let’s visualize population stratification using the multidimensional scaling (MDS) results.</p>
 <div id="eac20c80-bb26-4175-a870-660892297e46" class="cell" data-tags="[]" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 12, repr.plot.height = 6<span class="kw">)</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="ex">data</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS4/MDS_merge.mds"</span>,header=TRUE<span class="kw">)</span></span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pop</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS4/popfile.txt"</span>,header=TRUE<span class="kw">)</span></span>
-<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="ex">datafile</span> <span class="op">&lt;</span>- merge<span class="er">(</span><span class="ex">data,pop,by=c</span><span class="er">(</span><span class="st">"FID"</span><span class="ex">,</span><span class="st">"IID"</span><span class="kw">))</span></span>
-<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Metapopulation information for the population in the 1000GP dataset</span></span>
-<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a><span class="ex">superpop</span> <span class="op">&lt;</span>- c<span class="er">(</span></span>
-<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JPT"</span> = <span class="st">"ASN"</span>,</span>
-<span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ASW"</span> = <span class="st">"AFR"</span>,</span>
-<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CEU"</span> = <span class="st">"EUR"</span>,</span>
-<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHB"</span> = <span class="st">"ASN"</span>,</span>
-<span id="cb106-16"><a href="#cb106-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHD"</span> = <span class="st">"ASN"</span>,</span>
-<span id="cb106-17"><a href="#cb106-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"YRI"</span> = <span class="st">"AFR"</span>,</span>
-<span id="cb106-18"><a href="#cb106-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LWK"</span> = <span class="st">"AFR"</span>,</span>
-<span id="cb106-19"><a href="#cb106-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TSI"</span> = <span class="st">"EUR"</span>,</span>
-<span id="cb106-20"><a href="#cb106-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MXL"</span> = <span class="st">"AMR"</span>,</span>
-<span id="cb106-21"><a href="#cb106-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GBR"</span> = <span class="st">"EUR"</span>,</span>
-<span id="cb106-22"><a href="#cb106-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FIN"</span> = <span class="st">"EUR"</span>,</span>
-<span id="cb106-23"><a href="#cb106-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHS"</span> = <span class="st">"ASN"</span>,</span>
-<span id="cb106-24"><a href="#cb106-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PUR"</span> = <span class="st">"AMR"</span>,</span>
-<span id="cb106-25"><a href="#cb106-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"OWN"</span> = <span class="st">"UN"</span></span>
-<span id="cb106-26"><a href="#cb106-26" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span>
-<span id="cb106-27"><a href="#cb106-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-28"><a href="#cb106-28" aria-hidden="true" tabindex="-1"></a><span class="co"># add metapopulation info to the table </span></span>
-<span id="cb106-29"><a href="#cb106-29" aria-hidden="true" tabindex="-1"></a><span class="ex">datafile</span><span class="va">$SUPERPOP</span> <span class="op">&lt;</span>- superpop<span class="pp">[</span><span class="ss">datafile$POP</span><span class="pp">]</span></span>
-<span id="cb106-30"><a href="#cb106-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-31"><a href="#cb106-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting                </span></span>
-<span id="cb106-32"><a href="#cb106-32" aria-hidden="true" tabindex="-1"></a><span class="ex">scatter.mds</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">datafile,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>C1, <span class="va">y</span><span class="op">=</span>C2, <span class="va">color</span><span class="op">=</span>SUPERPOP<span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb106-33"><a href="#cb106-33" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>5, <span class="va">alpha</span><span class="op">=</span>.4<span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb106-34"><a href="#cb106-34" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_color_manual</span><span class="er">(</span><span class="va">values</span><span class="op">=</span>c<span class="kw">(</span><span class="st">"AFR"</span> = <span class="st">"red"</span>, <span class="st">"AMR"</span> = <span class="st">"springgreen4"</span>, <span class="st">"ASN"</span> = <span class="st">"gold"</span>, <span class="st">"EUR"</span> = <span class="st">"blue"</span>, <span class="st">"UN"</span> = <span class="st">"grey"</span> <span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb106-35"><a href="#cb106-35" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MD Component 1"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb106-36"><a href="#cb106-36" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"MD Component 2"</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb106-37"><a href="#cb106-37" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="va">color</span><span class="op">=</span><span class="st">"Superpop"</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb106-38"><a href="#cb106-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb106-39"><a href="#cb106-39" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> legend.text = element_text<span class="er">(</span><span class="fu">size</span> = 15<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb106-40"><a href="#cb106-40" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> legend.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb106-41"><a href="#cb106-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb106-42"><a href="#cb106-42" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">scatter.mds</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 12, repr.plot.height = 6<span class="kw">)</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb107-6"><a href="#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="ex">data</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS4/MDS_merge.mds"</span>,header=TRUE<span class="kw">)</span></span>
+<span id="cb107-7"><a href="#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="ex">pop</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS4/popfile.txt"</span>,header=TRUE<span class="kw">)</span></span>
+<span id="cb107-8"><a href="#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="ex">datafile</span> <span class="op">&lt;</span>- merge<span class="er">(</span><span class="ex">data,pop,by=c</span><span class="er">(</span><span class="st">"FID"</span><span class="ex">,</span><span class="st">"IID"</span><span class="kw">))</span></span>
+<span id="cb107-9"><a href="#cb107-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-10"><a href="#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Metapopulation information for the population in the 1000GP dataset</span></span>
+<span id="cb107-11"><a href="#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="ex">superpop</span> <span class="op">&lt;</span>- c<span class="er">(</span></span>
+<span id="cb107-12"><a href="#cb107-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"JPT"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-13"><a href="#cb107-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ASW"</span> = <span class="st">"AFR"</span>,</span>
+<span id="cb107-14"><a href="#cb107-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CEU"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-15"><a href="#cb107-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHB"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-16"><a href="#cb107-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHD"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-17"><a href="#cb107-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"YRI"</span> = <span class="st">"AFR"</span>,</span>
+<span id="cb107-18"><a href="#cb107-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LWK"</span> = <span class="st">"AFR"</span>,</span>
+<span id="cb107-19"><a href="#cb107-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"TSI"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-20"><a href="#cb107-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MXL"</span> = <span class="st">"AMR"</span>,</span>
+<span id="cb107-21"><a href="#cb107-21" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GBR"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-22"><a href="#cb107-22" aria-hidden="true" tabindex="-1"></a>  <span class="st">"FIN"</span> = <span class="st">"EUR"</span>,</span>
+<span id="cb107-23"><a href="#cb107-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CHS"</span> = <span class="st">"ASN"</span>,</span>
+<span id="cb107-24"><a href="#cb107-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PUR"</span> = <span class="st">"AMR"</span>,</span>
+<span id="cb107-25"><a href="#cb107-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">"OWN"</span> = <span class="st">"UN"</span></span>
+<span id="cb107-26"><a href="#cb107-26" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span>
+<span id="cb107-27"><a href="#cb107-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-28"><a href="#cb107-28" aria-hidden="true" tabindex="-1"></a><span class="co"># add metapopulation info to the table </span></span>
+<span id="cb107-29"><a href="#cb107-29" aria-hidden="true" tabindex="-1"></a><span class="ex">datafile</span><span class="va">$SUPERPOP</span> <span class="op">&lt;</span>- superpop<span class="pp">[</span><span class="ss">datafile$POP</span><span class="pp">]</span></span>
+<span id="cb107-30"><a href="#cb107-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-31"><a href="#cb107-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting                </span></span>
+<span id="cb107-32"><a href="#cb107-32" aria-hidden="true" tabindex="-1"></a><span class="ex">scatter.mds</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">datafile,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>C1, <span class="va">y</span><span class="op">=</span>C2, <span class="va">color</span><span class="op">=</span>SUPERPOP<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb107-33"><a href="#cb107-33" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>5, <span class="va">alpha</span><span class="op">=</span>.4<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb107-34"><a href="#cb107-34" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_color_manual</span><span class="er">(</span><span class="va">values</span><span class="op">=</span>c<span class="kw">(</span><span class="st">"AFR"</span> = <span class="st">"red"</span>, <span class="st">"AMR"</span> = <span class="st">"springgreen4"</span>, <span class="st">"ASN"</span> = <span class="st">"gold"</span>, <span class="st">"EUR"</span> = <span class="st">"blue"</span>, <span class="st">"UN"</span> = <span class="st">"grey"</span> <span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb107-35"><a href="#cb107-35" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MD Component 1"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb107-36"><a href="#cb107-36" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"MD Component 2"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb107-37"><a href="#cb107-37" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="va">color</span><span class="op">=</span><span class="st">"Superpop"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb107-38"><a href="#cb107-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb107-39"><a href="#cb107-39" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> legend.text = element_text<span class="er">(</span><span class="fu">size</span> = 15<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb107-40"><a href="#cb107-40" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> legend.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb107-41"><a href="#cb107-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb107-42"><a href="#cb107-42" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">scatter.mds</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="GWAS4-QualityControlB_files/figure-html/cell-70-output-1.png" width="720" height="360" class="figure-img"></p>
+<p><img src="GWAS4-QualityControlB_files/figure-html/cell-71-output-1.png" width="720" height="360" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1617,7 +1625,7 @@ Note
 <p><strong>What values would you select or apply in this context, and why?</strong> Hint: look at the plot above.</p>
 <p>Preview of the MDS results:</p>
 <div id="89a3b1b8-0600-4970-bbd8-26c61e593aa3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> Results/GWAS4/MDS_merge.mds <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-6</span> <span class="at">-d</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> Results/GWAS4/MDS_merge.mds <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-6</span> <span class="at">-d</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    FID       IID    SOL           C1           C2           C3           C4           C5           C6           C7           C8           C9          C10 
    1328   NA06984      0   -0.0218368  -0.00620683  -0.00464884   0.00121512 -0.000413235   0.00221093    0.0104188  -0.00199382    0.0173257   -0.0131241 
@@ -1627,27 +1635,27 @@ Note
 <p>Based on the position of the target population’s cluster in the MDS plot, we will exclude individuals with MDS component 1 values less than 0 and MDS component 2 values less than -0.05.</p>
 <p>The selection has to be done for the individuals we want to keep, so the area to be chosen has to be mirrored into &gt;0 and &gt;-0.05. We provide the MDS component values in columns 4 and 5 of the file (corresponding to the first 2 components), and extract the individuals using <code>--keep</code></p>
 <div id="3e022245" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($4 &gt;0 || $5 &gt;-0.05) print $1,$2 }'</span> Results/GWAS4/MDS_merge.mds <span class="op">&gt;</span> Results/GWAS4/EUR_MDS_merge</span>
-<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--keep</span> Results/GWAS4/EUR_MDS_merge <span class="at">--make-bed</span>  <span class="dt">\</span></span>
-<span id="cb109-4"><a href="#cb109-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($4 &gt;0 || $5 &gt;-0.05) print $1,$2 }'</span> Results/GWAS4/MDS_merge.mds <span class="op">&gt;</span> Results/GWAS4/EUR_MDS_merge</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_9 <span class="at">--keep</span> Results/GWAS4/EUR_MDS_merge <span class="at">--make-bed</span>  <span class="dt">\</span></span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="creating-covariates-for-gwas-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="creating-covariates-for-gwas-analysis">Creating covariates for GWAS analysis</h4>
 <p>The 10 MDS dimensions will be used as covariates in the association analysis in the next tutorial to correct for population stratification. The covariate file is created by removing column 3 (SOL, optional metadata) from the MDS output file.</p>
 <div id="975054c0-85c1-4436-a340-819bffa12a5a" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span>  <span class="dt">\</span></span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--read-genome</span> Results/GWAS4/HapMap_3_r3_10.genome <span class="dt">\</span></span>
-<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>--cluster <span class="at">--mds-plot</span> 10 <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_10_mds <span class="op">&gt;</span> /dev/null</span>
-<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the format of the .mds file into a plink covariate file.</span></span>
-<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, $2, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13}'</span> Results/GWAS4/HapMap_3_r3_10_mds.mds <span class="op">&gt;</span> Results/GWAS4/covar_mds.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span>  <span class="dt">\</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--read-genome</span> Results/GWAS4/HapMap_3_r3_10.genome <span class="dt">\</span></span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a>--cluster <span class="at">--mds-plot</span> 10 <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_10_mds <span class="op">&gt;</span> /dev/null</span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-6"><a href="#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Change the format of the .mds file into a plink covariate file.</span></span>
+<span id="cb111-7"><a href="#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, $2, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13}'</span> Results/GWAS4/HapMap_3_r3_10_mds.mds <span class="op">&gt;</span> Results/GWAS4/covar_mds.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>covar_mds.txt</code> file contains the covariates to adjust for residual population stratification.</p>
 <div id="62ac8a2d-6153-443c-be20-0906f4a3262b" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/covar_mds.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS4/covar_mds.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FID IID C1 C2 C3 C4 C5 C6 C7 C8 C9 C10
 1328 NA06989 0.0193503 -0.0481539 0.053743 -8.56966e-05 0.0124037 -0.00872553 0.0146577 -0.0266013 0.0064429 -0.0149862

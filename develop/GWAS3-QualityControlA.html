@@ -631,8 +631,20 @@ Solution
 </ol>
 </div>
 </div>
-<p>These files include a header and one line per sample or per variant, containing the following fields: * FID: Family ID * IID: Within-family ID * CHR and SNP: chromosome and SNP ID. * MISS_PHENO: Indicates if the phenotype is missing (Y/N) * N_MISS: Number of missing genotype calls (excluding obligatory missings or heterozygous haploids) * N_GENO: Number of potentially valid calls * F_MISS: Missing call rate</p>
-<p>Let’s check the first 5 lines of the files to understand their structure. - <strong>Are there missing phenotypes or genotypes in the <code>.imiss</code> file?</strong></p>
+<p>These files include a header and one line per sample or per variant, containing the following fields:</p>
+<ul>
+<li>FID: Family ID</li>
+<li>IID: Within-family ID</li>
+<li>CHR and SNP: chromosome and SNP ID.</li>
+<li>MISS_PHENO: Indicates if the phenotype is missing (Y/N)</li>
+<li>N_MISS: Number of missing genotype calls (excluding obligatory missings or heterozygous haploids)</li>
+<li>N_GENO: Number of potentially valid calls</li>
+<li>F_MISS: Missing call rate</li>
+</ul>
+<p>Let’s check the first 5 lines of the files to understand their structure.</p>
+<ul>
+<li><strong>Are there missing phenotypes or genotypes in the <code>.imiss</code> file?</strong></li>
+</ul>
 <div id="e64cb902-6e5b-472c-a760-2f84a52f2d58" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/data.imiss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
