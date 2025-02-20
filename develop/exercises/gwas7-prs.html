@@ -235,17 +235,15 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <p><img src="../Images/bash.png" alt="Bash" width="40"> Bash kernel.</p>
 <p>You need to perform the PRS analysis on the simulated dataset in the following way:</p>
 <div id="cfdab610-f718-43d7-8080-2504794caded" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Rscript .<span class="sc">/</span>Data<span class="sc">/</span>PRSice.R \</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>prsice .<span class="sc">/</span>Software<span class="sc">/</span>PRSice \</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base .<span class="sc">/</span>Data<span class="sc">/</span>Height.QC.gz \</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>target .<span class="sc">/</span>Data<span class="sc">/</span>EUR.QC \</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>binary<span class="sc">-</span>target F \</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>pheno .<span class="sc">/</span>Data<span class="sc">/</span>EUR.height \</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>cov .<span class="sc">/</span>Data<span class="sc">/</span>EUR.covariate \</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base<span class="sc">-</span>maf MAF<span class="sc">:</span><span class="fl">0.01</span> \</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base<span class="sc">-</span>info INFO<span class="sc">:</span><span class="fl">0.8</span> \</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>stat BETA \</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS7<span class="sc">/</span>EUR.PRSice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>PRSice <span class="sc">--</span>base .<span class="sc">/</span>Data<span class="sc">/</span>Height.QC.gz \</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>target .<span class="sc">/</span>Data<span class="sc">/</span>EUR.QC \</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>binary<span class="sc">-</span>target F \</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>pheno .<span class="sc">/</span>Data<span class="sc">/</span>EUR.height \</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>cov .<span class="sc">/</span>Data<span class="sc">/</span>EUR.covariate \</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base<span class="sc">-</span>maf MAF<span class="sc">:</span><span class="fl">0.01</span> \</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>base<span class="sc">-</span>info INFO<span class="sc">:</span><span class="fl">0.8</span> \</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>stat BETA \</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS7<span class="sc">/</span>EUR.PRSice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Trying to install data.table in ./lib
 Cannot install data.table, will fall back and use read.table instead

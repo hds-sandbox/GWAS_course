@@ -338,11 +338,8 @@ window.Quarto = {
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other tools &amp; conclusions</span></a>
-  </div>
-</li>
+ <span class="menu-text">develop/GWAS8-OtherToolsAndTesting.ipynb</span>
+  </li>
       </ul>
   </li>
     </ul>
@@ -452,9 +449,8 @@ Note
 <div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data and software</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Software</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We will run the <code>PRSice.R</code> script using the association test results (<code>TOY_BASE_GWAS.assoc</code>) and specify the column names for SNPs, chromosomes, and other relevant data. This is necessary because different association tools generate varying header formats. Finally, we will specify the location of our data (<code>TOY_TARGET_DATA</code>) and define the phenotype format as binary (0s and 1s).</p>
 <div class="callout callout-style-default callout-warning callout-titled">
@@ -472,7 +468,7 @@ Warning
 </div>
 <div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ./Software/PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>SNP CHR BP A1 A2 P OR
 SNP_22857 4 103593179 1 2 0.2852 13.29
@@ -487,12 +483,11 @@ SNP_22809 4 101441465 1 2 0.8111 0.004</code></pre>
 </div>
 </div>
 <div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> ./Data/PRSice.R <span class="at">--out</span> Results/GWAS6/PRSice <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--prsice ./Software/PRSice <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--base ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PRSice</span> <span class="at">--base</span> ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS6/PRSice <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Trying to install data.table in ./lib
 Cannot install data.table, will fall back and use read.table instead

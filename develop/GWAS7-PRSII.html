@@ -289,11 +289,8 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Other tools &amp; conclusions</span></a>
-  </div>
-</li>
+ <span class="menu-text">develop/GWAS8-OtherToolsAndTesting.ipynb</span>
+  </li>
       </ul>
   </li>
     </ul>
@@ -363,12 +360,11 @@ Important notes for this notebook
 <h1>PRSice analysis II</h1>
 <p>We will be working with a new preprocessed simulated dataset that has already undergone quality control. Our analysis includes summary statistics from a powerful base GWAS (in this case, for height) and a target dataset consisting of European individuals in PLINK format. In this tutorial, we will incorporate covariates and principal components (PCs) in the polygenic score calculation.</p>
 <p>Let’s create a folder for the output files.</p>
-<div id="db774569-7628-425f-bac2-eb24c509279a" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p Results<span class="sc">/</span>GWAS7</span>
+<div id="db774569-7628-425f-bac2-eb24c509279a" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS7</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data and software</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Data</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Software</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -398,16 +394,16 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="150eb3ab-6bdb-4ca9-bc85-93748cdb89ab" class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write R code here</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write R code here</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">jupyter.plot_mimetypes =</span> <span class="st">'image/png'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(<span class="st">"qqman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="354e0c57-88f1-4aa8-a58b-998254bb29e9" class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write PRSice command here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write PRSice command here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -428,7 +424,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="7b29b47d-6677-4c84-9e1b-f5e17f3e98a2" class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -444,7 +440,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="e48d3d70-80ed-4bb0-ba40-380339dbb6fe" class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code for plotting here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code for plotting here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
