@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Genetic Theory Review – GWAS</title>
+<title>Other tools &amp; conclusions – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -43,7 +77,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -97,11 +131,43 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -157,7 +223,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Genetic Theory Review</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS8-OtherToolsAndTesting.html">Other tools &amp; conclusions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,7 +260,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link active">
+  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Theory Review</span></a>
   </div>
 </li>
@@ -276,7 +342,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Other tools &amp; conclusions</span></a>
   </div>
 </li>
@@ -287,13 +353,23 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ldak" id="toc-ldak" class="nav-link active" data-scroll-target="#ldak">LDAK</a></li>
+  <li><a href="#overview-of-functionality" id="toc-overview-of-functionality" class="nav-link" data-scroll-target="#overview-of-functionality">Overview of functionality</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS8-OtherToolsAndTesting.out.ipynb" download="GWAS8-OtherToolsAndTesting.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Genetic Theory Review</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS8-OtherToolsAndTesting.html">Other tools &amp; conclusions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Genetic Theory Review</h1>
+<h1 class="title">Other tools &amp; conclusions</h1>
 </div>
 
 
@@ -310,128 +386,316 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </header>
 
 
-<div class="callout callout-style-default callout-note no-icon callout-titled" title="Information about this notebook">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Information about this notebook
+Important notes for this notebook
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
-<div class="callout-body-container callout-body">
-<p>This section reviews basic genetic theory terminology to help you better understand GWAS principles. Feel free to skip it if you’re already familiar with the concepts.</p>
+<section id="important-notes-for-this-notebook" class="level1 callout-body-container callout-body">
+<h1>Important notes for this notebook</h1>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
-<li><strong>Review</strong> the basic terminology of genetic theory (DNA and genetic variation)</li>
-<li><strong>Discuss</strong> sources of human genetic variation databases</li>
+<li><strong>Explore</strong> LDAK software and some of its functionalities</li>
+<li><strong>Discuss</strong> other tools and conclusions from this tutorial</li>
 </ul>
 </section>
-</div>
-</div>
-</div>
-<section id="quick-review-of-genetic-theory" class="level2">
-<h2 class="anchored" data-anchor-id="quick-review-of-genetic-theory">Quick Review of Genetic Theory</h2>
-<p>We all carry two nuclear genomes (i.e.&nbsp;genomes located in the cell nucleus), one inherited from each of our two parents. Additionally, we have a small mitochondrial genome, <a href="http://www.pnas.org/content/early/2018/11/21/1810946115">assumed to be</a> inherited exclusively from the mother, but in this course, the term ‘genome’ refers to the nuclear genome.</p>
-<p>The human genome is a 3.2 billion <strong>nucleotide</strong> (or <strong>base pair</strong> or <strong>DNA letter</strong> A, C, G, T) long sequence (<a href="https://www.yourgenome.org/facts/what-is-dna">see yourgenome.org</a>), that is divided into separate physical pieces called <strong>chromosomes</strong> (<a href="https://www.yourgenome.org/facts/what-is-a-chromosome">see yourgenome.org</a>). There are 22 <strong>autosomal</strong> (non-sex related) chromosomes and two <strong>sex chromosomes</strong> (X and Y chromosomes). Commonly, humans have two copies of each autosome. Individuals with one copy of X and one of Y are males, whereas those with two copies of X are females. An abnormal number of chromosomes, known as <strong>aneuploidy</strong>, typically leads to severe consequences or early death when present in all cells of an individual. However, a notable non-lethal exception is Down syndrome, characterized by the presence of three copies of chromosome 21. Another condition, <strong>mosaicism</strong>, occurs when only some cells in the body have abnormal chromosome numbers, a phenomenon often observed in cancer cells.</p>
-<p>When we analyze genomes, we encounter three types of pairings:</p>
-<ol type="1">
-<li><p>DNA is typically a <strong>double-stranded molecule</strong>, where two strands (i.e.&nbsp;the two DNA molecules) are glued together by the chemical base pairings: A-T and C-G. This base pairing is crucial for DNA replication, which is necessary before any cell division <a href="https://www.yourgenome.org/video/dna-replication">see yourgenome.org</a>. The two DNA molecules connected through base pairing contain identical information though their sequences are complementary: A pairs with T and C pairs with G. To distinguish between the two DNA molecules, it is conventionally agreed that one is the forward strand (or positive strand) and the other is the reverse strand (or negative strand). Therefore, if the forward strand contains base A, the corresponding base on the reverse strand is T, and vice versa.</p></li>
-<li><p>The two <strong>homologous chromosomes</strong> of an individual (for example, paternal chromosome 13 with maternal chromosome 13, or in males, maternal X and paternal Y) are considered a pair. Therefore, the human genome consists of 22 autosomes plus X and Y chromosomes. Each individual possesses two copies of each homologous chromosome, resulting in a total of 46 unique chromosomes organized into 23 pairs of homologous chromosomes.</p></li>
-<li><p>Before any <strong>cell division</strong> each of the 46 unique chromosomes of an individual undergoes replication (“copies itself”). The two resulting copies (known as sister chromatids) physically pair with each other to form an X-like shape often used in chromosome pictures. This pairing of sister chromatids after replication is crucial for ensuring that each resulting cell receives the correct set of chromosomes during cell division. In mitosis (ordinary cell division), each of the two new cells receives a complete set of 46 unique chromosomes. However, in meiosis, which forms gametes (sperm and eggs), each gamete ends up with only one copy of each homologous chromosome, resulting in 23 unique chromosomes per gamete. During meiosis, the process of recombination shuffles the homologous copies of paternal and maternal chromosomes. This shuffling ensures that each offspring’s chromosomes are a mixture of segments from its grandparents’ chromosomes.</p></li>
-</ol>
-<section id="other-important-terms" class="level4">
-<h4 class="anchored" data-anchor-id="other-important-terms">Other important terms</h4>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
 <ul>
-<li><p><strong>Genes:</strong> are segments of DNA that encode for proteins (<a href="https://www.yourgenome.org/video/from-dna-to-protein">see yourgenome.org</a>). Variations in the physical structure of proteins or the timing and location of protein synthesis can lead to observable traits. Therefore, understanding how genetic variation impacts gene function and the phenotypic consequences is crucial, although much of this remains to be explored. Protein-coding genes constitute less than 2% of the entire human genome, while the remaining 98% plays a critical role in regulating gene activity through various mechanisms.</p></li>
-<li><p><strong>Locus (pl. loci):</strong> refers to a continuous region of the genome, which can vary greatly in size from a single nucleotide site (1 base pair) to a region spanning millions of base pairs (e.g., 10 Mbp).</p></li>
-<li><p><strong>GWAS loci:</strong> are regions of the genome that exhibit a significant statistical association with a particular phenotype of interest.</p></li>
+<li>In this notebook, we will only use the <code>bash command line</code>. Be sure to click on the menu <code>Kernel --&gt; Change Kernel --&gt; Bash</code></li>
 </ul>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
 </section>
-<section id="genetic-variants" class="level3">
-<h3 class="anchored" data-anchor-id="genetic-variants">Genetic variants</h3>
-<p>At any given position in the genome (e.g., nucleotide site at position 13,475,383 of chromosome 1, denoted as chr1:13,475,383), variations can exist between individuals in the population. For instance, my paternal chromosome might have a base A, while my maternal chromosome has a base G (on the + strand of DNA) at that position. Such a single-nucleotide difference, at that specific position in the genome, is known as a <strong>single-nucleotide variant (SNV)</strong>, and these two versions are called <strong>alleles</strong>. In this example, I would carry both allele A and allele G at that SNV, while you might have two copies of allele A at the same SNV. My genotype would be AG, and yours would be AA.</p>
-<p>An individual who has different alleles on their two genomes is <strong>heterozygous</strong> at that locus, whereas someone with two copies of the same allele is <strong>homozygous</strong> at that locus. If neither allele is very rare in the population—specifically if the <strong>minor allele frequency (MAF)</strong> is &gt; 1%—the variant is referred to as a <strong>single-nucleotide polymorphism (SNP)</strong>. SNPs are used as markers in evolutionary biology and constitute the most common form of variation that may have consequences at the phenotypic level and be associated with certain diseases. There are over 10 million SNPs identified in the human genome.</p>
-<p>More complex genetic variations include <strong>structural variation (SV</strong>) such as copy number variants (CNVs), which include duplications or deletions of genomic regions, as well as rearrangements of the genome, like inversions or translocations of DNA segments (<a href="https://www.yourgenome.org/facts/what-types-of-mutation-are-there">see yourgenome.org</a>).</p>
-<div class="quarto-figure quarto-figure-center">
+</section>
+</div>
+<section id="ldak" class="level2">
+<h2 class="anchored" data-anchor-id="ldak">LDAK</h2>
+<p>Throughout this tutorial, we have used PLINK as the main method of our GWAS analysis. This is, in large part, due to its popularity in modern literature and its ease of use. But it is by no means the only method of GWAS.</p>
+<p>One tool that has been developed in recent years is <em><a href="https://dougspeed.com/">LDAK</a></em>, by Dough Speed <span class="citation" data-cites="speed2012improved">(<a href="#ref-speed2012improved" role="doc-biblioref">2012</a>)</span>. One of the most significant improvements of this program is the genetic prediction of complex traits from both individual-level data and summary statistics. Most prediction tools assume the <a href="https://yanglab.westlake.edu.cn/software/gcta/#Overview">GCTA</a> model, whereby each SNP is expected to contribute equally to the phenotype (as is the case with PLINK). If we replace the GCTA Model with the BLD-LDAK Model, the squared correlation between observed and predicted phenotypes (<span class="math inline">\(R^2\)</span>) increases by an average of 14% (s.d. 1%).</p>
+</section>
+<section id="overview-of-functionality" class="level2">
+<h2 class="anchored" data-anchor-id="overview-of-functionality">Overview of functionality</h2>
+<p>Using LDAK is very similar to PLINK. As with PLINK, you will require the <code>.bed</code>, <code>.bim</code>, and <code>.fam</code> files of your cohort. Beyond this, you will need additional files:</p>
+<ul>
+<li><code>.info</code> - information scores for SNPs</li>
+<li><code>.pheno</code> - a phenotype</li>
+<li><code>.covar</code> - covariates</li>
+<li><code>.ind.hers</code> - estimates of per-SNP heritabilities</li>
+<li><code>.genefile</code> - (real) RefSeq human gene annotations</li>
+</ul>
+<p><img src="Images/bash.png" alt="Bash" width="40"> If we call our prefix <code>human</code>, then very simply, we can compute summary statistics in the following way:</p>
+<div id="8518d95f" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># link the data and create output directory </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> Results/GWAS8</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Run ldak software</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">../Software/ldak</span> <span class="at">--calc-stats</span> Results/GWAS8/human <span class="at">--bfile</span> Data/ldak_data/human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mkdir: cannot create directory ‘Results/GWAS7’: File exists
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+LDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More
+Version 5.2 - Help pages at http://www.ldak.org
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+There are 2 pairs of arguments:
+--calc-stats Results/GWAS7/human
+--bfile Data/ldak_data/human
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+Calculating predictor and individual statistics
+
+To run the parallel version of LDAK, use "--max-threads" (this will only reduce runtime for some commands)
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+Reading IDs for 424 samples from Data/ldak_data/human.fam
+
+Reading details for 3289 predictors from Data/ldak_data/human.bim
+
+Data contain 424 samples and 3289 predictors
+
+Calculating statistics for Chunk 1 of 1
+
+Statistics saved in Results/GWAS7/human.stats and Results/GWAS7/human.missing
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+Mission completed. All your basepair are belong to us :)
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</code></pre>
+</div>
+</div>
+<p>This command asks LDAK to read the data stored in Binary PLINK format with the prefix human, then save the results to files with the prefix “human”. Remember that software command line arguments, can be provided in any order (generally, there is no strict order requirement), so that the command above would be equivalent to <code>../Software/ldak --bfile Data/ldak_data/human --calc-stats Data/ldak_data/human</code></p>
+<p>The output files are called <code>human.stats</code> and <code>human.missing</code> and found in the folder <code>Results/GWAS8</code>. By accessing the columns of <code>human.stats</code>, we can create plots similar to those in the notebook GWAS3 with the tutorial on QC:</p>
+<div id="3394d4aa-e8ad-4a09-9249-6ddc062c71fc" class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">######### FOR EXERCISE</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">snpmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS8/human.stats"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">snpmiss</span><span class="kw">)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">hist</span><span class="er">(</span><span class="ex">snpmiss</span><span class="va">$MAF</span><span class="ex">,</span> breaks = 50<span class="kw">)</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  geom_histogram(binwidth = 0.001, col = "black", fill="tomato") + </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  labs(title = "Frequency of missingness rates in individuals") + </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  xlab("Frequency") + </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ylab("Missingness in Individuals") + </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># theme_bw()</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">###########################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>A data.frame: 6 × 7</caption>
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">Predictor</th>
+<th data-quarto-table-cell-role="th" scope="col">A1</th>
+<th data-quarto-table-cell-role="th" scope="col">A2</th>
+<th data-quarto-table-cell-role="th" scope="col">A1_Mean</th>
+<th data-quarto-table-cell-role="th" scope="col">MAF</th>
+<th data-quarto-table-cell-role="th" scope="col">Call_Rate</th>
+<th data-quarto-table-cell-role="th" scope="col">Info</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">1</td>
+<td>21:14642464</td>
+<td>A</td>
+<td>G</td>
+<td>0.884434</td>
+<td>0.442217</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">2</td>
+<td>21:14649798</td>
+<td>A</td>
+<td>C</td>
+<td>0.974057</td>
+<td>0.487028</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">3</td>
+<td>21:14669931</td>
+<td>G</td>
+<td>A</td>
+<td>0.969340</td>
+<td>0.484670</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">4</td>
+<td>21:14688825</td>
+<td>T</td>
+<td>C</td>
+<td>0.983491</td>
+<td>0.491745</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" scope="row">5</td>
+<td>21:14736298</td>
+<td>C</td>
+<td>T</td>
+<td>0.858491</td>
+<td>0.429245</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th" scope="row">6</td>
+<td>21:14757043</td>
+<td>T</td>
+<td>C</td>
+<td>0.929245</td>
+<td>0.464623</td>
+<td>1</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="cell-output cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="Images/SNP.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 1: SNPs are DNA differences at a specific location (<a href="https://www.thetech.org/ask-a-geneticist/oca2-and-23andme">image source</a>)</figcaption>
+<p><img src="GWAS8-OtherToolsAndTesting_files/figure-html/cell-3-output-2.png" width="420" height="420" class="figure-img"></p>
 </figure>
 </div>
-<p>A defined set of 500,000 to 1,000,000 SNPs can be measured reliably and affordably (less than 50 euros per sample) using DNA microarrays, which has been pivotal in enabling GWAS. In this course, we primarily focus on SNPs as the standard type of genetic variation. Typically, SNPs are <strong>biallelic</strong>, meaning there are only two alleles present in the population, which is the assumption we follow. In principle, however, all four possible alleles of a SNP could be present in the population.</p>
-<section id="ambiguous-snps" class="level4">
-<h4 class="anchored" data-anchor-id="ambiguous-snps">Ambiguous SNPs</h4>
-<p>If the two alleles of an SNP are either (C,G) or (A,T) we call the SNP <em>ambiguous</em> because the strand information must be available (and accurate) to correctly interpret the genotypes at such SNP. For instance, allele C on the positive strand would be equivalent to allele G on the negative strand. If different studies report the SNP with respect to different strands, it can lead to mixed-up results. This issue does not occur with SNPs whose alleles are A, and C, because alleles T and G would correspond on the opposite strand, allowing unambiguous matching of A to T and C to G across studies. Ambiguous SNPs can generally be resolved reliably based on allele frequencies, as long as the minor allele frequency is not close to 50%. When combining multiple studies, it is crucial to begin by plotting allele frequencies between studies. This helps ensure that the alleles are consistently matched across studies before comparing frequencies to verify consistency.</p>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="GWAS8-OtherToolsAndTesting_files/figure-html/0f0b9893-1-LDAK_QC.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 7.1: Genomic properties are easily accessible by parsing through the outputted summary statistics</figcaption>
+</figure>
+</div>
+<p>If you wish to perform single-SNP association analysis using linear regression. We would use the main argument <code>--linear</code> in this case. Each main argument requires different options. Remember to check the Documentation at www.dougspeed.com. Most software have a <code>--help</code> option, but LDAK doesn’t, so an alternative is to run the main argument, which will print out the options required and missing for a successful run:</p>
+<div id="b32fe6b5-8d9d-4e5d-a855-73b95dc16061" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">../Software/ldak</span> <span class="at">--linear</span> linear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+LDAK - Software for obtaining Linkage Disequilibrium Adjusted Kinships and Loads More
+Version 5.2 - Help pages at http://www.ldak.org
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+There is one pair of arguments:
+--linear linear
+
+Error, you must use "--pheno" to provide phenotypes
+</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>: 1</code></pre>
+</div>
+</div>
+<p>The output can be used to obtain GWAS plots of interest, such as a Manhattan plot:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="GWAS8-OtherToolsAndTesting_files/figure-html/b950a689-1-LDAK_Manhattan.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 7.2: Manhattan plot outputted by LDAK</figcaption>
+</figure>
+</div>
+<p>Furthermore, LDAK offers various additional methods and features, such as the explicit incorporation of covariates and PRS. For those interested, we recommend following the tutorials available <a href="https://dougspeed.com/short/">here</a>. Additionally, we have included the dataset accompanying this tutorial in the Data folder, conveniently named <code>extra_data.zip</code>. All you need is to run the commands in the tutorial.</p>
+<p>The takeaway is that while more advanced tools exist, PLINK serves as an excellent starting point for conducting focused and specific analyses, particularly for educational purposes.</p>
 </section>
-</section>
-<section id="some-catalogs-of-genetic-variation" class="level3">
-<h3 class="anchored" data-anchor-id="some-catalogs-of-genetic-variation">Some catalogs of genetic variation</h3>
-<p>The human genome map is constantly improving, leading to updates in SNV/SNP coordinates and new discoveries with each new build. The current build is GRCh38 (hg38), published in 2013, while its predecessor, GRCh37 (hg19), is still in use for some data sets. Always specify the genome build when sharing genomic coordinates, as positions can differ between builds. There are tools like LiftOver that can help map coordinates between builds.</p>
-<p>A large part of the genetics research over the last 30 years has been driven by international projects aiming to catalog genetic variation in the public domain.</p>
+<section id="bibliography" class="level1">
+<h1>Bibliography</h1>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Database</th>
-<th>Year</th>
+<th>Materials</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://www.yourgenome.org/stories/what-was-the-human-genome-project-for">The Human Genome Project</a></td>
-<td>1990-2003</td>
-<td>Established a first draft of a human genome sequence. <span class="citation" data-cites="collins_human_1995">Collins and Fink (<a href="#ref-collins_human_1995" role="doc-biblioref">1995</a>)</span>.</td>
+<td><strong>Other tools</strong></td>
+<td></td>
 </tr>
 <tr class="even">
-<td><a href="https://www.genome.gov/10001688/international-hapmap-project/">The HapMap project</a></td>
-<td>2002-2009</td>
-<td>Studied the correlation structure of the common SNPs. <span class="citation" data-cites="gibbs_international_2003">Gibbs et al. (<a href="#ref-gibbs_international_2003" role="doc-biblioref">2003</a>)</span>.</td>
+<td>[BOLT_LMM]<span class="citation" data-cites="loh2015efficient">(<a href="#ref-loh2015efficient" role="doc-biblioref">Loh et al. 2015</a>)</span></td>
+<td>GWAS using mixed-models for large cohorts (<a href="https://alkesgroup.broadinstitute.org/BOLT-LMM/BOLT-LMM_manual.html">tutorial</a>)</td>
 </tr>
 <tr class="odd">
-<td><a href="http://www.internationalgenome.org/about">The 1000 Genomes project</a></td>
-<td>2008-2015</td>
-<td>Expanded HapMap to genome sequence information across the globe and currently remains a widely-used reference for global allele frequency information. 1000G project was able to characterize well common variation in different <em>populations</em>, but missed many rare variants of single individuals because the costs of very accurate sequencing were too high. The tremendous impact of the 1000G project stems from the fact that everyone can download the individual-level genome data of the 1000G samples from the project’s website and use it in their research. <span class="citation" data-cites="auton_global_2015">Auton et al. (<a href="#ref-auton_global_2015" role="doc-biblioref">2015</a>)</span>.</td>
+<td>[Regenie]<span class="citation" data-cites="loh2015efficient">(<a href="#ref-loh2015efficient" role="doc-biblioref">Loh et al. 2015</a>)</span></td>
+<td>Different approach to perform GWAS scaling very well for quantitative &amp; binary traits (<a href="https://rgcgithub.github.io/regenie/">tutorial</a>)</td>
 </tr>
 <tr class="even">
-<td><a href="http://exac.broadinstitute.org/">Exome Aggregation Consortium (ExAC)</a></td>
-<td>2014-2016</td>
-<td>Concentrated only on the protein-coding parts of the genome, so-called <em>exons</em>, that make up less than 2% of the genome and was able to provide accurate sequence data for the exomes of over 60,000 individuals. This effort has been particularly important for the medical interpretation of rare variants seen in clinics that diagnose patients with severe disease. ExAC provides summary-level information through browsers and downloads but individual-level data cannot be downloaded. <span class="citation" data-cites="lek_analysis_2016">Lek et al. (<a href="#ref-lek_analysis_2016" role="doc-biblioref">2016</a>)</span>.</td>
+<td><strong>Other public courses</strong></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td><a href="http://gnomad.broadinstitute.org/">Genome Aggregation Database (gnomAD)</a></td>
-<td>2016-2020</td>
-<td>Is expanding the ExAC database and also includes additional whole genome sequencing information. It is the current state-of-the-art among the public genome variation databases. <span class="citation" data-cites="chen_genomic_2024">Chen et al. (<a href="#ref-chen_genomic_2024" role="doc-biblioref">2024</a>)</span>.</td>
+<td><a href="https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course/">Statistics of GWAS</a></td>
+<td>Semester-long course run by the University of Helsinki - more leans towards the mathematical theory behind GWAS (e.g.&nbsp;no practical)</td>
+</tr>
+<tr class="even">
+<td><a href="https://pbreheny.github.io/adv-gwas-tutorial/index.html">Introduction to GWAS</a></td>
+<td>Similar to this course, but with more R implementation</td>
+</tr>
+<tr class="odd">
+<td><strong>Post-GWAS</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><a href="https://pubmed.ncbi.nlm.nih.gov/29727686/">The Post-GWAS Era: From Association to Function</a></td>
+<td>Good discussion that highlights key advances in the field of functional genomics that may facilitate the derivation of biological meaning post-GWAS</td>
+</tr>
+<tr class="odd">
+<td><a href="https://pubmed.ncbi.nlm.nih.gov/35222990/">Performing post-genome-wide association study analysis: overview, challenges and recommendations</a></td>
+<td>More of a practical guide to the paper above</td>
+</tr>
+<tr class="even">
+<td><strong>Videos</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.youtube.com/watch?v=7iarFfxYxQc">Introduction to genomics theory</a></td>
+<td>30-minute discussion of using PLINK in the context of GWAS</td>
+</tr>
+<tr class="even">
+<td><a href="https://www.youtube.com/watch?v=xw419NKqMqw">MPG Primer: GWAS design and interpretation</a></td>
+<td>Medical and Population Genomics Primer from MIT</td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.youtube.com/watch?v=fCd6B5HRaZ8">Illumina Sequencing</a></td>
+<td>Visually intuitive understanding of sequencing from Illumina</td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="bibliography" class="level1">
-
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-auton_global_2015" class="csl-entry" role="listitem">
-Auton, Adam, Gonçalo R. Abecasis, David M. Altshuler, Richard M. Durbin, Gonçalo R. Abecasis, David R. Bentley, Aravinda Chakravarti, et al. 2015. <span>“A Global Reference for Human Genetic Variation.”</span> <em>Nature</em> 526 (7571): 68–74. <a href="https://doi.org/10.1038/nature15393">https://doi.org/10.1038/nature15393</a>.
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-loh2015efficient" class="csl-entry" role="listitem">
+Loh, Po-Ru, George Tucker, Brendan K Bulik-Sullivan, Bjarni J Vilhjálmsson, Hilary K Finucane, Rany M Salem, Daniel I Chasman, et al. 2015. <span>“Efficient Bayesian Mixed-Model Analysis Increases Association Power in Large Cohorts.”</span> <em>Nature Genetics</em> 47 (3): 284–90.
 </div>
-<div id="ref-chen_genomic_2024" class="csl-entry" role="listitem">
-Chen, Siwei, Laurent C. Francioli, Julia K. Goodrich, Ryan L. Collins, Masahiro Kanai, Qingbo Wang, Jessica Alföldi, et al. 2024. <span>“A Genomic Mutational Constraint Map Using Variation in 76,156 Human Genomes.”</span> <em>Nature</em> 625 (7993): 92–100. <a href="https://doi.org/10.1038/s41586-023-06045-0">https://doi.org/10.1038/s41586-023-06045-0</a>.
-</div>
-<div id="ref-collins_human_1995" class="csl-entry" role="listitem">
-Collins, Francis S., and Leslie Fink. 1995. <span>“The <span>Human</span> <span>Genome</span> <span>Project</span>.”</span> <em>Alcohol Health and Research World</em> 19 (3): 190–95. <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6875757/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6875757/</a>.
-</div>
-<div id="ref-gibbs_international_2003" class="csl-entry" role="listitem">
-Gibbs, Richard A., John W. Belmont, Paul Hardenbol, Thomas D. Willis, Fuli Yu, Huanming Yang, Lan-Yang Ch’ang, et al. 2003. <span>“The <span>International</span> <span>HapMap</span> <span>Project</span>.”</span> <em>Nature</em> 426 (6968): 789–96. <a href="https://doi.org/10.1038/nature02168">https://doi.org/10.1038/nature02168</a>.
-</div>
-<div id="ref-lek_analysis_2016" class="csl-entry" role="listitem">
-Lek, Monkol, Konrad J. Karczewski, Eric V. Minikel, Kaitlin E. Samocha, Eric Banks, Timothy Fennell, Anne H. O’Donnell-Luria, et al. 2016. <span>“Analysis of Protein-Coding Genetic Variation in 60,706 Humans.”</span> <em>Nature</em> 536 (7616): 285–91. <a href="https://doi.org/10.1038/nature19057">https://doi.org/10.1038/nature19057</a>.
+<div id="ref-speed2012improved" class="csl-entry" role="listitem">
+Speed, Doug, Gibran Hemani, Michael R Johnson, and David J Balding. 2012. <span>“Improved Heritability Estimation from Genome-Wide SNPs.”</span> <em>The American Journal of Human Genetics</em> 91 (6): 1011–21.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
