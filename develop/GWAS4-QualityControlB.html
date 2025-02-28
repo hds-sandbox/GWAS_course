@@ -93,8 +93,8 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea0b82cd5f822071eb0559dd9120d05c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-82b651110b069aa65eb395552b20c80d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-5744b439f7394fde80945d0e1e37a281.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5e10f79eaba3e712890d90f2b975103d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -1176,7 +1176,11 @@ Stop - Read - Solve
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Look at the two outputs a bit more carefully. Is there any problem?</strong></p>
-<p>Hint: - compare the chromosome and position across the 2 datasets. - compare the two alleles</p>
+<p>Hint:</p>
+<ul>
+<li>compare the chromosome and position across the 2 datasets.</li>
+<li>compare the two alleles</li>
+</ul>
 </div>
 </div>
 <div id="70beb88f-7099-4233-83d8-53efe75b0de4" class="cell" data-execution_count="18">
@@ -1320,7 +1324,11 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Look at these other SNPs <code>rs9614750</code> and <code>rs10088098</code>. <strong>Which ones will have to be flipped? Is it always the same dataset that must be flipped?</strong></p>
+<p>Look at these other SNPs <code>rs9614750</code> and <code>rs10088098</code>.</p>
+<ul>
+<li><strong>Which ones will have to be flipped?</strong></li>
+<li><strong>Is it always the same dataset that must be flipped?</strong></li>
+</ul>
 </div>
 </div>
 <div id="b8b0ba37-79a7-4d83-8c72-55355a101f1d" class="cell" data-execution_count="22">
@@ -1416,8 +1424,9 @@ Stop - Read - Solve
 <div class="callout-body-container callout-body">
 <p>There might still be problematic SNPs after flipping.</p>
 <ul>
-<li><strong>Check if the expected allele flip occurred.</strong> (Hint: use <code>grep</code> to find the <code>rs10006274</code> and <code>rs9614750</code> variants; then compare the alleles assignments in the HapMap file before and after flipping.)</li>
+<li><strong>Check if the expected allele flip occurred.</strong></li>
 </ul>
+<p>Hint: use <code>grep</code> to find the <code>rs10006274</code> and <code>rs9614750</code> variants; then compare the alleles assignments in the HapMap file before and after flipping.</p>
 </div>
 </div>
 <div id="75f90b6d-911e-49a0-8cf1-2a09b4c63d16" class="cell">
@@ -1643,7 +1652,20 @@ Note
 </section>
 <section id="creating-covariates-for-gwas-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="creating-covariates-for-gwas-analysis">Creating covariates for GWAS analysis</h4>
-<p>The 10 MDS dimensions will be used as covariates in the association analysis in the next tutorial to correct for population stratification. The covariate file is created by removing column 3 (SOL, optional metadata) from the MDS output file.</p>
+<p>The 10 MDS dimensions will be used as covariates in the association analysis in the next tutorial to correct for population stratification. The covariate file is created by removing column 3 (<code>SOL</code>, optional metadata) from the MDS output file.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Why are we computing the covariates again?</strong></p>
+</div>
+</div>
 <div id="975054c0-85c1-4436-a340-819bffa12a5a" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb111"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--genome</span>  <span class="dt">\</span></span>
 <span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS4/HapMap_3_r3_10 <span class="op">&gt;</span> /dev/null</span>

@@ -93,8 +93,8 @@ div.csl-indent {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea0b82cd5f822071eb0559dd9120d05c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-82b651110b069aa65eb395552b20c80d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-5744b439f7394fde80945d0e1e37a281.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5e10f79eaba3e712890d90f2b975103d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -958,6 +958,19 @@ Stop - Read - Solve
 <p>Given the two Q-Q plots (based on logistic regression and basic association test), <strong>how do the observed p-values compare to the expected p-values under the null hypothesis?</strong> Write a short interpretation based on your observations</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because of the relatively small sample size of the HapMap data, the genetic effect sizes in these simulations were set higher than what is typically observed in genetic studies of complex traits. In reality, detecting genetic risk factors for complex traits requires much larger sample sizes—typically in the thousands, and often in the tens or even hundreds of thousands. Finally, it is important to remember that this is a simulated dataset designed to mimic real data but remains very limited in size.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -970,7 +983,7 @@ Solution
 <div class="callout-body-container callout-body">
 <ul>
 <li>In the first plot (<code>--logistic</code>), the observed values are lower than the expected ones (consistent with what we saw in the Manhattan plot). This suggests an unexpected lack of significant findings. This could be due to overly conservative corrections, biases in the dataset, or poor study power (small sample size or very small effect sizes).</li>
-<li>On the other hand, in the <code>assoc</code> QQ-plot, some SNPs show stronger associations than expected (observed p-values lower than expected), deviating from the diagonal which suggests a potential true association. However, before trusting these results, we need to conduct further analyses, particularly to assess population stratification. Even if we have confidence in our association test and sufficient power to detect associated variants, careful evaluation is necessary to rule out confounding factors.</li>
+<li>On the other hand, in the <code>assoc</code> QQ-plot, some SNPs show stronger associations than expected (observed p-values lower than expected), deviating from the diagonal which suggests a potential true association. Although the top-right corner typically continues deviating upward with observed values higher than expected, here it follows an unexpected pattern. However, before trusting any result, we must conduct further analyses, particularly to assess population stratification. Even if we have confidence in our association test and sufficient power to detect associated variants, careful evaluation is necessary to rule out confounding factors.</li>
 </ul>
 <p>Moreover, it is important to remember that, while this suggests an association between these SNPs and the studied phenotype, there isn’t sufficient information here to determine the <strong>causal variant</strong>. In fact, there could potentially be multiple causal variants and the causal variants could be in LD with some of the significant variants. Identifying the causal variants would require further investigation using biological methods. However, this analysis has significantly reduced the number of SNPs that need to be studied.</p>
 </div>

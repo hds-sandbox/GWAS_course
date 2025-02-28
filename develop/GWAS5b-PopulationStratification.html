@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -73,8 +93,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ea0b82cd5f822071eb0559dd9120d05c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-82b651110b069aa65eb395552b20c80d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-5744b439f7394fde80945d0e1e37a281.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5e10f79eaba3e712890d90f2b975103d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -308,7 +328,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
   <ul>
   <li><a href="#correlation-between-pc-loadings-and-effect-sizes" id="toc-correlation-between-pc-loadings-and-effect-sizes" class="nav-link active" data-scroll-target="#correlation-between-pc-loadings-and-effect-sizes">Correlation between PC loadings and effect sizes</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS5b-PopulationStratification.out.ipynb" download="GWAS5b-PopulationStratification.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -342,7 +362,7 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>As we’ve discussed, removing population structure is crucial, as residual population stratification—highlighted by <span class="citation" data-cites="sohail2019polygenic">[@sohail2019polygenic]</span>—can even be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores and other downstream analyses. In this notebook, we will further explore one way of detecting population stratification in GWAS. Since we were uncertain whether we were being too strict when correcting for population structure, or if the GWAS lacked sufficient power, this analysis will help us clarify if we can trust our results.</p>
+<p>As we’ve discussed, removing population structure is crucial, as residual population stratification—highlighted by <span class="citation" data-cites="sohail2019polygenic">(<a href="#ref-sohail2019polygenic" role="doc-biblioref">Sohail et al. 2019</a>)</span>—can even be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores and other downstream analyses. In this notebook, we will further explore one way of detecting population stratification in GWAS. Since we were uncertain whether we were being too strict when correcting for population structure, or if the GWAS lacked sufficient power, this analysis will help us clarify if we can trust our results.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
@@ -360,7 +380,7 @@ Important notes for this notebook
 </div>
 <section id="correlation-between-pc-loadings-and-effect-sizes" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-between-pc-loadings-and-effect-sizes">Correlation between PC loadings and effect sizes</h3>
-<p>We followed a similar approach from <span class="citation" data-cites="sohail2019polygenic">[@sohail2019polygenic]</span> to examine GWAS stratification along different PCA axes of population structure. We began by performing a PCA on the genotype data from the 1000 Genomes Project used in the previous notebook. Then, we computed the correlation between the first 10 PCA loadings and the effect size estimates from the GWAS conducted on the Hapmap data. We visualized these PC-specific correlations to explore patterns of stratification along different axes of genetic variation. Additionally, it would be very useful to consider allele frequency differences across different populations when analyzing such stratification.</p>
+<p>We followed a similar approach from <span class="citation" data-cites="sohail2019polygenic">(<a href="#ref-sohail2019polygenic" role="doc-biblioref">Sohail et al. 2019</a>)</span> to examine GWAS stratification along different PCA axes of population structure. We began by performing a PCA on the genotype data from the 1000 Genomes Project used in the previous notebook. Then, we computed the correlation between the first 10 PCA loadings and the effect size estimates from the GWAS conducted on the Hapmap data. We visualized these PC-specific correlations to explore patterns of stratification along different axes of genetic variation. Additionally, it would be very useful to consider allele frequency differences across different populations when analyzing such stratification.</p>
 <p>We use PLINK’s <code>--pca var-wts</code> command on the set of independent variants (<code>indepSNP.prune.in</code>) to obtain the PC loadings.</p>
 <div id="356bce29-20f8-4bca-842c-3c4ca3cf5559" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span><span class="dv">1</span>kG_MDS6  <span class="sc">--</span>extract Results<span class="sc">/</span>GWAS3<span class="sc">/</span>indepSNP.prune.in <span class="sc">--</span>pca <span class="dv">10</span> var<span class="sc">-</span>wts <span class="sc">--</span>out Results<span class="sc">/</span>GWAS4<span class="sc">/</span>PCA_1kg <span class="sc">--</span>silent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -460,10 +480,15 @@ Other take-home messages
 </div>
 
 
+
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-sohail2019polygenic" class="csl-entry" role="listitem">
+Sohail, Mashaal, Robert M Maier, Andrea Ganna, Alex Bloemendal, Alicia R Martin, Michael C Turchin, Charleston WK Chiang, et al. 2019. <span>“Polygenic Adaptation on Height Is Overestimated Due to Uncorrected Stratification in Genome-Wide Association Studies.”</span> <em>Elife</em> 8: e39702.
+</div>
+</div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
