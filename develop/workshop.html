@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>GenomeDK – GWAS</title>
+<title>workshop – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -115,7 +81,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 
 </head>
 
-<body class="nav-sidebar docked nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -140,7 +106,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../access/setup.html" aria-current="page"> 
+    <a class="nav-link" href="../access/setup.html"> 
 <span class="menu-text">Access</span></a>
   </li>  
   <li class="nav-item">
@@ -148,7 +114,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <span class="menu-text">Tutorials</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../develop/workshop.html"> 
+    <a class="nav-link active" href="../develop/workshop.html" aria-current="page"> 
 <span class="menu-text">Workshop</span></a>
   </li>  
 </ul>
@@ -170,246 +136,101 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/UCloud.html">Systems</a></li><li class="breadcrumb-item"><a href="../access/genomedk.html">GenomeDK</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../access/setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">General</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Systems</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../access/UCloud.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">UCloud</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../access/genomedk.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">GenomeDK</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../access/otherHPC.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Independent users</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#using-genomedk-desktop" id="toc-using-genomedk-desktop" class="nav-link active" data-scroll-target="#using-genomedk-desktop">Using GenomeDK Desktop</a></li>
-  <li><a href="#using-the-terminal" id="toc-using-the-terminal" class="nav-link" data-scroll-target="#using-the-terminal">Using the terminal</a>
-  <ul class="collapse">
-  <li><a href="#what-if-my-internet-connection-drops" id="toc-what-if-my-internet-connection-drops" class="nav-link" data-scroll-target="#what-if-my-internet-connection-drops">What if my internet connection drops?</a></li>
-  <li><a href="#recovering-the-material-from-your-previous-session" id="toc-recovering-the-material-from-your-previous-session" class="nav-link" data-scroll-target="#recovering-the-material-from-your-previous-session">Recovering the material from your previous session</a></li>
-  </ul></li>
+  <li><a href="#welcome-to-gwas-with-the-genomics-sandbox" id="toc-welcome-to-gwas-with-the-genomics-sandbox" class="nav-link active" data-scroll-target="#welcome-to-gwas-with-the-genomics-sandbox">Welcome to GWAS with the Genomics Sandbox</a></li>
+  <li><a href="#access-sandbox-resources" id="toc-access-sandbox-resources" class="nav-link" data-scroll-target="#access-sandbox-resources">Access Sandbox resources</a></li>
+  <li><a href="#discussion-and-feedback" id="toc-discussion-and-feedback" class="nav-link" data-scroll-target="#discussion-and-feedback">Discussion and feedback</a></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../access/UCloud.html">Systems</a></li><li class="breadcrumb-item"><a href="../access/genomedk.html">GenomeDK</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">GenomeDK</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>If you are using GenomeDK as the HPC of your choice, you can use the pre-packaged Docker container, which contains JupyterLab and the necessary packages to run all the notebooks for our genomics app. GenomeDK comes with ‘Singularity’, which can import and execute Docker containers, ensuring full reproducibility of the analysis. Instructions for using the container through the terminal or desktop are available.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Technical prerequisites">
+<section id="welcome-to-gwas-with-the-genomics-sandbox" class="level1 hero-banner">
+<h1>Welcome to GWAS with the Genomics Sandbox</h1>
+</section>
+<div class="callout callout-style-default callout-warning callout-titled" title="Required preparation">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Technical prerequisites
+Required preparation
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li><p>if you do not yet have an account on GenomeDK, please get one <a href="https://console.genome.au.dk/user-requests/create/">here</a> and follow the instructions for the 2-factor authentication.</p></li>
-<li><p>you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. <a href="https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project">Follow these instructions to request a project</a>. Please do not create a project only to run this course, but use an existing project folder.</p></li>
-<li><p>In Windows and the Powershell command line, commands might need <code>.exe</code> at the end, such as <code>ssh.exe</code> instead of <code>ssh</code>. Newer versions of Windows do not require that, though.</p></li>
-</ul>
+<p>You are expected to make sure you can sign in to UCloud, SDU’s HPC platform on which we will be running this course. All data, assignments, and tools will be provided on UCloud. Please use your university ID to sign in (instructions below). If you run into problems, please write us (respond to the email that got you to this page).</p>
 </div>
 </div>
-<p>Follow the instructions below to get started.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Whether you’re using the terminal or desktop, <strong>avoid working directly in your home folder <code>/home/username</code></strong>, as this has a limit of 100GB of space available. Work instead inside a previously established project folder.</p>
-</div>
-</div>
-<section id="using-genomedk-desktop" class="level2">
-<h2 class="anchored" data-anchor-id="using-genomedk-desktop">Using GenomeDK Desktop</h2>
-<p>We recommend using <a href="https://desktop.genome.au.dk/">GenomeDK Desktop</a> - a browser-based virtual desktop solution. Follow these steps to get the app running:</p>
+<section id="access-sandbox-resources" class="level2">
+<h2 class="anchored" data-anchor-id="access-sandbox-resources">Access Sandbox resources</h2>
+<p>Our first choice is to provide all the <strong>training materials, tutorials, and tools as interactive apps on UCloud</strong>, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:</p>
 <ol type="1">
-<li>Log in to GenomeDK Desktop.</li>
-<li>Open a terminal and navigate to or create a new folder, then pull the Docker image of the app.</li>
+<li>a Danish university ID so you can sign on to UCloud via WAYF<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># docker</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull hdssandbox/genomicsapp</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># singularity</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull genomicsapp.sif docker://hdssandbox/genomicsapp </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ol start="3" type="1">
-<li><p>Copy the command below and modify it accordingly.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>2 <span class="at">--time</span><span class="op">=</span>0:10:0 <span class="at">--account</span><span class="op">=&lt;</span>YOURPROJECT<span class="op">&gt;</span> --pty singularity exec <span class="at">--writable-tmpfs</span> <span class="at">--fakeroot</span> <span class="at">--bind</span> /tmp:/tmp <span class="at">--bind</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:<span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span> <span class="at">--pwd</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span> <span class="at">--bind</span> /etc/ssl/certs:/etc/ssl/certs <span class="at">--bind</span> /etc/pki/ca-trust:/etc/pki/ca-trust /path/to/genomicsapp.sif start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS -p </span><span class="va">$UID</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-<li><p>The command above is used to run the image as an interactive session on the HPC, specifying the time, cores, and memory allocation.</p>
-<ul>
-<li>Adjust the settings to your needs. Check <a href="https://genome.au.dk/docs/interacting-with-the-queue/">GenomeDK guidelines</a> if in doubt.</li>
-<li>Choose the directories that should be bound for inclusion inside the container.</li>
-</ul></li>
-<li><p>Click on “Show clipboard” at the top-right of the Desktop, and paste the modified command there.</p></li>
-<li><p>In the terminal, paste the command and ensure you are in the desired working directory (e.g., <code>intro_to_GWAS</code> in one of your projects as we are binding the <code>pwd</code>).</p></li>
-<li><p>Open the link displayed in the terminal, which includes the node name and port number (e.g., cn-1040:8787 or s21n31:8787).</p></li>
+<p>&nbsp;</p>
+<p align="center">
+<a href="https://cloud.sdu.dk" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> for UCloud Access click here </a>
+</p>
+<p>&nbsp;</p>
+<ol start="2" type="1">
+<li><p>basic ability to navigate in Linux/R/Jupyter. <strong>You don’t need to be an expert</strong>, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.</p></li>
+<li><p><strong>For workshop participants:</strong> Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Click the link below after your first uCloud access and accept the invite that shows.</p></li>
 </ol>
+<p>&nbsp;</p>
+<p align="center">
+<a href="https://cloud.sdu.dk/app/projects/invite/1e652641-3d29-47dc-bc7f-78dda1e5e3dd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Invite link to uCloud workspace </a>
+</p>
+<p>&nbsp;</p>
+<ol start="4" type="1">
+<li>Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!</li>
+</ol>
+<p>&nbsp;</p>
+<p align="center">
+<a href="https://forms.office.com/e/rLyWSiS46k" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Evaluation survey link </a>
+</p>
+<p>&nbsp;</p>
 </section>
-<section id="using-the-terminal" class="level2">
-<h2 class="anchored" data-anchor-id="using-the-terminal">Using the terminal</h2>
-<p><strong>1.</strong> Log into the cluster using the command line, and substituting <code>USERNAME</code> with your actual user name:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>and be sure to run those two commands to remove space-filling cache data, which can make everything slower after a few times you run tutorials</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.apptainer/cache/<span class="pp">*</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.singularity/cache/<span class="pp">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>2.</strong> Get into a folder inside your project, for example</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MYPROJECT/ngsSummerSchool</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>3.</strong> Use <code>singularity</code> to download the container of the course. This will take some time and show a lot of text, and at the end a file called <code>course.sif</code> is created into the folder.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull course.sif docker://hdssandbox/ngssummerschool:2024.07</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
+<section id="discussion-and-feedback" class="level2">
+<h2 class="anchored" data-anchor-id="discussion-and-feedback">Discussion and feedback</h2>
+<p>We hope you enjoyed the workshop. If you have broader questions, suggestions, or concerns, now is the time to raise them! Remember that you can check out longer versions of our tutorials as well as other topics and tools in each of the <a href="https://hds-sandbox.github.io/modules/">Sandbox modules</a>. All of our open-source materials are available on our <a href="https://github.com/hds-sandbox">Github page</a> and can be used on any computing cluster! We regularly run workshops on a variety of health data science topics that you can also check out (<a href="https://hds-sandbox.github.io/news.html">follow our news here</a>).</p>
+<p>&nbsp;</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
-<i class="callout-icon"></i>
+<i class="callout-icon no-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You need to do this step only once!</p>
+<div class="callout-body-container">
+<h4 align="center" class="anchored">
+Nice meeting you and we hope to see you again!
+</h4>
 </div>
 </div>
-<p><strong>4.</strong> Activate <code>tmux</code>: this will make things run in background. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The command line will change a bit its aspect. Now it’s time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for this module. For the first configuration suggested, for example, you get resources using</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>1 <span class="at">--time</span><span class="op">=</span>4:0:0  <span class="at">--account</span><span class="op">=</span>MYPROJECT <span class="at">--pty</span> /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You’ll need your project name and can choose how long you want resources available. * Requesting resources may involve a wait in the queue**. In the example above <code>time</code> is 4 hours, after which your session will be closed, so save your progress.</p>
-</div>
-</div>
-<p><strong>5.</strong> execute the container with</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> exec course.sif /bin/bash</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Note that the command line shows now <code>Apptainer&gt;</code> on its left. We are <em>inside</em> the container and the tools we need are now available into it.</p>
-<p><strong>6.</strong> Now we need to run a configuration script, which will setup the last details and execute jupyterlab. If a folder called <code>Data</code> exists, it will not be downloaded again (also meaning that you can use our container with your own data folder for your own analysis in future)</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.sslVerify false</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span>  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhus/docker/scripts/courseMaterial.sh <span class="kw">|</span> <span class="fu">bash</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><strong>7.</strong> You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.</p>
-<p><img src="../img/nodeAndUsername.png" class="img-fluid" width="600"></p>
-<p>Wrote down node and ID? Last step is to create a tunnel between your computer and genomeDK to be able to see jupyterlab in your browser. Now you need to <strong>use the node name and the user id</strong> you wrote down before! <strong>Open a new terminal window</strong> on your laptop and write</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>where you substitute <code>USERID</code> and <code>NODENAME</code> as you wrote down before, and then USERNAME is your account name on GenomeDK. For example <code>ssh -L 6835:s21n81:6835 samuele@login.genome.au.dk</code> according to the figure above for a user with name <code>samuele</code>.</p>
-<p><strong>8.</strong> Open your browser and go to the address http://127.0.0.1:USERID/lab, where you need your user id again instead of USERID. For example <code>http://127.0.0.1:6835/lab</code> from the figure above. Jupyterlab opens in your browser.</p>
-<p><strong>9.</strong> Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
-<p><img src="../img/startNotebook.gif" class="img-fluid"></p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Right click on a notebook or a saved results file, and use the download option to save it locally on your computer.</p>
-</div>
-</div>
-<section id="what-if-my-internet-connection-drops" class="level3">
-<h3 class="anchored" data-anchor-id="what-if-my-internet-connection-drops">What if my internet connection drops?</h3>
-<p>Now worries, <code>tmux</code> kept your material up and running. You only need a new terminal window to run the tunneling</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>as you did before, so you can continue working!</p>
-</section>
-<section id="recovering-the-material-from-your-previous-session" class="level3">
-<h3 class="anchored" data-anchor-id="recovering-the-material-from-your-previous-session">Recovering the material from your previous session</h3>
-<p>Do you want to work again on the course material, or recover some analysis? Everything is saved in the folder you were working in. Next time, follow the whole procedure again (without step number <strong>3.</strong>) and you can be up and running the course in no time.</p>
 
 
 </section>
-</section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Other institutions (e.g.&nbsp;hospitals, libraries, …) can log on through WAYF. See all institutions <a href="https://www.wayf.dk/da/institutioner-i-wayf">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any uCloud software. If you run out of credit (which takes a long time) you’ll need to check with the <a href="https://www.deic.dk/en/Front-Office">local DeiC office at your university</a> about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
