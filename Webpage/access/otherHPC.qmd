@@ -1,0 +1,32 @@
+---
+layout: webpage
+title: Independent users
+parent: Access
+has_children: false
+nav_order: 2
+hide:
+  - footer
+  - toc
+---
+
+The app is a **Docker image** that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command `start-app -c "Intro-to-GWAS"` (example below).
+
+Link: https://hub.docker.com/r/hdssandbox/genomicsapp. 
+
+#### Pull docker image 
+```{.bash .code-overflow-wrap} 
+# docker
+docker pull hdssandbox/genomicsapp
+# singularity
+singularity pull genomicsapp.sif docker://hdssandbox/genomicsapp 
+```
+
+#### Run the container 
+You can customize the port by using the `-p` option to select a different port for running the application. Additionally, if you already have data and notebooks locally, you can bind them to the container, avoiding the need for any new downloads. The command to run the container with these options looks like this:
+
+- `--rm`: This option removes the container after running, preventing your disk from filling up with cached images.
+- Add `-v` /path/to/data to bind your local data/notebooks to the container
+   
+```{.bash .code-overflow-wrap}
+docker run -rm -p $PORT:$PORT genomicsapp.sif start-app -c "Intro_to_GWAS" -p $PORT
+```

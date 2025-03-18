@@ -1,0 +1,108 @@
+/*-- scss:defaults --*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
+
+// Base document colors
+
+$navbar-bg: #4266A1;
+$sidebar-bg: white;
+$footer-bg: #4266A1;
+
+// content actions 
+
+.content-block {
+    padding-top: 10px;
+    padding-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .alt-background {
+    background-color: rgb(241, 239, 239);
+    padding-top: 2px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+  
+  }
+  
+  // exercise actions 
+  
+  .hello-exercise {
+    padding-bottom: 0rem;
+  }
+  
+  .hello-exercise-banner .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    border: none;
+    border-bottom: 4px solid #39729E !important;
+    color: #39729E;
+    background-color: transparent;
+  }
+  
+  .hello-exercise-banner .nav-pills button {
+    width: 125px;
+  }
+  
+  .hello-exercise .tab-content {
+    border: none;
+    padding: 10px;
+    color: rgb(84, 85, 85);
+  }
+  
+  .hello-exercise .tab-content p {
+    font-size: 1em;
+    margin-bottom: .5em;
+  }
+  
+  .hello-exercise div.sourceCode {
+    background-color: white;
+    border: 1px solid #dee2e6;
+  }
+  
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    color: #fff;
+    background-color: #ff7518;
+    border-radius: 0 !important;
+  }
+  
+  // button actions exercises 
+  
+  .btn-action {
+    color: white;
+    background-color: #f4b70f !important;
+    text-transform: none !important;
+  }
+  
+  .btn-action-smk {
+    color: white;
+    background-color: #398167 !important;
+    text-transform: none !important;
+  }
+  
+  .btn-action-primary:hover {
+    color: white;
+  }
+  
+  .btn-action {
+    min-width: 165px;
+    border-radius: 30px;
+    border: none;
+  }
+
+ /* navbar sandbox logo, text not clickable */
+
+.navbar-brand img {
+  pointer-events: auto;
+  transform: scale(2);  /* Scale the image 2 times */
+  height: auto; /* Maintain aspect ratio */
+  width: auto; /* Maintain aspect ratio */
+}
+  
+.navbar-brand {
+  padding: 15px 15px !important; /* Adjust padding to maintain the layout */
+  pointer-events: none;
+}
+  
+.navbar-title {
+  pointer-events: none; /* Disable pointer events to make the title non-clickable */
+  cursor: none;
+  text-decoration: none;
+}

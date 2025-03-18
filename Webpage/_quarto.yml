@@ -1,0 +1,76 @@
+project:
+  type: website
+
+website:
+  title: "GWAS"
+  site-url: 'https://hds-sandbox.github.io/GWAS_course/'
+  google-analytics: 
+    tracking-id: "G-EXW13D5861"
+    anonymize-ip: true
+  navbar:
+    logo: /img/logo.png
+    logo-href: http://hds-sandbox.github.io/ 
+    background: primary
+    left:
+      - href: ./index.qmd
+        text: Home
+      - text: Access
+        href: access/setup.qmd
+      - text: Tutorials
+        href: develop/general-intro.qmd
+      - href: develop/workshop.qmd
+        text: Workshop
+    right: 
+      - icon: github
+        href: https://github.com/hds-sandbox
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/company/ucph-heads/
+        aria-label: LinkedIn
+
+  sidebar:
+    - title: "Introduction"
+      style: "docked"
+      search: true
+      contents:
+        - href: develop/general-intro.qmd
+          text: Instructions
+        - section: "Introduction"
+          contents:
+            - develop/GWAS0-geneticTheory.qmd
+            - develop/GWAS1-WhatIsAGWAS.qmd
+            - develop/GWAS2-DataCollectionA.qmd
+            - develop/GWAS2-DataCollection.ipynb
+        - section: "Quality Control"
+          contents:
+            - develop/GWAS3-QualityControlA.ipynb
+            - develop/GWAS4-QualityControlB.ipynb
+        - section: "Association Testing"
+          contents:
+            - develop/GWAS5-AssociationTesting.ipynb
+            - develop/GWAS5b-PopulationStratification.ipynb
+            - develop/GWAS6-PRSAnalysis.ipynb
+            - develop/GWAS7-PRSII.ipynb
+#            - develop/GWAS8-OtherToolsAndTesting.ipynb
+    - title: "General"
+      style: "docked"
+      search: true
+      contents:
+        - href: access/setup.qmd
+          text: General
+        - section: "Systems"
+          contents:
+            - access/UCloud.qmd
+            - access/genomedk.qmd
+            - access/otherHPC.qmd
+
+copyright: CC-BY-SA 4.0 license
+
+format:
+  html:
+    theme: 
+      light: [materia, css/materialight.scss]
+      dark: darkly
+    toc: true
+filters:
+  - css/custom-callout.lua

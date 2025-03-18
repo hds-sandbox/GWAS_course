@@ -1,0 +1,43 @@
+---
+title: "Setup guidelines"
+format:
+  html:
+    page-layout: full
+    toc: false
+css: ../css/index.css
+
+---
+
+Here, you'll find the guidelines for using the "Introduction to GWAS" module from our genomics app, developed by the **[Health Data Science sandbox](https://hds-sandbox.github.io)**. We build our training modules as Docker images for easy deployment and use. This Docker container includes course tutorials, datasets, and tools for research or self-learning. The genomics app consists of several modules, with each course item built on JupyterLab. JupyterLab is a web-based integrated development environment for Jupyter notebooks, code, and data.
+
+## Available material
+
+Items are periodically added to this app and can be accessed differently depending on the platform/system. Each item can be a course, a setup to work with specific software, or a research workflow example. They come with all necessary packages installed, notebooks with computer code and explanations, and a dedicated webpage with additional material (notes, slides, recordings, etc.).
+
+### Courses
+
+ The available modules are:
+
+| Course name  | Description |  Links | Programming language |
+|--------|----|-------------|-----------|
+| **Introduction to NGS data analysis**  | A one-week course to introduce NGS data, from data alignment to bioinformatics analysis |  [Webpage](https://hds-sandbox.github.io/NGS_summer_course_Aarhus/)  | Python, R, bash |
+| **Introduction to Population genomics**  | A course introducing and applying bioinformatics tool to perform a whole population genomics analysis | [Webpage](https://hds-sandbox.github.io/PopulationGenomicsCourse/) | bash, R, python |
+| **Introduction to GWAS**  | An introductory course in Genome-Wide Association Studies | [Webpage](https://hds-sandbox.github.io/GWAS_course/) | bash, R |
+
+## Download the course data and notebooks
+
+Each course is open-source, and the data is freely available. Here is the link to all repositories, where you can download the datasets and the notebooks.
+
+| Course name      | Data Repository | Notebooks repo | 
+|-----------| ----------- | ----------------| 
+| **Introduction to NGS data analysis**  | [Zenodo Link](https://zenodo.org/record/7670370) | [GitHub repo](https://github.com/hds-sandbox/NGS_summer_course_Aarhus) |
+| **Introduction to Population genomics**  | [Zenodo Link](https://zenodo.org/record/7670839) |[GitHub repo](https://github.com/hds-sandbox/PopulationGenomicsCourse) |
+| **Introduction to GWAS**  | - | [GitHub repo](https://github.com/hds-sandbox/GWAS_course)|
+
+## Select your system
+
+Select the appropriate system and follow the corresponding instructions:
+
+- [UCloud](UCloud.qmd)
+- [GenomeDK](genomedk.qmd)
+- [Independent Users](otherHPC.qmd)

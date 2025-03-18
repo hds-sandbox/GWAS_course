@@ -1,0 +1,68 @@
+---
+format: html
+---
+
+:::{.hero-banner}
+# Welcome to GWAS with the Genomics Sandbox 
+:::
+
+:::{.callout-warning title="Required preparation"}
+You are expected to make sure you can sign in to UCloud, SDU's HPC platform on which we will be running this course. All data, assignments, and tools will be provided on UCloud. Please use your university ID to sign in (instructions below). If you run into problems, please write us (respond to the email that got you to this page).
+
+:::
+
+## Access Sandbox resources
+
+Our first choice is to provide all the **training materials, tutorials, and tools as interactive apps on UCloud**, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:
+
+ 1. a Danish university ID so you can sign on to UCloud via WAYF^[Other institutions (e.g. hospitals, libraries, ...) can log on through WAYF. See all institutions [here](https://www.wayf.dk/da/institutioner-i-wayf).]. 
+
+&nbsp;
+
+ <p align="center">
+  <a href="https://cloud.sdu.dk" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    for UCloud Access
+    click here
+  </a>
+</p>
+
+&nbsp;
+
+ 2. basic ability to navigate in Linux/R/Jupyter. **You don't need to be an expert**, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.
+
+ 3. **For workshop participants:** Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop^[To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any UCloud software. If you run out of credit (which takes a long time) you'll need to check with the [local DeiC office at your university](https://www.deic.dk/en/Front-Office) about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.]. Click the link below to accept the invitation (after accessing UCloud for the first time).
+
+ &nbsp;
+
+ <p align="center">
+  <a href="https://cloud.sdu.dk/app/projects/invite/1e652641-3d29-47dc-bc7f-78dda1e5e3dd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    Invite link to
+    UCloud workspace
+  </a>
+</p>
+
+&nbsp;
+
+4. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
+
+ &nbsp;
+
+<p align="center">
+  <a href="https://forms.office.com/e/rLyWSiS46k" 
+  style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+    Evaluation survey link
+  </a>
+</p>
+
+&nbsp;
+
+
+## Discussion and feedback
+
+We hope you enjoyed the workshop. If you have broader questions, suggestions, or concerns, now is the time to raise them! Remember that you can check out longer versions of our tutorials as well as other topics and tools in each of the [Sandbox modules](https://hds-sandbox.github.io/modules/). All of our open-source materials are available on our [Github page](https://github.com/hds-sandbox) and can be used on any computing cluster! We regularly run workshops on a variety of health data science topics that you can also check out ([follow our news here](https://hds-sandbox.github.io/news.html)).
+
+&nbsp;
+
+:::{.callout-note  appearance="simple" icon=false} 
+<h4 align=center>Nice meeting you and we hope to see you again!</h4> 
+::: 

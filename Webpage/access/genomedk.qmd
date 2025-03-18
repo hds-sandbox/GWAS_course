@@ -1,0 +1,159 @@
+---
+format:
+    html:
+      toc: true
+      toc-location: left
+title: GenomeDK
+parent: Access
+has_children: false
+nav_order: 2
+hide:
+  - footer
+  - toc
+---
+
+If you are using GenomeDK as the HPC of your choice, you can use the pre-packaged Docker container, which contains JupyterLab and the necessary packages to run all the notebooks for our genomics app. GenomeDK comes with 'Singularity', which can import and execute Docker containers, ensuring full reproducibility of the analysis. Instructions for using the container through the terminal or desktop are available.
+
+:::{.callout-warning title="Technical prerequisites"}
+
+- if you do not yet have an account on GenomeDK, please get one [here](https://console.genome.au.dk/user-requests/create/) and follow the instructions for the 2-factor authentication.
+
+- you need to have (or be part of) an active project on GenomeDK. This ensures you can get some computing resources to run the course material. [Follow these instructions to request a project](https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project). Please do not create a project only to run this course, but use an existing project folder.
+
+- In Windows and the Powershell command line, commands might need `.exe` at the end, such as `ssh.exe` instead of `ssh`. Newer versions of Windows do not require that, though.
+:::
+
+Follow the instructions below to get started.
+
+:::{.callout-warning}
+Whether you're using the terminal or desktop, **avoid working directly in your home folder `/home/username`**, as this has a limit of 100GB of space available. Work instead inside a previously established project folder. 
+
+:::
+
+## Using GenomeDK Desktop
+We recommend using [GenomeDK Desktop](https://desktop.genome.au.dk/) - a browser-based virtual desktop solution. Follow these steps to get the app running:
+
+1. Log in to GenomeDK Desktop.
+2. Open a terminal and navigate to or create a new folder, then pull the Docker image of the app.
+ ```{.bash .code-overflow-wrap}
+ # docker
+ docker pull hdssandbox/genomicsapp
+ # singularity
+ singularity pull genomicsapp.sif docker://hdssandbox/genomicsapp 
+ ```
+3. Copy the command below and modify it accordingly.
+   ```{.bash .code-overflow-wrap}
+   srun --mem=32g --cores=2 --time=0:10:0 --account=<YOURPROJECT> --pty singularity exec --writable-tmpfs --fakeroot --bind /tmp:/tmp --bind $(pwd):$(pwd) --pwd $(pwd) --bind /etc/ssl/certs:/etc/ssl/certs --bind /etc/pki/ca-trust:/etc/pki/ca-trust /path/to/genomicsapp.sif start-app -c "Intro_to_GWAS -p $UID"
+   ```
+5. The command above is used to run the image as an interactive session on the HPC, specifying the time, cores, and memory allocation.
+     - Adjust the settings to your needs. Check [GenomeDK guidelines](https://genome.au.dk/docs/interacting-with-the-queue/) if in doubt. 
+     - Choose the directories that should be bound for inclusion inside the container.
+6. Click on "Show clipboard" at the top-right of the Desktop, and paste the modified command there.
+5. In the terminal, paste the command and ensure you are in the desired working directory (e.g., `intro_to_GWAS` in one of your projects as we are binding the `pwd`).
+6. Open the link displayed in the terminal, which includes the node name and port number (e.g., cn-1040:8787 or s21n31:8787).
+
+
+## Using the terminal 
+
+**1.** Log into the cluster using the command line, and substituting `USERNAME` with your actual user name:
+
+```{.bash}
+ssh USERNAME@login.genome.au.dk
+```
+
+and be sure to run those two commands to remove space-filling cache data, which can make everything slower after a few times you run tutorials
+
+```{.bash}
+rm -rf ~/.apptainer/cache/*
+rm -rf ~/.singularity/cache/*
+```
+
+**2.** Get into a folder inside your project, for example
+
+```{.bash}
+cd MYPROJECT/ngsSummerSchool
+```
+
+**3.** Use `singularity` to download the container of the course. This will take some time and show a lot of text, and at the end a file called `course.sif` is created into the folder.
+
+```{.bash}
+singularity pull course.sif docker://hdssandbox/ngssummerschool:2024.07
+```
+
+:::{.callout-warning}
+You need to do this step only once!
+:::
+
+**4.**  Activate `tmux`: this will make things run in background. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command 
+
+
+```{.bash}
+tmux
+```
+
+The command line will change a bit its aspect. Now it's time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for this module. For the first configuration suggested, for example, you get resources using 
+
+```{.bash}
+srun --mem=32g --cores=1 --time=4:0:0  --account=MYPROJECT --pty /bin/bash
+```
+
+:::{.callout-note}
+You’ll need your project name and can choose how long you want resources available. * Requesting resources may involve a wait in the queue**. In the example above `time` is 4 hours, after which your session will be closed, so save your progress.
+
+:::
+
+**5.**  execute the container with 
+
+```{.bash}
+singularity exec course.sif /bin/bash
+```
+
+Note that the command line shows now `Apptainer>` on its left. We are *inside* the container and the tools we need are now available into it.
+
+**6.** Now we need to run a configuration script, which will setup the last details and execute jupyterlab. If a folder called `Data` exists, it will not be downloaded again (also meaning that you can use our container with your own data folder for your own analysis in future)
+
+```{.bash .code-overflow-wrap}
+git config --global http.sslVerify false
+wget -qO-  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhus/docker/scripts/courseMaterial.sh | bash
+```
+
+**7.** You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.
+
+![](../img/nodeAndUsername.png){width=600px}
+
+
+Wrote down node and ID? Last step is to create a tunnel between your computer and genomeDK to be able to see jupyterlab in your browser. Now you need to **use the node name and the user id** you wrote down before! **Open a new terminal window** on your laptop and write
+
+```{.bash}
+ssh -L USERID:NODENAME:USERID USERNAME@login.genome.au.dk
+```
+
+where you substitute `USERID` and `NODENAME` as you wrote down before, and then USERNAME is your account name on GenomeDK. For example `ssh -L 6835:s21n81:6835 samuele@login.genome.au.dk` according to the figure above for a user with name `samuele`.
+
+**8.** Open your browser and go to the address http://127.0.0.1:USERID/lab, where you need your user id again instead of USERID. For example `http://127.0.0.1:6835/lab` from the figure above. Jupyterlab opens in your browser.
+
+
+**9.** Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder `Notebooks`. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!
+
+![](../img/startNotebook.gif)
+
+:::{.callout-tip}
+
+Right click on a notebook or a saved results file, and use the download option to save it locally on your computer.
+
+:::
+
+### What if my internet connection drops?
+
+Now worries, `tmux` kept your material up and running. You only need a new terminal window to run the tunneling
+
+```{.bash}
+ssh -L USERID:NODENAME:USERID USERNAME@login.genome.au.dk
+```
+
+as you did before, so you can continue working!
+
+
+### Recovering the material from your previous session
+
+Do you want to work again on the course material, or recover some analysis? Everything is saved in the folder you were working in. Next time, follow the whole procedure again (without step number **3.**) and you can be up and running the course in no time.

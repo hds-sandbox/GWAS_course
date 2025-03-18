@@ -1,0 +1,100 @@
+---
+listing:
+  fields: [image, title, description]
+  contents: cards/*.qmd
+  type: grid
+  image-height: 175px
+  grid-columns: 6
+css: ./css/index.css
+author:
+    - name: Conor O'Hare
+    - name: Samuele Soraggi
+      orcid: 0000-0002-1159-5535
+      email: samuele@birc.au.dk
+    - name: Alba Refoyo Martinez
+      orcid: 0000-0002-3674-4007
+      email: alba.martinez@sund.ku.dk
+date-modified: last-modified
+date-format: long
+format:
+  html:
+    page-layout: full
+    toc: false
+---
+
+::: {.hero-banner}
+# Welcome to the GWAS tutorial
+:::
+
+<br>
+
+This course is an introduction to the method of Genome-Wide Association Studies (GWAS), which quantifies the statistical 
+association between a genetic variant and a phenotype (often on disease traits). This course will not focus on using any 
+particular software, instead explaining *why* the given analyses are done from a statistical and biological perspective. 
+
+:::{.callout-note title="Course Overview"}
+- 📖 **Syllabus:**  
+
+1. Understand what is a GWAS is and why we use it  
+2. Statistics of GWAS (regression coefficients, P-values, statistical power, Bayes factors)  
+3. Genetic relatedness and population structure  
+4. Confounding and covariates in GWAS  
+5. Haplotypes, linkage disequilibrum, imputation, fine-mapping  
+6. Linear mixed models and heritability  
+7. Summary statistics and meta-analysis  
+8. Advanced tools 
+
+- ⏰ **Total Time Estimation:** 8 hours  
+
+- 📁 **Supporting Materials:**
+    - Exercises inspired from [A tutorial on conducting genome‐wide association studies: Quality control and statistical analysis](https://pmc.ncbi.nlm.nih.gov/articles/PMC6001694/) 
+    - [Original course from the University of Helsinki](https://www.mv.helsinki.fi/home/mjxpirin/GWAS_course)
+    - [PLINK documentation](https://zzz.bwh.harvard.edu/plink/)
+    - [An Introduction to Statistical Learning (for further statistics explanations)](https://www.statlearning.com/)
+- 👨‍💻 **Target Audience:** Ph.D., MSc, etc.
+- 👩‍🎓 **Level:** Beginner.
+- **License:** [Tutorial Content is licensed under Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+:::
+
+:::{.callout-warning title="Course Requirements"}
+
+- Knowledge of R. It is recommended that you have at least followed our workshop [From Excel to R](https://github.com/Center-for-Health-Data-Science/FromExceltoR)
+- Basic knowledge of bash.
+- Basic statistics and mathematics skills
+:::
+
+This workshop material includes a tutorial on how to run genome-wide association studies and the necessary preprocessing steps. Why are GWAS important? 
+
+They identify statistical associations between specific regions of the genome and a given phenotype which can:
+
+- help point to biological mechanisms affecting the phenotype,  
+- allow prediction of the phenotype from genomic information.  
+
+These results may further benefit:  
+
+- medicine by leading to molecular or environmental interventions against harmful phenotypes,  
+- biotechnology by improving the ways we utilize microbes, plants or animals,  
+- forensics by more accurate identification of an individual from a DNA sample,  
+- biogeographic ancestry inference of individuals, populations and species,  
+- our understanding of the role of natural selection and other evolutionary forces in the living world.  
+
+The genome of an individual remain (nearly) constant throughout the individual’s lifetime. This is a truly remarkable property compared to, e.g., other molecular sources of information (such as metabolomics, metagenomics, transcriptomics, proteomics or epigenomics) or environmental factors that may vary widely across time. Therefore, the genome seems an ideal starting point for scientific research: it needs to be measured only once for an individual and there is no reverse causation from the phenotype to genome (with cancer as an important exception).
+
+::: {.callout-tip title="Course Goals"}
+By the end of this workshop, you should be able to:
+
+- Learn and explain fundamental population genetics concepts, applying them during data analysis.
+- Understand the principles of GWAS, including linkage disequilibrium and linear regression, and apply them in practice.
+- Develop skills to preprocess data and perform genotype imputation for missing values.
+- Explore, discuss, and replicate basic GWAS applications from the scientific literature.
+- Interpret GWAS results critically, recognizing their limitations.
+:::
+
+### Acknowledgements
+
+- [Center for Health Data Science](https://heads.ku.dk/), University of Copenhagen
+- [Matti Pirinen, PhD](https://www.mv.helsinki.fi/home/mjxpirin/), University of Helsinki
+- [Andries T. Marees](https://research.vu.nl/en/persons/andries-marees), Vrije Universiteit Amsterdam
+
+
+### Course instructors
