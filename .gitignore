@@ -1,8 +1,8 @@
 .DS_Store
-Webpage/site/*Results
 .ipynb-checkpoints
 .ipynb_checkpoints
 Results
-Notebooks-dev/Data
-Notebooks-dev/Results
-Notebooks-dev/Software
+.quarto
+_site
+_Site
+Site
