@@ -51,7 +51,7 @@ website:
             - develop/GWAS5b-PopulationStratification.ipynb
             - develop/GWAS6-PRSAnalysis.ipynb
             - develop/GWAS7-PRSII.ipynb
-#            - develop/GWAS8-OtherToolsAndTesting.ipynb
+            - develop/GWAS8-OtherToolsAndTesting.ipynb
     - title: "General"
       style: "docked"
       search: true
