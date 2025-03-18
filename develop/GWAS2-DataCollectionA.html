@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Polygenic scores I – GWAS</title>
+<title>Data collection – GWAS</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -132,35 +98,6 @@ gtag('js', new Date());
 gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -224,7 +161,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">Polygenic scores I</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollectionA.html">Data collection</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -273,7 +210,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link">
+  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Data collection</span></a>
   </div>
 </li>
@@ -331,7 +268,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link active">
+  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Polygenic scores I</span></a>
   </div>
 </li>
@@ -359,23 +296,18 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#polygenic-risk-prediction-analyses" id="toc-polygenic-risk-prediction-analyses" class="nav-link active" data-scroll-target="#polygenic-risk-prediction-analyses">Polygenic risk prediction analyses</a></li>
-  <li><a href="#polygenic-risk-score-analysis-with-prsice-2" id="toc-polygenic-risk-score-analysis-with-prsice-2" class="nav-link" data-scroll-target="#polygenic-risk-score-analysis-with-prsice-2">Polygenic risk score analysis with PRSice-2</a>
-  <ul class="collapse">
-  <li><a href="#prsice-analysis-for-binary-traits" id="toc-prsice-analysis-for-binary-traits" class="nav-link" data-scroll-target="#prsice-analysis-for-binary-traits">PRSice analysis for binary traits</a></li>
-  <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the results</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
+  <li><a href="#introduction-to-study-design" id="toc-introduction-to-study-design" class="nav-link active" data-scroll-target="#introduction-to-study-design">Introduction to study design</a></li>
+  <li><a href="#genotyping" id="toc-genotyping" class="nav-link" data-scroll-target="#genotyping">Genotyping</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS6-PRSAnalysis.out.ipynb" download="GWAS6-PRSAnalysis.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS5-AssociationTesting.html">Association Testing</a></li><li class="breadcrumb-item"><a href="../develop/GWAS6-PRSAnalysis.html">Polygenic scores I</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS0-geneticTheory.html">Introduction</a></li><li class="breadcrumb-item"><a href="../develop/GWAS2-DataCollectionA.html">Data collection</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Polygenic scores I</h1>
+<h1 class="title">Data collection</h1>
 </div>
 
 
@@ -402,317 +334,77 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Polygenic scores (PRS) estimate an individual’s genetic predisposition to complex traits or diseases by combining information from multiple genetic variants previously identified in the GWAS study. This notebook provides a step-by-step guide to performing a basic PRS analysis using <a href="https://choishingwan.github.io/PRSice/">PRSice</a> and explains how to interpret the results.</p>
+<p>This course module introduces fundamental concepts regarding designing and executing GWAS. We touch on data collection (which involves gathering genomic data and phenotypic information from diverse populations), potential biases, and practical considerations on the standard file formats in GWAS.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
-<li><strong>Discuss and choose</strong> the PRS equation</li>
-<li><strong>Discuss</strong> PRS scores and biases</li>
+<li><strong>Understand and identify</strong> types of GWAS studies in the scientific literature</li>
 </ul>
 </section>
-<section id="how-to-make-this-notebook-work" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
+</div>
+</div>
+<section id="introduction-to-study-design" class="level1">
+<h1>Introduction to study design</h1>
+<p>GWAS often require very large sample sizes to identify reproducible genome-wide significant associations, and one would need to conduct power calculations to determine the appropriate sample size. Generally speaking, there are two types of study design depending on the nature of the trait of interest:</p>
 <ul>
-<li>In this notebook, we will only use the <code>bash command line</code>. Be sure to click on the menu <code>Kernel --&gt; Change Kernel --&gt; Bash</code></li>
+<li><strong>1)</strong> Case-control studies when the trait of interest is dichotomous (e.g.&nbsp;Type 2 diabetes)</li>
+<li><strong>2)</strong> Quantitative measurements on the whole study sample when the trait is quantitative (e.g.&nbsp;height)</li>
 </ul>
-<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
-</section>
-</div>
-</div>
-<p>While most individual associations found in GWAS studies are of small effect, information about them can be combined across the genome, to create a <strong>polygenic score (PGS)</strong>. These scores can be used to make <strong>genome-based predictions about the overall risk of having a particular trait or disease or about the genetic value for continuous traits</strong>. If the prediction is on a discrete phenotype such as a disease, these scores are known as polygenic risk scores (PRS).</p>
-<section id="polygenic-risk-prediction-analyses" class="level2">
-<h2 class="anchored" data-anchor-id="polygenic-risk-prediction-analyses">Polygenic risk prediction analyses</h2>
-<p>Single-variant association analysis has been the foundation of GWAS. However, detecting more than a handful of significant SNPs for many complex traits requires extremely large sample sizes. In contrast, PGS aggregate genetic risk across multiple variants into a single polygenic score for a given trait.</p>
-<p>A PGS is typically calculated by summing the allele frequencies of statistically significant trait-associated variants, weighted by their effect sizes, while ensuring independence among them (e.g., via LD pruning). These effect sizes—betas for continuous traits and log odds ratios for binary traits—are obtained from a discovery GWAS. Large discovery samples (also known as base or training samples) are needed for accurate estimates, but if the target sample shares ancestry, effect sizes from larger studies can be leveraged. A target sample of ~2,000 individuals may be sufficient to detect meaningful genetic contributions to trait variance <span class="citation" data-cites="dudbridge2013power">(<a href="#ref-dudbridge2013power" role="doc-biblioref">Dudbridge 2013</a>)</span>. For many complex traits, SNP effect sizes are publicly available (e.g., see https://www.nealelab.is/uk-biobank, https://www.med.unc.edu/pgc/downloads or https://www.ebi.ac.uk/gwas/).</p>
-<p>A common practice to calculate PRS involves clumping GWAS results using p-value thresholds (e.g., p &lt; 0.05) to exclude poorly associated SNPs. Usually, multiple PRS analyses will be performed, with varying thresholds for the p-values of the association test.</p>
-<p>Once PRS are calculated, they are used in (logistic) regression models to assess the contribution to the trait variance. Prediction accuracy is measured by the increase in <span class="math inline">\(R^2\)</span>, comparing a baseline model with only covariates (e.g., MDS components) to a model that also includes PRS. This increase reflects the proportion of variance explained by genetic risk factors. Accuracy depends on trait heritability, SNP count, and discovery sample size, with a few thousand individuals typically sufficient for reliable estimates.</p>
-</section>
-<section id="polygenic-risk-score-analysis-with-prsice-2" class="level2">
-<h2 class="anchored" data-anchor-id="polygenic-risk-score-analysis-with-prsice-2">Polygenic risk score analysis with PRSice-2</h2>
-<p><a href="https://choishingwan.github.io/PRSice/">PRSice</a> is a widely used tool for polygenic risk score analysis. This tutorial offers a step-by-step guide on its use and result interpretation.</p>
-<p>The installed package will include an R script that is straightforward to run. It requires the following information:</p>
-<ul>
-<li><code>--prsice</code>: the binary executable file</li>
-<li><code>--base</code>: the <code>.assoc</code> file that contains statistical information</li>
-<li><code>--target</code>: the PLINK-formatted dataset</li>
-</ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We would apply this method to our HapMap dataset, but PRS analysis typically requires a sample size of around 2,000 to produce meaningful results, while our dataset includes only about 150 individuals. To facilitate learning, we will instead use a toy dataset. In this notebook, we will focus on analyzing a <strong>binary trait</strong>.</p>
-<p>Ideally, the summary statistics should come from the most powerful GWAS available for the phenotype of interest. Commonly, the target dataset is typically generated within your lab or obtained through collaborations.</p>
-</div>
-</div>
-<section id="prsice-analysis-for-binary-traits" class="level3">
-<h3 class="anchored" data-anchor-id="prsice-analysis-for-binary-traits">PRSice analysis for binary traits</h3>
-<p><img src="Images/bash.png" alt="Bash" width="40"> Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:</p>
-<div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We will run the <code>PRSice.R</code> script using the association test results (<code>TOY_BASE_GWAS.assoc</code>) and specify the column names for SNPs, chromosomes, and other relevant data. This is necessary because different association tools generate varying header formats. Finally, we will specify the location of our data (<code>TOY_TARGET_DATA</code>) and define the phenotype format as binary (0s and 1s).</p>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Warning
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>If you get an error in the following command, try to restart the kernel in the <code>Kernel</code> menu. Sometimes links to folders are not recognized immediately.</p>
-</div>
-</div>
-<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>SNP CHR BP A1 A2 P OR
-SNP_22857 4 103593179 1 2 0.2852 13.29
-SNP_13879 2 237416793 1 2 0.8784 21.624
-SNP_20771 4 16957461 1 2 0.1994 91.265
-SNP_13787 2 235355721 1 2 0.7234 3.178
-SNP_25383 4 189927377 1 2 0.3309 3.167
-SNP_25290 4 187995996 1 2 0.6327 0.427
-SNP_21478 4 40161304 1 2 0.06454 5.066
-SNP_12129 2 176643771 1 2 0.9378 1.276
-SNP_22809 4 101441465 1 2 0.8111 0.004</code></pre>
-</div>
-</div>
-<div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PRSice</span> <span class="at">--base</span> ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS6/PRSice <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Trying to install data.table in ./lib
-Cannot install data.table, will fall back and use read.table instead
-Note: It will be slower when reading large files
-PRSice 2.3.3 (2020-08-05) 
-https://github.com/choishingwan/PRSice
-(C) 2016-2020 Shing Wan (Sam) Choi and Paul F. O'Reilly
-GNU General Public License v3
-If you use PRSice in any published work, please cite:
-Choi SW, O'Reilly PF.
-PRSice-2: Polygenic Risk Score Software for Biobank-Scale Data.
-GigaScience 8, no. 7 (July 1, 2019)
-2025-02-05 14:59:15
-./Software/PRSice \
-    --a1 A1 \
-    --a2 A2 \
-    --bar-levels 0.001,0.05,0.1,0.2,0.3,0.4,0.5,1 \
-    --base ./Data/TOY_BASE_GWAS.assoc \
-    --binary-target T \
-    --bp BP \
-    --chr CHR \
-    --clump-kb 250kb \
-    --clump-p 1.000000 \
-    --clump-r2 0.100000 \
-    --interval 5e-05 \
-    --lower 5e-08 \
-    --num-auto 22 \
-    --or  \
-    --out Results/GWAS6/PRSice \
-    --pvalue P \
-    --seed 173747611 \
-    --snp SNP \
-    --stat OR \
-    --target ./Data/TOY_TARGET_DATA \
-    --thread 1 \
-    --upper 0.5
-
-Initializing Genotype file: ./Data/TOY_TARGET_DATA (bed) 
-
-Start processing TOY_BASE_GWAS 
-================================================== 
-
-Base file: ./Data/TOY_BASE_GWAS.assoc 
-Header of file is: 
-SNP CHR BP A1 A2 P OR 
-
-Reading 31.59%</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>IOPub message rate exceeded.
-The Jupyter server will temporarily stop sending output
-to the client in order to avoid crashing it.
-To change this limit, set the config variable
-`--ServerApp.iopub_msg_rate_limit`.
-
-Current values:
-ServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
-ServerApp.rate_limit_window=3.0 (secs)
-</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Clumping Progress: 62.23%</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>IOPub message rate exceeded.
-The Jupyter server will temporarily stop sending output
-to the client in order to avoid crashing it.
-To change this limit, set the config variable
-`--ServerApp.iopub_msg_rate_limit`.
-
-Current values:
-ServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
-ServerApp.rate_limit_window=3.0 (secs)
-</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Processing 100.00%
-There are 1 region(s) with p-value less than 1e-5. Please 
-note that these results are inflated due to the overfitting 
-inherent in finding the best-fit PRS (but it's still best 
-to find the best-fit PRS!). 
-You can use the --perm option (see manual) to calculate an 
-empirical P-value. 
-
-Begin plotting
-Current Rscript version = 4.3.2
-Plotting Bar Plot
-Plotting the high resolution plot
-</code></pre>
-</div>
-</div>
-<ul>
-<li>The <code>--base</code> parameter refers to the file with summary statistics from the base sample. Each line represents a single SNP and includes details such as effect size and p-value.</li>
-<li>The <code>--target</code> parameter specifies the prefix of genotype data files in binary PLINK format (.bed, .bim, .fam). The base and target samples must be independent to avoid inflated polygenic risk score associations.</li>
-</ul>
-<p>If the type effect (<code>--stat</code>) or data type (<code>--binary-target</code>) were not specified, PRSice will try to determine this information based on the header of the base file.</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Stop - Read - Solve
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Can all genomic variants be used for calculating PRS? Why or why not?</li>
-<li>How can you determine which variants should be included in the PRS calculation?</li>
-<li>Are linkage disequilibrium (LD) blocks shared across populations with different ancestry? Explain your reasoning.</li>
-</ul>
-<p>Hint: read the [PRSice user manual](https://choishingwan.github.io/PRSice/step_by_step and <span class="citation" data-cites="berisa2016approximately">Berisa and Pickrell (<a href="#ref-berisa2016approximately" role="doc-biblioref">2016</a>)</span>.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>No, not all variants should be used. Variants in high LD (highly correlated) should be handled carefully to avoid inflated significance and false positives.</li>
-<li>Variants should be selected based on their association with the trait and their independence from other variants. Two common approaches for handling correlated SNPs are: - LD clumping (e.g., <a href="https://choishingwan.github.io/PRSice/step_by_step/#clumping">PRSice</a>): correlated SNPs within each LD block are filtered by selecting the one with the lowest p-value from the discovery set. Other SNPs in the same block are excluded. Clumping parameters can be customized. - Bayesian adjustments (e.g., <a href="https://choishingwan.github.io/PRS-Tutorial/ldpred/">LD Pred2</a>) use a Bayesian framework to adjust the effect sizes of SNPs by accounting for LD patterns across the genome. This helps refine PRS calculations and corrects for correlated SNPs.</li>
-<li>No, LD blocks can differ between populations of different ancestry due to genetic history and environment. It is essential to account for these differences when calculating PRS, especially when using cross-population data.</li>
-</ul>
-</div>
-</div>
-<p>For simplicity’s sake, we did not include principal components or covariates in this analysis, however, when conducting your analyses we <strong>strongly recommend</strong> including these.</p>
-</section>
-<section id="interpreting-the-results" class="level3">
-<h3 class="anchored" data-anchor-id="interpreting-the-results">Interpreting the results</h3>
-<p>By default, PRSice saves two plots and several text files. The first plot is <code>PRSice_BARPLOT_&lt;date&gt;.png</code>(<strong>which you find in Result/GWAS6 using the file browser</strong>, the filename depends on the current date). This plot illustrates the predictive value (Nagelkerke’s R²) in the target sample based on SNPs with p-values below specific thresholds in the base sample. A p-value is also provided for each model.</p>
+<p>In addition, one can choose between population-based and family-based designs. The choice generally depends on the data you have available - that is, if you have fewer samples, you can control for close relationships in your analyses rather than removing related individuals.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Images/PRSice_BARPLOT.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="600"></p>
+<p><img src="Images/design.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>Figure 1. Potential study designs</figcaption>
 </figure>
 </div>
-<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<p>The goal of data collection is to ensure you have all the essential information required for downstream analyses. These areas of information could include:</p>
+<ul>
+<li>Biological samples: blood samples or similar (for later genotyping)</li>
+<li>Information about the traits of interest</li>
+<li>Clinical data: disease status e.g.&nbsp;have diabetes (case) vs do not have diabetes (control)</li>
+<li>Quantitative measurements e.g.&nbsp;biometric data, cholesterol, blood pressure, or blood sugar</li>
+<li>Questionnaires: additional potentially relevant info, like sex, age, or lifestyle</li>
+</ul>
+<p>It is crucial to understand that any method used to obtain the required data will require informed consent and ethical approval. Achieving this can be quite challenging in practice, which is why publicly available biobanks are so widely utilized.</p>
+<p>GWAS can be conducted using data from resources such as biobanks, cohorts with disease-focused or population-based recruitment, or direct-to-consumer studies. Several excellent public resources provide access to large cohorts with genotypic and phenotypic information, and the majority of GWAS are conducted using these preexisting resources. Some notable examples include the UK Biobank, FinnGen, Biobank Japan, and the All of Us Research Program.</p>
+<p>Recruitment strategies must be carefully considered for all study designs as these can induce various forms of bias. For example, widely used research cohorts such as the UK Biobank recruit participants through a volunteer-based strategy. What this means in practice is that participants are, on average, healthier, wealthier, and more educated than the general population. Furthermore, cohorts that enroll participants from hospitals based on their disease status (such as BioBank Japan <span class="citation" data-cites="nagai_overview_2017">(<a href="#ref-nagai_overview_2017" role="doc-biblioref">Nagai et al. 2017</a>)</span>) will have different selection biases to cohorts recruited from the general population. Unlike research studies that focus on one disease or group of people, the new American initiative known as All of Us is building a diverse database designed to inform thousands of studies on a variety of health conditions. Different ethnicities, like the example just mentioned, can be included in the same study to make better predictions for people with different backgrounds, as long as the population substructure is considered to avoid false positive results.</p>
+<p>Finally, study annotation is essential for rigorous scientific practice. This involves detailing the chosen study design, providing a thorough description of the study, and including specifics such as sample inclusion criteria (e.g., ancestry, clinical features) and the phenotype of interest in your association analysis.</p>
+</section>
+<section id="genotyping" class="level1">
+<h1>Genotyping</h1>
+<p>Genotyping efficiently captures genetic variation by selecting informative SNPs, often in high linkage disequilibrium (LD), which reduces redundancy. Focusing on these SNPs minimizes computational load and improves cost-efficiency for a specific population.</p>
+<p>Genotypic data can be obtained through microarrays to detect common variants, or through next-generation sequencing techniques for whole-genome sequencing (WGS) or whole-exome sequencing (WES). Microarray-based genotyping is the most commonly used method for obtaining genotypes for GWAS owing to the current cost of next-generation sequencing. However, as shown in the figure below, the decreasing cost per human genome is expected to make WGS the preferred method. Nevertheless, the choice of genotyping platform depends on many factors and tends to be guided by the purpose of the GWAS. For example, in a consortium-led GWAS, it is usually wise to have all individual cohorts genotyped on the same genotyping platform (to avoid problems with batch bias).</p>
+<p>To enhance the power of GWAS, large reference panels are used to impute genotype data. This statistical technique predicts unobserved genotypes in the study sample based on observed genotypes and a reference panel. In other words, imputation fills in missing genotypes, increasing the number of variants that can be tested for association with traits. As mentioned before, it is crucial for the reference panel to be large and diverse to capture the genetic diversity of the entire population.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/Cost.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2. The trend of cost of sequencing an entire genome through the years. This shows a development faster than what would be predicted by Moore’s Law, which suggests that every two years, our computational power should double.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Wrapping up">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+Wrapping up
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<ul>
-<li>Which P-value threshold generated the “best-fit” PRS?</li>
-<li>How much phenotypic variation does the “best-fit” PRS explain?</li>
-</ul>
-<p>Hint: Check the <code>PRSice.summary</code> file.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>As shown in the plot, a model using SNPs with a p-value &lt; 0.4463 achieves the highest predictive value in the target sample (p-value= 4.7e-18). However, as is often the case in polygenic risk scores analysis with relatively small samples, the predictive value is relatively low (Nagelkerke’s around 5%). The text files include the exact values for each p-value threshold (check them!).</p>
-<p>The phenotypic variation (<code>PRS.R2</code>) explained by these variants is 0.05.</p>
-<ul>
-<li>PRS.R2: quantifies how much of the trait variation is attributable to the genetic variants used in the analysis</li>
-<li>Full.R2: represents the total variance explained by the full model (genetic variants and any other covariates used)</li>
-<li>Null.R3: indicates the variance explained by the model without the PRS component (i.e., just the covariates)</li>
-</ul>
-</div>
-</div>
-<p>The second plot <code>PRSice_HIGH-RES_PLOT_&lt;date&gt;.png</code> (<strong>which you again can manually open</strong>) shows many different p-value thresholds. The p-value of the predictive effect is in black together with an aggregated trend line in green.</p>
-<p><img src="Images/PRSice_HIGH-RES_PLOT.png" class="img-fluid" width="600"></p>
-<p>Both figures show that trait-associated SNPs in the base sample can predict the trait in the target sample. If the same trait is used, predictive power depends on the trait’s heritability and base sample size. When using related but different traits, the predictive power also depends on their genetic correlation. Studies suggest that models with more lenient p-value thresholds capture smaller effects important for complex traits, while stricter thresholds reduce noise, aiding interpretation and the understanding of the underlying genetic architecture. Balancing informative SNPs and minimizing noise is key to maximizing predictive power.</p>
-</section>
-<section id="conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
-<p>Now, you will need to do the same for a quantitative trait and explore the results.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Other take-home messages">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Other take-home messages
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Replication in (several) other cohorts provides convincing evidence</li>
-<li>Applying stringent statistics (P&lt;5e-8) helps to reduce the likelihood of false-positive results</li>
-<li>An external reference panel can be used to improve LD estimation for clumping, providing more accurate definitions of LD blocks and refining the selection of variants for PRS analysis, especially when sample size is limited (e.g.&nbsp;~500 samples).</li>
-</ul>
+<p>We have learned about the principles of study design for GWAS and the genotyping process. Let’s put it into practice.</p>
 </div>
 </div>
 </section>
-</section>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
-<p>There is only so much one can discuss in a beginner’s practical guide to GWAS. As such, for those who want to expand their knowledge of GWAS, we have provided a comprehensive list of resources for you to read/try out below.</p>
+<section id="bibliography" class="level1">
+
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-berisa2016approximately" class="csl-entry" role="listitem">
-Berisa, Tomaz, and Joseph K Pickrell. 2016. <span>“Approximately Independent Linkage Disequilibrium Blocks in Human Populations.”</span> <em>Bioinformatics</em> 32 (2): 283.
-</div>
-<div id="ref-dudbridge2013power" class="csl-entry" role="listitem">
-Dudbridge, Frank. 2013. <span>“Power and Predictive Accuracy of Polygenic Risk Scores.”</span> <em>PLoS Genetics</em> 9 (3): e1003348.
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-nagai_overview_2017" class="csl-entry" role="listitem">
+Nagai, Akiko, Makoto Hirata, Yoichiro Kamatani, Kaori Muto, Koichi Matsuda, Yutaka Kiyohara, Toshiharu Ninomiya, et al. 2017. <span>“Overview of the <span>BioBank</span> <span>Japan</span> <span>Project</span>: <span>Study</span> Design and Profile.”</span> <em>Journal of Epidemiology</em> 27 (3 Suppl): S2–8. <a href="https://doi.org/10.1016/j.je.2016.12.005">https://doi.org/10.1016/j.je.2016.12.005</a>.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
