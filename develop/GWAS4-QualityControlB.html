@@ -1204,11 +1204,23 @@ Solution
 <h2 class="anchored" data-anchor-id="b.-population-stratification">B. Population Stratification</h2>
 <p>Population stratification presents a significant source of systematic bias in GWAS, arising <strong>when subpopulations exhibit systematic differences in allele frequencies</strong>. Research indicates that even subtle degrees of population stratification can exist within a single ethnic population <span class="citation" data-cites="abdellaoui2013population">(<a href="#ref-abdellaoui2013population" role="doc-biblioref">Abdellaoui et al. 2013</a>)</span>. Thus, testing and controlling for the presence of population stratification is an essential QC step.</p>
 <p>The population structure (or in other words, the ancestral relationship of the populations) is a so-called <strong>confounding factor</strong>. This means that it affects both the dependent and independent variables, as shown in the figure below, where both the genotype and traits are influenced by population structure (e.g., the distribution of north and south European individuals in the PCA space and the height of those individuals).</p>
-<p><img src="Images/ancestryBias.png" class="img-fluid" style="width:75.0%"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/ancestryBias.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 <p>Why is a bias introduced? Population structure can influence allele frequencies and produce false positives/negatives when doing association testing. Graphically, consider the example in the figure below. Case and control for population 1 and 2 have specific MAFs. Removing the barrier between populations will change MAFs drastically for the two confitions.</p>
-<p><img src="Images/popStruct.png" class="img-fluid" style="width:75.0%"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/popStruct.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 <p>The same problem arises in population studies without Case-control categories. Imagine having a population of randomly sampled individuals, each from a different ethnicity (the blue and red minor alleles in the example below). The final group of individuals will have a different proportion of MAFs depending on the sampling of various ethnicities.</p>
-<p><img src="Images/popSampling.png" class="img-fluid" style="width:75.0%"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Images/popSampling.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 <p>There are several methods to correct for population stratification <span class="citation" data-cites="price2010new">(<a href="#ref-price2010new" role="doc-biblioref">Price et al. 2010</a>, price_principal_2006)</span>. Here, we illustrate a method integrated into PLINK: the <strong>multidimensional scaling (MDS)</strong> approach. MDS calculates the genome-wide average proportion of shared alleles between any pair of individuals to generate quantitative indices (components) of the genetic variation for each individual. <strong>The individual component scores can be visualized to identify groups of genetically similar individuals.</strong> For instance, in a genetic study including subjects from Asia and Europe, MDS analysis would reveal that Asians are genetically more similar to each other than to Europeans and Africans. The figure below shows another example of MDS using HapMap, Genome diversity project, and authors’ data:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
