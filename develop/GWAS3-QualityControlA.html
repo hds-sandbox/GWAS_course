@@ -637,14 +637,16 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="1">
 <li>PLINK reads two files in the format <em>.fam</em> and <em>.bim</em> for this task. As explained in the notebook GWAS2, these files contain data for individuals and variants, respectively.</li>
@@ -652,6 +654,7 @@ Solution
 <li>It counts 80 males and 85 females.</li>
 <li>It prints the name of the two output files from this command: <code>data.imiss</code> and <code>data.lmiss</code>, in the directory <code>Results/GWAS3/</code>. These files show the proportion of <strong>missing SNPs per individual</strong> and the proportion of <strong>missing individuals per SNP</strong>, respectively.</li>
 </ol>
+</div>
 </div>
 </div>
 <p>These files include a header and one line per sample or per variant, containing the following fields:</p>
@@ -750,16 +753,19 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here are a few observations we can make. Firstly, it’s clear that very few individuals have no missing data at all. One interpretation could be that one or a few SNPs are poorly genotyped across all samples. Fortunately, this isn’t the case here, otherwise the first plot would show many more SNPs with high missing frequency. As shown in the SNP-based histogram, the highest percentage of missing data for a SNP is around 0.05 (5%). Overall, <strong>the histogram provides insight into how applying a missingness filter will affect the size of your remaining data</strong>.</p>
+</div>
 </div>
 </div>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
@@ -1015,14 +1021,16 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - female F values histogram </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ol type="A">
 <li><p>Yes.</p></li>
@@ -1061,6 +1069,7 @@ Solution
 <ol start="3" type="A">
 <li>The inbreeding coefficient plot indicates that there is one woman with a sex discrepancy (F value of 0.99). When using other datasets often a few discrepancies might be found.</li>
 </ol>
+</div>
 </div>
 </div>
 <hr>

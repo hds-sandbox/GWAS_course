@@ -534,9 +534,6 @@ Solution
 <li>We will look for unique values in column 8 (<code>KINSHIP</code>), rounding to two decimals</li>
 <li>We will examine <code>KINSHIP</code> values in column 8.</li>
 </ul>
-</div>
-</div>
-</div>
 <p>Let’s print the first few rows of <code>KING.kin0</code> and then, the unique relatioship categories in the file:</p>
 <div id="4f7ccdcf-e469-4f95-8b0f-7f72ca1f91bb" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -568,6 +565,9 @@ Solution
 </div>
 </div>
 <p>There are 76 individuals with KINSHIP larger than all thresholds. So we might have 76 half siblings, cousins and siblings mixed in the data. There are potentially some family ties in this data!</p>
+</div>
+</div>
+</div>
 <hr>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
@@ -588,18 +588,18 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Many parent-offspring (PO) relationships have a parameter close to 0.5, and the maximum value for unrelated (UN) individuals is also unexpectedly high relatedness.</p>
-</div>
-</div>
 <p>We read in the matrix (Note that the header starts with # in the file <code>KING.kin0</code>, so we need <code>comment.char = '|'</code> to avoid the header being excluded as a comment)</p>
 <div id="3533da70-e492-4bb1-a0fb-c8c86fff0191" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
@@ -754,6 +754,10 @@ Warning message:
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+<hr>
 <p>We can also plot the number of SNPs used to calculate relatedness VS the KING relatedness itself. Pairs with very low number of SNPs and anomalous KING estimator might simply contain badly genotyped sample(s). This is not at all our case.</p>
 <div id="a5689287-f4b7-4612-956a-37439e17307e" class="cell" data-tags="[]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
@@ -799,18 +803,18 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here (PLINK command)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We use <code>awk</code> to print IDs to remove and then the option <code>--remove</code> of PLINK.</p>
-</div>
-</div>
 <p><img src="Images/bash.png" alt="Bash" width="40"> We print out all family and sample IDs for which the column KINSHIP (column 8) is &gt;0.1. Note we print both samples in the pair with high relatedness, using the <code>awk</code> command twice.</p>
 <div id="b053e19e-6ba7-4d3d-a196-28c17677cf50" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.1) print $1, $2 }'</span> Results/GWAS4/KING.kin0 <span class="op">&gt;</span> Results/GWAS4/filter_king.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -849,6 +853,9 @@ are missing.)
 </div>
 </div>
 <p>We have gone from 161 to 85 samples, removing 76 related ones.</p>
+</div>
+</div>
+</div>
 <hr>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>So far, you’ve learned how to filter individuals using KING kinship thresholds. Now, we’ll demonstrate that most of the relatedness was due to parent-offspring relationships. We will achieve this by using the <code>--filter-founders</code> option to create a new filtered dataset that includes only the founders (individuals without listed parents in the data). This generates <code>.bed</code>, <code>.bim</code>, and <code>.fam</code> files, which are then used to create a <code>.kin0</code> file containing relatedness values. Note again we use <code>plink2</code> to create the KING matrix.</p>
@@ -1077,14 +1084,16 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We can extract the column from the file and observe in the histogram that the individual <code>NA07045</code> has a missing rate closer which is in the bulk of other samples.</p>
 <div id="8adba97a-30f1-4fe5-a956-5b3337744491" class="cell" data-editable="true" data-scrolled="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="3">
@@ -1213,6 +1222,7 @@ Solution
 </div>
 </div>
 </div>
+</div>
 <hr>
 </section>
 </section>
@@ -1251,19 +1261,6 @@ Solution
 <figure class="figure">
 <p><img src="./Images/MDSout.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="700"></p>
 </figure>
-</div>
-<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Stop - Read - Solve
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>It is also possible to correct for relatedness (family structure). <strong>Should we also do it?</strong></p>
-</div>
 </div>
 <section id="analysis" class="level3">
 <h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
@@ -1451,7 +1448,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>Look at the two outputs below a bit more carefully. The names are all matching. Is there any other problem problem?</strong></p>
+<p><strong>Look at the two outputs below a bit more carefully. The names are all matching. Is there any other problem?</strong></p>
 </div>
 </div>
 <div id="70beb88f-7099-4233-83d8-53efe75b0de4" class="cell" data-execution_count="12">
@@ -1958,7 +1955,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1967,12 +1964,9 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We will first print out the SNPs from the reference file to know which line corresponds to each dataset (since we know we used the 1000 Genomes Project as the reference). If there are strand issues, the SNP will need to be flipped in the dataset that wasn’t used as the reference.</p>
-</div>
-</div>
-</div>
 <div id="ad77cb69-bb65-4cfb-92f0-426568021ae0" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs9614750 Results/GWAS4/1kg_ref-list.txt </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2001,6 +1995,9 @@ rs10088098 G A</code></pre>
 </div>
 </div>
 <p>For <code>rs10088098</code>, the genotype is reported as <code>C/T</code> in the 1000GP data, while in HapMap, it is <code>G/A</code>. This means that PLINK will flip the allele, as they are complementary.</p>
+</div>
+</div>
+</div>
 <hr>
 <p>Now we take only the SNP names and give them to PLINK (option <code>--flip</code>), together with the reference genome (option <code>--reference-allele</code>):</p>
 <div id="d2bb696b-4d7b-423c-a0aa-1df7393af08b" class="cell" data-execution_count="30">
@@ -2059,7 +2056,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -2068,12 +2065,9 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>PLINK attempts to flip all SNPs in the list, but an error occurs when A1 does not match the one in the reference.</p>
-</div>
-</div>
-</div>
 <p>Notice how this SNP has changed as we predicted:</p>
 <div id="bfb8bbac-66f1-40ba-a92b-7beecc1743ff" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb93"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> rs10006274 Results/GWAS4/corrected_hapmap.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2101,6 +2095,10 @@ Solution
 <pre><code>22  rs9614750   0   44436371    C   G</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<hr>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

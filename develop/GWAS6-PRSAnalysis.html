@@ -453,7 +453,7 @@ Note
 <section id="prsice-analysis-for-binary-traits" class="level3">
 <h3 class="anchored" data-anchor-id="prsice-analysis-for-binary-traits">PRSice analysis for binary traits</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Let’s create a folder for the output files. Then, perform the PRS analysis on the toy dataset in the following way:</p>
-<div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="24">
+<div id="fbc45838-3385-4e42-9f0d-75cf151484c0" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS6</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create two links to data</span></span>
@@ -473,33 +473,18 @@ Warning
 <p>If you get an error in the following command, try to restart the kernel in the <code>Kernel</code> menu. Sometimes links to folders are not recognized immediately.</p>
 </div>
 </div>
-<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="4">
+<div id="25bd2689-3a35-4e22-ba79-aa51fd3e74ad" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recommendation: check the usage instructions and mandatory input files by uncommenting the command below:  </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>SNP CHR BP A1 A2 P OR
-SNP_22857 4 103593179 1 2 0.2852 13.29
-SNP_13879 2 237416793 1 2 0.8784 21.624
-SNP_20771 4 16957461 1 2 0.1994 91.265
-SNP_13787 2 235355721 1 2 0.7234 3.178
-SNP_25383 4 189927377 1 2 0.3309 3.167
-SNP_25290 4 187995996 1 2 0.6327 0.427
-SNP_21478 4 40161304 1 2 0.06454 5.066
-SNP_12129 2 176643771 1 2 0.9378 1.276
-SNP_22809 4 101441465 1 2 0.8111 0.004</code></pre>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#PRSice -h</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PRSice</span> <span class="at">--base</span> ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>--snp SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>--target ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>--out Results/GWAS6/PRSice <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>--binary-target T </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7cacbab7" class="cell" data-editable="true" data-slideshow="{&quot;slide_type&quot;:&quot;&quot;}" data-tags="[]" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PRSice</span> <span class="at">--base</span> ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--snp</span> SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--target</span> ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS6/PRSice <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--binary-target</span> T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Trying to install data.table in ./lib
-Cannot install data.table, will fall back and use read.table instead
-Note: It will be slower when reading large files
-PRSice 2.3.3 (2020-08-05) 
+<pre><code>PRSice 2.3.5 (2021-09-20) 
 https://github.com/choishingwan/PRSice
 (C) 2016-2020 Shing Wan (Sam) Choi and Paul F. O'Reilly
 GNU General Public License v3
@@ -507,8 +492,8 @@ If you use PRSice in any published work, please cite:
 Choi SW, O'Reilly PF.
 PRSice-2: Polygenic Risk Score Software for Biobank-Scale Data.
 GigaScience 8, no. 7 (July 1, 2019)
-2025-02-05 14:59:15
-./Software/PRSice \
+2025-03-20 14:03:50
+PRSice \
     --a1 A1 \
     --a2 A2 \
     --bar-levels 0.001,0.05,0.1,0.2,0.3,0.4,0.5,1 \
@@ -525,7 +510,7 @@ GigaScience 8, no. 7 (July 1, 2019)
     --or  \
     --out Results/GWAS6/PRSice \
     --pvalue P \
-    --seed 173747611 \
+    --seed 2840029482 \
     --snp SNP \
     --stat OR \
     --target ./Data/TOY_TARGET_DATA \
@@ -541,7 +526,7 @@ Base file: ./Data/TOY_BASE_GWAS.assoc
 Header of file is: 
 SNP CHR BP A1 A2 P OR 
 
-Reading 31.59%</code></pre>
+Reading 32.60%</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>IOPub message rate exceeded.
@@ -556,7 +541,53 @@ ServerApp.rate_limit_window=3.0 (secs)
 </code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Clumping Progress: 62.23%</code></pre>
+<pre><code>Reading 74.31%</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>IOPub message rate exceeded.
+The Jupyter server will temporarily stop sending output
+to the client in order to avoid crashing it.
+To change this limit, set the config variable
+`--ServerApp.iopub_msg_rate_limit`.
+
+Current values:
+ServerApp.iopub_msg_rate_limit=1000.0 (msgs/sec)
+ServerApp.rate_limit_window=3.0 (secs)
+</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading 100.00%
+91062 variant(s) observed in base file, with: 
+2226 variant(s) located on haploid chromosome 
+88836 total variant(s) included from base file 
+
+Loading Genotype info from target 
+================================================== 
+
+2000 people (1024 male(s), 976 female(s)) observed 
+2000 founder(s) included 
+
+Warning: Currently not support haploid chromosome and sex 
+         chromosomes 
+
+88836 variant(s) included 
+
+There are a total of 1 phenotype to process 
+
+Start performing clumping 
+
+Clumping Progress: 100.00%
+Number of variant(s) after clumping : 88836 
+
+Processing the 1 th phenotype 
+
+Phenotype is a binary phenotype 
+1000 control(s) 
+1000 case(s) 
+
+
+Start Processing
+Processing 40.15%</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>IOPub message rate exceeded.
@@ -578,11 +609,6 @@ inherent in finding the best-fit PRS (but it's still best
 to find the best-fit PRS!). 
 You can use the --perm option (see manual) to calculate an 
 empirical P-value. 
-
-Begin plotting
-Current Rscript version = 4.3.2
-Plotting Bar Plot
-Plotting the high resolution plot
 </code></pre>
 </div>
 </div>
@@ -610,20 +636,23 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>No, not all variants should be used. Variants in high LD (highly correlated) should be handled carefully to avoid inflated significance and false positives.</li>
 <li>Variants should be selected based on their association with the trait and their independence from other variants. Two common approaches for handling correlated SNPs are: - LD clumping (e.g., <a href="https://choishingwan.github.io/PRSice/step_by_step/#clumping">PRSice</a>): correlated SNPs within each LD block are filtered by selecting the one with the lowest p-value from the discovery set. Other SNPs in the same block are excluded. Clumping parameters can be customized. - Bayesian adjustments (e.g., <a href="https://choishingwan.github.io/PRS-Tutorial/ldpred/">LD Pred2</a>) use a Bayesian framework to adjust the effect sizes of SNPs by accounting for LD patterns across the genome. This helps refine PRS calculations and corrects for correlated SNPs.</li>
 <li>No, LD blocks can differ between populations of different ancestry due to genetic history and environment. It is essential to account for these differences when calculating PRS, especially when using cross-population data.</li>
 </ul>
+</div>
 </div>
 </div>
 <p>For simplicity’s sake, we did not include principal components or covariates in this analysis, however, when conducting your analyses we <strong>strongly recommend</strong> including these.</p>
@@ -680,7 +709,7 @@ Solution
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
 <p>In this tutorial, we have discussed how to perform a simple polygenic risk score analysis using the PRSice script and interpret its results. As mentioned before, PRSice offers many additional options to adjust the risk score analysis, including adding covariates (principal components) and adjusting clumping parameters. It is recommended to read the user manual of PRSice to perform a polygenic risk score analysis optimal to the research question at hand.</p>
 <p>Now, you will need to do the same for a quantitative trait and explore the results.</p>
-<div class="callout callout-style-default callout-tip callout-titled" title="Other take-home messages">
+<div class="callout callout-style-default callout-note callout-titled" title="Other take-home messages">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
