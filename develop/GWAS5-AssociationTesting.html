@@ -368,6 +368,8 @@ window.Quarto = {
   <li><a href="#correction-for-multiple-testing" id="toc-correction-for-multiple-testing" class="nav-link" data-scroll-target="#correction-for-multiple-testing">Correction for multiple testing</a>
   <ul class="collapse">
   <li><a href="#examining-plink---assoc-output" id="toc-examining-plink---assoc-output" class="nav-link" data-scroll-target="#examining-plink---assoc-output">Examining PLINK <code>--assoc</code> output</a></li>
+  <li><a href="#plink-commands" id="toc-plink-commands" class="nav-link" data-scroll-target="#plink-commands">PLINK Commands</a></li>
+  <li><a href="#manhattan-and-qq-plots" id="toc-manhattan-and-qq-plots" class="nav-link" data-scroll-target="#manhattan-and-qq-plots">Manhattan and QQ-plots</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS5-AssociationTesting.out.ipynb" download="GWAS5-AssociationTesting.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
@@ -589,7 +591,7 @@ Note
 </ul>
 <p>To learn more about statistical testing and false positives, <a href="https://web.stanford.edu/class/bios221/book/06-chap.html">look at this online book chapter</a>.</p>
 <section id="examining-plink---assoc-output" class="level3">
-<h3 class="anchored">Examining PLINK <code>--assoc</code> output</h3>
+<h3 class="anchored" data-anchor-id="examining-plink---assoc-output">Examining PLINK <code>--assoc</code> output</h3>
 <p>Before executing PLINK’s command for multiple testing, answer the questions below.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -609,7 +611,7 @@ Stop - Read - Solve
 <p>Hint:</p>
 <ul>
 <li><ol type="1">
-<li>Apply the formula: bonferroni_threshold &lt;- alpha / num_snps. You can get the number of SNPs from <code>Results/GWAS4/HapMap_3_r3_10.bim</code>. Use Python or R</li>
+<li>Apply the formula: bonferroni_threshold &lt;- alpha / num_snps. You can get the number of SNPs from <code>Results/GWAS4/HapMap_3_r3_10.bim</code>. Use R.</li>
 </ol></li>
 <li><ol start="2" type="1">
 <li>Look at the P-values from the association test in column 9 (<code>Results/GWAS5/assoc_results.assoc</code>), how many SNPs would pass the two different thresholds?</li>
@@ -621,7 +623,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here and change kernel accordingly </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -630,7 +632,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>BF P-value: <span class="math inline">\(4.7e-08\)</span>.</li>
@@ -660,7 +662,11 @@ Solution
 <pre><code>0</code></pre>
 </div>
 </div>
+</div>
+</div>
+</div>
 <hr>
+</section>
 <section id="plink-commands" class="level3">
 <h3 class="anchored" data-anchor-id="plink-commands">PLINK Commands</h3>
 <p>We know that no SNPs would pass the strict BF cutoff, is this also the case for other correction approaches?</p>
@@ -750,14 +756,16 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
 Solution
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In R:</p>
 <div id="696c8b9b-6766-44d1-958a-b7881ccc8898" class="cell" data-execution_count="2">
@@ -768,6 +776,7 @@ Solution
 </div>
 </div>
 <p>The black line shows very few values with an FDR-adjusted p-value below ~0.95, with the lowest around 0.29 (as shown in the summary table). Therefore, no variants are significant at the 0.05 level after genome-wide correction.</p>
+</div>
 </div>
 </div>
 <hr>
@@ -825,7 +834,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -834,7 +843,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Again, we do not infer any significance from the permutation correction. Let’s use the <code>summary()</code> function and visualize the values.</p>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
@@ -936,7 +945,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -945,7 +954,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Recall from the beginning of this chapter that the <code>--assoc</code> command does not correct for covariates. So even though we have promising (and hopefully publishable!) results, this form of analysis may be flawed by the underlying population stratification, which is taken into account with the <code>--logistic</code> model.</p>
 </div>
@@ -1010,7 +1019,7 @@ Warning
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1019,7 +1028,7 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <ul>
 <li>In the first plot (<code>--logistic</code>), the observed values are lower than the expected ones (consistent with what we saw in the Manhattan plot). This suggests an unexpected lack of significant findings. This could be due to overly conservative corrections, biases in the dataset, or poor study power (small sample size or very small effect sizes).</li>
@@ -1031,10 +1040,6 @@ Solution
 </div>
 
 
-</section>
-</div>
-</div>
-</div>
 
 </section>
 </section>
