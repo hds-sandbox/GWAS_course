@@ -51,7 +51,18 @@ Our first choice is to provide all the **training materials, tutorials, and tool
   </a>
 </p>
 
-5. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
+5. EXTRA EXERCISE - GWAS4
+
+You can download an extra notebook and data: 
+
+::: {.hero-buttons}
+[Hapmap extra](./hapmap.zip){.btn-action-smk .btn-action .btn .btn-success .btn-lg role="button"}
+[GWAS4 extra nb](./GWAS4_extra_population_structure.ipynb){.btn-action-smk .btn-action .btn .btn-success .btn-lg role="button"}
+
+::: 
+
+
+4. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
  &nbsp;
 
