@@ -43,7 +43,15 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 &nbsp;
 
-4. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
+4. Download the slides
+
+ <p align="center">
+  <a href="./GwasSandbox_slides.zip" download="GwasSandbox_slides.zip">
+    <button class="btn small-button">Download slides</button>
+  </a>
+</p>
+
+5. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
  &nbsp;
 
