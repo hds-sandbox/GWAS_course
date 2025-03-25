@@ -55,14 +55,18 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 You can download an extra notebook and data. Then, upload them through jupyterlab, and copy the data in the data folder: 
 
-<p align="center">
-
-::: {.hero-buttons}
-[Data](./hapmap.zip){.btn-action-smk .btn-action .btn .btn-success .btn-lg role="button"}
-[Notebook](https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS4_extra_population_structure.ipynb){.btn-action-smk .btn-action .btn .btn-success .btn-lg role="button"}
-
-::: 
+ <p align="center">
+   <a href="./hapmap.zip" download="hapmap.zip">
+    <button class="btn small-button">Download data</button>
+  </a>
 </p>
+
+<p align="center">
+  <a href="./GWAS4_extra_population_structure.ipynb" download="GWAS4_extra_population_structure.ipynb">
+    <button class="btn small-button">Download notebook</button>
+  </a>
+</p>
+
 
 4. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
