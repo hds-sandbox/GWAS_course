@@ -72,7 +72,7 @@ You can download an extra notebook and data with population structure and effect
 A notebook with an analysis using LDAK for preprocessing and some of the implemented association testings and heritability estimates
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS8_LDAK_Extra.ipynb" download="GWAS8_LDAK_Extra.ipynb">
+  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS8-LDAK-Extra.ipynb" download="GWAS8-LDAK-Extra.ipynb">
     <button class="btn small-button">Download notebook</button>
   </a>
 </p>
