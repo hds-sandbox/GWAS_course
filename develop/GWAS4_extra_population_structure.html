@@ -238,24 +238,24 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="setting-up-folders">Setting up folders</h2>
 <p>Here we setup a link to the <code>Data</code> folder and create the <code>Results</code> folder.</p>
 <p><img src="Images/bash.png" alt="Bash" width="80"> Choose the <code>Bash</code> kernel</p>
-<div id="c31784ba-e790-455c-b772-4c12dd43fdc8" class="cell" data-tags="[]">
+<div id="c31784ba-e790-455c-b772-4c12dd43fdc8" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ef9e23c2-307e-4f43-ac2a-3e68025acf61" class="cell" data-tags="[]">
+<div id="ef9e23c2-307e-4f43-ac2a-3e68025acf61" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>unzip Data<span class="sc">/</span>hapmap.zip <span class="sc">-</span>d  Data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="pca-from-vcf-data-file" class="level1">
 <h1>PCA from VCF data file</h1>
 <p><img src="Images/R.png" alt="R" width="80"> Shift to the <code>R</code> kernel</p>
-<div id="d724bcd3-f6f2-42a7-863f-a6c43946f575" class="cell" data-tags="[]">
+<div id="d724bcd3-f6f2-42a7-863f-a6c43946f575" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SNPRelate)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="import-data-and-calculate-pca" class="level2">
 <h2 class="anchored" data-anchor-id="import-data-and-calculate-pca">Import data and calculate PCA</h2>
 <p>We read the metadata about the samples (geographic locations) and transform the <code>vcf</code> file into <code>gds</code> format, from which the package <code>SNPRelate</code> can calculate the PCA projection of the data.</p>
-<div id="1d7bd102-f4e9-4f4a-b9bd-0211d3210a22" class="cell" data-tags="[]">
+<div id="1d7bd102-f4e9-4f4a-b9bd-0211d3210a22" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reading the metadata information </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>info <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"Data/sample_infos_accessionnb.csv"</span>, <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">';'</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -272,11 +272,11 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
 <p><strong>Q.1</strong> How many individuals and snps does this dataset have? What is an eigenvector and an eigenvalue?</p>
 <p>The <code>pca</code> object just created is a list containing various elements.</p>
-<div id="24333347-934f-4331-bddc-e0fc3bdc4b0d" class="cell" data-tags="[]">
+<div id="24333347-934f-4331-bddc-e0fc3bdc4b0d" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We use <code>pca$eigenvect</code> to plot the PCA. We extract also <code>pca$sample.id</code> to match the geographic locations in the metadata with the samples in <code>pca</code>.</p>
-<div id="6efb680e-9b95-4fe8-9e6d-89d2b76f0c03" class="cell" data-tags="[]">
+<div id="6efb680e-9b95-4fe8-9e6d-89d2b76f0c03" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>eigenvectors <span class="ot">=</span> <span class="fu">as.data.frame</span>(pca<span class="sc">$</span>eigenvect[,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(eigenvectors) <span class="ot">=</span> <span class="fu">as.vector</span>(<span class="fu">sprintf</span>(<span class="st">"PC%s"</span>, <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(eigenvectors))))</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>sample.id <span class="ot">=</span> <span class="fu">sub</span>(<span class="st">"_chr2_piece_dedup"</span>, <span class="st">""</span>, pca<span class="sc">$</span>sample.id)</span>
@@ -286,11 +286,11 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>eigenvectors <span class="ot">&lt;-</span> <span class="fu">cbind</span>(eigenvectors, info[pca<span class="sc">$</span>sample.id, <span class="fu">c</span>(<span class="st">"population"</span>,<span class="st">"region"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the end, we have created a table called <code>eigenvectors</code> containing the PCA coordinates and some metadata</p>
-<div id="a83b5b02-53cd-4e48-b0c0-57d288c8f74f" class="cell" data-tags="[]">
+<div id="a83b5b02-53cd-4e48-b0c0-57d288c8f74f" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(eigenvectors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s first look at how much of the variance of the data is explained by each eigenvector:</p>
-<div id="e5b69906-0939-4610-a541-ca204fe51a3a" class="cell" data-tags="[]">
+<div id="e5b69906-0939-4610-a541-ca204fe51a3a" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance proportion:</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>pca_percent <span class="ot">&lt;-</span> pca<span class="sc">$</span>varprop<span class="sc">*</span><span class="dv">100</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">length</span>(pca<span class="sc">$</span>eigenval)), <span class="at">y=</span>pca<span class="sc">$</span>pca_percent, <span class="at">label=</span><span class="fu">sprintf</span>(<span class="st">"%0.2f"</span>, <span class="fu">round</span>(pca<span class="sc">$</span>pca_percent, <span class="at">digits =</span> <span class="dv">2</span>))) ) <span class="sc">+</span></span>
@@ -302,7 +302,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <section id="visualization" class="level2">
 <h2 class="anchored" data-anchor-id="visualization">Visualization</h2>
 <p>We plot now the first two PCA coordinates and label them by Population, with color by region. We can see how only africans are separated from the rest, but the PCA is quite confused and cannot distinguish EastAsia and WestEurasia.</p>
-<div id="5aff2315-9eae-4d81-b023-ad0be1d9b5a1" class="cell" data-tags="[]">
+<div id="5aff2315-9eae-4d81-b023-ad0be1d9b5a1" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> eigenvectors, <span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">col =</span> region)) <span class="sc">+</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>,<span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_text</span>( <span class="fu">aes</span>(<span class="at">label=</span>population), <span class="at">col=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF1BB3"</span>,<span class="st">"#A7FF5B"</span>,<span class="st">"#99554D"</span>)) <span class="sc">+</span></span>
@@ -314,7 +314,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <section id="ld-pruning" class="level2">
 <h2 class="anchored" data-anchor-id="ld-pruning">LD pruning</h2>
 <p>We implement LD pruning to eliminate those SNPs that are in high linkage disequilibrium. What happens is that the structure of the populations will change. According to (<a href="https://www.biorxiv.org/content/10.1101/2024.05.02.592187v1">Bergovich et al, 2024, Biorxiv</a>), this is not good practice and removes a lot of the population information.</p>
-<div id="6c3b9585-034e-4d31-9e09-29dfe9ed5848" class="cell" data-tags="[]">
+<div id="6c3b9585-034e-4d31-9e09-29dfe9ed5848" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1000</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This function prune the snps with a thrshold of maximum 0.3 of LD</span></span>
@@ -340,11 +340,11 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
 <p><strong>Q.5</strong> Implement different LD thresholds (0.1, 0.2, 0.3, 0.4, 0.5). How many SNPs are left after each filtering threshold? Are these SNPs linked?</p>
 <p>Now we are going to convert this GDS file into a plink format, to be later used in the admixture exercise:</p>
-<div id="cb187178-546a-4b9a-96fc-02d38fe8b870" class="cell" data-tags="[]">
+<div id="cb187178-546a-4b9a-96fc-02d38fe8b870" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">snpgdsGDS2BED</span>(genofile, <span class="st">"Data/chr2_135_145_flt_prunned.gds"</span>, <span class="at">sample.id=</span><span class="cn">NULL</span>, <span class="at">snp.id=</span>snpset.id, <span class="at">snpfirstdim=</span><span class="cn">NULL</span>, <span class="at">verbose=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Save the data for later</p>
-<div id="3378d6c7-266d-4cc2-8e46-706649887d5c" class="cell" data-tags="[]">
+<div id="3378d6c7-266d-4cc2-8e46-706649887d5c" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(pca, pca_pruned, info, genofile, <span class="at">file =</span> <span class="st">"Results/data.Rdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -354,8 +354,8 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <p><img src="Images/bash.png" alt="Bash" width="80"> Choose the <code>Bash</code> kernel</p>
 <p><code>Admixture</code> is a program for estimating ancestry in a model based manner from SNP genotype datasets, where individuals are unrelated. The input format required by the software is in binary PLINK (<code>.bed</code>) file. That is why we converted our vcf file into <code>.bed</code>.</p>
 <p>Now with adjusted format and pruned snps, we are ready to run the admixture analysis. We believe that our individuals are derived from three ancestral populations:</p>
-<div id="586b3d34-77e0-4d69-9929-69b5f58a0893" class="cell" data-tags="[]">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>admixture Results<span class="sc">/</span>chr2_135_145_flt_prunned.gds.bed <span class="dv">3</span></span>
+<div id="586b3d34-77e0-4d69-9929-69b5f58a0893" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>admixture Data<span class="sc">/</span>chr2_135_145_flt_prunned.gds.bed <span class="dv">3</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#move output files with other results</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>mv chr2_135_145_flt_prunned.gds.<span class="fl">3.</span>P chr2_135_145_flt_prunned.gds.<span class="fl">3.</span>Q  Results<span class="sc">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -366,24 +366,24 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <li><p><code>P</code>: the allele frequencies of the inferred ancestral populations</p></li>
 </ul>
 <p>Sometimes we may have no priori about <code>K</code>, one good way of choosing the best <code>K</code> is by doing a cross-validation procedure impletemented in admixture as follow:</p>
-<div id="73273dc7-80c9-4a65-8657-ef3fadef0513" class="cell" data-scrolled="true" data-tags="[]">
+<div id="73273dc7-80c9-4a65-8657-ef3fadef0513" class="cell" data-scrolled="true" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> K <span class="cf">in</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>do </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    admixture <span class="sc">--</span>cv Results<span class="sc">/</span>chr2_135_145_flt_prunned.gds.bed <span class="sc">$</span>K <span class="sc">|</span> tee log<span class="sc">$</span>{K}.out</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    admixture <span class="sc">--</span>cv Data<span class="sc">/</span>chr2_135_145_flt_prunned.gds.bed <span class="sc">$</span>K <span class="sc">|</span> tee log<span class="sc">$</span>{K}.out</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    mv chr2_135_145_flt_prunned.gds.<span class="sc">$</span>K.<span class="sc">*</span> log<span class="sc">$</span>K.out Results<span class="sc">/</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>done</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Have a look at the Cross Validation error of each <code>K</code>:</p>
-<div id="4741e4db-e6ce-4496-9034-f2cce303dace" class="cell" data-tags="[]">
+<div id="4741e4db-e6ce-4496-9034-f2cce303dace" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grep <span class="sc">-</span>h CV Results<span class="sc">/</span>log<span class="sc">*</span>.out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Save it in a text file:</p>
-<div id="10933cd3-cab7-4f41-8454-30c745276c71" class="cell" data-tags="[]">
+<div id="10933cd3-cab7-4f41-8454-30c745276c71" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grep <span class="sc">-</span>h CV Results<span class="sc">/</span>log<span class="sc">*</span>.out <span class="sc">&gt;</span> Results<span class="sc">/</span>CV_logs.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="Images/R.png" alt="R" width="80"> Shift to the <code>R</code> kernel</p>
 <p>Look at the distribution of CV error.</p>
-<div id="d018c6d2-ab0d-4398-ad55-019b8ef8e7db" class="cell" data-tags="[]">
+<div id="d018c6d2-ab0d-4398-ad55-019b8ef8e7db" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>CV <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">'Results/CV_logs.txt'</span>)</span>
@@ -396,7 +396,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 </div>
 <p><strong>Q.7</strong> What do you understand of Cross validation error? Based on this graph, what is the best <code>K</code>?</p>
 <p>Plotting the <code>Q</code> estimates. Choose the <code>K</code> that makes more sense to you and substitute it in the first line of code (right now it is <code>K=3</code>)</p>
-<div id="09b21282-b5a3-469d-9e5f-6a6a8944dc7e" class="cell" data-tags="[]">
+<div id="09b21282-b5a3-469d-9e5f-6a6a8944dc7e" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">=</span> <span class="fu">read.table</span>(<span class="st">"Results/chr2_135_145_flt_prunned.gds.3.Q"</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ord <span class="ot">=</span> tbl[<span class="fu">order</span>(tbl<span class="sc">$</span>V1,tbl<span class="sc">$</span>V2,tbl<span class="sc">$</span>V3),]</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>bp <span class="ot">=</span> <span class="fu">barplot</span>(<span class="fu">t</span>(<span class="fu">as.matrix</span>(ord)), <span class="at">legend.text =</span> <span class="fu">c</span>(<span class="st">"African"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>),</span>
@@ -408,7 +408,7 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
 <span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">las=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Note: Here we order the X-axis based on proportions for the first population component. However, you will see that in the HapMap data all the individuals show some portion of this component and the different individuals are more admixed in general, i.e they are no longer explained by mostly one component, it’s not useful to use that kind of ordering anymore to interpret the plot. Instead, we should keep the original order, since the files are originally ordered by population, and we should plot each population on the X axis to be able to interpret the plot. This can be achieved with something of the type:</p>
-<div id="84b6ac8a-01eb-4d85-994e-1b22511cf0f4" class="cell" data-tags="[]">
+<div id="84b6ac8a-01eb-4d85-994e-1b22511cf0f4" class="cell" data-tags="[]" data-vscode="{&quot;languageId&quot;:&quot;r&quot;}">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"Results/data.Rdata"</span>)</span>
