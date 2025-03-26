@@ -62,7 +62,7 @@ You can download an extra notebook and data. Then, upload them through jupyterla
 </p>
 
 <p align="center">
-  <a href="./GWAS4_extra_population_structure.ipynb" download="GWAS4_extra_population_structure.ipynb">
+  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS4_extra_population_structure.ipynb" download="GWAS4_extra_population_structure.ipynb">
     <button class="btn small-button">Download notebook</button>
   </a>
 </p>
