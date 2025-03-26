@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Association models with LDAK – GWAS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-5744b439f7394fde80945d0e1e37a281.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-5e10f79eaba3e712890d90f2b975103d.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-EXW13D5861"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="http://hds-sandbox.github.io/">
+    <span class="navbar-title">GWAS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../access/setup.html"> 
+<span class="menu-text">Access</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/general-intro.html"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/workshop.html"> 
+<span class="menu-text">Workshop</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hds-sandbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/ucph-heads/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about-ldak" id="toc-about-ldak" class="nav-link active" data-scroll-target="#about-ldak">About LDAK</a>
+  <ul class="collapse">
+  <li><a href="#single-snp-association-analysis" id="toc-single-snp-association-analysis" class="nav-link" data-scroll-target="#single-snp-association-analysis">Single SNP association analysis</a></li>
+  <li><a href="#preparing-a-gwas" id="toc-preparing-a-gwas" class="nav-link" data-scroll-target="#preparing-a-gwas">Preparing a GWAS</a>
+  <ul class="collapse">
+  <li><a href="#standard-qc-steps-on-the-human-data" id="toc-standard-qc-steps-on-the-human-data" class="nav-link" data-scroll-target="#standard-qc-steps-on-the-human-data">Standard QC steps on the human data</a></li>
+  <li><a href="#ethnic-outliers-and-overlapping-to-a-reference" id="toc-ethnic-outliers-and-overlapping-to-a-reference" class="nav-link" data-scroll-target="#ethnic-outliers-and-overlapping-to-a-reference">Ethnic outliers and overlapping to a reference</a></li>
+  <li><a href="#projection-from-reference" id="toc-projection-from-reference" class="nav-link" data-scroll-target="#projection-from-reference">Projection from reference</a></li>
+  </ul></li>
+  <li><a href="#remove-relatedness" id="toc-remove-relatedness" class="nav-link" data-scroll-target="#remove-relatedness">Remove relatedness</a></li>
+  </ul></li>
+  <li><a href="#singlesnp-analysis" id="toc-singlesnp-analysis" class="nav-link" data-scroll-target="#singlesnp-analysis">SingleSNP analysis</a></li>
+  <li><a href="#conditional-association-analysis" id="toc-conditional-association-analysis" class="nav-link" data-scroll-target="#conditional-association-analysis">Conditional association analysis</a></li>
+  <li><a href="#mixed-model-analysis" id="toc-mixed-model-analysis" class="nav-link" data-scroll-target="#mixed-model-analysis">Mixed model analysis</a></li>
+  <li><a href="#estimate-snp-heritability-from-data" id="toc-estimate-snp-heritability-from-data" class="nav-link" data-scroll-target="#estimate-snp-heritability-from-data">Estimate SNP heritability from data</a>
+  <ul class="collapse">
+  <li><a href="#snp-weights" id="toc-snp-weights" class="nav-link" data-scroll-target="#snp-weights">SNP weights</a></li>
+  <li><a href="#weighted-kinship-matrix" id="toc-weighted-kinship-matrix" class="nav-link" data-scroll-target="#weighted-kinship-matrix">Weighted Kinship matrix</a></li>
+  <li><a href="#estimate-variance-components" id="toc-estimate-variance-components" class="nav-link" data-scroll-target="#estimate-variance-components">Estimate variance components</a></li>
+  </ul></li>
+  <li><a href="#from-multiple-phenotypes" id="toc-from-multiple-phenotypes" class="nav-link" data-scroll-target="#from-multiple-phenotypes">From multiple phenotypes</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS8-LDAK-Extra.out.ipynb" download="GWAS8-LDAK-Extra.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Association models with LDAK</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Tutorial modified from the LDAK creator Doug Speed</p>
+<p>For these practicals, we will use the les: <code>human.bed</code>, <code>human.bim</code> and <code>human.fam</code> - 1000 Genomes Project SNP data for 424 humans, 3289 SNPs (Chromosomes 21 &amp; 22). <code>quant.pheno</code>, <code>binary.pheno</code>, <code>multi.pheno</code> and <code>covar.covar</code> are phenotypes and covariates for these.</p>
+<p><code>hapmap.bed</code>, <code>hapmap.bim</code> and <code>hapmap.fam</code> - SNP data for 1184 humans, 1016 SNPs (from HapMap Project). <code>mice.bed</code>, <code>mice.bim</code>, <code>mice.fam</code> and <code>mice.pheno</code> - SNP and phenotype data for 1940 mice, 2984 SNPs.</p>
+<div id="fc8a99f6-8c0d-473d-9035-7d81faccf78c" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://www.dropbox.com/s/5vcfcree3xnvhew/data.zip</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="24f61bcf-0a44-43bd-91d9-22352a5d2b1e" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span> data.zip <span class="at">-d</span> LDAKdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a0f05f3f-063f-4a5a-8e82-72497ac982a7" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 777 LDAKdata</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="about-ldak" class="level1">
+<h1>About LDAK</h1>
+<p>Designed in the style of PLINK. For example, all options start with two dashes, if you want to provide data in binary <code>PLINK</code> format, you use <code>--bfile</code>, to select a subset of SNPs you use <code>--extract</code>, provide phenotypes with <code>--pheno</code>, perform linear regression with <code>--linear</code>, etc.</p>
+<p>LDKA has some similarity with <code>GCTA</code>: you merge kinship matrices using <code>--add-grm</code>, estimate variance components using <code>--reml</code>, and kinship matrices are stored in a compatible format. LDAK performs most features of GCTA (not bivariate and some conditional analyses).</p>
+<p>LDAK has a number of additional features (e.g., computing SNP weightings, merging datasets, pro le scoring, thinning and clumping, as well as GBAT for set-based association testing, SumHer for summary stats heritability analysis, and MultiBLUP for prediction) LDAK can also perform all the features of LDSC.</p>
+<p>LDAK can accommodate almost any type of data. The formats are: Binary PLINK (<code>--bfile</code>) - the most commonly used format, an <a href="https://www.cog-genomics.org/plink/1.9/input#bed">efficient way to store hard genotypes</a> (all values are 0, 1, 2 or NA). <a href="http://www.stats.ox.ac.%20uk/~marchini/software/gwas/file_format.html">Gen / Chiamo / Oxford Stat Format</a> (<code>--gen</code>) - rows are predictors, columns are SNPs, can set the number of header rows and columns. Typically, used to provide state probabilities. Can also store haplotype/phasing calls or dosage, etc. Files can be raw text or gzipped.</p>
+<p>SP Format (<code>--sp</code>) - Simple text matrix, with a row for each predictor and a column for each individual. Value need not correspond to SNPs. SPEED Format (<code>--speed</code>)- binary version of SP Format More info at <a href="http://www.ldak.org/file-formats/">http://www.ldak.org/file-formats/</a>.</p>
+<p>Call LDAK by typing the name of the executable (same for PLINK, GCTA), which will provide you informations about the program and which arguments could be missing.</p>
+<div id="34b69003-73d3-4209-b7a8-bc73847ec24b" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>LDAK options are provided in pairs. One main argument is required, which is followed by the name of the output le. For example, suppose we want to compute statistics, we would use the main argument <code>--calc-stats</code>. The command might look like:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-stats</span> output <span class="at">--bfile</span> human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is asking LDAK to read the data stored in Binary PLINK format with prefix <code>human</code>, then save the results to les with prefix <code>output</code>. Option pairs can be provided in any order, so would be equivalent to use</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--bfile</span> human--calc-stats output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(The command above would compute MAF, call-rates and possibly info scores)</p>
+<section id="single-snp-association-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="single-snp-association-analysis">Single SNP association analysis</h2>
+<p>We wish to test each of the 3289 SNPs stored in the dataset human individually for association with the continuous phenotype contained within quant.pheno (using the model <span class="math inline">\(Y = + alpha_j X_j\)</span>). For this we use the main argument <code>--linear</code> Each main argument requires di erent options. Documentation is provided at <a href="https://www.ldak.org">www.ldak.org</a>, but typically the easiest way is to run <code>LDAK</code> using just the main argument, then it will tell you what options you require So here we type</p>
+<div id="4db4e92a-3b5f-4b6c-8924-e926d765eb62" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> linear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First LDAK tells us we need to provide phenotypes, so we add that</p>
+<div id="6a3c392b-0a1a-4d7a-8e70-e5f7bf7c0c4c" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> linear <span class="at">--pheno</span> LDAKdata/quant.pheno</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now LDAK tells us we need to provide data les, so we add them</p>
+<div id="521bbe13-093d-41c1-a95c-b3e9d1a05b21" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> linear <span class="at">--pheno</span> LDAKdata/quant.pheno <span class="at">--bfile</span> LDAKdata/human</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Always pay attention at the output screen">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Always pay attention at the output screen
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It will tell you what options are required and why there are errors. It will also update you on progress (as will the file <code>.progress</code>) and tell you where the results are saved. For the linear regression, the main results are in <code>linear.assoc</code>. We will use <code>linear.summaries</code> for summary-statistic methods, <code>linear.pvalues</code> for clumping, while <code>linear.score</code> provides the polygenic risk score prediction model.</p>
+</div>
+</div>
+<p>Some extra options we might wish to use are <code>--keep</code> (to use only a subset of individuals), <code>--extract</code> (to use only a subset of predictors) and <code>--covar</code> (to include covariates, such as age, sex, population axes).</p>
+<p>To achieve the same in PLINK, you would use</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--linear</span> <span class="at">--out</span> linear_plink <span class="at">--bfile</span> LDAKdata/human <span class="at">--pheno</span> LDAKdata/quant.pheno </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Note that by default PLINK ignores individuals without sex (add <code>--allow-no-sex</code> to continue). If your phenotype is binary, you might prefer logistic regression (use <code>--logistic</code> instead of <code>--linear</code>).</p>
+<p><img src="Images/R.png" alt="Bash" width="80"> Choose the R kernel</p>
+<div id="8e067f24-43b0-40b6-85eb-36e278c5bf88" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="va">assoc</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"linear.assoc"</span><span class="ex">,head=T</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2210f872-fbfe-4f11-b106-6f713e25272e" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">assoc,4</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="52103f44-7e75-4add-8787-44eef45b6a98" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">which.min</span><span class="er">(</span><span class="va">assoc</span><span class="op">[</span>,7<span class="op">]</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fe3326fc-5094-4c2a-83d3-89366f27439a" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="va">assoc</span><span class="op">[</span><span class="dv">71</span>,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d5f4a355-5c9d-408d-9e86-2d0334fa567c" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width=14,</span> repr.plot.height=8<span class="kw">)</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="ex">par</span><span class="er">(</span><span class="va">mfrow</span><span class="op">=</span>c<span class="kw">(</span><span class="ex">1,2</span><span class="kw">))</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="ex">-log10</span><span class="er">(</span><span class="va">assoc</span><span class="op">[</span>,7<span class="op">]</span><span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>     <span class="va">col</span><span class="op">=</span>assoc<span class="pp">[</span><span class="ss">,1</span><span class="pp">]</span>, </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>     <span class="va">pch</span><span class="op">=</span>19,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>     <span class="va">xlab</span><span class="op">=</span><span class="st">"Chromosome"</span>, </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>     <span class="va">ylab</span><span class="op">=</span>expression<span class="kw">(</span><span class="fu">paste</span><span class="er">(</span><span class="st">"-log"</span><span class="ex">[10],</span><span class="st">" p-value"</span><span class="ex">,sep=</span><span class="st">""</span><span class="kw">))</span><span class="ex">,</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>     <span class="va">main</span><span class="op">=</span><span class="st">"A Pretty Manhattan Plot"</span>,axes=F<span class="kw">)</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="va">marks</span><span class="op">=</span>array<span class="kw">(</span><span class="ex">0,23</span><span class="kw">)</span> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span><span class="kw">(</span><span class="ex">i</span> in 1:22<span class="kw">){</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">a</span><span class="op">=</span>which<span class="kw">(</span><span class="va">assoc</span><span class="op">[</span>,1<span class="op">]=</span>=i<span class="kw">)</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="va">marks</span><span class="op">[</span>i+1<span class="op">]=</span>marks<span class="pp">[</span><span class="ss">i</span><span class="pp">]</span>+length<span class="kw">(</span><span class="ex">a</span><span class="kw">)</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span> </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="va">marks2</span><span class="op">=</span><span class="va">(</span>marks<span class="pp">[-</span><span class="ss">1</span><span class="pp">]</span>+marks<span class="pp">[-</span><span class="ss">23</span><span class="pp">]</span><span class="va">)</span>/2 </span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="ex">axis</span><span class="er">(</span><span class="ex">1,at=marks,rep</span><span class="er">(</span><span class="st">""</span><span class="ex">,23</span><span class="kw">));</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="ex">axis</span><span class="er">(</span><span class="ex">1,at=marks2,lab=1:22,tick=F</span><span class="kw">)</span> </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="ex">axis</span><span class="er">(</span><span class="ex">2</span><span class="kw">);</span><span class="ex">abline</span><span class="er">(</span><span class="va">h</span><span class="op">=</span>-log10<span class="kw">(</span><span class="ex">5e-8</span><span class="kw">)</span><span class="ex">,lwd=3,lty=2</span><span class="kw">)</span> </span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="va">ord</span><span class="op">=</span>order<span class="kw">(</span><span class="va">assoc</span><span class="op">[</span>,7<span class="op">]</span><span class="kw">)</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="va">obsP</span><span class="op">=</span>assoc<span class="pp">[</span><span class="ss">ord,7</span><span class="pp">]</span> </span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="va">N</span><span class="op">=</span>nrow<span class="kw">(</span><span class="ex">assoc</span><span class="kw">)</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="va">expP</span><span class="op">=</span>1:N/<span class="kw">(</span><span class="ex">N+1</span><span class="kw">)</span> </span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="ex">-log10</span><span class="er">(</span><span class="ex">expP</span><span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>     <span class="ex">-log10</span><span class="er">(</span><span class="ex">obsP</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>     <span class="va">pch</span><span class="op">=</span>19,</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>     <span class="va">xlab</span><span class="op">=</span><span class="st">"Expected-log10 P"</span>, </span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>     <span class="va">ylab</span><span class="op">=</span><span class="st">"Observed-log10 P"</span>,</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>     <span class="va">main</span><span class="op">=</span><span class="st">"A Less Pretty QQ-Plot"</span><span class="kw">)</span> </span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="ex">abline</span><span class="er">(</span><span class="va">a</span><span class="op">=</span>0,b=1,col=2,lwd=3,lty=3<span class="kw">)</span> </span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="va">gif</span><span class="op">=</span>qchisq<span class="kw">(</span><span class="ex">median</span><span class="er">(</span><span class="va">assoc</span><span class="op">[</span>,7<span class="op">]</span><span class="kw">)</span><span class="ex">,1,lower=F</span><span class="kw">)</span><span class="ex">/qchisq</span><span class="er">(</span><span class="ex">.5,1</span><span class="kw">)</span> </span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="ex">text</span><span class="er">(</span><span class="ex">1.5,15,paste</span><span class="er">(</span><span class="st">"Genomic Inflation Factor:"</span><span class="ex">,round</span><span class="er">(</span><span class="ex">gif,2</span><span class="kw">))</span><span class="ex">,cex=1.3</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+<p>To identify genome-wide associated SNPs we can use <code>awk</code></p>
+<div id="7590d00a-e930-4b1e-b978-93b6f6937842" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="op">&lt;</span> linear.assoc <span class="st">'($7&lt;5e-8){print$0}'</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To identify the independent loci, use the command <code>--thin-tops</code>; this will find then prune all SNPs with p-values below a specified threshold. <code>--thin-tops</code> requires lots of options, butagain, LDAK will walk you through them…</p>
+<div id="df36dd40-e5a6-45a5-adf3-ebb5f3b7114e" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--thin-tops</span> top <span class="at">--bfile</span> LDAKdata/human <span class="at">--pvalues</span> linear.pvalues <span class="dt">\</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>--cutoff 5e-8 <span class="at">--window-cm</span> 1 <span class="at">--window-prune</span> .2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="96b6ed09-751f-4586-b827-f6b0c9c21143" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> top.in</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fa9ed208-d5b5-4a3b-b19c-619ca230cc1e" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'(NR==FNR){arr[$1];next}($2inarr){print$0}'</span> top.in linear.assoc <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="preparing-a-gwas" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-a-gwas">Preparing a GWAS</h2>
+<p>The steps are as follows:</p>
+<p>1 - Remove poorly genotyped samples and SNPs 2 - Remove ethnic outliers 3 - Imputation 4 - Remove poorly imputed samples and SNPs 5 - Remove related individuals</p>
+<p>Steps 1, 2 &amp; 3 are fairly constant. Steps 4 &amp; 5 depend on the aim of the GWAS; heritability analyses generally require much stricter quality control than single-SNP analysis, and are designed for unrelated individuals. One would also increase QC if studying a binary phenotype. E.g., for a single-SNP analysis, I might use an info score threshold of &gt;0.5 or &gt;0.8, but for heritability analysis require info &gt;0.99.</p>
+<section id="standard-qc-steps-on-the-human-data" class="level3">
+<h3 class="anchored" data-anchor-id="standard-qc-steps-on-the-human-data">Standard QC steps on the human data</h3>
+<p>We run some predefined thresholds on the human data</p>
+<div id="470e3612-2ea6-4e62-b02b-49bcc731b5a0" class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> LDAKdata/human <span class="dt">\</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--geno</span> 0.02 <span class="dt">\</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/human1 <span class="at">--silent</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/human1 <span class="dt">\</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mind</span> 0.02 <span class="dt">\</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/human2 <span class="at">--silent</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/human2 <span class="dt">\</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--maf</span> 0.05 <span class="dt">\</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span>  <span class="dt">\</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/human3 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="ethnic-outliers-and-overlapping-to-a-reference" class="level3">
+<h3 class="anchored" data-anchor-id="ethnic-outliers-and-overlapping-to-a-reference">Ethnic outliers and overlapping to a reference</h3>
+<p>Generally we wish to identify and exclude population outliers (the exception is mixed-model association analysis). For this, we will compute a kinship matrix (also referred to as a relatedness matrix/allelic correlations).</p>
+<p>The command for computing a kinship matrix is <code>--calc-kins-direct</code>. You must use either <code>--weights</code> or <code>--ignore-weights YES</code> to specify SNP weightings, and <code>--power</code> to specify how to standardize SNPs.</p>
+<p>People normally use (in-sample) principal component analysis (PCA) in this way:thin the SNPs, calculate a kinship matrix, perform PCA then plot, and find outliers.</p>
+<p>However, you cna also project the data onto population axes derived from a diverse reference panel (e.g., HapMap):</p>
+<p>1 - Find overlap of SNPs between dataset and reference panel 2 - Using the reference panel, calculate a kinship matrix, perform PCA and compute SNP loadings for the principal components 3 - Project the data onto these principal components, then plot</p>
+<section id="ethnic-outliers" class="level4">
+<h4 class="anchored" data-anchor-id="ethnic-outliers">Ethnic outliers</h4>
+<div id="fbe7de47-e4ef-4c91-97ce-213ec3883284" class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#thin for LD </span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--bfile</span> Results/human3 <span class="at">--thin</span> prune <span class="dt">\</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--window-prune</span> .2 <span class="at">--window-cm</span> 1 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This produces <code>prune.in</code> and <code>prune.out</code></p>
+<div id="e1e2eb05-0db6-4139-a0fc-0a6ed401c869" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compute unweighted kinships </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> prune <span class="at">--bfile</span> Results/human3 <span class="dt">\</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ignore-weights</span> YES <span class="at">--power</span> <span class="at">-1</span> <span class="at">--extract</span> prune.in <span class="dt">\</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--kinship-raw</span> YES </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The kinship matrix is stored with stem <code>prune</code></p>
+<div id="e297f017-8086-4fbf-9704-fc575a05bb0e" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#calculate 5 principal components </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--pca</span> prune <span class="at">--grm</span> prune <span class="at">--axes</span> 5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Having computed the PCAs, we can plot and identify outliers</p>
+<p><img src="Images/R.png" alt="Bash" width="80"> Choose the R kernel</p>
+<div id="a489dfa9-e266-4655-9c4d-732338bce1d2" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="va">datapca</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"prune.vect"</span><span class="kw">)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="va">datapca</span><span class="op">[</span>,3:4<span class="op">]</span><span class="ex">,xlab=</span><span class="st">"PC1"</span><span class="ex">,ylab=</span><span class="st">"PC2"</span><span class="kw">)</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">abline</span><span class="er">(</span><span class="va">v</span><span class="op">=</span>.07,col=2,lwd=3,lty=2<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="projection-from-reference" class="level3">
+<h3 class="anchored" data-anchor-id="projection-from-reference">Projection from reference</h3>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the bash kernel</p>
+<div id="b0f26f04-f8d4-449b-aeb7-017c0e3e7025" class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get overlap between human and hapmap, then thin hapmap </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'(NR==FNR){arr[$2];next}($2 in arr){print $2}'</span> <span class="dt">\</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    Results/human3.bim LDAKdata/hapmap.bim <span class="op">&gt;</span> overlap.txt </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--thin</span> thin <span class="at">--bfile</span> LDAKdata/hapmap <span class="dt">\</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--window-prune</span> .2 <span class="at">--window-kb</span> 1000 <span class="dt">\</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> overlap.txt </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a46d0b74-6561-4571-bcac-c8887805b50f" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#compute kinships, pcas and loadings </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> hapmap <span class="at">--bfile</span> LDAKdata/hapmap <span class="dt">\</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> thin.in <span class="at">--ignore-weights</span> YES <span class="at">--power</span> <span class="at">-1</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="1aca86f1-790e-4e6c-8637-e4cf9f5a4101" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--pca</span> hapmap <span class="at">--grm</span> hapmap <span class="at">--axes</span> 20</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="231e464b-1e4d-41dc-a5a8-adc62c7df373" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-pca-loads</span> hapmap <span class="at">--bfile</span> LDAKdata/hapmap <span class="dt">\</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--grm</span> hapmap <span class="at">--pcastem</span> hapmap</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="032567c5-769c-4c8b-8d04-980ea8e9b8a0" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#project human onto these loadings </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> project <span class="at">--bfile</span> Results/human3 <span class="dt">\</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--scorefile</span> hapmap.load <span class="at">--power</span> 0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot the HapMap PCs, project onto these our data, then identify outliers. Save a list of individuals to keep to <code>goodpop.keep</code></p>
+<p><img src="Images/R.png" alt="Bash" width="80"> Choose the R kernel</p>
+<div id="2f33b099-c30d-4c20-8f85-58bd139604a7" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="va">happca</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"hapmap.vect"</span><span class="kw">)</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="va">proj</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"project.profile"</span><span class="ex">,head=T</span><span class="kw">)</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="ex">par</span><span class="er">(</span><span class="va">mfrow</span><span class="op">=</span>c<span class="kw">(</span><span class="ex">1,2</span><span class="kw">))</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="va">happca</span><span class="op">[</span>,3:4<span class="op">]</span><span class="ex">,col=</span><span class="st">"light grey"</span><span class="ex">,pch=19,xlab=</span><span class="st">"Proj 1"</span><span class="ex">,ylab=</span><span class="st">"Proj 2"</span><span class="kw">)</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="ex">text</span><span class="er">(</span><span class="ex">c</span><span class="er">(</span><span class="ex">-.04,.02,.02</span><span class="kw">)</span><span class="ex">,c</span><span class="er">(</span><span class="ex">0,.05,-.04</span><span class="kw">)</span><span class="ex">,c</span><span class="er">(</span><span class="st">"African"</span><span class="ex">,</span><span class="st">"European"</span><span class="ex">,</span><span class="st">"Asian"</span><span class="kw">))</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="va">happca</span><span class="op">[</span>,3:4<span class="op">]</span><span class="ex">,col=</span><span class="st">"light grey"</span><span class="ex">,pch=19,xlab=</span><span class="st">"Proj 1"</span><span class="ex">,ylab=</span><span class="st">"Proj 2"</span><span class="kw">)</span> </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="ex">points</span><span class="er">(</span><span class="va">proj</span><span class="op">[</span>,c(5,7)<span class="op">]</span><span class="ex">,col=2,pch=19</span><span class="kw">)</span> </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="ex">abline</span><span class="er">(</span><span class="va">v</span><span class="op">=</span>.005,col=2,lwd=3,lty=2<span class="kw">)</span> </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="ex">abline</span><span class="er">(</span><span class="va">h</span><span class="op">=</span>.025,col=2,lwd=3,lty=2<span class="kw">)</span> </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="va">keep</span><span class="op">=</span>which<span class="kw">(</span><span class="va">proj</span><span class="op">[</span>,5<span class="op">]&gt;</span>.005<span class="kw">&amp;</span><span class="va">proj</span><span class="op">[</span>,7<span class="op">]&gt;</span>.025<span class="kw">)</span> </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="va">proj</span><span class="op">[</span>keep,1:2<span class="op">]</span><span class="ex">,</span><span class="st">"goodpop.keep"</span><span class="ex">,row=F,col=F,quote=F</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that when using a proper number of individuals, the clusters will be much tighter. Also, for convenience, here we used <a href="ftp://ftp.ncbi.nlm.nih.gov/hapmap/genotypes/2009-01_%20phaseIII/plink_format">HapMap</a>, but better to use 1000 Genomes Project (see <a href="www.ldak.org/reference-panel">www.ldak.org/reference-panel</a>)</p>
+<p>Below we plot both the PCA of the data itself and the PCA of the projection on the reference dataset.</p>
+<div id="a43491da-70c9-4aff-84de-86dc47b45ee4" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="va">datapca</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"prune.vect"</span><span class="kw">)</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="va">happca</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"hapmap.vect"</span><span class="kw">)</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="va">proj</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"project.profile"</span><span class="ex">,head=T</span><span class="kw">)</span> </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">=</span>rep<span class="kw">(</span><span class="ex">1,nrow</span><span class="er">(</span><span class="ex">proj</span><span class="kw">))</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>grep<span class="kw">(</span><span class="st">"AFR"</span><span class="ex">,proj[,2]</span><span class="kw">)</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">[</span>a<span class="op">]=</span>2 </span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>grep<span class="kw">(</span><span class="st">"EAS"</span><span class="ex">,proj[,2]</span><span class="kw">)</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">[</span>a<span class="op">]=</span>3</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>grep<span class="kw">(</span><span class="st">"SAS"</span><span class="ex">,proj[,2]</span><span class="kw">)</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">[</span>a<span class="op">]=</span>4 </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>grep<span class="kw">(</span><span class="st">"EUR"</span><span class="ex">,proj[,2]</span><span class="kw">)</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">[</span>a<span class="op">]=</span>5</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>grep<span class="kw">(</span><span class="st">"AMR"</span><span class="ex">,proj[,2]</span><span class="kw">)</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">[</span>a<span class="op">]=</span>6 </span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="va">a</span><span class="op">=</span>grep<span class="kw">(</span><span class="st">"FIN"</span><span class="ex">,proj[,2]</span><span class="kw">)</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="va">sites</span><span class="op">[</span>a<span class="op">]=</span>7</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="ex">par</span><span class="er">(</span><span class="va">mfrow</span><span class="op">=</span>c<span class="kw">(</span><span class="ex">1,2</span><span class="kw">))</span> </span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="va">datapca</span><span class="op">[</span>,3:4<span class="op">]</span><span class="ex">,col=sites,pch=19,xlab=</span><span class="st">"PCA 1"</span><span class="ex">,ylab=</span><span class="st">"PCA 2"</span><span class="kw">)</span> </span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="va">happca</span><span class="op">[</span>,3:4<span class="op">]</span><span class="ex">,col=</span><span class="st">"light grey"</span><span class="ex">,pch=19,xlab=</span><span class="st">"Proj 1"</span><span class="ex">,ylab=</span><span class="st">"Proj 2"</span><span class="kw">)</span> </span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="ex">points</span><span class="er">(</span><span class="va">proj</span><span class="op">[</span>,c(5,7)<span class="op">]</span><span class="ex">,col=sites,pch=19</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We want to create a covariate le to use in subsequent regressions. Generally include as covariates sex plus 10 principal components (5 from in-sample PC, 5 from population projections, from the two plots above). If you have imputed the data, repeat the PCA using that before using the PCA as covariates.</p>
+<div id="34d80942-e9a0-4380-8974-c77301e3d0dc" class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#can get sex from Column 5 of the fam file </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="va">fam</span><span class="op">=</span>read.table<span class="kw">(</span><span class="st">"LDAKdata/human.fam"</span><span class="kw">)</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#use match() to ensure samples are aligned </span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="va">m1</span><span class="op">=</span>match<span class="kw">(</span><span class="va">fam</span><span class="op">[</span>,1<span class="op">]</span><span class="ex">,datapca[,1]</span><span class="kw">)</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="va">m2</span><span class="op">=</span>match<span class="kw">(</span><span class="va">fam</span><span class="op">[</span>,1<span class="op">]</span><span class="ex">,proj[,1]</span><span class="kw">)</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="va">covar</span><span class="op">=</span>cbind<span class="kw">(</span><span class="va">fam</span><span class="op">[</span>,c(1,2,5)<span class="op">]</span><span class="ex">,datapca[m1,3:7],proj[m2,c</span><span class="er">(</span><span class="ex">5,7,9,11,13</span><span class="kw">)</span><span class="ex">]</span><span class="kw">)</span> </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="ex">covar,</span><span class="st">"covar.covar"</span><span class="ex">,row=F,col=F,quote=F</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="remove-relatedness" class="level2">
+<h2 class="anchored" data-anchor-id="remove-relatedness">Remove relatedness</h2>
+<p>Remove Relatedness To estimate relatedness we can use the kinship matrix computed when performing PCA (i.e., from thinned SNPs). Ideally you would first remove population outliers. Notice that allelic correlation kinships are distributed around expected values (e.g., 1/2 for full-sibs, 0 for unrelateds ), and there are values above 1 and below 0. (For proper sample sizes, spread will be smaller). The general assumption is if we find identical individuals, these are accidental duplicates, so we want to remove one of each pair. We can do this using <code>filter</code>:</p>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+<div id="7d93c7e5-797b-412b-9942-afc53a92c8f7" class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--filter</span> dups <span class="at">--grm</span> prune <span class="at">--keep</span> goodpop.keep <span class="at">--max-rel</span> .8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>(Of course, duplicates may be twins, so check clinical data if possible).</p>
+<p>If our aim is single-SNP analysis, we normally want to remove close relatedness; a typical cut-off is 0.185, half-way between half-sibs and cousins:</p>
+<div id="aaa46550-489f-4005-86f3-40c6a5da9410" class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--filter</span> close <span class="at">--grm</span> prune <span class="at">--keep</span> goodpop.keep <span class="at">--max-rel</span> .375</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>(This is not necessary if performing mixed-model association analysis).</p>
+<p>For heritability analyses, we generally require unrelated individuals, so we lter based on estimated relatedness. As a threshold, you can use an arbitrary value (say 0.025 or 0.05) or second cousins (1/32=0.03125), but prefer to use the negative of the smallest value observed (the default in LDAK)</p>
+<div id="00da7af7-7ccd-41f5-9ab5-6bfbf7deab91" class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--filter</span> filter <span class="at">--grm</span> prune <span class="at">--keep</span> goodpop.keep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this (unrealistic example), the minimum kinship is -0.176; using this threshold results in removal of 9 individuals, so that 397 remain (stored in <code>filter.keep</code>)</p>
+</section>
+</section>
+<section id="singlesnp-analysis" class="level1">
+<h1>SingleSNP analysis</h1>
+<p>Having performed quality control, now would be the correct time to perform single-SNP analysis</p>
+<div id="761ea594-4e36-45de-91c5-4bf0210f24bc" class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> linear <span class="at">--pheno</span> LDAKdata/quant.pheno <span class="at">--bfile</span> Results/human3  <span class="at">--covar</span> covar.covar</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Look at the output message, which tells us the results are in the <code>linear.assoc</code> file. The file looks like this</p>
+<p><img src="Images/R.png" alt="Bash" width="80"> Choose the R kernel</p>
+<div id="94118d24-196a-4bf4-8384-78d1a88896f2" class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"linear.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">results_log</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ee82443c-9643-44a6-be72-0fecbbeee1a2" class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"linear.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#manhattan(results_log, main = "Manhattan plot: logistic", cex.axis=1.1)</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">results_log,</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">chr</span> = <span class="st">"Chromosome"</span>,</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bp</span> = <span class="st">"Basepair"</span>,</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">p</span> = <span class="st">"Wald_P"</span>,</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">snp</span> = <span class="st">"Predictor"</span>,</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">col</span> = c<span class="er">(</span><span class="st">"pink"</span><span class="ex">,</span> <span class="st">"blue"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">suggestiveline</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">1e-7</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">genomewideline</span> = 0,</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">highlight</span> = NULL,</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">logp</span> = TRUE,</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotatePval</span> = FALSE,</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotateTop</span> = TRUE</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Which is the SNP with strongest association? We filter for smallest SNPsas in the line on the plot above</p>
+<div id="880dd883-2e91-484d-8d3e-906a50728cc5" class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> %<span class="op">&gt;</span>% filter<span class="er">(</span><span class="ex">Wald_P</span> <span class="op">&lt;</span> .00001<span class="kw">)</span> <span class="ex">%</span><span class="op">&gt;</span>% arrange<span class="er">(</span><span class="ex">Wald_P</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="conditional-association-analysis" class="level1">
+<h1>Conditional association analysis</h1>
+<p>We now wish to condition on the most strongly associated SNP (21:15603999) Save this SNP to a file, then add the option <code>--top-preds</code>:</p>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+<div id="d71b0789-72a7-40c9-80c5-07b5e624500a" class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"21:15603999"</span> <span class="op">&gt;</span> top.snps ldak </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> linear_cond <span class="dt">\</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--pheno</span> LDAKdata/quant.pheno <span class="dt">\</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--bfile</span> LDAKdata/human <span class="dt">\</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--top-preds</span> top.snps</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This will include the top SNP as a (fixed-effect) covariate in the regression (this is equivalent to making a covariate file containing the SNP values, then using <code>--covar</code> instead of <code>--top-preds</code>) Previously, we searched for independent loci by pruning; conditional analysis is a more e ective (but slower) way to do this.</p>
+<p>We see that when we condition on <code>21:15603999</code>, the two nearby SNPs are no longer significant, because they were in high LD with it! You could then also condition on the next top SNP (by adding it to the file <code>top.snps</code>), and so on</p>
+<p><img src="Images/R.png" alt="Bash" width="80"> Choose the R kernel</p>
+<div id="1195185d-dd4e-4da7-9f57-6843b27ecee9" class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"linear_cond.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co">#manhattan(results_log, main = "Manhattan plot: logistic", cex.axis=1.1)</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">results_log,</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">chr</span> = <span class="st">"Chromosome"</span>,</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bp</span> = <span class="st">"Basepair"</span>,</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">p</span> = <span class="st">"Wald_P"</span>,</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">snp</span> = <span class="st">"Predictor"</span>,</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">col</span> = c<span class="er">(</span><span class="st">"pink"</span><span class="ex">,</span> <span class="st">"blue"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">suggestiveline</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">1e-7</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">genomewideline</span> = 0,</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">highlight</span> = NULL,</span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">logp</span> = TRUE,</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotatePval</span> = FALSE,</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotateTop</span> = TRUE</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b64c9e58-06d1-4481-88ca-5ce932f27f5f" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> %<span class="op">&gt;</span>% filter<span class="er">(</span><span class="ex">Wald_P</span> <span class="op">&lt;</span> .00001<span class="kw">)</span> <span class="ex">%</span><span class="op">&gt;</span>% arrange<span class="er">(</span><span class="ex">Wald_P</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mixed-model-analysis" class="level1">
+<h1>Mixed model analysis</h1>
+<p>The standard linear model for testing SNP j is</p>
+<p><span class="math display">\[Y = + \beta_j X_j\]</span></p>
+<p>Mixed-model linear regression extends this to</p>
+<p><span class="math display">\[Y = + \beta_j X_j + g where gi N(0, K \sigma^2_g)\]</span></p>
+<p>and K is a kinship matrix The original idea was that including g allows for long-range correlations due to relatedness and population structure. But recently, it has been realised that <strong>g</strong> will also capture the contribution of other causal variants, so in effect we are testing SNP j using a multi-SNP model. Mixed-model association analysis is also implemented in EMMA, FastLMM, GEMMA and GCTA.</p>
+<p>The mice data contain large amounts of relatedness (all individualsare derived from just 8 founders). Standard single-SNP analysis will give near meaningless results. Look at the plots from the linear test:</p>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+<div id="097c333b-83f9-4d58-95f5-77f04f59e065" class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> stand <span class="at">--pheno</span> LDAKdata/mice.pheno <span class="at">--bfile</span> LDAKdata/mice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="Images/bash.png" alt="R" width="80"> Choose the R kernel</p>
+<div id="d151ad77-8f27-482e-9c95-2b3e81f983d4" class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"stand.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co">#manhattan(results_log, main = "Manhattan plot: logistic", cex.axis=1.1)</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">results_log,</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">chr</span> = <span class="st">"Chromosome"</span>,</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bp</span> = <span class="st">"Basepair"</span>,</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">p</span> = <span class="st">"Wald_P"</span>,</span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">snp</span> = <span class="st">"Predictor"</span>,</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">col</span> = c<span class="er">(</span><span class="st">"pink"</span><span class="ex">,</span> <span class="st">"blue"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">suggestiveline</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">1e-7</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">genomewideline</span> = 0,</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">highlight</span> = NULL,</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">logp</span> = TRUE,</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotatePval</span> = FALSE,</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotateTop</span> = TRUE</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fa9a6536-c486-43b6-9a16-c275d8b8cb21" class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qq</span><span class="er">(</span><span class="ex">results_log</span><span class="va">$Wald_P</span><span class="ex">,</span> main = <span class="st">"Q-Q plot of GWAS p-values (log) using linear model on mice"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However, results are dramatically improved by adding a kinship matrix</p>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+<div id="4fad9fda-2316-479c-afc4-491a761e0e04" class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> kinsm <span class="at">--bfile</span> LDAKdata/mice<span class="dt">\</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--ignore-weights</span> YES <span class="at">--power</span> <span class="at">-1</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--linear</span> mm <span class="at">--pheno</span> LDAKdata/mice.pheno <span class="at">--bfile</span> LDAKdata/mice <span class="at">--grm</span> kinsm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="Images/R.png" alt="Bash" width="80"> Choose the R kernel</p>
+<div id="6963ca59-3be8-499b-b7c0-3801f20d684b" class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"mm.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co">#manhattan(results_log, main = "Manhattan plot: logistic", cex.axis=1.1)</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">results_log,</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">chr</span> = <span class="st">"Chromosome"</span>,</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">bp</span> = <span class="st">"Basepair"</span>,</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">p</span> = <span class="st">"Wald_P"</span>,</span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">snp</span> = <span class="st">"Predictor"</span>,</span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">col</span> = c<span class="er">(</span><span class="st">"pink"</span><span class="ex">,</span> <span class="st">"blue"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">suggestiveline</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">1e-7</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">genomewideline</span> = 0,</span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">highlight</span> = NULL,</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">logp</span> = TRUE,</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotatePval</span> = FALSE,</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">annotateTop</span> = TRUE</span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="01709d35-1378-4d69-91ab-86fff5b6ae58" class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ex">qq</span><span class="er">(</span><span class="ex">results_log</span><span class="va">$Wald_P</span><span class="ex">,</span> main = <span class="st">"Q-Q plot of GWAS p-values (log) using linear model on mice"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimate-snp-heritability-from-data" class="level1">
+<h1>Estimate SNP heritability from data</h1>
+<p>To SNP heritability under the LDAK Model, there are three steps:</p>
+<p>A - Calculate SNP weightings B - Calculate a weighted kinship matrix C - Estimate the genetic and environmental variance via REML or Haseman Elston or PCGC Regression (using only unrelated individuals). Those are some of the possible techniques which are implemented also in other softwares.</p>
+<section id="snp-weights" class="level2">
+<h2 class="anchored" data-anchor-id="snp-weights">SNP weights</h2>
+<p>The simple way to do this is using <code>--cut-weights</code> and <code>--calc-weights-all</code>. This can take a lot of time and you need to be patient.</p>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the bash kernel</p>
+<div id="a8433e61-787f-4ca4-98f7-e87027f5be8e" class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--bfile</span> LDAKdata/human <span class="at">--cut-weights</span> sections <span class="dt">\</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--keep</span> goodpop.keep </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--bfile</span> LDAKdata/human <span class="at">--calc-weights-all</span> sections <span class="dt">\</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--keep</span> goodpop.keep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="weighted-kinship-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="weighted-kinship-matrix">Weighted Kinship matrix</h2>
+<p>For this, we use <code>--calc-kins-direct</code></p>
+<div id="259a93dc-92b6-4b24-a421-c2916bc1c77d" class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> kins <span class="at">--bfile</span> LDAKdata/human <span class="dt">\</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--weights</span> sections/weights.all<span class="dt">\</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--power</span> <span class="at">-.25</span> <span class="at">--kinship-raw</span> YES</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="estimate-variance-components" class="level2">
+<h2 class="anchored" data-anchor-id="estimate-variance-components">Estimate variance components</h2>
+<p>First we consider the phenotype <code>quant.pheno</code> and use <code>REML</code>. Remember to include <code>--keep</code> so that we only use unrelated individuals. The main output file is <code>quant.reml</code>, but there are many additional files.</p>
+<div id="5c906773-99a7-4c8e-bb63-ee3737f2f9e1" class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> quant <span class="at">--grm</span> kins<span class="dt">\</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--pheno</span> LDAKdata/quant.pheno<span class="dt">\</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--keep</span> filter.keep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note, large efect SNPs should be included as top predictors!</p>
+<p>Heritability is estimated to be 0.73 +- 0.08</p>
+<div id="46e1fab5-c8bc-4cec-8e62-53e4c97eb721" class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> quant.reml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="from-multiple-phenotypes" class="level1">
+<h1>From multiple phenotypes</h1>
+<p>The file multi.pheno contains 10 traits. You can use the <code>--reml multi</code> option for multiple phenotypes. We also need to decompose the kinship matrix, which speeds up a lot the analysis computation. This is especially useful when testing gene expression, where you can have more than 20K phenotypes</p>
+<div id="4d7a9751-7daf-4720-8e90-a072bd565490" class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--decompose</span> kins <span class="at">--grm</span> kins <span class="at">--keep</span> filter.keep</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> multi <span class="at">--grm</span> kins <span class="at">--eigen</span> kins <span class="dt">\</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--pheno</span> LDAKdata/multi.pheno <span class="at">--keep</span> filter.keep<span class="dt">\</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mpheno</span> <span class="at">-1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ac4fd6cd-9eaf-4555-9ffb-da5640ce6dcc" class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> multi.10.reml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
