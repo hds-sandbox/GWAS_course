@@ -101,3 +101,56 @@ We hope you enjoyed the workshop. If you have broader questions, suggestions, or
 :::{.callout-note  appearance="simple" icon=false} 
 <h4 align=center>Nice meeting you and we hope to see you again!</h4> 
 ::: 
+
+
+## Download or copy your data
+
+You can move all your data into your own personal workspace on UCloud, and also download all data and nortebooks on your computer.
+
+### Copy data on UCloud
+
+If you transfer the data to you UCloud's workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.
+
+- Go on the left-side toolbar and click on the file browser.
+
+  ![](../img/ucloud_download_instructions/toolbar.png){fig-align="center" width=100px}
+
+- Be sure you are in the **Sandbox_workshop workspace** (green circle). You should be able to see your personal folder whose name starts with **Member Files** (red circle).
+
+  ![](../img/ucloud_download_instructions/personalHome.png){fig-align="center" width=400px}
+
+- Get into your personal folder and find the folder containing all your course material. Right-click on it, and choose **Copy to...**
+
+  ![](../img/ucloud_download_instructions/ucloudCopy.png){fig-align="center" width=400px}
+
+- In the browsing window which opens, choose your own workspace **My workspace** (green circle). You should be already inside your **Home** folder, otherwise you can find it with the small arrow (red circle). Now click on **Use this folder** (blue circle). The data is copied. 
+
+  ![](../img/ucloud_download_instructions/copyDestination.png){fig-align="center" width=400px}
+
+- Next time, when you launch the genomics sandbox, use `Add Folder` and select the Notebooks and Data folder from your personal workspace.
+
+### Download data from UCloud
+
+To download the data and notebooks, you first need to compress it in a `zip` file. 
+
+- Launch the genomics sandbox with the data and notebooks as added folders.
+
+- When you open the graphical interface, open a new terminal (green circle)
+
+  ![](../img/ucloud_download_instructions/launcher.png){fig-align="center" width=400px}
+
+- Run the following command to go into the `/work` folder, where the material is loaded.
+
+  ```
+  cd /work
+  ```
+
+- Create a compressed version of your folders. It takes some time, so wait for it.
+
+  ```
+  zip -r GWAS.zip Data Notebooks
+  ```
+
+- Right-click on the file `GWAS.zip`, and choose download. It will be transferred to your download folder!
+
+    ![](../img/ucloud_download_instructions/jupyterDownload.png){fig-align="center" width=400px}
