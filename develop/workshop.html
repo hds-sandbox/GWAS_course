@@ -149,6 +149,11 @@ gtag('config', 'G-EXW13D5861', { 'anonymize_ip': true});
   <li><a href="#welcome-to-gwas-with-the-genomics-sandbox" id="toc-welcome-to-gwas-with-the-genomics-sandbox" class="nav-link active" data-scroll-target="#welcome-to-gwas-with-the-genomics-sandbox">Welcome to GWAS with the Genomics Sandbox</a></li>
   <li><a href="#access-sandbox-resources" id="toc-access-sandbox-resources" class="nav-link" data-scroll-target="#access-sandbox-resources">Access Sandbox resources</a></li>
   <li><a href="#discussion-and-feedback" id="toc-discussion-and-feedback" class="nav-link" data-scroll-target="#discussion-and-feedback">Discussion and feedback</a></li>
+  <li><a href="#download-or-copy-your-data" id="toc-download-or-copy-your-data" class="nav-link" data-scroll-target="#download-or-copy-your-data">Download or copy your data</a>
+  <ul class="collapse">
+  <li><a href="#copy-data-on-ucloud" id="toc-copy-data-on-ucloud" class="nav-link" data-scroll-target="#copy-data-on-ucloud">Copy data on UCloud</a></li>
+  <li><a href="#download-data-from-ucloud" id="toc-download-data-from-ucloud" class="nav-link" data-scroll-target="#download-data-from-ucloud">Download data from UCloud</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -242,8 +247,66 @@ Nice meeting you and we hope to see you again!
 </div>
 </div>
 </div>
+</section>
+<section id="download-or-copy-your-data" class="level2">
+<h2 class="anchored" data-anchor-id="download-or-copy-your-data">Download or copy your data</h2>
+<p>You can move all your data into your own personal workspace on UCloud, and also download all data and nortebooks on your computer.</p>
+<section id="copy-data-on-ucloud" class="level3">
+<h3 class="anchored" data-anchor-id="copy-data-on-ucloud">Copy data on UCloud</h3>
+<p>If you transfer the data to you UCloud’s workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.</p>
+<ul>
+<li><p>Go on the left-side toolbar and click on the file browser.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/ucloud_download_instructions/toolbar.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="100"></p>
+</figure>
+</div></li>
+<li><p>Be sure you are in the <strong>Sandbox_workshop workspace</strong> (green circle). You should be able to see your personal folder whose name starts with <strong>Member Files</strong> (red circle).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/ucloud_download_instructions/personalHome.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div></li>
+<li><p>Get into your personal folder and find the folder containing all your course material. Right-click on it, and choose <strong>Copy to…</strong></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/ucloud_download_instructions/ucloudCopy.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div></li>
+<li><p>In the browsing window which opens, choose your own workspace <strong>My workspace</strong> (green circle). You should be already inside your <strong>Home</strong> folder, otherwise you can find it with the small arrow (red circle). Now click on <strong>Use this folder</strong> (blue circle). The data is copied.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/ucloud_download_instructions/copyDestination.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div></li>
+<li><p>Next time, when you launch the genomics sandbox, use <code>Add Folder</code> and select the Notebooks and Data folder from your personal workspace.</p></li>
+</ul>
+</section>
+<section id="download-data-from-ucloud" class="level3">
+<h3 class="anchored" data-anchor-id="download-data-from-ucloud">Download data from UCloud</h3>
+<p>To download the data and notebooks, you first need to compress it in a <code>zip</code> file.</p>
+<ul>
+<li><p>Launch the genomics sandbox with the data and notebooks as added folders.</p></li>
+<li><p>When you open the graphical interface, open a new terminal (green circle)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/ucloud_download_instructions/launcher.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div></li>
+<li><p>Run the following command to go into the <code>/work</code> folder, where the material is loaded.</p>
+<pre><code>cd /work</code></pre></li>
+<li><p>Create a compressed version of your folders. It takes some time, so wait for it.</p>
+<pre><code>zip -r GWAS.zip Data Notebooks</code></pre></li>
+<li><p>Right-click on the file <code>GWAS.zip</code>, and choose download. It will be transferred to your download folder!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../img/ucloud_download_instructions/jupyterDownload.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
+</figure>
+</div></li>
+</ul>
 
 
+</section>
 </section>
 
 
