@@ -1,0 +1,19 @@
+---
+title: "Setup guidelines"
+format:
+  html:
+    page-layout: full
+    toc: false
+css: ../css/index.css
+
+---
+
+Here, you'll find the guidelines for using the "Introduction to GWAS" module from our genomics app, developed by the **[Health Data Science sandbox](https://hds-sandbox.github.io)**. We build our training modules as Docker images for easy deployment and use. This Docker container includes course tutorials, datasets, and tools for research or self-learning. The genomics app consists of several modules, with each course item built on JupyterLab. JupyterLab is a web-based integrated development environment for Jupyter notebooks, code, and data.
+
+The different modules are periodically updated and can be accessed in different platform/systems. They come with all necessary packages installed, notebooks with computer code and explanations, and a dedicated webpage with additional material (notes, slides, recordings, etc.).
+
+Now, select the appropriate system and follow the corresponding instructions to get started. Unsure which system is the right one for you? Feel free to reach out. 
+
+- [UCloud](UCloud.qmd)
+- [GenomeDK](genomedk.qmd)
+- [Independent Users](otherHPC.qmd)

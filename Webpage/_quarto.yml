@@ -58,6 +58,11 @@ website:
       contents:
         - href: access/setup.qmd
           text: General
+        - section: "Systems"
+          contents:
+            - access/UCloud.qmd
+            - access/genomedk.qmd
+            - access/otherHPC.qmd
 
 copyright: CC-BY-SA 4.0 license
 
