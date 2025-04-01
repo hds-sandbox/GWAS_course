@@ -45,6 +45,7 @@ website:
           contents:
             - develop/GWAS3-QualityControlA.ipynb
             - develop/GWAS4-QualityControlB.ipynb
+            - develop/GWAS4-QualityControlC.ipynb
         - section: "Association Testing"
           contents:
             - develop/GWAS5-AssociationTesting.ipynb
