@@ -5,7 +5,7 @@ website:
   title: "GWAS"
   site-url: 'https://hds-sandbox.github.io/GWAS_course/'
   google-analytics: 
-    tracking-id: "G-EXW13D5861"
+    tracking-id: "G-QWLRKN2JZ3"
     anonymize-ip: true
   navbar:
     logo: /img/logo.png
