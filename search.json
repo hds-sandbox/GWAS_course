@@ -689,7 +689,19 @@
     "href": "develop/GWAS4-QualityControlC.html",
     "title": "Quality Control: Strand and mapping correction, anchoring and population covariates",
     "section": "",
-    "text": "Important notes for this notebook\n\n\n\nIn this section, we will explore how to match strands and reference mapping to merge HapMap and 1000GP data. Then we will use population information from one dataset to decide if there are ethnic outliers in the other. Finally, we generate population covariates useful for association testing. ## Learning outcomes\n\nEvaluate when and how to apply strand and mapping correction\nDiscuss confounding factors that lead to spurious associations\nIdentify population substructure and filter out outliers\nCorrect for population stratification\n\n\n\nIn this notebook, we will both use R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images.\n\nWe will first run Bash commands.\n\n Choose the Bash kernel",
+    "text": "Important notes for this notebook\n\n\n\nIn this section, we will explore how to match strands and reference mapping to merge HapMap and 1000GP data. Then we will use population information from one dataset to decide if there are ethnic outliers in the other. Finally, we generate population covariates useful for association testing.\n\n\n\nEvaluate when and how to apply strand and mapping correction\nDiscuss confounding factors that lead to spurious associations\nIdentify population substructure and filter out outliers\nCorrect for population stratification\n\n\n\n\nIn this notebook, we will both use R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images.\n\nWe will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Quality Control",
+      "Quality Control: Strand and mapping correction, anchoring and population covariates"
+    ]
+  },
+  {
+    "objectID": "develop/GWAS4-QualityControlC.html#learning-outcomes",
+    "href": "develop/GWAS4-QualityControlC.html#learning-outcomes",
+    "title": "Quality Control: Strand and mapping correction, anchoring and population covariates",
+    "section": "",
+    "text": "Evaluate when and how to apply strand and mapping correction\nDiscuss confounding factors that lead to spurious associations\nIdentify population substructure and filter out outliers\nCorrect for population stratification",
     "crumbs": [
       "Tutorials",
       "Quality Control",
