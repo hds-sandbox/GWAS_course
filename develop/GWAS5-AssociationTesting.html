@@ -78,7 +78,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -135,6 +135,9 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -647,40 +650,40 @@ Some theory
 <h3 class="anchored" data-anchor-id="analysis-with-plink">Analysis with PLINK</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>We link the data folder again and create a folder for output files.</p>
-<div id="fc7317ea-43cf-4538-80f5-88d38de2e2c4" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fc7317ea-43cf-4538-80f5-88d38de2e2c4" class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mkdir <span class="sc">-</span>p Results<span class="sc">/</span>GWAS5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Recall that our dataset contains <strong>binary</strong> traits: phenotype can take two values 0 or 1. In this tutorial, we will apply both <code>--assoc</code> and <code>--logistic</code> to our data. A reminder that the <code>-assoc</code> option does not allow correct covariates such as principal components (PCs)/MDS components for population stratification makes it less suited for association analyses. However, we will look at the results for educational purposes.</p>
+<p>Recall that our dataset contains <strong>binary</strong> traits: phenotype can take two values, 0 or 1. In this tutorial, we will apply both <code>--assoc</code> and <code>--logistic</code> to our data. A reminder that the <code>-assoc</code> option does not allow for population stratification correction using covariates such as principal components (PCs)/MDS components, making it less suited for association analyses. However, we will look at the results for educational purposes.</p>
 <p>We start with <code>--assoc</code>:</p>
-<div id="959006a4" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="at">--assoc</span> <span class="at">--out</span> Results/GWAS5/assoc_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="959006a4" class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span>HapMap_3_r3_9 <span class="sc">--</span>assoc <span class="sc">--</span>out Results<span class="sc">/</span>GWAS5<span class="sc">/</span>assoc_results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
 Logging to Results/GWAS5/assoc_results.log.
 Options in effect:
   --assoc
-  --bfile Results/GWAS4/HapMap_3_r3_10
+  --bfile Results/GWAS4/HapMap_3_r3_9
   --out Results/GWAS5/assoc_results
 
 385567 MB RAM detected; reserving 192783 MB for main workspace.
-1073788 variants loaded from .bim file.
+1073226 variants loaded from .bim file.
 109 people (55 males, 54 females) loaded from .fam.
 109 phenotype values loaded from .fam.
 Using 1 thread (no multithreaded calculations invoked).
 Before main variant filters, 109 founders and 0 nonfounders present.
 Calculating allele frequencies... done.
-Total genotyping rate is 0.99802.
-1073788 variants and 109 people pass filters and QC.
+Total genotyping rate is 0.998028.
+1073226 variants and 109 people pass filters and QC.
 Among remaining phenotypes, 54 are cases and 55 are controls.
 Writing C/C --assoc report to Results/GWAS5/assoc_results.assoc ...
 done.</code></pre>
 </div>
 </div>
 <p>Let’s have a look at the association output file:</p>
-<div id="ba8e2613" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS5/assoc_results.assoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ba8e2613" class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>head <span class="sc">-</span><span class="dv">5</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>assoc_results.assoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> CHR         SNP         BP   A1      F_A      F_U   A2        CHISQ            P           OR 
    1   rs3131972     742584    A   0.1944   0.1455    G       0.9281       0.3354        1.418 
@@ -709,18 +712,41 @@ done.</code></pre>
 <li><code>P</code> Allelic test p-value. The p-value indicates the probability that the observed association (or one more extreme) would occur by chance if there is no true association between the SNP and the trait.</li>
 <li><code>OR</code> odds(allele 1 | case) / odds(allele 1 | control)</li>
 </ul>
-<p>Next, we use the <code>--logistic</code> and <code>--covar</code> options to provide the MDS components <code>covar_mds.txt</code> as covariates (from the previous tutorial). We will remove rows with <code>NA</code> values from the output to prevent issues during plotting.</p>
-<div id="a1242c4f" class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --logistic </span></span>
+<p>Next, we use the <code>--logistic</code> and <code>--covar</code> options to provide the MDS components <code>covar_pca.txt</code> as covariates (from the previous tutorial). We will remove rows with <code>NA</code> values from the output to prevent issues during plotting.</p>
+<div id="a1242c4f" class="cell" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --logistic </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note, we use the option --hide-covar to only show the additive results of the SNPs in the output file.</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="dt">\</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--covar</span> Results/GWAS4/covar_mds.txt <span class="dt">\</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--logistic</span> hide-covar <span class="dt">\</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS5/logistic_results <span class="dt">\</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA values, those might give problems generating plots in later steps.</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'!/'</span>NA<span class="st">'/'</span> Results/GWAS5/logistic_results.assoc.logistic <span class="op">&gt;</span> Results/GWAS5/logistic_results.assoc_2.logistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span>HapMap_3_r3_9 \</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>covar Results<span class="sc">/</span>GWAS4<span class="sc">/</span>covar_pca.txt \</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>logistic hide<span class="sc">-</span>covar \</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS5<span class="sc">/</span>logistic_results </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove NA values, as they might give problems generating plots in later steps.</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>awk <span class="st">'!/'</span>NA<span class="st">'/'</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>logistic_results.assoc.logistic <span class="sc">&gt;</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>logistic_results.assoc_2.logistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to Results/GWAS5/logistic_results.log.
+Options in effect:
+  --bfile Results/GWAS4/HapMap_3_r3_9
+  --covar Results/GWAS4/covar_pca.txt
+  --logistic hide-covar
+  --out Results/GWAS5/logistic_results
+
+385567 MB RAM detected; reserving 192783 MB for main workspace.
+1073226 variants loaded from .bim file.
+109 people (55 males, 54 females) loaded from .fam.
+109 phenotype values loaded from .fam.
+Using 1 thread (no multithreaded calculations invoked).
+--covar: 20 covariates loaded.
+Before main variant filters, 109 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is 0.998028.
+1073226 variants and 109 people pass filters and QC.
+Among remaining phenotypes, 54 are cases and 55 are controls.
+Writing logistic model association results to
+Results/GWAS5/logistic_results.assoc.logistic ... done.</code></pre>
+</div>
 </div>
 <p>In addition to the columns (CHR, SNP, BP, A1, OR, and P) also present in the <code>--assoc</code> output, new columns include:</p>
 <ul>
@@ -728,14 +754,14 @@ done.</code></pre>
 <li><code>NMISS</code>: number of non-missing observations (individuals) used in the analysis for that particular SNP.</li>
 <li><code>STAT</code>: the test t-statistic for the logistic regression test</li>
 </ul>
-<div id="5ef27076-2a68-4c86-bbf6-08ea46f68361" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS5/logistic_results.assoc.logistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5ef27076-2a68-4c86-bbf6-08ea46f68361" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>head <span class="sc">-</span><span class="dv">5</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>logistic_results.assoc.logistic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> CHR         SNP         BP   A1       TEST    NMISS         OR         STAT            P 
-   1   rs3131972     742584    A        ADD      109      1.782        1.363       0.1729
-   1   rs3131969     744045    A        ADD      109      2.195        1.705      0.08811
-   1   rs1048488     750775    C        ADD      108      1.801         1.39       0.1644
-   1  rs12562034     758311    A        ADD      109     0.4209       -1.526        0.127</code></pre>
+   1   rs3131972     742584    A        ADD      109         NA           NA           NA
+   1   rs3131969     744045    A        ADD      109         NA           NA           NA
+   1   rs1048488     750775    C        ADD      108         NA           NA           NA
+   1  rs12562034     758311    A        ADD      109         NA           NA           NA</code></pre>
 </div>
 </div>
 <p>The results of these GWAS analyses will be visualized in the final step, highlighting any genome-wide significant SNPs in the dataset.</p>
@@ -784,7 +810,7 @@ Stop - Read - Solve
 <p>Hint:</p>
 <ul>
 <li><ol type="1">
-<li>Apply the formula: bonferroni_threshold &lt;- alpha / num_snps. You can get the number of SNPs from <code>Results/GWAS4/HapMap_3_r3_10.bim</code>. Use R.</li>
+<li>Apply the formula: bonferroni_threshold &lt;- alpha / num_snps. You can get the number of SNPs from <code>Results/GWAS4/HapMap_3_r3_9.bim</code>. Use R.</li>
 </ol></li>
 <li><ol start="2" type="1">
 <li>Look at the P-values from the association test in column 9 (<code>Results/GWAS5/assoc_results.assoc</code>), how many SNPs would pass the two different thresholds?</li>
@@ -792,8 +818,8 @@ Stop - Read - Solve
 </ul>
 </div>
 </div>
-<div id="6ac9bef5-dfcf-4154-bf61-c85161a875f9" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here and change kernel accordingly </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6ac9bef5-dfcf-4154-bf61-c85161a875f9" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here and change kernel accordingly </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
@@ -811,26 +837,29 @@ Solution
 <li>BF P-value: <span class="math inline">\(4.7e-08\)</span>.</li>
 <li>55433 SNPs are significant with <span class="math inline">\(0.05\)</span> cutoff and 0 would pass the threshold <span class="math inline">\(4.7e-08\)</span>.</li>
 </ul>
-<div id="9f6b351c-62b0-4d8d-a521-98d8a851cda7" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS4/HapMap_3_r3_10.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9f6b351c-62b0-4d8d-a521-98d8a851cda7" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>wc <span class="sc">-</span>l Results<span class="sc">/</span>GWAS4<span class="sc">/</span>HapMap_3_r3_9.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1073788 Results/GWAS4/HapMap_3_r3_10.bim</code></pre>
+<pre><code>1073226 Results/GWAS4/HapMap_3_r3_9.bim</code></pre>
 </div>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
-<div id="42533a52-ca04-422e-a240-44c93adce882" class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">result</span> <span class="op">&lt;</span>- 0.05 / 1073788</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">format</span><span class="er">(</span><span class="ex">result,</span> scientific = TRUE, digits = 2<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="42533a52-ca04-422e-a240-44c93adce882" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fl">0.05</span> <span class="sc">/</span> <span class="dv">1073788</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span>(result, <span class="at">scientific =</span> <span class="cn">TRUE</span>, <span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+'4.7e-08'
+</div>
 </div>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
-<div id="0a1a7b83-e44f-4c62-8938-bf2b9e9be8aa" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$9 &lt; 0.05'</span> Results/GWAS5/assoc_results.assoc <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0a1a7b83-e44f-4c62-8938-bf2b9e9be8aa" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>awk <span class="st">'$9 &lt; 0.05'</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>assoc_results.assoc <span class="sc">|</span> wc <span class="sc">-</span>l </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>55433</code></pre>
+<pre><code>55411</code></pre>
 </div>
 </div>
-<div id="9ac5b661-1768-4944-9b53-37a01c6f287b" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$9 &lt; 4.7e-08'</span> Results/GWAS5/assoc_results.assoc <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9ac5b661-1768-4944-9b53-37a01c6f287b" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>awk <span class="st">'$9 &lt; 4.7e-08'</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>assoc_results.assoc <span class="sc">|</span> wc <span class="sc">-</span>l </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0</code></pre>
 </div>
@@ -846,23 +875,23 @@ Solution
 <section id="adjustment-for-multiple-testing" class="level4">
 <h4 class="anchored" data-anchor-id="adjustment-for-multiple-testing">Adjustment for multiple testing</h4>
 <p>PLINK’s <code>--adjust</code> option will generate a file containing the adjusted significance values for several multiple correction approaches, saved to <code>Results/GWAS5/adjusted_assoc_results.assoc.adjusted</code>:</p>
-<div id="4a8686d5" class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --adjust</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="dt">\</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--assoc</span> <span class="dt">\</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--adjust</span> <span class="dt">\</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS5/adjusted_assoc_results <span class="dt">\</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4a8686d5" class="cell" data-tags="[]" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --adjust</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span>HapMap_3_r3_9 \</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>assoc \</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>adjust \</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS5<span class="sc">/</span>adjusted_assoc_results \</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>silent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now, let’s look at the output file from PLINK</p>
-<div id="d9835a22-4844-4d8c-81ca-c7d240b6f8ce" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n5</span> Results/GWAS5/adjusted_assoc_results.assoc.adjusted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d9835a22-4844-4d8c-81ca-c7d240b6f8ce" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>head <span class="sc">-</span>n5 Results<span class="sc">/</span>GWAS5<span class="sc">/</span>adjusted_assoc_results.assoc.adjusted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> CHR         SNP      UNADJ         GC       BONF       HOLM   SIDAK_SS   SIDAK_SD     FDR_BH     FDR_BY
-   3   rs1097157   1.66e-06  1.861e-06          1          1     0.8318     0.8318     0.2872          1 
-   3   rs1840290   1.66e-06  1.861e-06          1          1     0.8318     0.8318     0.2872          1 
-   8    rs279466  2.441e-06  2.727e-06          1          1     0.9273     0.9273     0.2872          1 
-   8    rs279460  2.441e-06  2.727e-06          1          1     0.9273     0.9273     0.2872          1 </code></pre>
+   3   rs1097157   1.66e-06  1.861e-06          1          1     0.8316     0.8316     0.2871          1 
+   3   rs1840290   1.66e-06  1.861e-06          1          1     0.8316     0.8316     0.2871          1 
+   8    rs279466  2.441e-06  2.727e-06          1          1     0.9272     0.9272     0.2871          1 
+   8    rs279460  2.441e-06  2.727e-06          1          1     0.9272     0.9272     0.2871          1 </code></pre>
 </div>
 </div>
 <p>which contains the fields:</p>
@@ -883,23 +912,23 @@ Solution
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>In the code below, we will plot the distribution of <code>FDR-BH</code> values to illustrate this.</p>
 <div id="575384cc-8ed9-4a0c-a2c5-e0bf13211c64" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="ex">tests</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/adjusted_assoc_results.assoc.adjusted"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">tests,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>FDR_BH<span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of p-values for FDR correction (B-H correction)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"p-value"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>12<span class="kw">))</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.relatedness</span><span class="kw">)</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">suppressWarnings</span>(<span class="fu">library</span>(ggplot2)))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">9</span>, <span class="at">repr.plot.height =</span> <span class="dv">4</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>tests <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/adjusted_assoc_results.assoc.adjusted"</span>, <span class="at">header=</span>T)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>hist.relatedness <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(tests, <span class="fu">aes</span>(<span class="at">x=</span>FDR_BH)) <span class="sc">+</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.02</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"tomato"</span>) <span class="sc">+</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of p-values for FDR correction (B-H correction)"</span>) <span class="sc">+</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"p-value"</span>) <span class="sc">+</span> </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>), <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>))</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(hist.relatedness)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -926,7 +955,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="85086dbc-5733-4762-9740-bf320514f272" class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your answer here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
@@ -942,10 +971,10 @@ Solution
 <div class="callout-body-container callout-body">
 <p>In R:</p>
 <div id="696c8b9b-6766-44d1-958a-b7881ccc8898" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">summary</span><span class="er">(</span><span class="ex">tests</span><span class="va">$FDR_BH</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tests<span class="sc">$</span>FDR_BH)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.2872  0.9647  0.9742  0.9710  0.9742  1.0000 </code></pre>
+ 0.2871  0.9646  0.9742  0.9709  0.9742  1.0000 </code></pre>
 </div>
 </div>
 <p>The black line shows very few values with an FDR-adjusted p-value below ~0.95, with the lowest around 0.29 (as shown in the summary table). Therefore, no variants are significant at the 0.05 level after genome-wide correction.</p>
@@ -959,32 +988,32 @@ Solution
 <p>Let’s perform a permutation correction. This is a computationally intensive approach, so we will run it on a subset of the data to reduce the computational time (e.g.&nbsp;chr 22). We need the option <code>--mperm</code> to define how many permutations we want to do.</p>
 <p>First, we generate a subset of the data:</p>
 <div id="73e10fe8" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($1 == 22) print $2 }'</span> Results/GWAS4/HapMap_3_r3_10.bim <span class="op">&gt;</span> Results/GWAS5/subset_snp_chr_22.txt</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_10 <span class="dt">\</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS5/subset_snp_chr_22.txt <span class="dt">\</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS5/HapMap_subset_for_perm <span class="dt">\</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>awk <span class="st">'{ if ($1 == 22) print $2 }'</span> Results<span class="sc">/</span>GWAS4<span class="sc">/</span>HapMap_3_r3_9.bim <span class="sc">&gt;</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>subset_snp_chr_22.txt</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS4<span class="sc">/</span>HapMap_3_r3_9 \</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>extract Results<span class="sc">/</span>GWAS5<span class="sc">/</span>subset_snp_chr_22.txt \</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>make<span class="sc">-</span>bed \</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS5<span class="sc">/</span>HapMap_subset_for_perm \</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>silent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, we perform 100K permutations (usually you would do more):</p>
-<div id="98069683-b3c5-40fb-966f-1c2f6ebcb783" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS5/HapMap_subset_for_perm <span class="dt">\</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--assoc</span> <span class="dt">\</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mperm</span> 1000000 <span class="dt">\</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 4 <span class="dt">\</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS5/perm_result <span class="dt">\</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="98069683-b3c5-40fb-966f-1c2f6ebcb783" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plink <span class="sc">--</span>bfile Results<span class="sc">/</span>GWAS5<span class="sc">/</span>HapMap_subset_for_perm \</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>assoc \</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>mperm <span class="dv">1000000</span> \</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>threads <span class="dv">2</span> \</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>out Results<span class="sc">/</span>GWAS5<span class="sc">/</span>perm_result \</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>silent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In the output, the <code>EMP1</code> indicates the empirical p-value, and <code>EMP2</code> is the corrected one. Let’s check the ordered permutation results:</p>
-<div id="c439644f-def6-45bb-957a-2f4b89eb0a5e" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span> <span class="at">-gk</span> 4 Results/GWAS5/perm_result.assoc.mperm <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c439644f-def6-45bb-957a-2f4b89eb0a5e" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sort <span class="sc">-</span>gk <span class="dv">4</span> Results<span class="sc">/</span>GWAS5<span class="sc">/</span>perm_result.assoc.mperm <span class="sc">|</span> head <span class="sc">-</span>n5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> CHR          SNP         EMP1         EMP2 
-  22    rs4821137    0.0001065        0.538 
-  22   rs11704699     5.45e-05       0.7744 
-  22     rs910541     0.000271       0.8238 
-  22    rs4821138    0.0002105       0.9042 </code></pre>
+  22    rs4821137      0.00016       0.5401 
+  22   rs11704699        5e-05       0.7745 
+  22     rs910541     0.000235       0.8246 
+  22    rs4821138     0.000255       0.9061 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
@@ -1003,8 +1032,8 @@ Stop - Read - Solve
 <p>Hint: generate an overview of the distribution of <code>EMP2</code> values (similar to what we did for <code>FDR_BH</code>).</p>
 </div>
 </div>
-<div id="ed97951a-5242-487f-a0f8-a4b4b64600d0" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="ed97951a-5242-487f-a0f8-a4b4b64600d0" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
@@ -1021,27 +1050,27 @@ Solution
 <p>Again, we do not infer any significance from the permutation correction. Let’s use the <code>summary()</code> function and visualize the values.</p>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <div id="032a8c79-7ce1-4b4c-8c40-708967e5b571" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="ex">tests</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/perm_result.assoc.mperm"</span><span class="ex">,</span> header=T<span class="kw">)</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">tests,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>EMP2<span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of p-values corrected by permutation"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"p-value"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.relatedness</span><span class="kw">)</span></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="ex">summary</span><span class="er">(</span><span class="ex">tests</span><span class="va">$EMP2</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">suppressWarnings</span>(<span class="fu">library</span>(ggplot2)))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repr.plot.width =</span> <span class="dv">9</span>, <span class="at">repr.plot.height =</span> <span class="dv">4</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>tests <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/perm_result.assoc.mperm"</span>, <span class="at">header=</span>T)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>hist.relatedness <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(tests, <span class="fu">aes</span>(<span class="at">x=</span>EMP2)) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.02</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">fill=</span><span class="st">"tomato"</span>) <span class="sc">+</span> </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of p-values corrected by permutation"</span>) <span class="sc">+</span> </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"p-value"</span>) <span class="sc">+</span> </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Frequency"</span>) <span class="sc">+</span> </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>), <span class="at">axis.text=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>), <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">15</span>))</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(hist.relatedness)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tests<span class="sc">$</span>EMP2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.5380  1.0000  1.0000  0.9999  1.0000  1.0000 </code></pre>
+ 0.5401  1.0000  1.0000  0.9999  1.0000  1.0000 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1063,24 +1092,24 @@ Solution
 <h2 class="anchored" data-anchor-id="manhattan-and-qq-plots">Manhattan and QQ-plots</h2>
 <p>A common approach to identify high-association alleles is to plot the association results and look for peaks visually. One such method is the Manhattan plot, where each SNP is plotted against the negative log of its p-value from the association test <span class="citation" data-cites="gibson2010hints">(<a href="#ref-gibson2010hints" role="doc-biblioref">Gibson 2010</a>)</span>. This can be done using the <code>manhattan()</code> function from the <code>qqman</code> package in <code>R</code>. To customize the plots (adjust colors, font sizes, etc.), check the package vignette <a href="https://cran.r-project.org/web/packages/qqman/vignettes/qqman.html">here</a>.</p>
 <div id="600bbfc8" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/logistic_results.assoc_2.logistic"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span><span class="ex">results_log,</span> main = <span class="st">"Manhattan plot: logistic"</span>, cex.axis=1.1<span class="kw">)</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --assoc</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="ex">results_as</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/assoc_results.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span><span class="ex">results_as,</span> main = <span class="st">"Manhattan plot: assoc"</span>, cex.axis=1.1<span class="kw">)</span>  </span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Zoom-in version in a significant region in chromosome 3</span></span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span><span class="ex">subset</span><span class="er">(</span><span class="ex">results_as,</span> CHR==3<span class="kw">)</span><span class="ex">,</span> xlim = c<span class="er">(</span><span class="ex">8.1e7,</span> 8.5e7<span class="kw">)</span><span class="ex">,</span> chr=<span class="st">"CHR"</span>, </span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>          <span class="ex">main</span> = <span class="st">"Manhattan plot: assoc, chr 3"</span>, cex.axis=1.1<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">jupyter.plot_mimetypes =</span> <span class="st">'image/png'</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Load GWAS package qqman</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(<span class="st">"qqman"</span>))</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --logistic results</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>results_log <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/logistic_results.assoc_2.logistic"</span>, <span class="at">head=</span><span class="cn">TRUE</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(results_log, <span class="at">main =</span> <span class="st">"Manhattan plot: logistic"</span>, <span class="at">cex.axis=</span><span class="fl">1.1</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan plot using --assoc</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>results_as <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/assoc_results.assoc"</span>, <span class="at">head=</span><span class="cn">TRUE</span>)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(results_as, <span class="at">main =</span> <span class="st">"Manhattan plot: assoc"</span>, <span class="at">cex.axis=</span><span class="fl">1.1</span>)  </span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Zoomed version on a significant region in chromosome 3</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">manhattan</span>(<span class="fu">subset</span>(results_as, CHR<span class="sc">==</span><span class="dv">3</span>), <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">8.1e7</span>, <span class="fl">8.5e7</span>), <span class="at">chr=</span><span class="st">"CHR"</span>, </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">"Manhattan plot: assoc, chr 3"</span>, <span class="at">cex.axis=</span><span class="fl">1.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1136,20 +1165,20 @@ Solution
 <p>The second method of visually determining significance is to use a <a href="https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot"><strong>QQ-plot</strong></a>. This plots the expected <span class="math inline">\(-\log_{10}p\)</span> value against the observed <span class="math inline">\(-\log_{10}p\)</span> value. It’s a good way to observe not only outliers that could have significant associations but also peculiarities within our data. For example, if a plot suggests an extreme deviation between the x- and y-axes, then there might be an error with our analyses or data.</p>
 <p>We will create these plots using the qq() function from the qqman package in R.</p>
 <div id="71434c4b-e28f-4ed5-b81e-0d4935934374" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on-screen</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="va">warn</span><span class="op">=</span>-1<span class="kw">)</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load GWAS package qqman</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="st">"qqman"</span><span class="kw">))</span> </span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ plot for --logistic</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/logistic_results.assoc_2.logistic"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="ex">qq</span><span class="er">(</span><span class="ex">results_log</span><span class="va">$P</span><span class="ex">,</span> main = <span class="st">"Q-Q plot of GWAS p-values (log) using --logistic"</span><span class="kw">)</span></span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ plot for --assoc</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="ex">results_as</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/assoc_results.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="ex">qq</span><span class="er">(</span><span class="ex">results_as</span><span class="va">$P</span><span class="ex">,</span> main = <span class="st">"Q-Q plot of GWAS p-values (log) using --assoc"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on-screen</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">jupyter.plot_mimetypes =</span> <span class="st">'image/png'</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load GWAS package qqman</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(<span class="st">"qqman"</span>)) </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ plot for --logistic</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>results_log <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/logistic_results.assoc_2.logistic"</span>, <span class="at">head=</span><span class="cn">TRUE</span>)</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="fu">qq</span>(results_log<span class="sc">$</span>P, <span class="at">main =</span> <span class="st">"Q-Q plot of GWAS p-values (log) using --logistic"</span>)</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co"># QQ plot for --assoc</span></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>results_as <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">"Results/GWAS5/assoc_results.assoc"</span>, <span class="at">head=</span><span class="cn">TRUE</span>)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="fu">qq</span>(results_as<span class="sc">$</span>P, <span class="at">main =</span> <span class="st">"Q-Q plot of GWAS p-values (log) using --assoc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

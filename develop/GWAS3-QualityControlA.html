@@ -748,11 +748,11 @@ The plink syntax
 <p>with the additional option <code>--make-bed</code> if you need to generate a modified version of the input data, such as in</p>
 <pre><code>plink --bfile INPUT --make-bed --out OUTPUT</code></pre>
 <p>which will create an OUTPUT equal to the input, because you have no other options added.</p>
-<p>Note that <strong>INPUT and OUTPUT have no extension</strong>, as this will be added by <code>plink</code>. For example, INPUT means you have the files <code>INPUT.bim</code>, <code>INPUT.bed</code>, <code>INPUT.fam</code>, and eventually other extensions needed by extra options. The same holds for the OUTPUT. <strong>The software always tells you which file extension has created and which it needs, in case it misses some files.</strong></p>
-<p>You will see how we add different options along the tutorials. Often we use the option <code>--silent</code> to avoid printing messages all the time. Feel free to remove it to know which files are created.</p>
+<p>Note that <strong>INPUT and OUTPUT have no extension</strong>, as this will be added by <code>plink</code>. For example, INPUT means you have the files <code>INPUT.bim</code>, <code>INPUT.bed</code>, <code>INPUT.fam</code>, and eventually other extensions needed by extra options. The same holds for the OUTPUT. <strong>The software always tells you which file extension it has created and which it needs, in case it misses some files.</strong></p>
+<p>You will see how we add different options along the tutorials. Often, we use the option <code>--silent</code> to avoid printing messages all the time. Feel free to remove it to know which files are created.</p>
 </div>
 </div>
-<p>Using PLINK, we can address missing data using two functions; one operates at the variant level and the other at the individual level:</p>
+<p>Using PLINK, we can address missing data using two functions: one operates at the variant level and the other at the individual level:</p>
 <ul>
 <li><code>--geno</code>: This will remove SNPs with a specified proportion of missingness (e.g.&nbsp;<code>--geno 0.01</code> will remove SNPs above 1% missingness).</li>
 <li><code>--mind</code>: This will remove individuals with a specified proportion of missingness (e.g.&nbsp;<code>--mind 0.01</code> will remove individuals above 1% missingness).</li>
@@ -872,7 +872,7 @@ Solution
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>We can visualize the distribution of missing data in individuals and SNPs using histograms in <code>R</code> (change kernel).</p>
 <p>The <code>ggplot2</code> package is used here for visualization and various plot elements are combined with the <code>+</code> symbol. Histograms are saved in your results directory as <code>histimiss.png</code> and <code>histlmiss.png</code>. Look below at the <code>R</code> code and the output.</p>
-<div id="904776e1-2135-41c4-a356-1bd0b298cf82" class="cell" data-tags="[]">
+<div id="904776e1-2135-41c4-a356-1bd0b298cf82" class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">))</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -908,6 +908,20 @@ Solution
 <span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.lmiss, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histlmiss.png"</span><span class="kw">);</span></span>
 <span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.imiss, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histimiss.png"</span><span class="kw">);</span></span>
 <span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="kw">})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS3-QualityControlA_files/figure-html/cell-6-output-1.png" width="540" height="240" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS3-QualityControlA_files/figure-html/cell-6-output-2.png" width="540" height="240" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -937,13 +951,13 @@ Solution
 </div>
 <div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Here are a few observations we can make. Firstly, it’s clear that very few individuals have no missing data at all. One interpretation could be that one or a few SNPs are poorly genotyped across all samples. Fortunately, this isn’t the case here, otherwise the first plot would show many more SNPs with high missing frequency. As shown in the SNP-based histogram, the highest percentage of missing data for a SNP is around 0.05 (5%). Overall, <strong>the histogram provides insight into how applying a missingness filter will affect the size of your remaining data</strong>.</p>
+<p>Here are a few observations we can make. Firstly, it’s clear that very few individuals have no missing data at all. One interpretation could be that one or a few SNPs are poorly genotyped across all samples. Fortunately, this isn’t the case here; otherwise, the first plot would show many more SNPs with high missing frequency. As shown in the SNP-based histogram, the highest percentage of missing data for a SNP is around 0.05 (5%). Overall, <strong>the histogram provides insight into how applying a missingness filter will affect the size of your remaining data</strong>.</p>
 </div>
 </div>
 </div>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>Next, we will use PLINK to filter the data using missingness thresholds to ensure data quality.</p>
-<p>We choose a 2% missingness threshold for both individuals and SNP, as only a few outliers exceed this rate (this threshold does not need to be the same for SNPs and individuals). Below, we provide the command to remove samples (<code>--mind</code>) and SNPs (<code>--geno</code>) above this threshold. The <code>--out</code> option defines the output prefix, and <code>--make-bed</code> denotes the output format (consisting of the three files <code>.bed</code>, <code>.bim</code>, <code>.fam</code>).</p>
+<p>We choose a 2% missingness threshold for both individuals and SNPs, as only a few outliers exceed this rate (this threshold does not need to be the same for SNPs and individuals). Below, we provide the command to remove samples (<code>--mind</code>) and SNPs (<code>--geno</code>) above this threshold. The <code>--out</code> option defines the output prefix, and <code>--make-bed</code> denotes the output format (consisting of the three files <code>.bed</code>, <code>.bim</code>, <code>.fam</code>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -954,36 +968,41 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>A good approach to filter by missingness, is to first remove the variants with very high missingness, for example above 20% (a rate of 0.2). Those are data of bad quality, and removing them can only improve the missingness of each sample, because it reduces its proportion of missing data. Then recalculate the missingness with plink (in case you need to plot the histograms again) and filter out with the more stringent threshold, first by samples and then again by variants. We do that below, even if it is not necessary with our example data.</p>
+<p>Although we have chosen 2% threshold based on the plot above, for the sake of the exercise, we will test two different missingness thresholds: 20% and 2%. Pay close attention to the differences in the number of variants and individuals filtered out at each threshold—this highlights the impact of different quality control stringency levels.</p>
+<p>First, we will remove variants with very high missingness, in this example, above 20% (a rate of 0.2). These low-quality variants can inflate sample missingness, so removing them helps improve data quality. After this initial filtering, you can recalculate missingness using PLINK (if you want to visualize the updated distribution). Then apply the more stringent threshold, first to the variants and then to the samples. We do that below, even if it is not necessary with our example data.</p>
 </div>
 </div>
-<div id="5077d592-61cd-4b33-8691-e0a77f06b326" class="cell" data-tags="[]" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_3_r3_1 <span class="dt">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--geno</span> .2 <span class="dt">\</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_bad_variants</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#recalculate QC</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_bad_variants <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS3/rerun_qc <span class="at">--silent</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_bad_variants <span class="dt">\</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mind</span> .02 <span class="dt">\</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_sample_filter</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_sample_filter <span class="dt">\</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--geno</span> .02 <span class="dt">\</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Data/HapMap_3_r3_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5077d592-61cd-4b33-8691-e0a77f06b326" class="cell" data-tags="[]" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 20% missingness</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_3_r3_1 <span class="dt">\</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--geno</span> .2 <span class="dt">\</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_20miss</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_20miss <span class="dt">\</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mind</span> .2 <span class="dt">\</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_20pc</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2% missingness</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_3_r3_1 <span class="dt">\</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">--geno</span> .02 <span class="dt">\</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_2miss</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_2miss <span class="dt">\</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mind</span> .02 <span class="dt">\</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
-Logging to Results/GWAS3/HapMap_bad_variants.log.
+Logging to Results/GWAS3/HapMap_20miss.log.
 Options in effect:
   --bfile Data/HapMap_3_r3_1
   --geno .2
   --make-bed
-  --out Results/GWAS3/HapMap_bad_variants
+  --out Results/GWAS3/HapMap_20miss
 
 385567 MB RAM detected; reserving 192783 MB for main workspace.
 1457897 variants loaded from .bim file.
@@ -992,69 +1011,91 @@ Options in effect:
 Using 1 thread (no multithreaded calculations invoked).
 Before main variant filters, 112 founders and 53 nonfounders present.
 Calculating allele frequencies... done.
-Warning: 225 het. haploid genotypes present (see
-Results/GWAS3/HapMap_bad_variants.hh ); many commands treat these as missing.
+Warning: 225 het. haploid genotypes present (see Results/GWAS3/HapMap_20miss.hh
+); many commands treat these as missing.
 Total genotyping rate is 0.997378.
 0 variants removed due to missing genotype data (--geno).
 1457897 variants and 165 people pass filters and QC.
 Among remaining phenotypes, 56 are cases and 56 are controls.  (53 phenotypes
 are missing.)
---make-bed to Results/GWAS3/HapMap_bad_variants.bed +
-Results/GWAS3/HapMap_bad_variants.bim + Results/GWAS3/HapMap_bad_variants.fam
-... done.
-Error: Failed to open Data/HapMap_bad_variants.bed.
+--make-bed to Results/GWAS3/HapMap_20miss.bed + Results/GWAS3/HapMap_20miss.bim
++ Results/GWAS3/HapMap_20miss.fam ... done.
 PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
-Logging to Results/GWAS3/HapMap_sample_filter.log.
+Logging to Results/GWAS3/HapMap_3_r3_20pc.log.
 Options in effect:
-  --bfile Results/GWAS3/HapMap_bad_variants
+  --bfile Results/GWAS3/HapMap_20miss
   --make-bed
-  --mind .02
-  --out Results/GWAS3/HapMap_sample_filter
+  --mind .2
+  --out Results/GWAS3/HapMap_3_r3_20pc
 
 385567 MB RAM detected; reserving 192783 MB for main workspace.
 1457897 variants loaded from .bim file.
 165 people (80 males, 85 females) loaded from .fam.
 112 phenotype values loaded from .fam.
-1 person removed due to missing genotype data (--mind).
-ID written to Results/GWAS3/HapMap_sample_filter.irem .
+0 people removed due to missing genotype data (--mind).
 Using 1 thread (no multithreaded calculations invoked).
-Before main variant filters, 112 founders and 52 nonfounders present.
+Before main variant filters, 112 founders and 53 nonfounders present.
 Calculating allele frequencies... done.
 Warning: 225 het. haploid genotypes present (see
-Results/GWAS3/HapMap_sample_filter.hh ); many commands treat these as missing.
-Total genotyping rate in remaining samples is 0.997486.
-1457897 variants and 164 people pass filters and QC.
-Among remaining phenotypes, 56 are cases and 56 are controls.  (52 phenotypes
+Results/GWAS3/HapMap_3_r3_20pc.hh ); many commands treat these as missing.
+Total genotyping rate is 0.997378.
+1457897 variants and 165 people pass filters and QC.
+Among remaining phenotypes, 56 are cases and 56 are controls.  (53 phenotypes
 are missing.)
---make-bed to Results/GWAS3/HapMap_sample_filter.bed +
-Results/GWAS3/HapMap_sample_filter.bim + Results/GWAS3/HapMap_sample_filter.fam
-... done.
+--make-bed to Results/GWAS3/HapMap_3_r3_20pc.bed +
+Results/GWAS3/HapMap_3_r3_20pc.bim + Results/GWAS3/HapMap_3_r3_20pc.fam ...
+done.
 PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
-Logging to Data/HapMap_3_r3_2.log.
+Logging to Results/GWAS3/HapMap_2miss.log.
 Options in effect:
-  --bfile Results/GWAS3/HapMap_sample_filter
+  --bfile Data/HapMap_3_r3_1
   --geno .02
   --make-bed
-  --out Data/HapMap_3_r3_2
+  --out Results/GWAS3/HapMap_2miss
 
 385567 MB RAM detected; reserving 192783 MB for main workspace.
 1457897 variants loaded from .bim file.
-164 people (79 males, 85 females) loaded from .fam.
+165 people (80 males, 85 females) loaded from .fam.
 112 phenotype values loaded from .fam.
 Using 1 thread (no multithreaded calculations invoked).
-Before main variant filters, 112 founders and 52 nonfounders present.
+Before main variant filters, 112 founders and 53 nonfounders present.
 Calculating allele frequencies... done.
-Warning: 225 het. haploid genotypes present (see Data/HapMap_3_r3_2.hh ); many
-commands treat these as missing.
-Total genotyping rate is 0.997486.
-26686 variants removed due to missing genotype data (--geno).
-1431211 variants and 164 people pass filters and QC.
-Among remaining phenotypes, 56 are cases and 56 are controls.  (52 phenotypes
+Warning: 225 het. haploid genotypes present (see Results/GWAS3/HapMap_2miss.hh
+); many commands treat these as missing.
+Total genotyping rate is 0.997378.
+27454 variants removed due to missing genotype data (--geno).
+1430443 variants and 165 people pass filters and QC.
+Among remaining phenotypes, 56 are cases and 56 are controls.  (53 phenotypes
 are missing.)
---make-bed to Data/HapMap_3_r3_2.bed + Data/HapMap_3_r3_2.bim +
-Data/HapMap_3_r3_2.fam ... done.</code></pre>
+--make-bed to Results/GWAS3/HapMap_2miss.bed + Results/GWAS3/HapMap_2miss.bim +
+Results/GWAS3/HapMap_2miss.fam ... done.
+PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
+(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
+Logging to Results/GWAS3/HapMap_3_r3_2.log.
+Options in effect:
+  --bfile Results/GWAS3/HapMap_2miss
+  --make-bed
+  --mind .02
+  --out Results/GWAS3/HapMap_3_r3_2
+
+385567 MB RAM detected; reserving 192783 MB for main workspace.
+1430443 variants loaded from .bim file.
+165 people (80 males, 85 females) loaded from .fam.
+112 phenotype values loaded from .fam.
+0 people removed due to missing genotype data (--mind).
+Using 1 thread (no multithreaded calculations invoked).
+Before main variant filters, 112 founders and 53 nonfounders present.
+Calculating allele frequencies... done.
+Warning: 179 het. haploid genotypes present (see Results/GWAS3/HapMap_3_r3_2.hh
+); many commands treat these as missing.
+Total genotyping rate is 0.997899.
+1430443 variants and 165 people pass filters and QC.
+Among remaining phenotypes, 56 are cases and 56 are controls.  (53 phenotypes
+are missing.)
+--make-bed to Results/GWAS3/HapMap_3_r3_2.bed + Results/GWAS3/HapMap_3_r3_2.bim
++ Results/GWAS3/HapMap_3_r3_2.fam ... done.</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
@@ -1071,7 +1112,7 @@ Stop - Read - Solve
 <ul>
 <li>How many individuals and variants were removed?</li>
 <li>Can you preview the output files? Which command do you need for each file? Use it to print the first 5 lines of each file.</li>
-<li>Why are you warned all the time that you have haploid genotypes present? Hint: one of the SNPs listed in the file with extension <code>.hh</code> <a href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;lastVirtModeType=default&amp;lastVirtModeExtraState=&amp;virtModeType=default&amp;virtMode=0&amp;nonVirtPosition=&amp;position=chrX%3A3155530%2D3155730&amp;hgsid=2490517225_1o9Rp70zFBoZWCdtszQWUrAEeofd">can be seen here on the UCSC genome browser</a></li>
+<li>Why are you warned all the time that you have haploid genotypes present? Hint: one of the SNPs listed in the file with extension <code>.hh</code> <a href="https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&amp;lastVirtModeType=default&amp;lastVirtModeExtraState=&amp;virtModeType=default&amp;virtMode=0&amp;nonVirtPosition=&amp;position=chrX%3A3155530%2D3155730&amp;hgsid=2490517225_1o9Rp70zFBoZWCdtszQWUrAEeofd">can be seen here on the UCSC genome browser</a>.</li>
 </ul>
 </div>
 </div>
@@ -1096,9 +1137,9 @@ Solution
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>If we read the messages from <code>plink</code>, only 1 individual has been removed (164 people left), while 26686 variants where above the filtering threshold.</p>
-<p>We can see a preview of the output files: those are again a set of <code>fam</code>, <code>bim</code> and <code>bed</code> file including only the data passing the filters. For the first two formats we can use <code>head</code>, while for the <code>bed</code> file we need also <code>xxd</code> because of the binary nature of the file.</p>
-<div id="95d017ba-4ad1-4787-b1d1-901c99a57acc" class="cell" data-execution_count="10">
+<p>According to the messages from PLINK, applying the more stringent missingness threshold resulted in the removal of 27,454 variants and 0 individuals. In contrast, using the 20% threshold would not have removed any variants or individuals.</p>
+<p>We can see a preview of the output files: those are again a set of <code>fam</code>, <code>bim</code>, and <code>bed</code> files, including only the data passing the filters. For the first two formats, we can use <code>head</code>, while for the <code>bed</code> file, we also need <code>xxd</code> because of the binary nature of the file.</p>
+<div id="95d017ba-4ad1-4787-b1d1-901c99a57acc" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1328 NA06989 0 0 2 2
@@ -1108,7 +1149,7 @@ Solution
 1444 NA12739 NA12748 NA12749 1 -9</code></pre>
 </div>
 </div>
-<div id="14273355-f7d3-46d7-aee3-d0e26680ac72" class="cell" data-execution_count="11">
+<div id="14273355-f7d3-46d7-aee3-d0e26680ac72" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs2185539   0   556738  T   C
@@ -1118,7 +1159,7 @@ Solution
 1   rs1048488   0   750775  C   T</code></pre>
 </div>
 </div>
-<div id="ad7f12e6-a432-4a9c-a87b-5b5798584e6b" class="cell" data-execution_count="12">
+<div id="ad7f12e6-a432-4a9c-a87b-5b5798584e6b" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Results/GWAS3/HapMap_3_r3_2.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>00000000: 01101100 00011011 00000001 11111111 11111111 11111111  l.....
@@ -1129,7 +1170,7 @@ Solution
 </div>
 </div>
 <p>Now, if you looked into the file <code>HapMap_3_r3_2.hh</code>, you could look at the first SNP on the UCSC genome browser and find out it is on chromosome X</p>
-<div id="570ccc05-cfd8-4e3a-a8bb-6333ab0d1117" class="cell" data-execution_count="13">
+<div id="570ccc05-cfd8-4e3a-a8bb-6333ab0d1117" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.hh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1355    NA12413 rs2034740
@@ -1154,7 +1195,7 @@ Solution
 <p>This sex check can be performed in PLINK using the <code>--check-sex</code> option. The results are outputted in the file with extension <code>.sexcheck</code> (in the <code>Results/GWAS4</code> folder) in which the sex is in column <code>PEDSEX</code> (1 means male and 2 means female) and the inbreeding coefficient is in column <code>F</code>).</p>
 <p>Generally, males should have an X chromosome homozygosity estimate &gt;0.8 and females should have a value &lt;0.2. So we could simply remove any individuals where the homozygosity estimate (F) does not match their specified sex. Subjects who do not fulfill these requirements are flagged <code>PROBLEM</code> by PLINK in the output file.</p>
 <p>Note the option <code>--silent</code> to avoid long texts printed out on the screen.</p>
-<div id="bc02622c" class="cell" data-tags="[]" data-execution_count="14">
+<div id="bc02622c" class="cell" data-tags="[]" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_2 <span class="at">--check-sex</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_2 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: 179 het. haploid genotypes present (see Results/GWAS3/HapMap_3_r3_2.hh
@@ -1163,7 +1204,7 @@ Solution
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>We can visualize the results of the sex check by plotting three histograms for the F values in males, females, and all samples. Let’s look at all sexes and males first.</p>
-<div id="8ca49591-e1f1-4766-9dc9-3bf66670ba92" class="cell" data-tags="[]" data-execution_count="1">
+<div id="8ca49591-e1f1-4766-9dc9-3bf66670ba92" class="cell" data-tags="[]" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inbreeding coefficients for all sexes and for males/females separately</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
@@ -1261,7 +1302,7 @@ Solution
 <li><p>Yes.</p></li>
 <li><p>You need to change the value <code>sex$PEDSEX==2</code> instead of <code>==1</code> in the code for the histogram, and change the file name at the end</p></li>
 </ol>
-<div id="b346f7ac-a8d2-447b-963d-6807e21a85a8" class="cell" data-scrolled="true">
+<div id="b346f7ac-a8d2-447b-963d-6807e21a85a8" class="cell" data-scrolled="true" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B) </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># subset females </span></span>
@@ -1280,6 +1321,19 @@ Solution
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot </span></span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.female, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histfemale.png"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<div class="ansi-escaped-output">
+<pre>Saving 6.67 x 6.67 in image
+</pre>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GWAS3-QualityControlA_files/figure-html/cell-18-output-2.png" width="540" height="240" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <ol start="3" type="A">
 <li>The inbreeding coefficient plot indicates that there is one woman with a sex discrepancy (F value of 0.99). When using other datasets often a few discrepancies might be found.</li>
@@ -1293,25 +1347,25 @@ Solution
 <p>We have two options when dealing with sex discrepancy. One is to simply remove any individual with sex discrepancy. In our case, this would involve removing the female with the F value of 0.99.</p>
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>Removal can be done with the command below. Use <code>grep</code> to find lines in the sexcheck file that contain <code>PROBLEM</code>. Then, pipe (send) the output to the command <code>awk</code> (using the so-called pipe symbol <code>|</code>). <code>awk</code> will extract the first two columns from each line identified by the <code>grep</code> command and redirect them to the file <code>sex_discrepancy.txt</code> using the symbol <code>&gt;</code> (redirecting the output away from the screen/terminal).</p>
-<div id="57f544c6" class="cell" data-tags="[]" data-execution_count="1">
+<div id="57f544c6" class="cell" data-tags="[]" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"PROBLEM"</span> Results/GWAS3/HapMap_3_r3_2.sexcheck <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1,$2}'</span> <span class="op">&gt;</span> Results/GWAS3/sex_discrepancy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Show the content of the file using <code>cat</code>:</p>
-<div id="3e151a47-8fc2-4931-823f-40e2732b076b" class="cell" data-tags="[]" data-execution_count="2">
+<div id="3e151a47-8fc2-4931-823f-40e2732b076b" class="cell" data-tags="[]" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS3/sex_discrepancy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1349 NA10854</code></pre>
 </div>
 </div>
 <p>For long files, you can simply count the number of lines in the file with <code>wc</code> (word count command)</p>
-<div id="a9ca1c0b" class="cell" data-tags="[]" data-execution_count="3">
+<div id="a9ca1c0b" class="cell" data-tags="[]" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/sex_discrepancy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1 Results/GWAS3/sex_discrepancy.txt</code></pre>
 </div>
 </div>
 <p>The file can be provided to PLINK for removal of sex-discrepant individuals using the option <code>--remove</code>:</p>
-<div id="5c10a26c" class="cell" data-tags="[]" data-execution_count="4">
+<div id="5c10a26c" class="cell" data-tags="[]" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_2 <span class="dt">\</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS3/sex_discrepancy.txt <span class="dt">\</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_3 <span class="dt">\</span></span>
@@ -1365,7 +1419,7 @@ Warning
 </div>
 </div>
 <p>First, we extract the SNP identifiers from chromosomes 1 to 22 with <code>awk</code>, and redirect the output to the file <code>snp_1_22.txt</code>. Then, PLINK can extract those SNPs using the option <code>--extract</code>:</p>
-<div id="80174ebb" class="cell" data-tags="[]" data-execution_count="5">
+<div id="80174ebb" class="cell" data-tags="[]" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a file with autosomal variants</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($1 &gt;= 1 &amp;&amp; $1 &lt;= 22) print $2 }'</span> Results/GWAS3/HapMap_3_r3_3.bim <span class="op">&gt;</span> Results/GWAS3/snp_1_22.txt</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data based on the list of SNPs</span></span>
@@ -1404,7 +1458,7 @@ Solution
 <div id="callout-17" class="callout-17-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>SNPs are saved in the output <code>bim</code> file and the first column contains the chromosome names. So, we just need to extract the first column, and check the unique names (as extra, we count how many times each chromosome occurs):</p>
-<div id="9bd82caf-88b2-4140-b302-bf3dce3ae505" class="cell" data-execution_count="6">
+<div id="9bd82caf-88b2-4140-b302-bf3dce3ae505" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1 Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 117459 1
@@ -1432,7 +1486,7 @@ Solution
 </div>
 </div>
 <p>You can do exactly the same with <code>awk</code></p>
-<div id="578c0fee-f945-466a-abc0-fb2c6ba238ef" class="cell" data-execution_count="7">
+<div id="578c0fee-f945-466a-abc0-fb2c6ba238ef" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 117459 1
@@ -1496,7 +1550,7 @@ Solution
 <div id="callout-19" class="callout-19-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Here the correct command. Check if it matches yours (the <code>--silent</code> option is to avoid long outputs on the screen, but has no effect on data)</p>
-<div id="d7fe20f4" class="cell" data-tags="[]" data-execution_count="9">
+<div id="d7fe20f4" class="cell" data-tags="[]" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/MAF_check <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -1505,7 +1559,7 @@ Solution
 <hr>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Let’s plot the MAF histogram using <code>R</code>. We will have a second plot, which is a zoom-in version with MAF up to 0.1 to better observe the low MAF values. Note: The zoom-in version will throw some warnings as data points are removed, but don’t worry about it.</p>
-<div id="c8e23649-69c5-4bc1-a4c3-5f47c113f947" class="cell" data-tags="[]" data-execution_count="1">
+<div id="c8e23649-69c5-4bc1-a4c3-5f47c113f947" class="cell" data-tags="[]" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAF plot only for autosomal SNPs. Note the zoomed interval (0,0.1)</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
@@ -1575,7 +1629,7 @@ Warning message:
 </div>
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>As stated above, your MAF threshold depends on sample size, though a conventional MAF threshold for a regular GWAS is between 0.01 and 0.05. Here, to ensure the inclusion of only SNPs we will apply a MAF threshold of 0.05 (that is, remove SNPs where the MAF is 5% or less). The threshold is given with the option <code>--maf</code>:</p>
-<div id="465be532" class="cell" data-tags="[]" data-execution_count="1">
+<div id="465be532" class="cell" data-tags="[]" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove SNPs with a low MAF frequency.</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="dt">\</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--maf</span> 0.05 <span class="dt">\</span></span>
@@ -1618,13 +1672,13 @@ Solution
 <div id="callout-21" class="callout-21-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Check the number of lines of the <code>.bim</code> file using <code>wc -l</code> and modify the plink command from above:</p>
-<div id="c3466a68-a536-4265-b80a-9c9474424410" class="cell" data-execution_count="2">
+<div id="c3466a68-a536-4265-b80a-9c9474424410" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_5.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1073226 Results/GWAS3/HapMap_3_r3_5.bim</code></pre>
 </div>
 </div>
-<div id="25787f46-8b93-4fd3-ac89-c234362eefbd" class="cell" data-execution_count="3">
+<div id="25787f46-8b93-4fd3-ac89-c234362eefbd" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plink filtering step</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="dt">\</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--maf</span> 0.01 <span class="dt">\</span></span>
@@ -1639,9 +1693,9 @@ Solution
 </div>
 </div>
 <p>The difference between the two threshold is ~100,000 SNPS, precisely</p>
-<div id="b4124ccf-1aa1-4cd7-8a1d-00bdff1b20e2" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="ex">res</span> = <span class="va">$(($(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5.bim<span class="va">)</span> <span class="op">-</span> <span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5_alt.bim<span class="va">)))</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$res</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b4124ccf-1aa1-4cd7-8a1d-00bdff1b20e2" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="va">RES</span><span class="op">=</span><span class="va">$(($(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5.bim<span class="va">)</span> <span class="op">-</span> <span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5_alt.bim<span class="va">)))</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$RES</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>-108329</code></pre>
 </div>
@@ -1679,7 +1733,7 @@ HWE and binomial distribution
 <section id="plink-commands-2" class="level2">
 <h2 class="anchored" data-anchor-id="plink-commands-2">PLINK commands</h2>
 <p>We can use the option <code>--hardy</code> in PLINK to generate H-W p-values (as well as observed and expected heterozygosity). Then, use <code>awk</code> to select SNPs (column 9 of the file) with HWE p-value &lt; 0.0001, indicating a strong deviation from HWE.</p>
-<div id="67839627" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="9">
+<div id="67839627" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hardy</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--silent</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($9 &lt;0.00001) print $0 }'</span> Results/GWAS3/HapMap_3_r3_5.hwe <span class="op">&gt;</span> Results/GWAS3/HapMap_3_r3_5.deviating.hwe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1699,7 +1753,7 @@ HWE and binomial distribution
 <li><code>P</code>: Hardy-Weinberg equilibrium exact test p-value.</li>
 </ul>
 <p>We will modify the values in the <code>TEST</code> column to have more readable names for the plots and save the updated values in the <code>Phenotype</code> column.</p>
-<div id="abe983c3-2cde-453c-9f32-118e2fcca040" class="cell" data-tags="[]" data-execution_count="1">
+<div id="abe983c3-2cde-453c-9f32-118e2fcca040" class="cell" data-tags="[]" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HWE tables</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1713,7 +1767,7 @@ HWE and binomial distribution
 <span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe_zoom</span><span class="va">$Phenotype</span> <span class="op">&lt;</span>- recode<span class="er">(</span><span class="ex">hwe_zoom</span><span class="va">$TEST</span><span class="ex">,</span> <span class="st">"ALL"</span>=<span class="st">"All"</span>, <span class="st">"UNAFF"</span>=<span class="st">"Control"</span>, <span class="st">"AFF"</span>=<span class="st">"Non-Control"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here, we print the first rows of the two generated tables</p>
-<div id="74418d2d-22de-4162-8144-5e5360f211be" class="cell" data-tags="[]" data-execution_count="2">
+<div id="74418d2d-22de-4162-8144-5e5360f211be" class="cell" data-tags="[]" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -1944,7 +1998,7 @@ HWE and binomial distribution
 </div>
 </div>
 <p>Now, we can plot the histograms. We isolate each “phenotype” to see if there are any significant differences in p-value distribution between them.</p>
-<div id="48e8396f-5b57-472c-b347-2b3a7879c277" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="3">
+<div id="48e8396f-5b57-472c-b347-2b3a7879c277" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HWE p-values calculated with PLINK and zoom for the SNPs deviating from HWE. We can spot some deviations from HWE in the zoomed plot. Note that the p+values for the phenotype `All` is not the merging of the barplots from the other two phenotypes!</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
@@ -1993,7 +2047,7 @@ HWE and binomial distribution
 </div>
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>Almost all of our SNPs are in HWE, as determined by testing whether the alleles follow a binomial distribution. However, in our zoomed-in plot, we can spot a few extreme deviations. We can remove these outliers using the option <code>--hwe</code> in PLINK with the specified threshold. Note that <code>--hwe</code> filters only on controls, so if you want to apply the threshold to non-controls as well, add the <code>include-nonctrl</code> in the command. In the first step below, we filter controls using a threshold of <code>1e-6</code>, followed by filtering all phenotypes with a threshold <code>1e-10</code>:</p>
-<div id="f64ffce1" class="cell" data-tags="[]" data-execution_count="1">
+<div id="f64ffce1" class="cell" data-tags="[]" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter applied to controls </span></span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hwe</span> 1e-6 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5_onlycontrols</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2023,7 +2077,7 @@ Results/GWAS3/HapMap_3_r3_5_onlycontrols.bim +
 Results/GWAS3/HapMap_3_r3_5_onlycontrols.fam ... done.</code></pre>
 </div>
 </div>
-<div id="5151da4b" class="cell" data-tags="[]" data-execution_count="2">
+<div id="5151da4b" class="cell" data-tags="[]" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># threshold apply to all ind</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5_onlycontrols <span class="at">--hwe</span> 1e-10 include-nonctrl <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -2076,7 +2130,7 @@ Note
 <h2 class="anchored" data-anchor-id="plink-commands-3">PLINK commands</h2>
 <p>PLINK does not provide a summary of individual heterozygosity. To assess this, we first prune the dataset by excluding highly correlated SNPs, as they reduce analysis power. We use <code>--indep-pairwise &lt;window size&gt;['kb'] &lt;step size (variant ct)&gt; &lt;r^2 threshold&gt;</code> to prune SNPs in high Linkage Disequilibrium, excluding high inversion regions (<code>--exclude</code> with <code>Data/inversion.txt</code>). For more information, click <a href="https://www.cog-genomics.org/plink/1.9/ld">here</a>.</p>
 <p>In our case, the parameters for the <code>--indep-pairwise</code> are <code>50 5 0.2</code> representing the window size, shift-window step count, and correlation threshold for pruning. Once we have the pruned list, we will check heterozygosity on the <strong>set of SNPs that are not highly correlated</strong>.</p>
-<div id="6cb3ed80" class="cell" data-tags="[]" data-execution_count="3">
+<div id="6cb3ed80" class="cell" data-tags="[]" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--exclude</span> Data/inversion.txt <span class="dt">\</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--range</span> <span class="dt">\</span></span>
@@ -2085,7 +2139,7 @@ Note
 <span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>With this pruned list, we measure the heterozygosity rates of the individuals in the remaining independent SNPs.</p>
-<div id="a551b42f" class="cell" data-tags="[]" data-execution_count="4">
+<div id="a551b42f" class="cell" data-tags="[]" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="dt">\</span></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--het</span> <span class="dt">\</span></span>
@@ -2102,7 +2156,7 @@ Note
 <li><code>N(NM)</code>: Number of non-missing autosomal genotypes.</li>
 <li><code>F</code>: Inbreeding coefficient, which is calculated as <span class="math inline">\(\tfrac{(E(HOM)−O(HOM))}{N(NM)}\)</span>.</li>
 </ul>
-<div id="1c961837-0788-43d5-a5b0-6f65e147f7a6" class="cell" data-tags="[]" data-execution_count="1">
+<div id="1c961837-0788-43d5-a5b0-6f65e147f7a6" class="cell" data-tags="[]" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">het</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -2188,7 +2242,7 @@ Note
 </div>
 </div>
 <p>We will calculate the heterozygosity rates manually for plotting, as they are not included by default in the table. The formula is <span class="math inline">\(N(NM)-O(HOM)/N(NM)\)</span></p>
-<div id="80d47e15-ca66-44b2-b27a-da477b9d5648" class="cell" data-tags="[]" data-execution_count="2">
+<div id="80d47e15-ca66-44b2-b27a-da477b9d5648" class="cell" data-tags="[]" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot for heterozigosity rates</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
@@ -2218,7 +2272,7 @@ Note
 </div>
 </div>
 <p>As a rule of thumb, <strong>we remove individuals whose heterozygosity deviates (sd) more than 3 standard deviations from the mean</strong>. We will create a file that subsets the heterozygosity table based on this threshold for use in PLINK removal. Additionally, we’ll add a <code>HET_DST</code> column to the table containing the standardized heterozygosity values.</p>
-<div id="963e0a29" class="cell" data-tags="[]" data-execution_count="3">
+<div id="963e0a29" class="cell" data-tags="[]" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read file </span></span>

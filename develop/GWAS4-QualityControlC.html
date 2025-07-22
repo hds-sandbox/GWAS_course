@@ -558,7 +558,7 @@ Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In this section, we will explore how to match strands and reference mapping to merge HapMap and 1000GP data. Then we will use population information from one dataset to decide if there are ethnic outliers in the other. Finally we generate population covariates useful for association testing. ## Learning outcomes</p>
+<p>In this section, we will explore how to match strands and reference mapping to merge HapMap and 1000GP data. Then we will use population information from one dataset to decide if there are ethnic outliers in the other. Finally, we generate population covariates useful for association testing. ## Learning outcomes</p>
 <ul>
 <li><strong>Evaluate</strong> when and how to apply strand and mapping correction</li>
 <li><strong>Discuss</strong> confounding factors that lead to spurious associations</li>
@@ -567,7 +567,10 @@ Important notes for this notebook
 </ul>
 <section id="how-to-make-this-notebook-work" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
-<p>In this notebook, we will both use <code>R</code> and <code>bash command line</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images. * We will first run <code>Bash</code> commands.</p>
+<p>In this notebook, we will both use <code>R</code> and <code>bash command line</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images.</p>
+<ul>
+<li>We will first run <code>Bash</code> commands.</li>
+</ul>
 <p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
 </section>
 </div>
@@ -1654,7 +1657,8 @@ Note
 <p>The HapMap data clusters closely with European populations such as CEU, TSI, IBS, GBR, and FIN, confirming its European composition. Additionally, the absence of distant points indicates no outliers in the HapMap dataset (grey datapoints cluster together).</p>
 <section id="exclude-ethnic-outliers" class="level4">
 <h4 class="anchored" data-anchor-id="exclude-ethnic-outliers">Exclude ethnic outliers</h4>
-<p>Now imagine we want to consider only European individuals for a specific analysis where we want only such homogeneous population. Then the rest of the individuals consists of outliers.</p>
+<p>To control for population structure, individuals that deviate substantially from their genetically inferred ancestry cluster are often excluded. A common approach is to calculate genetic principal components (PCs) and compute each individual’s Mahalanobis or Euclidean distance from the center of their assigned cluster; individuals beyond a predefined threshold (e.g., &gt;4 standard deviations) are considered population outliers and removed from downstream analysis.</p>
+<p>Now, imagine we want to consider only European individuals for a specific analysis where we want only such a homogeneous population. Then the rest of the individuals would be considered outliers.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1665,7 +1669,7 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>What values would you select or apply in this context, and why?</strong></p>
+<p>Based on the PCA plot, visually inspect the distribution of individuals along the top principal components and determine approximate threshold values beyond which samples should be considered outliers and excluded. <strong>What cutoff values would you apply in this context, and why?</strong></p>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
@@ -1680,7 +1684,7 @@ Solution
 </div>
 <div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>Based on the position of the target population’s cluster in the MDS plot, we will exclude individuals with MDS component 1 values less than 0 and MDS component 2 values less than -0.05.</p>
+<p>Based on the position of the target population’s cluster in the MDS plot, we will exclude individuals that fall outside the European cluster in the PCA.</p>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel. Let’s see how the MDS table is structured:</p>
 <div id="89a3b1b8-0600-4970-bbd8-26c61e593aa3" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-3</span> Results/GWAS4/MDS_merge.mds <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1-6</span> <span class="at">-d</span><span class="st">$'</span><span class="dt">\t</span><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2093,7 +2097,11 @@ Wrapping up
 </div>
 <div class="callout-body-container callout-body">
 <p>You have now successfully checked your data for relatedness population stratification. You filtered out the individuals with high relatedness and produced a summary of the population structure using the MDS projection. You will use the MDS coordinates as a proxy for the population structure you want your association testing to be corrected for.</p>
-<p>In the next notebook on <strong>Association Testing</strong>, you will need the following files from the folder <code>Results/GWAS4/</code>: - <code>EUR_MDS_merge</code> PLINK file set - <code>covar_pca.txt</code></p>
+<p>In the next notebook on <strong>Association Testing</strong>, you will need the following files from the folder <code>Results/GWAS4/</code>:</p>
+<ul>
+<li><code>EUR_MDS_merge</code> PLINK file set</li>
+<li><code>covar_pca.txt</code></li>
+</ul>
 <p>which are the HapMap data and the MDS covariates highlighting the population stratification inside the european cluster. Those are already available once you have been running this notebook.</p>
 <p>Below is a cheat sheet of our new methods of QC.</p>
 <table class="caption-top table">

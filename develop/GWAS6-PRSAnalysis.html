@@ -538,7 +538,6 @@ window.Quarto = {
   <li><a href="#interpreting-the-results" id="toc-interpreting-the-results" class="nav-link" data-scroll-target="#interpreting-the-results">Interpreting the results</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further Reading</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS6-PRSAnalysis.out.ipynb" download="GWAS6-PRSAnalysis.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -913,6 +912,24 @@ Solution
 <p>The second plot <code>PRSice_HIGH-RES_PLOT_&lt;date&gt;.png</code> (<strong>which you again can manually open</strong>) shows many different p-value thresholds. The p-value of the predictive effect is in black together with an aggregated trend line in green.</p>
 <p><img src="Images/PRSice_HIGH-RES_PLOT.png" class="img-fluid" width="600"></p>
 <p>Both figures show that trait-associated SNPs in the base sample can predict the trait in the target sample. If the same trait is used, predictive power depends on the trait’s heritability and base sample size. When using related but different traits, the predictive power also depends on their genetic correlation. Studies suggest that models with more lenient p-value thresholds capture smaller effects important for complex traits, while stricter thresholds reduce noise, aiding interpretation and the understanding of the underlying genetic architecture. Balancing informative SNPs and minimizing noise is key to maximizing predictive power.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Using R, plot the scores for the “best-fit” P-value threshold against another P-value threshold of your choice.</li>
+</ul>
+</div>
+</div>
+<div id="e6d3bc9f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;plaintext&quot;}}">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R code here (switch the kernel if necessary)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
@@ -935,14 +952,10 @@ Other take-home messages
 </ul>
 </div>
 </div>
+
+
+
 </section>
-</section>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further Reading</h2>
-<p>There is only so much one can discuss in a beginner’s practical guide to GWAS. As such, for those who want to expand their knowledge of GWAS, we have provided a comprehensive list of resources for you to read/try out below.</p>
-
-
-
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">

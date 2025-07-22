@@ -369,12 +369,12 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 
 <p>Explore the base GWAS and compute polygenic scores for height in Europeans using PRSice2.</p>
 <p><img src="../Images/bash.png" alt="R" width="40"> Bash kernel.</p>
-<div id="03046a6d-0950-434c-a29d-b47aa43ea69d" class="cell" data-execution_count="1">
+<div id="03046a6d-0950-434c-a29d-b47aa43ea69d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>..<span class="sc">/</span>Data</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ln <span class="sc">-</span>sf ..<span class="sc">/</span>Results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><img src="../Images/R.png" alt="R" width="40"> R kernel.</p>
-<div id="557ca4a2-7d58-469d-9889-9b61946c3117" class="cell" data-execution_count="1">
+<div id="557ca4a2-7d58-469d-9889-9b61946c3117" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="sc">-</span><span class="dv">1</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">jupyter.plot_mimetypes =</span> <span class="st">'image/png'</span>)</span>
@@ -406,7 +406,7 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <p>Does the plot surprise you? You can notice extreme deviations in the QQ-plot and an overwhelming number of significant variants. To refine your analysis and avoid false positives, you should perform MAF and INFO filtering to exclude rare variants and poorly imputed or uncertain variants that could lead to false associations.</p>
 <p><img src="../Images/bash.png" alt="Bash" width="40"> Bash kernel.</p>
 <p>You need to perform the PRS analysis on the simulated dataset in the following way:</p>
-<div id="cfdab610-f718-43d7-8080-2504794caded" class="cell" data-execution_count="1">
+<div id="cfdab610-f718-43d7-8080-2504794caded" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>PRSice <span class="sc">--</span>base .<span class="sc">/</span>Data<span class="sc">/</span>Height.QC.gz \</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>target .<span class="sc">/</span>Data<span class="sc">/</span>EUR.QC \</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">--</span>binary<span class="sc">-</span>target F \</span>
@@ -517,10 +517,10 @@ Processing 77.31%</code></pre>
 </div>
 <p>By looking at the output file <code>.summary</code>, we can conclude that:</p>
 <ul>
-<li>Best-fit P-value is ~0.4</li>
-<li>Phenotypic variation explained by the best-fitting model is ~0.16</li>
+<li>Best-fit P-value is ~0.13</li>
+<li>Phenotypic variation explained by the best-fitting model is ~0.21</li>
 </ul>
-<div id="a7e98775-8632-4326-a735-88bccfabb445" class="cell" data-execution_count="2">
+<div id="a7e98775-8632-4326-a735-88bccfabb445" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cat Results<span class="sc">/</span>GWAS7<span class="sc">/</span>EUR.PRSice.summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Phenotype   Set Threshold   PRS.R2  Full.R2 Null.R2 Prevalence  Coefficient Standard.Error  P   Num_SNP
@@ -529,7 +529,7 @@ Processing 77.31%</code></pre>
 </div>
 <p><img src="../Images/R.png" alt="R" width="40"> R kernel.</p>
 <p>Below is an example of how you could create a plot in R to visualize height PGS differences across sex:</p>
-<div id="697e022d-0e51-40b0-b60f-49308bb43e99" class="cell" data-execution_count="1">
+<div id="697e022d-0e51-40b0-b60f-49308bb43e99" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;r&quot;}}" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in the files</span></span>

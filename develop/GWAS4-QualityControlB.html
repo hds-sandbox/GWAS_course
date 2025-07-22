@@ -535,6 +535,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#analysis-with-plink" id="toc-analysis-with-plink" class="nav-link active" data-scroll-target="#analysis-with-plink">Analysis with PLINK</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS4-QualityControlB.out.ipynb" download="GWAS4-QualityControlB.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -608,7 +609,7 @@ Important notes for this notebook
 <h3 class="anchored" data-anchor-id="analysis-with-plink">Analysis with PLINK</h3>
 <p>We will use the set of independent SNPs (generated in the previous section) and the <code>--make-king-table</code> option in PLINK2 for our analysis, so that we generate pairwise KING estimators. Note that we use version 2 of PLINK because this one has implemented the KING estimator.</p>
 <p>The HapMap dataset is known to contain parent-offspring relationships. We will check the KING estimator values and exclude all individuals above a chosen threshold (to remove at least related individuals).</p>
-<div id="aafefbaf" class="cell" data-tags="[]" data-execution_count="2">
+<div id="aafefbaf" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink2</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_7 <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="at">--make-king-table</span> <span class="dt">\</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--out</span> Results/GWAS4/KING</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -669,7 +670,7 @@ Stop - Read - Solve
 </ul>
 </div>
 </div>
-<div id="ebab8c48-bca7-4667-9853-62a506b5085e" class="cell" data-execution_count="3">
+<div id="ebab8c48-bca7-4667-9853-62a506b5085e" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here (add more cells if needed)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
@@ -691,7 +692,7 @@ Solution
 <li>We will examine <code>KINSHIP</code> values in column 8.</li>
 </ul>
 <p>Let’s print the first few rows of <code>KING.kin0</code> and then, the unique relatioship categories in the file:</p>
-<div id="4f7ccdcf-e469-4f95-8b0f-7f72ca1f91bb" class="cell" data-execution_count="4">
+<div id="4f7ccdcf-e469-4f95-8b0f-7f72ca1f91bb" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>#FID1   IID1    FID2    IID2    NSNP    HETHET  IBS0    KINSHIP
@@ -702,25 +703,25 @@ Solution
 </div>
 </div>
 <p>Now, let’s calculate how many samples are in a pair with KING <code>KINSHIP</code> parameter (column 8) larger than 0.06, 0.12, 0.2 (to account for small variations in relevant thresholds). Note that the file contains one individual of a pair, so some samples might be shown many times. Thus we make those samples unique.</p>
-<div id="10099d32-f494-48da-88fd-a78cd4531217" class="cell" data-execution_count="5">
+<div id="10099d32-f494-48da-88fd-a78cd4531217" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.06) print $2}'</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>79</code></pre>
 </div>
 </div>
-<div id="313d8ba7-0737-416d-9c0e-68c77c5ead06" class="cell" data-execution_count="6">
+<div id="313d8ba7-0737-416d-9c0e-68c77c5ead06" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.12) print $2}'</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>79</code></pre>
 </div>
 </div>
-<div id="10f99282-4c98-4c45-befd-24e48503e1c7" class="cell" data-execution_count="7">
+<div id="10f99282-4c98-4c45-befd-24e48503e1c7" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.2) print $2}'</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>79</code></pre>
 </div>
 </div>
-<div id="d107029f-aead-4013-879a-9015d9ccbf6e" class="cell" data-execution_count="6">
+<div id="d107029f-aead-4013-879a-9015d9ccbf6e" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> There are <span class="va">$(</span><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.2) print $2}'</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span> individuals with KINSHIP larger than all thresholds. So we might have lots of half siblings, cousins and siblings mixed in the data.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 79 individuals with KINSHIP larger than all thresholds. So we might have lots of half siblings, cousins and siblings mixed in the data.</code></pre>
@@ -762,7 +763,7 @@ Solution
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We read in the matrix with the KING kinship values</p>
-<div id="3533da70-e492-4bb1-a0fb-c8c86fff0191" class="cell" data-tags="[]" data-execution_count="1">
+<div id="3533da70-e492-4bb1-a0fb-c8c86fff0191" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -871,7 +872,7 @@ Solution
 </div>
 </div>
 <p>Now we look at how many pairs have specific relatedness values. You can see there are around 100 pairs of cousins/half siblings/siblings. Those correspond to the 76 unique samples observed before.</p>
-<div id="1c350e8d-3672-40ff-8f6b-432eb1808dd7" class="cell" data-tags="[]" data-execution_count="2">
+<div id="1c350e8d-3672-40ff-8f6b-432eb1808dd7" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>relatedness<span class="pp">[</span><span class="ss">,8</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of relatedness (KING)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
@@ -931,7 +932,7 @@ Warning message:
 </div>
 <hr>
 <p>We can also plot the number of SNPs used to calculate relatedness VS the KING relatedness itself. Pairs with very low number of SNPs and anomalous KING estimator might simply contain badly genotyped sample(s). This is not at all our case.</p>
-<div id="a5689287-f4b7-4612-956a-37439e17307e" class="cell" data-tags="[]" data-execution_count="3">
+<div id="a5689287-f4b7-4612-956a-37439e17307e" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plot.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span> <span class="ex">+</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="va">x</span><span class="op">=</span>NSNP, <span class="va">y</span><span class="op">=</span>KINSHIP<span class="kw">)</span><span class="ex">,</span> size=5, alpha=.25<span class="kw">)</span> <span class="ex">+</span> </span>
@@ -988,11 +989,11 @@ Solution
 <div class="callout-body-container callout-body">
 <p>We use <code>awk</code> to print IDs to remove and then the option <code>--remove</code> of PLINK.</p>
 <p><img src="Images/bash.png" alt="Bash" width="40"> We print out all family and sample IDs for which the column KINSHIP (column 8) is &gt;0.1. Note we print both samples in the pair with high relatedness, using the <code>awk</code> command twice.</p>
-<div id="b053e19e-6ba7-4d3d-a196-28c17677cf50" class="cell" data-execution_count="1">
+<div id="b053e19e-6ba7-4d3d-a196-28c17677cf50" class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.1) print $1, $2 }'</span> Results/GWAS4/KING.kin0 <span class="op">&gt;</span> Results/GWAS4/filter_king.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now each sample is identified uniquely ba family and sample ID. Some samples are repeated more than once because we have selected the first sample in related pairs, so same samples appear more than once. We use the option <code>--remove</code> to produce a new set of <code>plink</code> files. We will be warned about sample repetitions because we have been having some duplicates from the KINSHIP pairs</p>
-<div id="aaa83929-d0e5-427c-9115-411e280f385a" class="cell" data-tags="[]" data-execution_count="2">
+<div id="aaa83929-d0e5-427c-9115-411e280f385a" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_7 <span class="dt">\</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS4/filter_king.txt <span class="dt">\</span></span>
@@ -1025,7 +1026,7 @@ are missing.)
 </div>
 </div>
 <p>Let’s grab from the log file what we have left of the data. <code>grep</code> finds a specific word in a text file.</p>
-<div id="3d62e56c-3b01-4517-89c3-1be6d151dc61" class="cell" data-execution_count="4">
+<div id="3d62e56c-3b01-4517-89c3-1be6d151dc61" class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> people Results/GWAS4/king_exercise.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="ansi-escaped-output">
@@ -1044,7 +1045,7 @@ are missing.)
 <hr>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>So far, you’ve learned how to filter individuals using KING kinship thresholds. Now, we’ll demonstrate that most of the relatedness was due to parent-offspring relationships. We will achieve this by using the <code>--filter-founders</code> option to create a new filtered dataset that includes only the founders (individuals without listed parents in the data). This generates <code>.bed</code>, <code>.bim</code>, and <code>.fam</code> files, which are then used to create a <code>.kin0</code> file containing relatedness values. Note again we use <code>plink2</code> to create the KING matrix.</p>
-<div id="e034b088" class="cell" data-tags="[]" data-execution_count="5">
+<div id="e034b088" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_7 <span class="dt">\</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--filter-founders</span> <span class="dt">\</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
@@ -1085,7 +1086,7 @@ End time: Thu Mar 27 14:57:14 2025</code></pre>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Let’s plot the results from the <code>KING_founders.kin0</code> file. We can see how there is only 1 pair with high kinship amongst the founders.</p>
-<div id="c2a5e584-f675-49fa-928b-91766977c643" class="cell" data-tags="[]" data-execution_count="1">
+<div id="c2a5e584-f675-49fa-928b-91766977c643" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/KING_founders.kin0"</span><span class="ex">,</span> header=TRUE, comment.char = <span class="st">'|'</span><span class="kw">)</span></span>
@@ -1184,7 +1185,7 @@ Solution
 <li><strong>1.</strong> The file <code>KING_founders.kin0</code> shows that, after excluding all non-founders, one individual pair removed in the exercise remains in the HapMap data.</li>
 <li><strong>2.</strong> Below, we can look at the individual from the table by setting KINSHIP &gt; 0.2. Even if labeled as unrelated, it has high relatedness. The IIDs of the pair are NA07045 and NA12813.</li>
 </ul>
-<div id="e30d95c1" class="cell" data-tags="[]" data-execution_count="2">
+<div id="e30d95c1" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="va">relatedness</span><span class="op">[</span>relatedness<span class="va">$KINSHIP</span> &gt; 0.2,<span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
@@ -1238,14 +1239,14 @@ Solution
 </div>
 <hr>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
-<div id="7d55dc5d-2663-489e-b2bf-2637a577e716" class="cell" data-tags="[]" data-execution_count="1">
+<div id="7d55dc5d-2663-489e-b2bf-2637a577e716" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="dt">\</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--missing</span> <span class="dt">\</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_8 <span class="dt">\</span></span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, find the two individuals from the output file using <code>grep</code> and sorting descendingly by missing rate (EZ, column 6)</p>
-<div id="3fa5e705-a478-4e76-91b7-8105c41c0a01" class="cell" data-tags="[]" data-execution_count="2">
+<div id="3fa5e705-a478-4e76-91b7-8105c41c0a01" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's look at the output</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/HapMap_3_r3_8.imiss <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-E</span> <span class="st">'NA07045|NA12813'</span> <span class="kw">|</span> <span class="fu">sort</span> <span class="at">-k6,6nr</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1280,7 +1281,7 @@ Stop - Read - Solve
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1289,10 +1290,10 @@ Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>We can extract the column from the file and observe in the histogram that the individual <code>NA07045</code> has a missing rate closer to the bulk of other samples.</p>
-<div id="8adba97a-30f1-4fe5-a956-5b3337744491" class="cell" data-editable="true" data-scrolled="true" data-quarto-private-1="{&quot;key&quot;:&quot;slideshow&quot;,&quot;value&quot;:{&quot;slide_type&quot;:&quot;&quot;}}" data-tags="[]" data-execution_count="1">
+<div id="8adba97a-30f1-4fe5-a956-5b3337744491" class="cell" data-editable="true" data-scrolled="true" data-quarto-private-1="{&quot;key&quot;:&quot;slideshow&quot;,&quot;value&quot;:{&quot;slide_type&quot;:&quot;&quot;}}" data-tags="[]">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
@@ -1409,16 +1410,20 @@ Solution
 </div>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>To remove the individual from the data, we create a file containing its number and ID, and provide it to PLINK with the option <code>--remove</code></p>
-<div id="5007aa3f" class="cell" data-tags="[]" data-execution_count="1">
+<div id="5007aa3f" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"13291  NA07045"</span> <span class="op">&gt;</span> Results/GWAS4/id_remove.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d08763c4" class="cell" data-tags="[]" data-execution_count="2">
+<div id="d08763c4" class="cell" data-tags="[]">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/HapMap_3_r3_8 <span class="dt">\</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS4/id_remove.txt <span class="dt">\</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS4/HapMap_3_r3_9 <span class="dt">\</span></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
+</div>
+<hr>
 <div class="callout callout-style-default callout-important callout-titled" title="Challenge yourself: relatedness in mice data">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1437,7 +1442,7 @@ Challenge yourself: relatedness in mice data
 <p>5 - Values around 0.25 are second-degree relationships (half siblings), around 0.5 are parent-child and siblings. Usually, a pi_hat much above 0.5 is trace of duplicates, or inbreeding (the second is likely our case, or we would have really bad data with too many duplicates). We have also some sample pairs with a pi_hat=1. What could the respective samples be?</p>
 </div>
 </div>
-<div id="fd2799f0-80d4-4c54-9dfb-85340a069dd8" class="cell" data-execution_count="1">
+<div id="fd2799f0-80d4-4c54-9dfb-85340a069dd8" class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Write your code here or create a copy of this notebook to work on</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -1504,18 +1509,15 @@ Wrapping up
 </table>
 </div>
 </div>
+</section>
 <section id="bibliography" class="level1">
-<h1>Bibliography</h1>
+
+
 
 
 </section>
-</div>
-</div>
-</div>
 
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-KING2010" class="csl-entry" role="listitem">
 Manichaikul, Ani, Josyf C. Mychaleckyj, Stephen S. Rich, Kathy Daly, Michèle Sale, and Wei-Min Chen. 2010. <span>“Robust Relationship Inference in Genome-Wide Association Studies.”</span> <em>Bioinformatics</em> 26 (22): 2867–73. <a href="https://doi.org/10.1093/bioinformatics/btq559">https://doi.org/10.1093/bioinformatics/btq559</a>.
 </div>
