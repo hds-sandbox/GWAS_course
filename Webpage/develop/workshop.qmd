@@ -30,12 +30,12 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
  2. basic ability to navigate in Linux/R/Jupyter. **You don't need to be an expert**, but it is beyond our ambitions (and course material) to teach you how to code from zero and how to run analyses simultaneously. We recommend a basic R or Python course before diving in.
 
- 3. **For workshop participants:** Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop^[To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any UCloud software. If you run out of credit (which takes a long time) you'll need to check with the [local DeiC office at your university](https://www.deic.dk/en/Front-Office) about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.]. Click the link below to accept the invitation (after accessing UCloud for the first time).
+ 3. **For workshop participants:** Use our invite link to the correct UCloud workspace that will be shared on the day of the workshop. This way, we can provide you with compute resources for the active sessions of the workshop^[To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any UCloud software. If you run out of credit (which takes a long time), you'll need to check with the [local DeiC office at your university](https://www.deic.dk/en/Front-Office) about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.]. Click the link below to accept the invitation (after accessing UCloud for the first time).
 
  &nbsp;
 
  <p align="center">
-  <a href="https://cloud.sdu.dk/app/projects/invite/1e652641-3d29-47dc-bc7f-78dda1e5e3dd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
+  <a href="https://cloud.sdu.dk/app/projects/invite/53aa7e1e-252e-449a-b2ee-491bd5f84bfc" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Invite link to
     UCloud workspace
   </a>
@@ -53,7 +53,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 5. EXTRA EXERCISE - GWAS4
 
-You can download an extra notebook and data with population structure and effect of LD on that. Upload the files through jupyterlab, and copy the data in the data folder and the notebook in the notebooks folder: 
+You can download an extra notebook and data with population structure and the effect of LD on that. Upload the files through JupyterLab, and copy the data into the data folder and the notebook into the notebooks folder: 
 
  <p align="center">
    <a href="./hapmap.zip" download="hapmap.zip">
@@ -69,7 +69,7 @@ You can download an extra notebook and data with population structure and effect
 
 6. EXTRA EXERCISE - LDAK
 
-A notebook with an analysis using LDAK for preprocessing and some of the implemented association testings and heritability estimates
+A notebook with an analysis using LDAK for preprocessing and some of the implemented association testing and heritability estimates
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS8-LDAK-Extra.ipynb" download="GWAS8-LDAK-Extra.ipynb">
@@ -105,13 +105,13 @@ We hope you enjoyed the workshop. If you have broader questions, suggestions, or
 
 ## Download or copy your data
 
-You can move all your data into your own personal workspace on UCloud, and also download all data and nortebooks on your computer.
+You can move all your data into your own personal workspace on UCloud, and also download all data and notebooks to your computer.
 
 ### Copy data on UCloud
 
-If you transfer the data to you UCloud's workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.
+If you transfer the data to your UCloud workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.
 
-- Go on the left-side toolbar and click on the file browser.
+- Go to the left-side toolbar and click on the file browser.
 
   ![](../img/ucloud_download_instructions/toolbar.png){fig-align="center" width=100px}
 
@@ -123,7 +123,7 @@ If you transfer the data to you UCloud's workspace, you can at any time run the 
 
   ![](../img/ucloud_download_instructions/ucloudCopy.png){fig-align="center" width=400px}
 
-- In the browsing window which opens, choose your own workspace **My workspace** (green circle). You should be already inside your **Home** folder, otherwise you can find it with the small arrow (red circle). Now click on **Use this folder** (blue circle). The data is copied. 
+- In the browsing window that opens, choose your own workspace **My workspace** (green circle). You should already be inside your **Home** folder; otherwise, you can find it with the small arrow (red circle). Now click on **Use this folder** (blue circle). The data is copied. 
 
   ![](../img/ucloud_download_instructions/copyDestination.png){fig-align="center" width=400px}
 
@@ -131,7 +131,7 @@ If you transfer the data to you UCloud's workspace, you can at any time run the 
 
 ### Download data from UCloud
 
-To download the data and notebooks, you first need to compress it in a `zip` file. 
+To download the data and notebooks, you first need to compress them into a `zip` file. 
 
 - Launch the genomics sandbox with the data and notebooks as added folders.
 
