@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Population stratification – GWAS</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -59,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -91,14 +96,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9bd68073323f4f1987601e1693e72561.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-693dbad48136c6af4d5a3f699b9c9b7d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-9bd68073323f4f1987601e1693e72561.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -309,7 +314,8 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
-    <img src="../img/logo.png" alt="" class="navbar-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../img/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="http://hds-sandbox.github.io/">
     <span class="navbar-title">GWAS</span>
@@ -535,11 +541,11 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important notes for this notebook
+<span class="screen-reader-only">Note</span>Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>As we’ve discussed, removing population structure is crucial, as residual population stratification—highlighted by <span class="citation" data-cites="sohail2019polygenic">(<a href="#ref-sohail2019polygenic" role="doc-biblioref">Sohail et al. 2019</a>)</span>—can even be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores and other downstream analyses. In this notebook, we will further explore one way of detecting population stratification in GWAS. Since we were uncertain whether we were being too strict when correcting for population structure, or if the GWAS lacked sufficient power, this analysis will help us clarify if we can trust our results.</p>
+<p>As we’ve discussed, removing population structure is crucial, as residual population stratification—highlighted by <span class="citation" data-cites="sohail2019polygenic">(<a href="#ref-sohail2019polygenic" role="doc-biblioref"><span class="nocase">Sohail et al.</span> 2019</a>)</span>—can even be detected in published GWAS. This can lead to biased effect size estimates, impacting polygenic risk scores and other downstream analyses. In this notebook, we will further explore one way of detecting population stratification in GWAS. Since we were uncertain whether we were being too strict when correcting for population structure, or if the GWAS lacked sufficient power, this analysis will help us clarify if we can trust our results.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
@@ -557,21 +563,21 @@ Important notes for this notebook
 </div>
 <section id="correlation-between-pc-loadings-and-effect-sizes" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-between-pc-loadings-and-effect-sizes">Correlation between PC loadings and effect sizes</h3>
-<p>We followed a similar approach from <span class="citation" data-cites="sohail2019polygenic">(<a href="#ref-sohail2019polygenic" role="doc-biblioref">Sohail et al. 2019</a>)</span> to examine GWAS stratification along different PCA axes of population structure. We began by performing a PCA on the genotype data from the 1000 Genomes Project used in the previous notebook. Then, we computed the correlation between the first 10 PCA loadings and the effect size estimates from the GWAS conducted on the Hapmap data. We visualized these PC-specific correlations to explore patterns of stratification along different axes of genetic variation. Additionally, it would be very useful to consider allele frequency differences across different populations when analyzing such stratification.</p>
+<p>We followed a similar approach from <span class="citation" data-cites="sohail2019polygenic">(<a href="#ref-sohail2019polygenic" role="doc-biblioref"><span class="nocase">Sohail et al.</span> 2019</a>)</span> to examine GWAS stratification along different PCA axes of population structure. We began by performing a PCA on the genotype data from the 1000 Genomes Project used in the previous notebook. Then, we computed the correlation between the first 10 PCA loadings and the effect size estimates from the GWAS conducted on the Hapmap data. We visualized these PC-specific correlations to explore patterns of stratification along different axes of genetic variation. Additionally, it would be very useful to consider allele frequency differences across different populations when analyzing such stratification.</p>
 <p>We use PLINK’s <code>--pca var-wts</code> command on the set of independent variants (<code>indepSNP.prune.in</code>) to obtain the PC loadings.</p>
 <div id="356bce29-20f8-4bca-842c-3c4ca3cf5559" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS6  <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS4/1kG_MDS6  <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="dt">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--pca</span> 10 var-wts <span class="dt">\</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS4/PCA_1kg <span class="dt">\</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Now we will plot the correlation between the loadings and the effect sizes for both association results from the previous notebooks.</p>
 <section id="a.-summary-statistics-from---assoc-test" class="level4">
 <h4 class="anchored" data-anchor-id="a.-summary-statistics-from---assoc-test">A. Summary statistics from <code>--assoc</code> test</h4>
 <div id="ca04bc63-8c6b-46d4-8a06-d4e23e2daedb" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load the data </span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">results_as</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/assoc_results.assoc"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
@@ -596,7 +602,7 @@ Important notes for this notebook
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="ex">scale_x_continuous</span><span class="er">(</span><span class="va">breaks</span><span class="op">=</span>seq<span class="kw">(</span><span class="ex">1,10,1</span><span class="kw">)</span><span class="ex">,</span> expand=c<span class="er">(</span><span class="ex">0,0.1</span><span class="kw">))</span><span class="ex">+</span></span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="ex">theme</span><span class="er">(</span><span class="ex">panel.grid.minor=element_blank</span><span class="er">(</span><span class="kw">)</span><span class="ex">,</span> panel.background = element_blank<span class="er">(</span><span class="kw">)</span><span class="ex">,</span></span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="ex">axis.line</span> = element_line<span class="er">(</span><span class="kw">)</span><span class="ex">,</span> axis.text= element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>12<span class="kw">)</span><span class="ex">,</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          <span class="ex">axis.title=</span> element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>12<span class="kw">))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>          <span class="ex">axis.title=</span> element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>12<span class="kw">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning message:
 “package ‘ggplot2’ was built under R version 4.2.3”</code></pre>
@@ -614,7 +620,7 @@ Important notes for this notebook
 <h4 class="anchored" data-anchor-id="b.-summary-statistics-from---logistic-test">B. Summary statistics from <code>--logistic</code> test</h4>
 <p>Let’s calculate Pearson correlations using the logistic model results.</p>
 <div id="3b1447d5-aced-4d74-8fb8-6de8cf03e0af" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load results logistic model </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load results logistic model </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">results_log</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS5/logistic_results.assoc_2.logistic"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -636,7 +642,7 @@ Important notes for this notebook
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">theme</span><span class="er">(</span><span class="ex">panel.grid.minor=element_blank</span><span class="er">(</span><span class="kw">)</span><span class="ex">,</span> panel.background = element_blank<span class="er">(</span><span class="kw">)</span><span class="ex">,</span></span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="ex">axis.line</span> = element_line<span class="er">(</span><span class="kw">)</span><span class="ex">,</span> axis.text= element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>12<span class="kw">)</span><span class="ex">,</span></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>          <span class="ex">axis.title=</span> element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>12<span class="kw">))</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -653,7 +659,7 @@ Important notes for this notebook
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Other take-home messages
+<span class="screen-reader-only">Note</span>Other take-home messages
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -670,9 +676,9 @@ Other take-home messages
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-sohail2019polygenic" class="csl-entry" role="listitem">
-Sohail, Mashaal, Robert M Maier, Andrea Ganna, Alex Bloemendal, Alicia R Martin, Michael C Turchin, Charleston WK Chiang, et al. 2019. <span>“Polygenic Adaptation on Height Is Overestimated Due to Uncorrected Stratification in Genome-Wide Association Studies.”</span> <em>Elife</em> 8: e39702.
+<span class="nocase">Sohail, Mashaal, Robert M Maier, Andrea Ganna, et al.</span> 2019. <span>“Polygenic Adaptation on Height Is Overestimated Due to Uncorrected Stratification in Genome-Wide Association Studies.”</span> <em>Elife</em> 8: e39702.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -739,13 +745,14 @@ Sohail, Mashaal, Robert M Maier, Andrea Ganna, Alex Bloemendal, Alicia R Martin,
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

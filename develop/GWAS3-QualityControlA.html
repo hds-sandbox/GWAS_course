@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Quality Control: initial steps – GWAS</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -59,7 +65,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -78,7 +83,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -91,14 +96,14 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9bd68073323f4f1987601e1693e72561.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-693dbad48136c6af4d5a3f699b9c9b7d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-9bd68073323f4f1987601e1693e72561.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -135,12 +140,12 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -153,7 +158,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -341,7 +346,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
-    <img src="../img/logo.png" alt="" class="navbar-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../img/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="http://hds-sandbox.github.io/">
     <span class="navbar-title">GWAS</span>
@@ -592,7 +598,7 @@ window.Quarto = {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important notes for this notebook
+<span class="screen-reader-only">Note</span>Important notes for this notebook
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -645,7 +651,7 @@ Important notes for this notebook
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -714,12 +720,12 @@ Stop - Read - Solve
 </div>
 <p>In practice, you want to <strong>remove the SNPs based on missingness before the individuals</strong>. This is simply because we generally have a lot more SNPs than individuals, and would thus lose less information by removing SNPs than individuals. This will remove “bad” SNPs first, leaving a lower rate of missingness for all the individuals.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -739,7 +745,7 @@ Solution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The plink syntax
+<span class="screen-reader-only">Note</span>The plink syntax
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -761,12 +767,12 @@ The plink syntax
 <p>Let’s implement our first QC method in PLINK.</p>
 <p><img src="Images/bash.png" alt="Bash" width="40"> We use <code>ln -sf</code> to link the data folder and create a folder for output files (<code>Results/GWAS3</code>)</p>
 <div id="5dea98b7-c4dd-4d62-a5e6-b041486b511d" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>PLINK program uses options implemented using the <code>--</code> symbol to perform different functions or access files. We will use the option <code>--bfile</code> for data (filename without extension), <code>--missing</code> for missing data summary, and <code>--out</code> for output prefixes. This helps us analyze data missingness.</p>
 <div id="f206a476" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_3_r3_1 <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS3/data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_3_r3_1 <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS3/data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
@@ -796,7 +802,7 @@ variant-based missing data report written to Results/GWAS3/data.lmiss.</code></p
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -810,12 +816,12 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -845,7 +851,7 @@ Solution
 <li><strong>Are there missing phenotypes or genotypes in the <code>.imiss</code> file?</strong></li>
 </ul>
 <div id="e64cb902-6e5b-472c-a760-2f84a52f2d58" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/data.imiss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/data.imiss</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    FID       IID MISS_PHENO   N_MISS   N_GENO   F_MISS
    1328   NA06989          N     4203  1457897 0.002883
@@ -859,7 +865,7 @@ Solution
 <li><strong>What about at the variant-level (<code>.lmiss</code>)?</strong></li>
 </ul>
 <div id="4714af05-3e55-4b63-8c0d-1416379b54ed" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/data.lmiss</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/data.lmiss</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> CHR         SNP   N_MISS   N_GENO   F_MISS
    1   rs2185539        0      165        0
@@ -873,7 +879,7 @@ Solution
 <p>We can visualize the distribution of missing data in individuals and SNPs using histograms in <code>R</code> (change kernel).</p>
 <p>The <code>ggplot2</code> package is used here for visualization and various plot elements are combined with the <code>+</code> symbol. Histograms are saved in your results directory as <code>histimiss.png</code> and <code>histlmiss.png</code>. Look below at the <code>R</code> code and the output.</p>
 <div id="904776e1-2135-41c4-a356-1bd0b298cf82" class="cell" data-tags="[]" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">))</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">))</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
@@ -907,7 +913,7 @@ Solution
 <span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="kw">{</span></span>
 <span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.lmiss, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histlmiss.png"</span><span class="kw">);</span></span>
 <span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.imiss, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histimiss.png"</span><span class="kw">);</span></span>
-<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="kw">})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="kw">})</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -929,7 +935,7 @@ Solution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -940,12 +946,12 @@ Stop - Read - Solve
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -973,7 +979,7 @@ Note
 </div>
 </div>
 <div id="5077d592-61cd-4b33-8691-e0a77f06b326" class="cell" data-tags="[]" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 20% missingness</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 20% missingness</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/HapMap_3_r3_1 <span class="dt">\</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--geno</span> .2 <span class="dt">\</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
@@ -993,7 +999,7 @@ Note
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_2miss <span class="dt">\</span></span>
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">--mind</span> .02 <span class="dt">\</span></span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
@@ -1104,7 +1110,7 @@ are missing.)
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1117,21 +1123,21 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="1b3382a6-8c0d-4a9c-b3b9-381562c620ee" class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - fam file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - fam file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="85e9ef99-d528-4092-a78f-64716bd1d67a" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - bim file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - bim file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="13a50218-0507-4c1d-877a-3f6f9b0c9870" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - bed file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write code here - bed file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1140,7 +1146,7 @@ Solution
 <p>According to the messages from PLINK, applying the more stringent missingness threshold resulted in the removal of 27,454 variants and 0 individuals. In contrast, using the 20% threshold would not have removed any variants or individuals.</p>
 <p>We can see a preview of the output files: those are again a set of <code>fam</code>, <code>bim</code>, and <code>bed</code> files, including only the data passing the filters. For the first two formats, we can use <code>head</code>, while for the <code>bed</code> file, we also need <code>xxd</code> because of the binary nature of the file.</p>
 <div id="95d017ba-4ad1-4787-b1d1-901c99a57acc" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.fam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.fam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1328 NA06989 0 0 2 2
 1377 NA11891 0 0 1 2
@@ -1150,7 +1156,7 @@ Solution
 </div>
 </div>
 <div id="14273355-f7d3-46d7-aee3-d0e26680ac72" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1   rs2185539   0   556738  T   C
 1   rs11240767  0   718814  T   C
@@ -1160,7 +1166,7 @@ Solution
 </div>
 </div>
 <div id="ad7f12e6-a432-4a9c-a87b-5b5798584e6b" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Results/GWAS3/HapMap_3_r3_2.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Results/GWAS3/HapMap_3_r3_2.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>00000000: 01101100 00011011 00000001 11111111 11111111 11111111  l.....
 00000006: 11111111 11111111 11111111 11111111 11111111 11111111  ......
@@ -1171,7 +1177,7 @@ Solution
 </div>
 <p>Now, if you looked into the file <code>HapMap_3_r3_2.hh</code>, you could look at the first SNP on the UCSC genome browser and find out it is on chromosome X</p>
 <div id="570ccc05-cfd8-4e3a-a8bb-6333ab0d1117" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.hh</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/HapMap_3_r3_2.hh</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1355    NA12413 rs2034740
 1355    NA12413 rs6641142
@@ -1196,7 +1202,7 @@ Solution
 <p>Generally, males should have an X chromosome homozygosity estimate &gt;0.8 and females should have a value &lt;0.2. So we could simply remove any individuals where the homozygosity estimate (F) does not match their specified sex. Subjects who do not fulfill these requirements are flagged <code>PROBLEM</code> by PLINK in the output file.</p>
 <p>Note the option <code>--silent</code> to avoid long texts printed out on the screen.</p>
 <div id="bc02622c" class="cell" data-tags="[]" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_2 <span class="at">--check-sex</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_2 <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_2 <span class="at">--check-sex</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_2 <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: 179 het. haploid genotypes present (see Results/GWAS3/HapMap_3_r3_2.hh
 ); many commands treat these as missing.</code></pre>
@@ -1205,7 +1211,7 @@ Solution
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>We can visualize the results of the sex check by plotting three histograms for the F values in males, females, and all samples. Let’s look at all sexes and males first.</p>
 <div id="8ca49591-e1f1-4766-9dc9-3bf66670ba92" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inbreeding coefficients for all sexes and for males/females separately</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Inbreeding coefficients for all sexes and for males/females separately</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1236,7 +1242,7 @@ Solution
 <span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plots </span></span>
 <span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.sex, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histsex.png"</span><span class="kw">)</span></span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.male, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histmale.png"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.male, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histmale.png"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1266,7 +1272,7 @@ Saving 6.67 x 6.67 in image
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1284,15 +1290,15 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="15e474cd-6109-47dc-8843-02e8c0219935" class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - female F values histogram </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - female F values histogram </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1303,7 +1309,7 @@ Solution
 <li><p>You need to change the value <code>sex$PEDSEX==2</code> instead of <code>==1</code> in the code for the histogram, and change the file name at the end</p></li>
 </ol>
 <div id="b346f7ac-a8d2-447b-963d-6807e21a85a8" class="cell" data-scrolled="true" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B) </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># B) </span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># subset females </span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="ex">female</span> <span class="op">&lt;</span>- subset<span class="er">(</span><span class="ex">sex,</span> sex<span class="va">$PEDSEX</span>==2<span class="kw">)</span></span>
@@ -1320,7 +1326,7 @@ Solution
 <span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.female</span><span class="kw">)</span></span>
 <span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot </span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.female, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histfemale.png"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.female, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histfemale.png"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <div class="ansi-escaped-output">
 <pre>Saving 6.67 x 6.67 in image
@@ -1348,28 +1354,28 @@ Solution
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>Removal can be done with the command below. Use <code>grep</code> to find lines in the sexcheck file that contain <code>PROBLEM</code>. Then, pipe (send) the output to the command <code>awk</code> (using the so-called pipe symbol <code>|</code>). <code>awk</code> will extract the first two columns from each line identified by the <code>grep</code> command and redirect them to the file <code>sex_discrepancy.txt</code> using the symbol <code>&gt;</code> (redirecting the output away from the screen/terminal).</p>
 <div id="57f544c6" class="cell" data-tags="[]" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"PROBLEM"</span> Results/GWAS3/HapMap_3_r3_2.sexcheck <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1,$2}'</span> <span class="op">&gt;</span> Results/GWAS3/sex_discrepancy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="st">"PROBLEM"</span> Results/GWAS3/HapMap_3_r3_2.sexcheck <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{print$1,$2}'</span> <span class="op">&gt;</span> Results/GWAS3/sex_discrepancy.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Show the content of the file using <code>cat</code>:</p>
 <div id="3e151a47-8fc2-4931-823f-40e2732b076b" class="cell" data-tags="[]" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS3/sex_discrepancy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS3/sex_discrepancy.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1349 NA10854</code></pre>
 </div>
 </div>
 <p>For long files, you can simply count the number of lines in the file with <code>wc</code> (word count command)</p>
 <div id="a9ca1c0b" class="cell" data-tags="[]" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/sex_discrepancy.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/sex_discrepancy.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1 Results/GWAS3/sex_discrepancy.txt</code></pre>
 </div>
 </div>
 <p>The file can be provided to PLINK for removal of sex-discrepant individuals using the option <code>--remove</code>:</p>
 <div id="5c10a26c" class="cell" data-tags="[]" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_2 <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_2 <span class="dt">\</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS3/sex_discrepancy.txt <span class="dt">\</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_3 <span class="dt">\</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: 179 het. haploid genotypes present (see Results/GWAS3/HapMap_3_r3_3.hh
 ); many commands treat these as missing.</code></pre>
@@ -1381,7 +1387,7 @@ Solution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Alternative approach
+<span class="screen-reader-only">Note</span>Alternative approach
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1420,14 +1426,14 @@ Warning
 </div>
 <p>First, we extract the SNP identifiers from chromosomes 1 to 22 with <code>awk</code>, and redirect the output to the file <code>snp_1_22.txt</code>. Then, PLINK can extract those SNPs using the option <code>--extract</code>:</p>
 <div id="80174ebb" class="cell" data-tags="[]" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a file with autosomal variants</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a file with autosomal variants</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($1 &gt;= 1 &amp;&amp; $1 &lt;= 22) print $2 }'</span> Results/GWAS3/HapMap_3_r3_3.bim <span class="op">&gt;</span> Results/GWAS3/snp_1_22.txt</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter data based on the list of SNPs</span></span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_3 <span class="dt">\</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS3/snp_1_22.txt <span class="dt">\</span></span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_4 <span class="dt">\</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -1435,7 +1441,7 @@ Warning
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1443,15 +1449,15 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="90aaf03e-e293-48ee-8a48-e9915fb6bc30" class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write your code</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># write your code</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1459,7 +1465,7 @@ Solution
 <div class="callout-body-container callout-body">
 <p>SNPs are saved in the output <code>bim</code> file and the first column contains the chromosome names. So, we just need to extract the first column, and check the unique names (as extra, we count how many times each chromosome occurs):</p>
 <div id="9bd82caf-88b2-4140-b302-bf3dce3ae505" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1 Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f</span> 1 Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 117459 1
  117501 2
@@ -1487,7 +1493,7 @@ Solution
 </div>
 <p>You can do exactly the same with <code>awk</code></p>
 <div id="578c0fee-f945-466a-abc0-fb2c6ba238ef" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1}'</span> Results/GWAS3/HapMap_3_r3_4.bim <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> 117459 1
  117501 2
@@ -1524,7 +1530,7 @@ Solution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1535,15 +1541,15 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="f0316fff-9e1d-46d7-9f64-01fa8b2e083f" class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your PLINK command</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your PLINK command</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1551,7 +1557,7 @@ Solution
 <div class="callout-body-container callout-body">
 <p>Here the correct command. Check if it matches yours (the <code>--silent</code> option is to avoid long outputs on the screen, but has no effect on data)</p>
 <div id="d7fe20f4" class="cell" data-tags="[]" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/MAF_check <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/MAF_check <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1560,7 +1566,7 @@ Solution
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Let’s plot the MAF histogram using <code>R</code>. We will have a second plot, which is a zoom-in version with MAF up to 0.1 to better observe the low MAF values. Note: The zoom-in version will throw some warnings as data points are removed, but don’t worry about it.</p>
 <div id="c8e23649-69c5-4bc1-a4c3-5f47c113f947" class="cell" data-tags="[]" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAF plot only for autosomal SNPs. Note the zoomed interval (0,0.1)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MAF plot only for autosomal SNPs. Note the zoomed interval (0,0.1)</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -1591,7 +1597,7 @@ Solution
 <span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.maf.zoom</span><span class="kw">)</span></span>
 <span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plot</span></span>
-<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.maf, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histmaf.png"</span><span class="kw">))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.maf, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histmaf.png"</span><span class="kw">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 0.00000 0.05856 0.18750 0.20315 0.33480 0.50000 </code></pre>
@@ -1630,12 +1636,12 @@ Warning message:
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>As stated above, your MAF threshold depends on sample size, though a conventional MAF threshold for a regular GWAS is between 0.01 and 0.05. Here, to ensure the inclusion of only SNPs we will apply a MAF threshold of 0.05 (that is, remove SNPs where the MAF is 5% or less). The threshold is given with the option <code>--maf</code>:</p>
 <div id="465be532" class="cell" data-tags="[]" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove SNPs with a low MAF frequency.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove SNPs with a low MAF frequency.</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="dt">\</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--maf</span> 0.05 <span class="dt">\</span></span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5 <span class="dt">\</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -1643,7 +1649,7 @@ Warning message:
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1654,18 +1660,18 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="c06831c1-f8b7-4461-a259-e79b621ea3a1" class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - maf &gt; 0.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - maf &gt; 0.05</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="2c7d1f11-6365-44d1-b78e-ff12ec48abdf" class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - maf &gt; 0.01</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - maf &gt; 0.01</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1673,13 +1679,13 @@ Solution
 <div class="callout-body-container callout-body">
 <p>Check the number of lines of the <code>.bim</code> file using <code>wc -l</code> and modify the plink command from above:</p>
 <div id="c3466a68-a536-4265-b80a-9c9474424410" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_5.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_5.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1073226 Results/GWAS3/HapMap_3_r3_5.bim</code></pre>
 </div>
 </div>
 <div id="25787f46-8b93-4fd3-ac89-c234362eefbd" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plink filtering step</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plink filtering step</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_4 <span class="dt">\</span></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--maf</span> 0.01 <span class="dt">\</span></span>
 <span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
@@ -1687,15 +1693,15 @@ Solution
 <span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span>
 <span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="co"># get number of variants</span></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_5_alt.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_5_alt.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1181555 Results/GWAS3/HapMap_3_r3_5_alt.bim</code></pre>
 </div>
 </div>
 <p>The difference between the two threshold is ~100,000 SNPS, precisely</p>
 <div id="b4124ccf-1aa1-4cd7-8a1d-00bdff1b20e2" class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="va">RES</span><span class="op">=</span><span class="va">$(($(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5.bim<span class="va">)</span> <span class="op">-</span> <span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5_alt.bim<span class="va">)))</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$RES</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="va">RES</span><span class="op">=</span><span class="va">$(($(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5.bim<span class="va">)</span> <span class="op">-</span> <span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS3/HapMap_3_r3_5_alt.bim<span class="va">)))</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$RES</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>-108329</code></pre>
 </div>
@@ -1722,7 +1728,7 @@ Solution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-HWE and binomial distribution
+<span class="screen-reader-only">Note</span>HWE and binomial distribution
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1734,9 +1740,9 @@ HWE and binomial distribution
 <h2 class="anchored" data-anchor-id="plink-commands-2">PLINK commands</h2>
 <p>We can use the option <code>--hardy</code> in PLINK to generate H-W p-values (as well as observed and expected heterozygosity). Then, use <code>awk</code> to select SNPs (column 9 of the file) with HWE p-value &lt; 0.0001, indicating a strong deviation from HWE.</p>
 <div id="67839627" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hardy</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--silent</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hardy</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--silent</span></span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($9 &lt;0.00001) print $0 }'</span> Results/GWAS3/HapMap_3_r3_5.hwe <span class="op">&gt;</span> Results/GWAS3/HapMap_3_r3_5.deviating.hwe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($9 &lt;0.00001) print $0 }'</span> Results/GWAS3/HapMap_3_r3_5.hwe <span class="op">&gt;</span> Results/GWAS3/HapMap_3_r3_5.deviating.hwe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>What can we conclude about the data from the generated files?</strong></p>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
@@ -1754,7 +1760,7 @@ HWE and binomial distribution
 </ul>
 <p>We will modify the values in the <code>TEST</code> column to have more readable names for the plots and save the updated values in the <code>Phenotype</code> column.</p>
 <div id="abe983c3-2cde-453c-9f32-118e2fcca040" class="cell" data-tags="[]" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HWE tables</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HWE tables</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R using dplyr library </span></span>
@@ -1764,14 +1770,14 @@ HWE and binomial distribution
 <span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="ex">colnames</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span> <span class="op">&lt;</span>- <span class="ex">colnames</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
 <span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify colnames </span></span>
 <span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe</span><span class="va">$Phenotype</span> <span class="op">&lt;</span>- recode<span class="er">(</span><span class="ex">hwe</span><span class="va">$TEST</span><span class="ex">,</span> <span class="st">"ALL"</span>=<span class="st">"All"</span>, <span class="st">"UNAFF"</span>=<span class="st">"Control"</span>, <span class="st">"AFF"</span>=<span class="st">"Non-Control"</span><span class="kw">)</span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe_zoom</span><span class="va">$Phenotype</span> <span class="op">&lt;</span>- recode<span class="er">(</span><span class="ex">hwe_zoom</span><span class="va">$TEST</span><span class="ex">,</span> <span class="st">"ALL"</span>=<span class="st">"All"</span>, <span class="st">"UNAFF"</span>=<span class="st">"Control"</span>, <span class="st">"AFF"</span>=<span class="st">"Non-Control"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe_zoom</span><span class="va">$Phenotype</span> <span class="op">&lt;</span>- recode<span class="er">(</span><span class="ex">hwe_zoom</span><span class="va">$TEST</span><span class="ex">,</span> <span class="st">"ALL"</span>=<span class="st">"All"</span>, <span class="st">"UNAFF"</span>=<span class="st">"Control"</span>, <span class="st">"AFF"</span>=<span class="st">"Non-Control"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here, we print the first rows of the two generated tables</p>
 <div id="74418d2d-22de-4162-8144-5e5360f211be" class="cell" data-tags="[]" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="dataframe caption-top table table-sm table-striped small">
 <caption>A data.frame: 6 × 10</caption>
 <thead>
 <tr class="header">
@@ -1803,7 +1809,7 @@ HWE and binomial distribution
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">1</td>
+<th data-quarto-table-cell-role="th" scope="row">1</th>
 <td>1</td>
 <td>rs3131972</td>
 <td>ALL</td>
@@ -1816,7 +1822,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">2</td>
+<th data-quarto-table-cell-role="th" scope="row">2</th>
 <td>1</td>
 <td>rs3131972</td>
 <td>AFF</td>
@@ -1829,7 +1835,7 @@ HWE and binomial distribution
 <td>Non-Control</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">3</td>
+<th data-quarto-table-cell-role="th" scope="row">3</th>
 <td>1</td>
 <td>rs3131972</td>
 <td>UNAFF</td>
@@ -1842,7 +1848,7 @@ HWE and binomial distribution
 <td>Control</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">4</td>
+<th data-quarto-table-cell-role="th" scope="row">4</th>
 <td>1</td>
 <td>rs3131969</td>
 <td>ALL</td>
@@ -1855,7 +1861,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">5</td>
+<th data-quarto-table-cell-role="th" scope="row">5</th>
 <td>1</td>
 <td>rs3131969</td>
 <td>AFF</td>
@@ -1868,7 +1874,7 @@ HWE and binomial distribution
 <td>Non-Control</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">6</td>
+<th data-quarto-table-cell-role="th" scope="row">6</th>
 <td>1</td>
 <td>rs3131969</td>
 <td>UNAFF</td>
@@ -1884,7 +1890,7 @@ HWE and binomial distribution
 </table>
 </div>
 <div class="cell-output cell-output-display">
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="dataframe caption-top table table-sm table-striped small">
 <caption>A data.frame: 6 × 10</caption>
 <thead>
 <tr class="header">
@@ -1916,7 +1922,7 @@ HWE and binomial distribution
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">1</td>
+<th data-quarto-table-cell-role="th" scope="row">1</th>
 <td>3</td>
 <td>rs7623291</td>
 <td>ALL</td>
@@ -1929,7 +1935,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">2</td>
+<th data-quarto-table-cell-role="th" scope="row">2</th>
 <td>7</td>
 <td>rs34238522</td>
 <td>ALL</td>
@@ -1942,7 +1948,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">3</td>
+<th data-quarto-table-cell-role="th" scope="row">3</th>
 <td>8</td>
 <td>rs3102841</td>
 <td>ALL</td>
@@ -1955,7 +1961,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">4</td>
+<th data-quarto-table-cell-role="th" scope="row">4</th>
 <td>9</td>
 <td>rs354831</td>
 <td>ALL</td>
@@ -1968,7 +1974,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">5</td>
+<th data-quarto-table-cell-role="th" scope="row">5</th>
 <td>9</td>
 <td>rs10990625</td>
 <td>ALL</td>
@@ -1981,7 +1987,7 @@ HWE and binomial distribution
 <td>All</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">6</td>
+<th data-quarto-table-cell-role="th" scope="row">6</th>
 <td>9</td>
 <td>rs10990625</td>
 <td>AFF</td>
@@ -1999,7 +2005,7 @@ HWE and binomial distribution
 </div>
 <p>Now, we can plot the histograms. We isolate each “phenotype” to see if there are any significant differences in p-value distribution between them.</p>
 <div id="48e8396f-5b57-472c-b347-2b3a7879c277" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HWE p-values calculated with PLINK and zoom for the SNPs deviating from HWE. We can spot some deviations from HWE in the zoomed plot. Note that the p+values for the phenotype `All` is not the merging of the barplots from the other two phenotypes!</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># HWE p-values calculated with PLINK and zoom for the SNPs deviating from HWE. We can spot some deviations from HWE in the zoomed plot. Note that the p+values for the phenotype `All` is not the merging of the barplots from the other two phenotypes!</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2029,7 +2035,7 @@ HWE and binomial distribution
 <span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plots </span></span>
 <span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="kw">{</span></span>
 <span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.hwe, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histhwe.png"</span><span class="kw">);</span></span>
-<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.hwe_below_threshold, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histhwe_below_threshold.png"</span><span class="kw">);})</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.hwe_below_threshold, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/histhwe_below_threshold.png"</span><span class="kw">);})</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2048,8 +2054,8 @@ HWE and binomial distribution
 <p><img src="Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
 <p>Almost all of our SNPs are in HWE, as determined by testing whether the alleles follow a binomial distribution. However, in our zoomed-in plot, we can spot a few extreme deviations. We can remove these outliers using the option <code>--hwe</code> in PLINK with the specified threshold. Note that <code>--hwe</code> filters only on controls, so if you want to apply the threshold to non-controls as well, add the <code>include-nonctrl</code> in the command. In the first step below, we filter controls using a threshold of <code>1e-6</code>, followed by filtering all phenotypes with a threshold <code>1e-10</code>:</p>
 <div id="f64ffce1" class="cell" data-tags="[]" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter applied to controls </span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hwe</span> 1e-6 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5_onlycontrols</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter applied to controls </span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5 <span class="at">--hwe</span> 1e-6 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_5_onlycontrols</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
@@ -2078,8 +2084,8 @@ Results/GWAS3/HapMap_3_r3_5_onlycontrols.fam ... done.</code></pre>
 </div>
 </div>
 <div id="5151da4b" class="cell" data-tags="[]" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># threshold apply to all ind</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5_onlycontrols <span class="at">--hwe</span> 1e-10 include-nonctrl <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># threshold apply to all ind</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_5_onlycontrols <span class="at">--hwe</span> 1e-10 include-nonctrl <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_6</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
 (C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
@@ -2131,20 +2137,20 @@ Note
 <p>PLINK does not provide a summary of individual heterozygosity. To assess this, we first prune the dataset by excluding highly correlated SNPs, as they reduce analysis power. We use <code>--indep-pairwise &lt;window size&gt;['kb'] &lt;step size (variant ct)&gt; &lt;r^2 threshold&gt;</code> to prune SNPs in high Linkage Disequilibrium, excluding high inversion regions (<code>--exclude</code> with <code>Data/inversion.txt</code>). For more information, click <a href="https://www.cog-genomics.org/plink/1.9/ld">here</a>.</p>
 <p>In our case, the parameters for the <code>--indep-pairwise</code> are <code>50 5 0.2</code> representing the window size, shift-window step count, and correlation threshold for pruning. Once we have the pruned list, we will check heterozygosity on the <strong>set of SNPs that are not highly correlated</strong>.</p>
 <div id="6cb3ed80" class="cell" data-tags="[]" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--exclude</span> Data/inversion.txt <span class="dt">\</span></span>
 <span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--range</span> <span class="dt">\</span></span>
 <span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--indep-pairwise</span> 50 5 0.2 <span class="dt">\</span></span>
 <span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/indepSNP <span class="dt">\</span></span>
-<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>With this pruned list, we measure the heterozygosity rates of the individuals in the remaining independent SNPs.</p>
 <div id="a551b42f" class="cell" data-tags="[]" data-execution_count="36">
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS3/indepSNP.prune.in <span class="dt">\</span></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--het</span> <span class="dt">\</span></span>
 <span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/R_check <span class="dt">\</span></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Now, let’s plot the distribution of heterozygosity rates. Again, we will first examine the heterozygosity table. The <code>--het</code> option in PLINK generates an output table with the following columns:</p>
@@ -2157,10 +2163,10 @@ Note
 <li><code>F</code>: Inbreeding coefficient, which is calculated as <span class="math inline">\(\tfrac{(E(HOM)−O(HOM))}{N(NM)}\)</span>.</li>
 </ul>
 <div id="1c961837-0788-43d5-a5b0-6f65e147f7a6" class="cell" data-tags="[]" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">het</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">het</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="dataframe caption-top table table-sm table-striped small">
 <caption>A data.frame: 6 × 6</caption>
 <thead>
 <tr class="header">
@@ -2184,7 +2190,7 @@ Note
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">1</td>
+<th data-quarto-table-cell-role="th" scope="row">1</th>
 <td>1328</td>
 <td>NA06989</td>
 <td>67039</td>
@@ -2193,7 +2199,7 @@ Note
 <td>-0.0117200</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">2</td>
+<th data-quarto-table-cell-role="th" scope="row">2</th>
 <td>1377</td>
 <td>NA11891</td>
 <td>66847</td>
@@ -2202,7 +2208,7 @@ Note
 <td>0.0001494</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">3</td>
+<th data-quarto-table-cell-role="th" scope="row">3</th>
 <td>1349</td>
 <td>NA11843</td>
 <td>67262</td>
@@ -2211,7 +2217,7 @@ Note
 <td>-0.0082900</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">4</td>
+<th data-quarto-table-cell-role="th" scope="row">4</th>
 <td>1330</td>
 <td>NA12341</td>
 <td>66654</td>
@@ -2220,7 +2226,7 @@ Note
 <td>-0.0205100</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" scope="row">5</td>
+<th data-quarto-table-cell-role="th" scope="row">5</th>
 <td>1444</td>
 <td>NA12739</td>
 <td>66687</td>
@@ -2229,7 +2235,7 @@ Note
 <td>0.0036020</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th" scope="row">6</td>
+<th data-quarto-table-cell-role="th" scope="row">6</th>
 <td>1344</td>
 <td>NA10850</td>
 <td>67421</td>
@@ -2243,7 +2249,7 @@ Note
 </div>
 <p>We will calculate the heterozygosity rates manually for plotting, as they are not included by default in the table. The formula is <span class="math inline">\(N(NM)-O(HOM)/N(NM)\)</span></p>
 <div id="80d47e15-ca66-44b2-b27a-da477b9d5648" class="cell" data-tags="[]" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot for heterozigosity rates</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Barplot for heterozigosity rates</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
 <span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2262,7 +2268,7 @@ Note
 <span id="cb68-17"><a href="#cb68-17" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.het</span><span class="kw">)</span></span>
 <span id="cb68-18"><a href="#cb68-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb68-19"><a href="#cb68-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Save plots </span></span>
-<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.het, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/heterozygosity.png"</span><span class="kw">))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb68-20"><a href="#cb68-20" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">ggsave</span><span class="er">(</span><span class="va">plot</span><span class="op">=</span>hist.het, <span class="va">filename</span><span class="op">=</span><span class="st">"Results/GWAS3/heterozygosity.png"</span><span class="kw">))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2273,7 +2279,7 @@ Note
 </div>
 <p>As a rule of thumb, <strong>we remove individuals whose heterozygosity deviates (sd) more than 3 standard deviations from the mean</strong>. We will create a file that subsets the heterozygosity table based on this threshold for use in PLINK removal. Additionally, we’ll add a <code>HET_DST</code> column to the table containing the standardized heterozygosity values.</p>
 <div id="963e0a29" class="cell" data-tags="[]" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read file </span></span>
 <span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
@@ -2288,7 +2294,7 @@ Note
 <span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a><span class="ex">het_fail</span><span class="va">$HET_DST</span> <span class="op">&lt;</span>- <span class="er">(</span><span class="ex">het_fail</span><span class="va">$HET_RATE</span><span class="ex">-mean</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">))</span><span class="ex">/sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)</span></span>
 <span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a><span class="co"># write file </span></span>
-<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="ex">het_fail,</span> <span class="st">"Results/GWAS3/fail-het-qc.txt"</span>, row.names=FALSE, quote=FALSE<span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="ex">het_fail,</span> <span class="st">"Results/GWAS3/fail-het-qc.txt"</span>, row.names=FALSE, quote=FALSE<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
 <div class="callout-header d-flex align-content-center">
@@ -2296,7 +2302,7 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Stop - Read - Solve
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2306,15 +2312,15 @@ Stop - Read - Solve
 </div>
 </div>
 <div id="e63bbd7f-001e-47d3-a888-c57aac1ac518" class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Write your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Write your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+<span class="screen-reader-only">Tip</span>Solution
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -2322,14 +2328,14 @@ Solution
 <div class="callout-body-container callout-body">
 <p>We can count the lines (one is the header) of the file - remember the first line is the header of the table, meaning there is one individual less which deviates from the average heterozigosity. To use the file in PLINK, we need only the first two columns (Family ID and Individual ID) as shown below</p>
 <div id="2b73c8ce-c9c4-4f7d-b571-acb4a7efcc8c" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/fail-het-qc.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/fail-het-qc.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>3 Results/GWAS3/fail-het-qc.txt</code></pre>
 </div>
 </div>
 <p>We need the first two columns to create the list of individuals to remove.</p>
 <div id="ffe3b148-7c59-4f7b-ad72-87e44359e73a" class="cell" data-tags="[]" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS3/fail-het-qc.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS3/fail-het-qc.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FID IID O.HOM. E.HOM. N.NM. F HET_RATE HET_DST
 1330 NA12342 68049 67240 103571 0.02229 0.342972453679119 -3.66711854374478
@@ -2338,18 +2344,18 @@ Solution
 </div>
 <p>We use <code>awk</code> to print out the first two columns in the file <code>het-fail-ind.txt</code> and the option <code>--remove</code> to filter out the individuals using PLINK.</p>
 <div id="d35701f1" class="cell" data-tags="[]" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1, $2}'</span> Results/GWAS3/fail-het-qc.txt <span class="op">&gt;</span> Results/GWAS3/het-fail-ind.txt</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1, $2}'</span> Results/GWAS3/fail-het-qc.txt <span class="op">&gt;</span> Results/GWAS3/het-fail-ind.txt</span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/HapMap_3_r3_6 <span class="dt">\</span></span>
 <span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS3/het-fail-ind.txt <span class="dt">\</span></span>
 <span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
 <span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/HapMap_3_r3_7 <span class="dt">\</span></span>
-<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After all filtering is done, we can count the number of individuals and variants</p>
 <div id="9ad08550-3bd3-4048-993b-48ca21b1502e" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_7.fam</span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_7.bim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_7.fam</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/HapMap_3_r3_7.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>162 Results/GWAS3/HapMap_3_r3_7.fam
 1073226 Results/GWAS3/HapMap_3_r3_7.bim</code></pre>
@@ -2366,7 +2372,7 @@ Solution
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Challenge yourself: first quality control on mice data
+<span class="screen-reader-only">Important</span>Challenge yourself: first quality control on mice data
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2390,7 +2396,7 @@ Challenge yourself: first quality control on mice data
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Click to view answers
+<span class="screen-reader-only">Tip</span>Click to view answers
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2403,7 +2409,7 @@ Click to view answers
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Wrapping up
+<span class="screen-reader-only">Note</span>Wrapping up
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2474,12 +2480,12 @@ Wrapping up
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Bibliography</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-kanaka_concepts_2023" class="csl-entry" role="listitem">
-Kanaka, K. K., Nidhi Sukhija, Rangasai Chandra Goli, Sanjeev Singh, Indrajit Ganguly, S. P. Dixit, Aishwarya Dash, and Anoop Anand Malik. 2023. <span>“On the Concepts and Measures of Diversity in the Genomics Era.”</span> <em>Current Plant Biology</em> 33 (January): 100278. <a href="https://doi.org/10.1016/j.cpb.2023.100278">https://doi.org/10.1016/j.cpb.2023.100278</a>.
+Kanaka, K. K., Nidhi Sukhija, Rangasai Chandra Goli, et al. 2023. <span>“On the Concepts and Measures of Diversity in the Genomics Era.”</span> <em>Current Plant Biology</em> 33 (January): 100278. <a href="https://doi.org/10.1016/j.cpb.2023.100278">https://doi.org/10.1016/j.cpb.2023.100278</a>.
 </div>
 <div id="ref-lachance_hardyweinberg_2016" class="csl-entry" role="listitem">
-Lachance, J. 2016. <span>“Hardy–<span>Weinberg</span> <span>Equilibrium</span> and <span>Random</span> <span>Mating</span>.”</span> In <em>Encyclopedia of <span>Evolutionary</span> <span>Biology</span></em>, edited by Richard M. Kliman, 208–11. Oxford: Academic Press. <a href="https://doi.org/10.1016/B978-0-12-800049-6.00022-6">https://doi.org/10.1016/B978-0-12-800049-6.00022-6</a>.
+Lachance, J. 2016. <span>“Hardy–<span>Weinberg</span> <span>Equilibrium</span> and <span>Random</span> <span>Mating</span>.”</span> In <em>Encyclopedia of <span>Evolutionary</span> <span>Biology</span></em>, edited by Richard M. Kliman. Academic Press. <a href="https://doi.org/10.1016/B978-0-12-800049-6.00022-6">https://doi.org/10.1016/B978-0-12-800049-6.00022-6</a>.
 </div>
 </div></section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -2546,13 +2552,14 @@ Lachance, J. 2016. <span>“Hardy–<span>Weinberg</span> <span>Equilibrium</spa
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

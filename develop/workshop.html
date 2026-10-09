@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.10.19">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>workshop – GWAS</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -36,14 +42,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-9bd68073323f4f1987601e1693e72561.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-693dbad48136c6af4d5a3f699b9c9b7d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-9bd68073323f4f1987601e1693e72561.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -254,7 +260,8 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
-    <img src="../img/logo.png" alt="" class="navbar-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../img/logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="http://hds-sandbox.github.io/">
     <span class="navbar-title">GWAS</span>
@@ -338,7 +345,7 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Required preparation
+<span class="screen-reader-only">Warning</span>Required preparation
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -362,7 +369,7 @@ Required preparation
 </ol>
 <p>&nbsp;</p>
 <p align="center">
-<a href="https://cloud.sdu.dk/app/projects/invite/1e652641-3d29-47dc-bc7f-78dda1e5e3dd" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Invite link to UCloud workspace </a>
+<a href="https://cloud.sdu.dk/app/projects/invite/53aa7e1e-252e-449a-b2ee-491bd5f84bfc" style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;"> Invite link to UCloud workspace </a>
 </p>
 <p>&nbsp;</p>
 <ol start="4" type="1">
@@ -374,7 +381,7 @@ Required preparation
 <ol start="5" type="1">
 <li>EXTRA EXERCISE - GWAS4</li>
 </ol>
-<p>You can download an extra notebook and data with population structure and effect of LD on that. Upload the files through jupyterlab, and copy the data in the data folder and the notebook in the notebooks folder:</p>
+<p>You can download an extra notebook and data with population structure and the effect of LD on that. Upload the files through JupyterLab, and copy the data into the data folder and the notebook into the notebooks folder:</p>
 <p align="center">
 <a href="./hapmap.zip" download="hapmap.zip"> <button class="btn small-button">Download data</button> </a>
 </p>
@@ -384,7 +391,7 @@ Required preparation
 <ol start="6" type="1">
 <li>EXTRA EXERCISE - LDAK</li>
 </ol>
-<p>A notebook with an analysis using LDAK for preprocessing and some of the implemented association testings and heritability estimates</p>
+<p>A notebook with an analysis using LDAK for preprocessing and some of the implemented association testing and heritability estimates</p>
 <p align="center">
 <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS8-LDAK-Extra.ipynb" download="GWAS8-LDAK-Extra.ipynb"> <button class="btn small-button">Download notebook</button> </a>
 </p>
@@ -416,12 +423,12 @@ Nice meeting you and we hope to see you again!
 </section>
 <section id="download-or-copy-your-data" class="level2">
 <h2 class="anchored" data-anchor-id="download-or-copy-your-data">Download or copy your data</h2>
-<p>You can move all your data into your own personal workspace on UCloud, and also download all data and nortebooks on your computer.</p>
+<p>You can move all your data into your own personal workspace on UCloud, and also download all data and notebooks to your computer.</p>
 <section id="copy-data-on-ucloud" class="level3">
 <h3 class="anchored" data-anchor-id="copy-data-on-ucloud">Copy data on UCloud</h3>
-<p>If you transfer the data to you UCloud’s workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.</p>
+<p>If you transfer the data to your UCloud workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.</p>
 <ul>
-<li><p>Go on the left-side toolbar and click on the file browser.</p>
+<li><p>Go to the left-side toolbar and click on the file browser.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/ucloud_download_instructions/toolbar.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="100"></p>
@@ -439,7 +446,7 @@ Nice meeting you and we hope to see you again!
 <p><img src="../img/ucloud_download_instructions/ucloudCopy.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
 </figure>
 </div></li>
-<li><p>In the browsing window which opens, choose your own workspace <strong>My workspace</strong> (green circle). You should be already inside your <strong>Home</strong> folder, otherwise you can find it with the small arrow (red circle). Now click on <strong>Use this folder</strong> (blue circle). The data is copied.</p>
+<li><p>In the browsing window that opens, choose your own workspace <strong>My workspace</strong> (green circle). You should already be inside your <strong>Home</strong> folder; otherwise, you can find it with the small arrow (red circle). Now click on <strong>Use this folder</strong> (blue circle). The data is copied.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../img/ucloud_download_instructions/copyDestination.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="400"></p>
@@ -450,7 +457,7 @@ Nice meeting you and we hope to see you again!
 </section>
 <section id="download-data-from-ucloud" class="level3">
 <h3 class="anchored" data-anchor-id="download-data-from-ucloud">Download data from UCloud</h3>
-<p>To download the data and notebooks, you first need to compress it in a <code>zip</code> file.</p>
+<p>To download the data and notebooks, you first need to compress them into a <code>zip</code> file.</p>
 <ul>
 <li><p>Launch the genomics sandbox with the data and notebooks as added folders.</p></li>
 <li><p>When you open the graphical interface, open a new terminal (green circle)</p>
@@ -480,7 +487,7 @@ Nice meeting you and we hope to see you again!
 
 <ol>
 <li id="fn1"><p>Other institutions (e.g.&nbsp;hospitals, libraries, …) can log on through WAYF. See all institutions <a href="https://www.wayf.dk/da/institutioner-i-wayf">here</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any UCloud software. If you run out of credit (which takes a long time) you’ll need to check with the <a href="https://www.deic.dk/en/Front-Office">local DeiC office at your university</a> about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>To use Sandbox materials outside of the workshop: remember that each new user has hundreds of hours of free computing credit and around 50GB of free storage, which can be used to run any UCloud software. If you run out of credit (which takes a long time), you’ll need to check with the <a href="https://www.deic.dk/en/Front-Office">local DeiC office at your university</a> about how to request compute hours on UCloud. Contact us at the Sandbox if you need help or want more information.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -547,13 +554,14 @@ Nice meeting you and we hope to see you again!
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
