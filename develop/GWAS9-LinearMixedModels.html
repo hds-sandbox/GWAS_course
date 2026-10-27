@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Linear mixed model GWAS – GWAS</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QWLRKN2JZ3"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../img/logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="http://hds-sandbox.github.io/">
+    <span class="navbar-title">GWAS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="../develop/general-intro.html" aria-current="page"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/workshop.html"> 
+<span class="menu-text">Workshop</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hds-sandbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/ucph-heads/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="../develop/GWAS9-LinearMixedModels.html">Linear mixed model GWAS</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/general-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Theory Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS1-WhatIsAGWAS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is a GWAS?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data collection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Quality Control</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS3-QualityControlA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: initial steps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Relatedness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Strand and mapping correction, anchoring and population covariates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Association Testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5-AssociationTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Association testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population stratification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic scores I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic scores II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Other tools &amp; conclusions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Advanced Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-HeritabilityEstimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimating SNP heritability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS9-LinearMixedModels.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Linear mixed model GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS10-FineMapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical fine-mapping</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#two-step-mixed-model-gwas-with-ldak-kvik" id="toc-two-step-mixed-model-gwas-with-ldak-kvik" class="nav-link active" data-scroll-target="#two-step-mixed-model-gwas-with-ldak-kvik">Two-Step Mixed-Model GWAS with <code>LDAK-KVIK</code></a>
+  <ul class="collapse">
+  <li><a href="#preparing-phenotype-and-covariates" id="toc-preparing-phenotype-and-covariates" class="nav-link" data-scroll-target="#preparing-phenotype-and-covariates">Preparing Phenotype and Covariates</a></li>
+  <li><a href="#running-ldak-kvik-step-1-and-step-2-on-quantitative-traits" id="toc-running-ldak-kvik-step-1-and-step-2-on-quantitative-traits" class="nav-link" data-scroll-target="#running-ldak-kvik-step-1-and-step-2-on-quantitative-traits">Running <code>LDAK-KVIK</code> Step 1 and Step 2 on Quantitative Traits</a></li>
+  </ul></li>
+  <li><a href="#benchmarking-power-ldak-kvik-vs.-standard-plink-gwas" id="toc-benchmarking-power-ldak-kvik-vs.-standard-plink-gwas" class="nav-link" data-scroll-target="#benchmarking-power-ldak-kvik-vs.-standard-plink-gwas">Benchmarking Power: <code>LDAK-KVIK</code> vs.&nbsp;Standard <code>PLINK</code> GWAS</a></li>
+  <li><a href="#binary-traits-and-saddlepoint-approximation-spa" id="toc-binary-traits-and-saddlepoint-approximation-spa" class="nav-link" data-scroll-target="#binary-traits-and-saddlepoint-approximation-spa">Binary Traits and Saddlepoint Approximation (SPA)</a>
+  <ul class="collapse">
+  <li><a href="#visualizing-and-comparing-ldak-kvik-vs.-plink-in-r" id="toc-visualizing-and-comparing-ldak-kvik-vs.-plink-in-r" class="nav-link" data-scroll-target="#visualizing-and-comparing-ldak-kvik-vs.-plink-in-r">Visualizing and Comparing <code>LDAK-KVIK</code> vs.&nbsp;<code>PLINK</code> in R</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS9-LinearMixedModels.out.ipynb" download="GWAS9-LinearMixedModels.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="../develop/GWAS9-LinearMixedModels.html">Linear mixed model GWAS</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Linear mixed model GWAS</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Important notes for this notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In <code>GWAS5</code>, we ran standard linear and logistic regression (<code>plink --linear</code> and <code>--logistic</code>), which required removing cryptically related individuals and tested one SNP at a time while treating the polygenic background across the rest of the genome as noise. In this tutorial, we introduce <strong>Linear Mixed Model (LMM)</strong> and <strong>Whole-Genome Regression (WGR)</strong> GWAS methods—focusing on <strong>LDAK-KVIK</strong> (<a href="https://doi.org/10.1038/s41588-024-01986-w">Hof et al., 2024</a>)—which use the heritability models from <code>GWAS8</code> to boost statistical power, retain related individuals, and scale to biobank cohorts.</p>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
+<ul>
+<li><strong>Understand</strong> the assumptions and statistical differences between standard single-SNP regression (<code>PLINK</code>), classical LMMs (<code>GCTA</code>/<code>GEMMA</code>), and two-step biobank methods (<code>BOLT-LMM</code>, <code>REGENIE</code>, and <code>LDAK-KVIK</code>)</li>
+<li><strong>Explain</strong> how SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>) and Leave-One-Chromosome-Out (<code>LOCO</code>) predictions increase association power while avoiding proximal contamination</li>
+<li><strong>Execute</strong> a two-step mixed-model GWAS using <code>LDAK-KVIK</code> (<code>--kvik-step1</code> and <code>--kvik-step2</code>) for quantitative traits</li>
+<li><strong>Apply</strong> Saddlepoint Approximation (SPA) in <code>LDAK-KVIK</code> (<code>--binary YES</code>) for unbalanced case-control traits</li>
+<li><strong>Compare</strong> association power and calibration between <code>PLINK</code> and <code>LDAK-KVIK</code> in <code>R</code></li>
+</ul>
+</section>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
+<ul>
+<li>In this notebook, we will use both <code>bash command line</code> and <code>R</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images. We will first run <code>Bash</code> commands.</li>
+</ul>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Some theory">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Some theory
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="intuition-first-how-does-a-mixed-model-boost-gwas-power" class="level3">
+<h3 class="anchored" data-anchor-id="intuition-first-how-does-a-mixed-model-boost-gwas-power">Intuition First: How does a Mixed Model boost GWAS power?</h3>
+<p>Imagine you are trying to hear a <strong>solo singer</strong> (<span class="math inline">\(X_j \beta_j\)</span>, the effect of a single SNP on <strong>Chromosome 1</strong>) over a <strong>background choir</strong> (<span class="math inline">\(g\)</span>, the combined polygenic effect of <strong>Chromosomes 2–22</strong>). In standard single-SNP regression (<code>plink --linear</code> in <code>GWAS5</code>), the genetic effects of thousands of causal variants on <strong>Chromosomes 2–22</strong> are left unmodeled and thrown into the random error term <span class="math inline">\(\epsilon\)</span>. That background choir acts like loud room noise, making it harder to hear the solo singer on Chromosome 1.</p>
+<p>Modern <strong>Linear Mixed Models (LMMs)</strong> and <strong>Whole-Genome Regression</strong> methods (like <code>LDAK-KVIK</code>) solve this in two intuitive steps: 1. <strong>Step 1 (Subtract the background choir using Chromosomes 2–22)</strong>: Using the trait’s SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span> from <code>GWAS8</code>), the model jointly fits all SNPs on Chromosomes 2–22 to predict each person’s background genetic value (<span class="math inline">\(\hat{g}^{(-1)}\)</span>, called a <strong>Leave-One-Chromosome-Out</strong> or <strong><code>LOCO</code></strong> prediction) and subtracts it from the phenotype. 2. <strong>Step 2 (Test each solo singer SNP on Chromosome 1 against the quieted phenotype)</strong>: Because the polygenic background noise from the rest of the genome has been removed, the residual variance is smaller and true causal variants on Chromosome 1 stand out with much stronger test statistics! Moreover, because Step 1 naturally accounts for shared family genetics (<code>GRM</code> <span class="math inline">\(K\)</span>), <strong>we no longer need to discard related individuals</strong> as we did in <code>GWAS3</code>.</p>
+</section>
+<section id="why-move-beyond-standard-single-snp-gwas-plink" class="level3">
+<h3 class="anchored" data-anchor-id="why-move-beyond-standard-single-snp-gwas-plink">Why move beyond standard single-SNP GWAS (<code>PLINK</code>)?</h3>
+<p>In <code>GWAS5</code>, we tested each SNP <span class="math inline">\(j\)</span> individually using ordinary least squares (<code>plink --linear</code>):</p>
+<p><span class="math display">\[y = X_j \beta_j + Z \gamma + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
+<p>where <span class="math inline">\(y\)</span> is the phenotype vector (<span class="math inline">\(N \times 1\)</span>), <span class="math inline">\(X_j\)</span> is the genotype vector for SNP <span class="math inline">\(j\)</span>, and <span class="math inline">\(Z\)</span> is the matrix of fixed covariates (such as sex and top principal components). This classical approach has three major limitations in modern cohorts:</p>
+<ol type="1">
+<li><strong>Loss of sample size from relatedness filtering</strong>: Because <span class="math inline">\(\epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\)</span> assumes independent residuals, related individuals violate the model and inflate Type I error. In <code>GWAS3</code>, we had to drop related individuals (<span class="math inline">\(\hat{\pi} &gt; 0.125\)</span>). In biobanks like the UK Biobank (~30% with a 3rd-degree or closer relative), discarding relatives throws away massive statistical power.</li>
+<li><strong>Omitted polygenic background reduces power</strong>: For a polygenic trait with heritability <span class="math inline">\(h^2_{\text{SNP}}\)</span>, thousands of causal variants on other chromosomes contribute variance <span class="math inline">\(\sigma_g^2\)</span> to <span class="math inline">\(y\)</span>. Leaving this polygenic signal in the error term <span class="math inline">\(\epsilon\)</span> inflates residual variance from <span class="math inline">\(\sigma_e^2\)</span> to <span class="math inline">\(\sigma_g^2 + \sigma_e^2\)</span>, weakening test statistics.</li>
+<li><strong>Case-control imbalance in binary traits</strong>: Standard logistic regression (<code>plink --logistic</code>) relies on normal theory that breaks down for rare variants when cases are much rarer than controls (e.g., 1:50 case-control ratio), leading to severe false-positive inflation.</li>
+</ol>
+</section>
+<section id="linear-mixed-models-lmms-and-whole-genome-regression" class="level3">
+<h3 class="anchored" data-anchor-id="linear-mixed-models-lmms-and-whole-genome-regression">Linear Mixed Models (LMMs) and Whole-Genome Regression</h3>
+<p>A <strong>Linear Mixed Model (LMM)</strong> explicitly includes a random polygenic effect <span class="math inline">\(g\)</span> alongside the fixed effect of the tested SNP <span class="math inline">\(X_j\)</span>:</p>
+<p><span class="math display">\[y = X_j \beta_j + Z \gamma + g + \epsilon, \quad g \sim \mathcal{N}(0, \sigma_g^2 K), \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
+<p>Equivalently, we can view <span class="math inline">\(g = \sum_{k \neq j} X_k b_k\)</span> as a <strong>whole-genome regression</strong> model over all other SNPs, where the prior variance of <span class="math inline">\(b_k\)</span> is governed by the <strong>SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>)</strong> and the <strong>heritability model</strong> (<span class="math inline">\(\mathbb{E}[h_k^2] \propto [2 f_k(1-f_k)]^{1+\alpha} w_k\)</span>) we studied in <code>GWAS8</code>.</p>
+<p>By conditioning on the polygenic background <span class="math inline">\(\hat{g}^{(-c)}\)</span> predicted from all chromosomes except chromosome <span class="math inline">\(c\)</span> (<strong>Leave-One-Chromosome-Out, LOCO</strong>), mixed-model GWAS: - <strong>Increases statistical power</strong>: Residual variance drops from <span class="math inline">\(\text{Var}(y)\)</span> to approximately <span class="math inline">\((1 - h^2_{\text{SNP}})\text{Var}(y)\)</span>, which increases <span class="math inline">\(\chi^2\)</span> test statistics roughly in proportion to <span class="math inline">\(1 / (1 - h^2_{\text{SNP}})\)</span>. - <strong>Avoids proximal contamination</strong>: Excluding the chromosome of the tested SNP when predicting <span class="math inline">\(\hat{g}^{(-c)}\)</span> ensures the polygenic predictor does not absorb the signal of the tested SNP via linkage disequilibrium (LD).</p>
+</section>
+<section id="comparing-biobank-scale-mixed-model-methods" class="level3">
+<h3 class="anchored" data-anchor-id="comparing-biobank-scale-mixed-model-methods">Comparing Biobank-Scale Mixed-Model Methods</h3>
+<p>Classical LMMs (<code>GCTA-MLMA</code>, <code>GEMMA</code>) explicitly build and factorize the dense <span class="math inline">\(N \times N\)</span> Genetic Relatedness Matrix <span class="math inline">\(K\)</span>, which costs <span class="math inline">\(\mathcal{O}(N^2 M)\)</span> memory and <span class="math inline">\(\mathcal{O}(N^3)\)</span> time—impossible when <span class="math inline">\(N = 500\text{,000}\)</span>. Modern biobank methods replace matrix factorization with a <strong>2-Step Whole-Genome Regression</strong> strategy:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th>Heritability Model (<span class="math inline">\(\alpha\)</span>)</th>
+<th>Step 1 Effect Prior (<span class="math inline">\(b_k\)</span>)</th>
+<th>Binary Trait Support</th>
+<th>Computational Scaling</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>PLINK</strong> (<code>--linear</code>/<code>--logistic</code>)</td>
+<td>None (<span class="math inline">\(\sigma_g^2 = 0\)</span>)</td>
+<td>None (single-SNP only)</td>
+<td>Wald / Firth test</td>
+<td>Fast, <span class="math inline">\(\mathcal{O}(NM)\)</span>, but requires unrelateds &amp; lower power</td>
+</tr>
+<tr class="even">
+<td><strong>Classical LMM</strong> (<code>GCTA</code>, <code>GEMMA</code>)</td>
+<td>GCTA (<span class="math inline">\(\alpha = -1\)</span>)</td>
+<td>Infinitesimal Gaussian: <span class="math inline">\(b_k \sim \mathcal{N}(0, \sigma_g^2/M)\)</span></td>
+<td>Liability / linear approx.</td>
+<td>Slow, <span class="math inline">\(\mathcal{O}(N^2 M + N^3)\)</span>, exact GRM inversion</td>
+</tr>
+<tr class="odd">
+<td><strong>BOLT-LMM</strong></td>
+<td>GCTA (<span class="math inline">\(\alpha = -1\)</span>)</td>
+<td>Mixture of two Gaussians (spike-and-slab)</td>
+<td>Linear model only</td>
+<td><span class="math inline">\(\mathcal{O}(N M^{1.5})\)</span> via conjugate gradient</td>
+</tr>
+<tr class="even">
+<td><strong>REGENIE</strong></td>
+<td>GCTA (<span class="math inline">\(\alpha = -1\)</span>)</td>
+<td>Stacked block-wise Ridge regression (infinitesimal)</td>
+<td>Firth / Saddlepoint (SPA)</td>
+<td>Fast two-step block regression, <span class="math inline">\(\mathcal{O}(NM)\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>LDAK-KVIK</strong></td>
+<td><strong>LDAK (<span class="math inline">\(\alpha = -0.25\)</span>)</strong></td>
+<td><strong>Elastic Net / Mixture prior</strong> (adapts to sparse &amp; polygenic traits)</td>
+<td><strong>Saddlepoint Approx. (SPA)</strong></td>
+<td><strong>Very fast &amp; low RAM</strong>, <span class="math inline">\(\mathcal{O}(NM)\)</span> randomized solver</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-ldak-kvik-works-step-1-and-step-2" class="level3">
+<h3 class="anchored" data-anchor-id="how-ldak-kvik-works-step-1-and-step-2">How <code>LDAK-KVIK</code> Works (Step 1 and Step 2)</h3>
+<p><code>LDAK-KVIK</code> (<a href="https://doi.org/10.1038/s41588-024-01986-w">Hof et al., 2024</a>) divides mixed-model association testing into two fast steps:</p>
+<ol type="1">
+<li><strong>Step 1 (<code>--kvik-step1</code>) — Heritability &amp; LOCO Polygenic Prediction</strong>:
+<ul>
+<li>Estimates SNP heritability (<span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span>) under the realistic LDAK-Thin model (<span class="math inline">\(\alpha = -0.25\)</span>) using a randomized Haseman-Elston / REML solver without forming an <span class="math inline">\(N \times N\)</span> GRM.</li>
+<li>Uses <span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span> to calibrate a variational Bayes <strong>Elastic Net</strong> (mixture of Laplace and Gaussian priors) across genome-wide SNPs, and computes 22 <strong>Leave-One-Chromosome-Out (LOCO)</strong> polygenic predictions <span class="math inline">\(\hat{g}^{(-c)}\)</span> (<span class="math inline">\(c = 1, \dots, 22\)</span>).</li>
+</ul></li>
+<li><strong>Step 2 (<code>--kvik-step2</code>) — Single-SNP Association Testing</strong>:
+<ul>
+<li>For each SNP <span class="math inline">\(j\)</span> on chromosome <span class="math inline">\(c\)</span>, tests <span class="math inline">\(X_j\)</span> against the LOCO-adjusted phenotype <span class="math inline">\(y - Z\hat{\gamma} - \hat{g}^{(-c)}\)</span> using a calibrated score test (or <strong>Saddlepoint Approximation, SPA</strong>, when <code>--binary YES</code> is specified).</li>
+</ul></li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Quick Concept Check (from Lecture 9)</strong>: - <em>What happens if Step 1 accidentally includes all 22 chromosomes (including Chromosome 1) when testing a causal SNP on Chromosome 1?</em> Its signal is <strong>wiped out</strong> (<em>Proximal Contamination</em> — we subtracted the Solo Singer along with the Background Choir!), which is why <strong><code>LOCO</code></strong> predicts <span class="math inline">\(\hat{g}^{(-1)}\)</span> from Chromosomes 2–22 only. - <em>Why can an LMM safely keep siblings and cousins in the study?</em> Because the polygenic term <span class="math inline">\(g \sim \mathcal{N}(0, \sigma_g^2 K)\)</span> already models shared family genetics!</p>
+</blockquote>
+</section>
+</div>
+</div>
+<section id="two-step-mixed-model-gwas-with-ldak-kvik" class="level1">
+<h1>Two-Step Mixed-Model GWAS with <code>LDAK-KVIK</code></h1>
+<section id="preparing-phenotype-and-covariates" class="level3">
+<h3 class="anchored" data-anchor-id="preparing-phenotype-and-covariates">Preparing Phenotype and Covariates</h3>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<p>First, let’s link the <code>Data</code> folder, create our working directory <code>Results/GWAS9</code>, and format the phenotype (<code>Data/EUR.height</code>) and covariate (<code>Data/EUR.covariate</code>) files for <code>LDAK</code> (which expects headerless files where the first two columns are <code>FID</code> and <code>IID</code>):</p>
+<div id="90000001-0000-4000-8000-000000000005" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS9</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Strip headers from EUR.height and EUR.covariate for LDAK</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $1, $2, $3}'</span> Data/EUR.height <span class="op">&gt;</span> Results/GWAS9/EUR.pheno</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $0}'</span> Data/EUR.covariate <span class="op">&gt;</span> Results/GWAS9/EUR.covar</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Formatted individuals: </span><span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS9/EUR.pheno<span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="running-ldak-kvik-step-1-and-step-2-on-quantitative-traits" class="level3">
+<h3 class="anchored" data-anchor-id="running-ldak-kvik-step-1-and-step-2-on-quantitative-traits">Running <code>LDAK-KVIK</code> Step 1 and Step 2 on Quantitative Traits</h3>
+<p>Now we run the two steps of <code>LDAK-KVIK</code> on our quality-controlled European dataset (<code>Data/EUR.QC</code>).</p>
+<p>Key <code>LDAK</code> flags used below: - <code>--kvik-step1 &lt;prefix&gt;</code>: Estimates SNP heritability, fits the Step 1 Elastic Net whole-genome regression model adjusting for covariates (<code>--covar</code>), and saves the 22 Leave-One-Chromosome-Out (<code>LOCO</code>) polygenic predictions (<code>&lt;prefix&gt;.loco.crs</code>). - <code>--kvik-step2 &lt;prefix&gt;</code>: Reads the Step 1 <code>LOCO</code> predictions from <code>&lt;prefix&gt;</code>, tests each SNP in <code>--bfile</code> against the residualized phenotype, and writes the GWAS summary statistics to <code>&lt;prefix&gt;.assoc</code>. - <code>--bfile &lt;prefix&gt;</code>, <code>--pheno &lt;file&gt;</code>, <code>--covar &lt;file&gt;</code>: Specify the PLINK binary fileset, phenotype file, and covariate file (just as in <code>PLINK</code>).</p>
+<div id="90000001-0000-4000-8000-000000000007" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Fit Whole-Genome Regression and generate LOCO predictions</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform single-SNP association testing conditioned on LOCO predictions</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_height.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s inspect the columns of <code>kvik_height.assoc</code>: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: The test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: Two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SD</code>: Estimated effect size (<span class="math inline">\(\hat{\beta}_j\)</span>) and standard error of allele <code>A1</code> - <code>Effect_Liability</code>: Effect size on the liability scale (when analyzing binary traits)</p>
+</section>
+</section>
+<section id="benchmarking-power-ldak-kvik-vs.-standard-plink-gwas" class="level1">
+<h1>Benchmarking Power: <code>LDAK-KVIK</code> vs.&nbsp;Standard <code>PLINK</code> GWAS</h1>
+<p>When does a Linear Mixed Model provide the biggest gain over <code>plink --linear</code>? Theory tells us the expected increase in test statistics is proportional to <span class="math inline">\(1 / (1 - h^2_{\text{SNP}})\)</span>: the higher the heritability explained by the genome, the more background variance Step 1 removes.</p>
+<p>To see this clearly in our small teaching cohort (<span class="math inline">\(N \approx 480\)</span>), let’s use <code>ldak --make-phenos</code> to simulate a heritable polygenic trait (<code>--her 0.7</code>, <code>--num-causals 200</code> causal SNPs, <code>--power -0.25</code>) directly on <code>Data/EUR.QC</code> (which also records the true causal SNPs in <code>sim_poly.effects</code>), and run both <strong>standard <code>PLINK</code> linear regression</strong> and <strong><code>LDAK-KVIK</code></strong> on the exact same phenotype.</p>
+<div id="90000001-0000-4000-8000-000000000010" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Simulate a polygenic trait (h2 = 0.7, 200 causal variants) under the LDAK model</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--make-phenos</span> Results/GWAS9/sim_poly <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--her</span> 0.7 <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-phenos</span> 1 <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-causals</span> 200 <span class="dt">\</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run standard single-SNP linear regression in PLINK (with covariates)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Data/EUR.covariate <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--linear</span> hide-covar <span class="dt">\</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> Results/GWAS9/plink_sim</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run LDAK-KVIK Step 1 and Step 2 on the same simulated phenotype</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="binary-traits-and-saddlepoint-approximation-spa" class="level1">
+<h1>Binary Traits and Saddlepoint Approximation (SPA)</h1>
+<p>When analyzing case-control phenotypes (coded as <code>1</code> = control, <code>2</code> = case, or <code>0</code>/<code>1</code>), adding <code>--binary YES</code> tells <code>LDAK-KVIK</code> to use a <strong>Saddlepoint Approximation (SPA)</strong> in Step 2.</p>
+<p>Why is SPA essential? Standard score tests approximate the null distribution of the test statistic using a normal distribution (which only matches the mean and variance). When case-control ratios are unbalanced (e.g., 500 cases vs.&nbsp;50,000 controls) and a SNP has low minor allele frequency, the true null distribution is heavily skewed, causing standard tests to produce thousands of false positives. <strong>SPA</strong> approximates the entire cumulant generating function (capturing skewness and higher-order moments), ensuring accurate <span class="math inline">\(p\)</span>-values even for low-frequency variants in unbalanced cohorts.</p>
+<p>Let’s run <code>LDAK-KVIK</code> with <code>--binary YES</code> on the binary case-control phenotype stored in column 6 of <code>Data/TOY_TARGET_DATA.fam</code>.</p>
+<div id="90000001-0000-4000-8000-000000000012" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract binary phenotype (FID IID CaseControl) from TOY_TARGET_DATA.fam</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, $2, $6}'</span> Data/TOY_TARGET_DATA.fam <span class="op">&gt;</span> Results/GWAS9/toy_binary.pheno</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1 with --binary YES</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 with --binary YES (activates Saddlepoint Approximation)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS9/kvik_binary.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="visualizing-and-comparing-ldak-kvik-vs.-plink-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-and-comparing-ldak-kvik-vs.-plink-in-r">Visualizing and Comparing <code>LDAK-KVIK</code> vs.&nbsp;<code>PLINK</code> in R</h3>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
+<p>Let’s switch to the <strong>R kernel</strong> to visualize the <code>LDAK-KVIK</code> Manhattan and Q-Q plots and compare the test statistics at the true causal variants (<code>sim_poly.effects</code>) between <code>LDAK-KVIK</code> and <code>PLINK</code>.</p>
+<div id="90000001-0000-4000-8000-000000000014" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">warn</span> = <span class="at">-1</span><span class="kw">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 10, repr.plot.height = 4.5<span class="kw">)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">qqman</span><span class="kw">)))</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load PLINK and LDAK-KVIK results for the simulated polygenic trait</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">plink_res</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/plink_sim.assoc.linear"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">kvik_res</span>  <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/kvik_sim.assoc"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">causals</span>   <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/sim_poly.effects"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge by SNP identifier</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">merged</span> <span class="op">&lt;</span>- merge<span class="er">(</span><span class="va">plink_res</span><span class="op">[</span>, c(<span class="st">"SNP"</span>, <span class="st">"CHR"</span>, <span class="st">"BP"</span>, <span class="st">"STAT"</span>, <span class="st">"P"</span>)<span class="op">]</span><span class="ex">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="va">kvik_res</span><span class="op">[</span>, c(<span class="st">"Predictor"</span>, <span class="st">"Wald_Stat"</span>, <span class="st">"Wald_P"</span>, <span class="st">"Effect"</span>, <span class="st">"SD"</span>)<span class="op">]</span><span class="ex">,</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                <span class="ex">by.x</span> = <span class="st">"SNP"</span>, by.y = <span class="st">"Predictor"</span><span class="kw">)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="ex">merged</span><span class="va">$IsCausal</span> <span class="op">&lt;</span>- ifelse<span class="er">(</span><span class="ex">merged</span><span class="va">$SNP</span> %in% causals<span class="va">$Predictor</span>, <span class="st">"Causal SNP"</span>, <span class="st">"Null SNP"</span><span class="kw">)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="ex">merged</span><span class="va">$CHISQ_PLINK</span> <span class="op">&lt;</span>- merged<span class="va">$STAT</span>^2</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="ex">merged</span><span class="va">$CHISQ_KVIK</span>  <span class="op">&lt;</span>- merged<span class="va">$Wald_Stat</span>^2</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Mean Chi-Square at True Causal SNPs (PLINK):    "</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">mean</span><span class="er">(</span><span class="ex">merged</span><span class="va">$CHISQ_PLINK</span><span class="ex">[merged</span><span class="va">$IsCausal</span> == <span class="st">"Causal SNP"</span>], na.rm = TRUE<span class="kw">)</span><span class="ex">,</span> 3<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Mean Chi-Square at True Causal SNPs (LDAK-KVIK):"</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">mean</span><span class="er">(</span><span class="ex">merged</span><span class="va">$CHISQ_KVIK</span><span class="ex">[merged</span><span class="va">$IsCausal</span> == <span class="st">"Causal SNP"</span>], na.rm = TRUE<span class="kw">)</span><span class="ex">,</span> 3<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="90000001-0000-4000-8000-000000000015" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Manhattan and Q-Q plots for LDAK-KVIK</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">par</span><span class="er">(</span><span class="ex">mfrow</span> = c<span class="er">(</span><span class="ex">1,</span> 2<span class="kw">))</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">manhattan</span><span class="er">(</span><span class="ex">kvik_res,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>          <span class="ex">chr</span> = <span class="st">"Chromosome"</span>, bp = <span class="st">"Basepair"</span>, p = <span class="st">"Wald_P"</span>, snp = <span class="st">"Predictor"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>          <span class="ex">highlight</span> = causals<span class="va">$Predictor</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">col</span> = c<span class="er">(</span><span class="st">"steelblue"</span><span class="ex">,</span> <span class="st">"tomato"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>          <span class="ex">main</span> = <span class="st">"LDAK-KVIK Manhattan Plot"</span><span class="kw">)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">qq</span><span class="er">(</span><span class="ex">kvik_res</span><span class="va">$Wald_P</span><span class="ex">,</span> main = <span class="st">"LDAK-KVIK Q-Q Plot"</span>, col = <span class="st">"steelblue"</span>, pch = 19<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Q1. Create a scatter plot comparing <code>-log10(P)</code> from <code>PLINK</code> on the x-axis against <code>-log10(Wald_P)</code> from <code>LDAK-KVIK</code> on the y-axis, coloring points by <code>IsCausal</code> (<code>"Causal SNP"</code> vs.&nbsp;<code>"Null SNP"</code>), and add the <span class="math inline">\(y = x\)</span> identity line (<code>geom_abline</code>).</strong></li>
+<li><strong>Q2. Compute the genomic inflation factor <span class="math inline">\(\lambda_{\text{GC}} = \text{median}(\chi^2) / \text{qchisq}(0.5, 1)\)</span> for both <code>PLINK</code> and <code>LDAK-KVIK</code>. Why is it crucial that <code>LDAK-KVIK</code> uses Leave-One-Chromosome-Out (<code>LOCO</code>) predictions in Step 1 rather than predicting polygenic effects from all 22 chromosomes simultaneously?</strong></li>
+</ul>
+<p>Hint: Use <code>merged</code> from the previous cell, <code>ggplot(merged, aes(x = -log10(P), y = -log10(Wald_P), color = IsCausal))</code>, and <code>median(merged$CHISQ_KVIK, na.rm = TRUE) / qchisq(0.5, 1)</code>.</p>
+</div>
+</div>
+<div id="90000001-0000-4000-8000-000000000017" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In <code>R</code>, we plot <code>-log10(P)</code> from <code>PLINK</code> against <code>-log10(Wald_P)</code> from <code>LDAK-KVIK</code> and compute <span class="math inline">\(\lambda_{\text{GC}}\)</span> for both methods:</p>
+<div id="90000001-0000-4000-8000-000000000019" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1. Scatter plot of -log10(p) values: PLINK vs. LDAK-KVIK</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">p_comp</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">merged,</span> aes<span class="er">(</span><span class="ex">x</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">P</span><span class="kw">)</span><span class="ex">,</span> y = <span class="at">-log10</span><span class="er">(</span><span class="ex">Wald_P</span><span class="kw">)</span><span class="ex">,</span> color = IsCausal, alpha = IsCausal<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="fu">size</span> = 1.8<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_abline</span><span class="er">(</span><span class="ex">intercept</span> = 0, slope = 1, linetype = <span class="st">"dashed"</span>, color = <span class="st">"black"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_color_manual</span><span class="er">(</span><span class="ex">values</span> = c<span class="er">(</span><span class="st">"Causal SNP"</span> = <span class="st">"tomato"</span>, <span class="st">"Null SNP"</span> = <span class="st">"steelblue"</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_alpha_manual</span><span class="er">(</span><span class="ex">values</span> = c<span class="er">(</span><span class="st">"Causal SNP"</span> = 0.9, <span class="st">"Null SNP"</span> = 0.25<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme_bw</span><span class="er">(</span><span class="ex">base_size</span> = 13<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">title</span> = <span class="st">"Association Power: Standard PLINK vs. LDAK-KVIK"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">x</span> = expression<span class="er">(</span><span class="ex">-log[10]</span><span class="er">(</span><span class="ex">italic</span><span class="er">(</span><span class="ex">p</span><span class="kw">))</span> <span class="ex">~</span> <span class="st">"(PLINK Linear Regression)"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="ex">y</span> = expression<span class="er">(</span><span class="ex">-log[10]</span><span class="er">(</span><span class="ex">italic</span><span class="er">(</span><span class="ex">p</span><span class="kw">))</span> <span class="ex">~</span> <span class="st">"(LDAK-KVIK Mixed Model)"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">color</span> = <span class="st">"Variant Class"</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">guides</span><span class="er">(</span><span class="ex">alpha</span> = <span class="st">"none"</span><span class="kw">)</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">p_comp</span><span class="kw">)</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2. Genomic inflation factor (lambda_GC)</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="ex">lambda_plink</span> <span class="op">&lt;</span>- median<span class="er">(</span><span class="ex">merged</span><span class="va">$CHISQ_PLINK</span><span class="ex">,</span> na.rm = TRUE<span class="kw">)</span> <span class="ex">/</span> qchisq<span class="er">(</span><span class="ex">0.5,</span> df = 1<span class="kw">)</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="ex">lambda_kvik</span>  <span class="op">&lt;</span>- median<span class="er">(</span><span class="ex">merged</span><span class="va">$CHISQ_KVIK</span><span class="ex">,</span>  na.rm = TRUE<span class="kw">)</span> <span class="ex">/</span> qchisq<span class="er">(</span><span class="ex">0.5,</span> df = 1<span class="kw">)</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Lambda_GC (PLINK):    "</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">lambda_plink,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Lambda_GC (LDAK-KVIK):"</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">lambda_kvik,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><strong>Q1</strong>: Notice how the true causal SNPs (red points) lie systematically above the dashed <span class="math inline">\(y = x\)</span> identity line, showing that conditioning on the Step 1 polygenic predictor increases association test statistics.</li>
+<li><strong>Q2</strong>: If Step 1 included SNPs on the <strong>same chromosome</strong> as the SNP being tested in Step 2, the whole-genome regression predictor <span class="math inline">\(\hat{g}\)</span> would already capture part of the effect of the tested SNP (both directly and through LD with nearby tagging SNPs). Subtracting <span class="math inline">\(\hat{g}\)</span> from <span class="math inline">\(y\)</span> would therefore subtract out the true association signal—a phenomenon called <strong>proximal contamination</strong>—causing a severe loss of statistical power. Using <strong>Leave-One-Chromosome-Out (<code>LOCO</code>)</strong> predictions <span class="math inline">\(\hat{g}_{-c}\)</span> removes polygenic variance from the other 21 chromosomes while leaving all genetic signal on chromosome <span class="math inline">\(c\)</span> intact for Step 2 testing.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>In this tutorial, we have learned how Linear Mixed Model and Whole-Genome Regression GWAS methods (<code>LDAK-KVIK</code>) leverage SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span> from <code>GWAS8</code>) and <code>LOCO</code> polygenic predictions to increase discovery power and control confounding across quantitative and binary traits. Because Step 2 of an LMM GWAS still tests one SNP at a time on the <code>LOCO</code> residuals, the resulting GWAS summary statistics (<code>*.assoc</code> and <code>*.summaries</code>) remain blurred by local Linkage Disequilibrium (LD) on each chromosome. In the next two sessions, we will see how pairing <strong>GWAS summary statistics</strong> with an <strong>external LD reference panel</strong> allows us to deconvolve LD locally to pinpoint causal variants (<strong>Fine-Mapping in <code>GWAS10</code></strong>) and globally to build genome-wide predictors (<strong>Advanced PRS in <code>GWAS11</code></strong>).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Other take-home messages">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Other take-home messages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Two-Step Whole-Genome Regression Scales LMMs to Biobanks</strong>: Instead of inverting an <span class="math inline">\(N \times N\)</span> kinship matrix (<span class="math inline">\(\mathcal{O}(N^3)\)</span>), methods like <code>LDAK-KVIK</code>, <code>REGENIE</code>, and <code>BOLT-LMM</code> predict the polygenic background in Step 1 (<code>LOCO</code>) and test individual SNPs against the residuals in Step 2 (<span class="math inline">\(\mathcal{O}(NM)\)</span>).</li>
+<li><strong>Realistic Heritability Priors Improve Step 1</strong>: Because <code>LDAK-KVIK</code> combines the LDAK heritability model (<span class="math inline">\(\alpha = -0.25\)</span>) with a flexible Elastic Net prior, its Step 1 polygenic predictions adapt accurately to both highly polygenic traits and traits with large-effect loci.</li>
+<li><strong>Always Use SPA for Unbalanced Binary Traits</strong>: When analyzing case-control traits with low case prevalence, enabling <code>--binary YES</code> activates the Saddlepoint Approximation (SPA), preventing false-positive inflation at low-frequency variants.</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

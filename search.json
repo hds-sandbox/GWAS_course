@@ -4,7 +4,7 @@
     "href": "access/otherHPC.html",
     "title": "Independent users",
     "section": "",
-    "text": "The app is a Docker image that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command start-app -c \"Intro_to_GWAS\" (example below).\nLink: https://hub.docker.com/r/hdssandbox/genomicsapp.\n\nPull docker image\n# docker\ndocker pull hdssandbox/genomicsapp\n# apptainer\napptainer pull app.sif docker://hdssandbox/genomicsapp \n\n\nRun the container\nYou can customize the port by using the -p option to select a different port for running the application. Additionally, if you already have data and notebooks locally, you can bind them to the container, avoiding the need for any new downloads. The command to run the container with these options looks like this:\n\n--rm: This option removes the container after running, preventing your disk from filling up with cached images.\nAdd -v /path/to/data to bind your local data/notebooks to the container\n\ndocker run --rm -p $PORT:$PORT hdssandbox/genomicsapp start-app -c \"Intro_to_GWAS\" -p $PORT\n\n\n\n\nCopyrightCC-BY-SA 4.0 license",
+    "text": "The app is a Docker image that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command start-app -c \"Intro_to_GWAS\" (example below).\n\nPull docker image\n# docker\ndocker pull hdssandbox/genomicsapp\n# apptainer\napptainer pull app.sif docker://hdssandbox/genomicsapp \n\n\nRun the container\nYou can customize the port by using the -p option to select a different port for running the application. Additionally, if you already have data and notebooks locally, you can bind them to the container, avoiding the need for any new downloads. The command to run the container with these options looks like this:\n\n--rm: This option removes the container after running, preventing your disk from filling up with cached images.\nAdd -v /path/to/data to bind your local data/notebooks to the container\n\n#docker\ndocker run --rm -p $PORT:$PORT hdssandbox/genomicsapp start-app -c \"Intro_to_GWAS\" -p $PORT\n#apptainer\napptainer exec --rm --writable-tmpfs --fakeroot --pwd /work/ --bind /path/to/data:/work/ app.sif start-app -c \"Intro_to_GWAS\" -p $PORT\n\n\n\n\nCopyrightCC-BY-SA 4.0 license",
     "crumbs": [
       "Systems",
       "Independent users"
@@ -363,53 +363,76 @@
     ]
   },
   {
-    "objectID": "develop/GWAS8-LDAK-Extra.html",
-    "href": "develop/GWAS8-LDAK-Extra.html",
-    "title": "Association models with LDAK",
+    "objectID": "develop/GWAS10-FineMapping.html",
+    "href": "develop/GWAS10-FineMapping.html",
+    "title": "Statistical fine-mapping",
     "section": "",
-    "text": "Tutorial modified from the LDAK creator Doug Speed\nFor these practicals, we will use the les: human.bed, human.bim and human.fam - 1000 Genomes Project SNP data for 424 humans, 3289 SNPs (Chromosomes 21 & 22). quant.pheno, binary.pheno, multi.pheno and covar.covar are phenotypes and covariates for these.\nhapmap.bed, hapmap.bim and hapmap.fam - SNP data for 1184 humans, 1016 SNPs (from HapMap Project). mice.bed, mice.bim, mice.fam and mice.pheno - SNP and phenotype data for 1940 mice, 2984 SNPs.\nwget https://www.dropbox.com/s/5vcfcree3xnvhew/data.zip\nunzip data.zip -d LDAKdata\nchmod -R 777 LDAKdata"
+    "text": "NoteImportant notes for this notebook\n\n\n\nDiscovering a genome-wide significant locus in a GWAS (GWAS5 or GWAS9) is only the first step toward biological insight. Because nearby genetic variants are correlated through Linkage Disequilibrium (LD), a single causal variant typically drags dozens of non-causal tagging SNPs across the significance threshold—and when a locus harbors multiple causal variants, the lead SNP (lowest \\(p\\)-value) may not even be causal at all. In this tutorial, we perform post-GWAS statistical fine-mapping using SuSiE (Sum of Single Effects; Wang et al., 2020; Zou et al., 2022) to pinpoint putative causal variants and construct 95% Credible Sets.\n\n\n\nExplain why marginal single-SNP GWAS tests cannot distinguish true causal variants from correlated LD proxies\nUnderstand the Sum of Single Effects (SuSiE) sparse multiple regression model and how it improves upon combinatorial fine-mapping methods (FINEMAP, CAVIAR)\nInterpret Posterior Inclusion Probabilities (PIPs) and 95% Credible Sets (CS)\nExecute fine-mapping in R using both individual-level genotypes (susie()) and GWAS summary statistics (susie_rss())\nDiagnose LD reference panel mismatch when fine-mapping with summary statistics\n\n\n\n\n\nIn this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Statistical fine-mapping"
+    ]
   },
   {
-    "objectID": "develop/GWAS8-LDAK-Extra.html#single-snp-association-analysis",
-    "href": "develop/GWAS8-LDAK-Extra.html#single-snp-association-analysis",
-    "title": "Association models with LDAK",
-    "section": "Single SNP association analysis",
-    "text": "Single SNP association analysis\nWe wish to test each of the 3289 SNPs stored in the dataset human individually for association with the continuous phenotype contained within quant.pheno (using the model \\(Y = + alpha_j X_j\\)). For this we use the main argument --linear Each main argument requires di erent options. Documentation is provided at www.ldak.org, but typically the easiest way is to run LDAK using just the main argument, then it will tell you what options you require So here we type\n\nldak --linear linear\n\nFirst LDAK tells us we need to provide phenotypes, so we add that\n\nldak --linear linear --pheno LDAKdata/quant.pheno\n\nNow LDAK tells us we need to provide data les, so we add them\n\nldak --linear linear --pheno LDAKdata/quant.pheno --bfile LDAKdata/human\n\n\n\n\n\n\n\nWarningAlways pay attention at the output screen\n\n\n\nIt will tell you what options are required and why there are errors. It will also update you on progress (as will the file .progress) and tell you where the results are saved. For the linear regression, the main results are in linear.assoc. We will use linear.summaries for summary-statistic methods, linear.pvalues for clumping, while linear.score provides the polygenic risk score prediction model.\n\n\nSome extra options we might wish to use are --keep (to use only a subset of individuals), --extract (to use only a subset of predictors) and --covar (to include covariates, such as age, sex, population axes).\nTo achieve the same in PLINK, you would use\nplink --linear --out linear_plink --bfile LDAKdata/human --pheno LDAKdata/quant.pheno \nNote that by default PLINK ignores individuals without sex (add --allow-no-sex to continue). If your phenotype is binary, you might prefer logistic regression (use --logistic instead of --linear).\n Choose the R kernel\n\nassoc=read.table(\"linear.assoc\",head=T)\n\n\nhead(assoc,4)\n\n\nwhich.min(assoc[,7])\n\n\nassoc[71,]\n\n\noptions(repr.plot.width=14, repr.plot.height=8)\n\npar(mfrow=c(1,2)) \nplot(-log10(assoc[,7]), \n     col=assoc[,1], \n     pch=19,\n     xlab=\"Chromosome\", \n     ylab=expression(paste(\"-log\"[10],\" p-value\",sep=\"\")), \n     main=\"A Pretty Manhattan Plot\",axes=F) \nmarks=array(0,23) \nfor(i in 1:22){\n    a=which(assoc[,1]==i)\n    marks[i+1]=marks[i]+length(a)\n} \n\nmarks2=(marks[-1]+marks[-23])/2 \n\naxis(1,at=marks,rep(\"\",23));\n\naxis(1,at=marks2,lab=1:22,tick=F) \n\naxis(2);abline(h=-log10(5e-8),lwd=3,lty=2) \n\nord=order(assoc[,7])\n\nobsP=assoc[ord,7] \n\nN=nrow(assoc)\n\nexpP=1:N/(N+1) \n\nplot(-log10(expP), \n     -log10(obsP),\n     pch=19,\n     xlab=\"Expected-log10 P\", \n     ylab=\"Observed-log10 P\",\n     main=\"A Less Pretty QQ-Plot\") \n\nabline(a=0,b=1,col=2,lwd=3,lty=3) \n\ngif=qchisq(median(assoc[,7]),1,lower=F)/qchisq(.5,1) \n\ntext(1.5,15,paste(\"Genomic Inflation Factor:\",round(gif,2)),cex=1.3)\n\n Choose the Bash kernel\nTo identify genome-wide associated SNPs we can use awk\n\nawk &lt; linear.assoc '($7&lt;5e-8){print$0}' \n\nTo identify the independent loci, use the command --thin-tops; this will find then prune all SNPs with p-values below a specified threshold. --thin-tops requires lots of options, butagain, LDAK will walk you through them…\n\nldak --thin-tops top --bfile LDAKdata/human --pvalues linear.pvalues \\\n--cutoff 5e-8 --window-cm 1 --window-prune .2\n\n\ncat top.in\n\n\nawk '(NR==FNR){arr[$1];next}($2inarr){print$0}' top.in linear.assoc | head -n 10"
+    "objectID": "develop/GWAS10-FineMapping.html#learning-outcomes",
+    "href": "develop/GWAS10-FineMapping.html#learning-outcomes",
+    "title": "Statistical fine-mapping",
+    "section": "",
+    "text": "Explain why marginal single-SNP GWAS tests cannot distinguish true causal variants from correlated LD proxies\nUnderstand the Sum of Single Effects (SuSiE) sparse multiple regression model and how it improves upon combinatorial fine-mapping methods (FINEMAP, CAVIAR)\nInterpret Posterior Inclusion Probabilities (PIPs) and 95% Credible Sets (CS)\nExecute fine-mapping in R using both individual-level genotypes (susie()) and GWAS summary statistics (susie_rss())\nDiagnose LD reference panel mismatch when fine-mapping with summary statistics",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Statistical fine-mapping"
+    ]
   },
   {
-    "objectID": "develop/GWAS8-LDAK-Extra.html#preparing-a-gwas",
-    "href": "develop/GWAS8-LDAK-Extra.html#preparing-a-gwas",
-    "title": "Association models with LDAK",
-    "section": "Preparing a GWAS",
-    "text": "Preparing a GWAS\nThe steps are as follows:\n1 - Remove poorly genotyped samples and SNPs 2 - Remove ethnic outliers 3 - Imputation 4 - Remove poorly imputed samples and SNPs 5 - Remove related individuals\nSteps 1, 2 & 3 are fairly constant. Steps 4 & 5 depend on the aim of the GWAS; heritability analyses generally require much stricter quality control than single-SNP analysis, and are designed for unrelated individuals. One would also increase QC if studying a binary phenotype. E.g., for a single-SNP analysis, I might use an info score threshold of &gt;0.5 or &gt;0.8, but for heritability analysis require info &gt;0.99.\n\nStandard QC steps on the human data\nWe run some predefined thresholds on the human data\n\nplink --bfile LDAKdata/human \\\n    --geno 0.02 \\\n    --make-bed \\\n    --out Results/human1 --silent\n\nplink --bfile Results/human1 \\\n    --mind 0.02 \\\n    --make-bed \\\n    --out Results/human2 --silent\n    \nplink --bfile Results/human2 \\\n    --maf 0.05 \\\n    --make-bed  \\\n    --out Results/human3 --silent\n\n\n\nEthnic outliers and overlapping to a reference\nGenerally we wish to identify and exclude population outliers (the exception is mixed-model association analysis). For this, we will compute a kinship matrix (also referred to as a relatedness matrix/allelic correlations).\nThe command for computing a kinship matrix is --calc-kins-direct. You must use either --weights or --ignore-weights YES to specify SNP weightings, and --power to specify how to standardize SNPs.\nPeople normally use (in-sample) principal component analysis (PCA) in this way:thin the SNPs, calculate a kinship matrix, perform PCA then plot, and find outliers.\nHowever, you cna also project the data onto population axes derived from a diverse reference panel (e.g., HapMap):\n1 - Find overlap of SNPs between dataset and reference panel 2 - Using the reference panel, calculate a kinship matrix, perform PCA and compute SNP loadings for the principal components 3 - Project the data onto these principal components, then plot\n\nEthnic outliers\n\n#thin for LD \nldak --bfile Results/human3 --thin prune \\\n    --window-prune .2 --window-cm 1 \n\nThis produces prune.in and prune.out\n\n#compute unweighted kinships \nldak --calc-kins-direct prune --bfile Results/human3 \\\n    --ignore-weights YES --power -1 --extract prune.in \\\n    --kinship-raw YES \n\nThe kinship matrix is stored with stem prune\n\n#calculate 5 principal components \nldak --pca prune --grm prune --axes 5\n\nHaving computed the PCAs, we can plot and identify outliers\n Choose the R kernel\n\ndatapca=read.table(\"prune.vect\")\nplot(datapca[,3:4],xlab=\"PC1\",ylab=\"PC2\")\nabline(v=.07,col=2,lwd=3,lty=2)\n\n\n\n\nProjection from reference\n Choose the bash kernel\n\n#get overlap between human and hapmap, then thin hapmap \nawk '(NR==FNR){arr[$2];next}($2 in arr){print $2}' \\\n    Results/human3.bim LDAKdata/hapmap.bim &gt; overlap.txt \n\nldak --thin thin --bfile LDAKdata/hapmap \\\n    --window-prune .2 --window-kb 1000 \\\n    --extract overlap.txt \n    \n\n\n#compute kinships, pcas and loadings \nldak --calc-kins-direct hapmap --bfile LDAKdata/hapmap \\\n    --extract thin.in --ignore-weights YES --power -1 \n\n\nldak --pca hapmap --grm hapmap --axes 20\n\n\nldak --calc-pca-loads hapmap --bfile LDAKdata/hapmap \\\n    --grm hapmap --pcastem hapmap\n    \n\n\n#project human onto these loadings \nldak --calc-scores project --bfile Results/human3 \\\n    --scorefile hapmap.load --power 0\n\nPlot the HapMap PCs, project onto these our data, then identify outliers. Save a list of individuals to keep to goodpop.keep\n Choose the R kernel\n\nhappca=read.table(\"hapmap.vect\") \nproj=read.table(\"project.profile\",head=T) \npar(mfrow=c(1,2)) \nplot(happca[,3:4],col=\"light grey\",pch=19,xlab=\"Proj 1\",ylab=\"Proj 2\") \ntext(c(-.04,.02,.02),c(0,.05,-.04),c(\"African\",\"European\",\"Asian\")) \nplot(happca[,3:4],col=\"light grey\",pch=19,xlab=\"Proj 1\",ylab=\"Proj 2\") \npoints(proj[,c(5,7)],col=2,pch=19) \nabline(v=.005,col=2,lwd=3,lty=2) \nabline(h=.025,col=2,lwd=3,lty=2) \nkeep=which(proj[,5]&gt;.005&proj[,7]&gt;.025) \nwrite.table(proj[keep,1:2],\"goodpop.keep\",row=F,col=F,quote=F)\n\nNote that when using a proper number of individuals, the clusters will be much tighter. Also, for convenience, here we used HapMap, but better to use 1000 Genomes Project (see www.ldak.org/reference-panel)\nBelow we plot both the PCA of the data itself and the PCA of the projection on the reference dataset.\n\ndatapca=read.table(\"prune.vect\") \nhappca=read.table(\"hapmap.vect\") \nproj=read.table(\"project.profile\",head=T) \nsites=rep(1,nrow(proj)) \na=grep(\"AFR\",proj[,2])\nsites[a]=2 \na=grep(\"EAS\",proj[,2])\nsites[a]=3\na=grep(\"SAS\",proj[,2])\nsites[a]=4 \na=grep(\"EUR\",proj[,2])\nsites[a]=5\na=grep(\"AMR\",proj[,2])\nsites[a]=6 \na=grep(\"FIN\",proj[,2])\nsites[a]=7\npar(mfrow=c(1,2)) \nplot(datapca[,3:4],col=sites,pch=19,xlab=\"PCA 1\",ylab=\"PCA 2\") \nplot(happca[,3:4],col=\"light grey\",pch=19,xlab=\"Proj 1\",ylab=\"Proj 2\") \npoints(proj[,c(5,7)],col=sites,pch=19)\n\nWe want to create a covariate le to use in subsequent regressions. Generally include as covariates sex plus 10 principal components (5 from in-sample PC, 5 from population projections, from the two plots above). If you have imputed the data, repeat the PCA using that before using the PCA as covariates.\n\n#can get sex from Column 5 of the fam file \nfam=read.table(\"LDAKdata/human.fam\") \n#use match() to ensure samples are aligned \nm1=match(fam[,1],datapca[,1]) \nm2=match(fam[,1],proj[,1]) \ncovar=cbind(fam[,c(1,2,5)],datapca[m1,3:7],proj[m2,c(5,7,9,11,13)]) \nwrite.table(covar,\"covar.covar\",row=F,col=F,quote=F)"
+    "objectID": "develop/GWAS10-FineMapping.html#how-to-make-this-notebook-work",
+    "href": "develop/GWAS10-FineMapping.html#how-to-make-this-notebook-work",
+    "title": "Statistical fine-mapping",
+    "section": "",
+    "text": "In this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Statistical fine-mapping"
+    ]
   },
   {
-    "objectID": "develop/GWAS8-LDAK-Extra.html#remove-relatedness",
-    "href": "develop/GWAS8-LDAK-Extra.html#remove-relatedness",
-    "title": "Association models with LDAK",
-    "section": "Remove relatedness",
-    "text": "Remove relatedness\nRemove Relatedness To estimate relatedness we can use the kinship matrix computed when performing PCA (i.e., from thinned SNPs). Ideally you would first remove population outliers. Notice that allelic correlation kinships are distributed around expected values (e.g., 1/2 for full-sibs, 0 for unrelateds ), and there are values above 1 and below 0. (For proper sample sizes, spread will be smaller). The general assumption is if we find identical individuals, these are accidental duplicates, so we want to remove one of each pair. We can do this using filter:\n Choose the Bash kernel\n\nldak --filter dups --grm prune --keep goodpop.keep --max-rel .8\n\n(Of course, duplicates may be twins, so check clinical data if possible).\nIf our aim is single-SNP analysis, we normally want to remove close relatedness; a typical cut-off is 0.185, half-way between half-sibs and cousins:\n\nldak --filter close --grm prune --keep goodpop.keep --max-rel .375\n\n(This is not necessary if performing mixed-model association analysis).\nFor heritability analyses, we generally require unrelated individuals, so we lter based on estimated relatedness. As a threshold, you can use an arbitrary value (say 0.025 or 0.05) or second cousins (1/32=0.03125), but prefer to use the negative of the smallest value observed (the default in LDAK)\n\nldak --filter filter --grm prune --keep goodpop.keep\n\nIn this (unrealistic example), the minimum kinship is -0.176; using this threshold results in removal of 9 individuals, so that 397 remain (stored in filter.keep)"
+    "objectID": "develop/GWAS4-QualityControlB.html",
+    "href": "develop/GWAS4-QualityControlB.html",
+    "title": "Quality Control: Relatedness",
+    "section": "",
+    "text": "NoteImportant notes for this notebook\n\n\n\nAs we have already mentioned, quality control (QC) analyses are crucial to ensure the reliability and validity of the results. In this section, we will explore relatedness, exploring some ways of estimating it, and how it can be used to check suality of the data.\n\n\n\nDiscuss Identity by descent and its estimators in PLINK and PLINK2\nDetect and categorize related individuals\nIdentify and speculate what can cause unusual relatedness\n\n\n\n\nIn this notebook, we will both use R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. * We will first run Bash commands.\n Choose the Bash kernel\nRelatedness refers to the presence of genetically related individuals in a study sample, which can introduce confounding factors into association analyses. Since most statistical methods assume that samples are independent, including related individuals, like siblings, violates this assumption. Addressing relatedness is crucial as a quality control step to ensure that genomes in the dataset are no more similar than expected for unrelated individuals. This process is essential to preserve the validity of the study’s findings.\nWhile all humans share some genetic relatedness, the degree of relatedness varies among individuals. In genome-wide association studies (GWAS), these variations must be accounted for to avoid biasing the statistical associations between genotypes and phenotypes. Cryptic relatedness (genetic relatedness of individuals not expected to be in a family relationship) can interfere with the association analysis (Voight and Pritchard 2005).\nIn a family-based study (e.g., parent-offspring), you do not need to remove related pairs, but the statistical analysis should account for family relatedness. However, for a population-based study, we suggest using the KING estimator (Manichaikul et al. 2010) with a threshold of 0.06.\nDifferently from the IBD estimator (called pi_hat \\(\\hat{\\pi}\\)), which assumes that individuals come from homogeneous population, KING derives a kinship estimate for a pair of individuals without reference to the population allele frequencies. Instead, it gets the relatedness information from the difference between the counts of loci where both individuals are heterozygotes and counts of loci where they are different homozygotes, normalized by the sum of the heterozygous loci of the individuals. This makes KING robust to population structure and useful to check genotyping quality.\nThus, values for KING are\nKING values need to be multiplied by 2 to match the corresponding IBD probability\nWe use ln -sf to link the data folder and create a directory for output files.\nln -sf ../Data\nmkdir -p Results/GWAS4",
+    "crumbs": [
+      "Tutorials",
+      "Quality Control",
+      "Quality Control: Relatedness"
+    ]
   },
   {
-    "objectID": "develop/GWAS8-LDAK-Extra.html#snp-weights",
-    "href": "develop/GWAS8-LDAK-Extra.html#snp-weights",
-    "title": "Association models with LDAK",
-    "section": "SNP weights",
-    "text": "SNP weights\nThe simple way to do this is using --cut-weights and --calc-weights-all. This can take a lot of time and you need to be patient.\n Choose the bash kernel\n\nldak --bfile LDAKdata/human --cut-weights sections \\\n    --keep goodpop.keep \n\nldak --bfile LDAKdata/human --calc-weights-all sections \\\n    --keep goodpop.keep"
+    "objectID": "develop/GWAS4-QualityControlB.html#learning-outcomes",
+    "href": "develop/GWAS4-QualityControlB.html#learning-outcomes",
+    "title": "Quality Control: Relatedness",
+    "section": "",
+    "text": "Discuss Identity by descent and its estimators in PLINK and PLINK2\nDetect and categorize related individuals\nIdentify and speculate what can cause unusual relatedness",
+    "crumbs": [
+      "Tutorials",
+      "Quality Control",
+      "Quality Control: Relatedness"
+    ]
   },
   {
-    "objectID": "develop/GWAS8-LDAK-Extra.html#weighted-kinship-matrix",
-    "href": "develop/GWAS8-LDAK-Extra.html#weighted-kinship-matrix",
-    "title": "Association models with LDAK",
-    "section": "Weighted Kinship matrix",
-    "text": "Weighted Kinship matrix\nFor this, we use --calc-kins-direct\n\nldak --calc-kins-direct kins --bfile LDAKdata/human \\\n    --weights sections/weights.all\\\n    --power -.25 --kinship-raw YES"
-  },
-  {
-    "objectID": "develop/GWAS8-LDAK-Extra.html#estimate-variance-components",
-    "href": "develop/GWAS8-LDAK-Extra.html#estimate-variance-components",
-    "title": "Association models with LDAK",
-    "section": "Estimate variance components",
-    "text": "Estimate variance components\nFirst we consider the phenotype quant.pheno and use REML. Remember to include --keep so that we only use unrelated individuals. The main output file is quant.reml, but there are many additional files.\n\nldak --reml quant --grm kins\\\n    --pheno LDAKdata/quant.pheno\\\n    --keep filter.keep\n\nNote, large efect SNPs should be included as top predictors!\nHeritability is estimated to be 0.73 +- 0.08\n\ncat quant.reml"
+    "objectID": "develop/GWAS4-QualityControlB.html#how-to-make-this-notebook-work",
+    "href": "develop/GWAS4-QualityControlB.html#how-to-make-this-notebook-work",
+    "title": "Quality Control: Relatedness",
+    "section": "",
+    "text": "In this notebook, we will both use R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. * We will first run Bash commands.\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Quality Control",
+      "Quality Control: Relatedness"
+    ]
   },
   {
     "objectID": "develop/GWAS1-WhatIsAGWAS.html",
@@ -469,6 +492,42 @@
       "Tutorials",
       "Introduction",
       "What is a GWAS?"
+    ]
+  },
+  {
+    "objectID": "develop/GWAS8-HeritabilityEstimation.html",
+    "href": "develop/GWAS8-HeritabilityEstimation.html",
+    "title": "Estimating SNP heritability",
+    "section": "",
+    "text": "NoteImportant notes for this notebook\n\n\n\nBefore moving to advanced mixed-model GWAS (GWAS9), fine-mapping (GWAS10), and Bayesian polygenic prediction (GWAS11), we need to understand SNP heritability (\\(h^2_{\\text{SNP}}\\)). Heritability quantifies the proportion of phenotypic variance explained by measured genetic variants and acts as a key tuning parameter in almost all advanced statistical genetics methods. In this tutorial, we explore the assumptions behind different heritability models (such as GCTA vs. LDAK) and estimate SNP heritability from both individual-level genotypes (ldak --reml) and GWAS summary statistics (ldak --sum-hers).\n\n\n\nDefine narrow-sense SNP heritability (\\(h^2_{\\text{SNP}}\\)) and explain how it bounds polygenic prediction accuracy\nCompare the genetic architecture assumptions of the GCTA (\\(\\alpha = -1\\)) and LDAK (\\(\\alpha = -0.25\\)) heritability models\nEstimate SNP heritability from individual-level genotype data using REML (ldak --reml)\nEstimate SNP heritability from GWAS summary statistics using SumHer (ldak --sum-hers) and explain how LD tagging separates polygenicity from confounding\n\n\n\n\n\nIn this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Estimating SNP heritability"
+    ]
+  },
+  {
+    "objectID": "develop/GWAS8-HeritabilityEstimation.html#learning-outcomes",
+    "href": "develop/GWAS8-HeritabilityEstimation.html#learning-outcomes",
+    "title": "Estimating SNP heritability",
+    "section": "",
+    "text": "Define narrow-sense SNP heritability (\\(h^2_{\\text{SNP}}\\)) and explain how it bounds polygenic prediction accuracy\nCompare the genetic architecture assumptions of the GCTA (\\(\\alpha = -1\\)) and LDAK (\\(\\alpha = -0.25\\)) heritability models\nEstimate SNP heritability from individual-level genotype data using REML (ldak --reml)\nEstimate SNP heritability from GWAS summary statistics using SumHer (ldak --sum-hers) and explain how LD tagging separates polygenicity from confounding",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Estimating SNP heritability"
+    ]
+  },
+  {
+    "objectID": "develop/GWAS8-HeritabilityEstimation.html#how-to-make-this-notebook-work",
+    "href": "develop/GWAS8-HeritabilityEstimation.html#how-to-make-this-notebook-work",
+    "title": "Estimating SNP heritability",
+    "section": "",
+    "text": "In this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Estimating SNP heritability"
     ]
   },
   {
@@ -536,40 +595,110 @@
     "text": "Explore the base GWAS and compute polygenic scores for height in Europeans using PRSice2.\n Bash kernel.\n\nln -sf ../../Data\nln -sf ../Results\nmkdir -p ./Results/GWAS7\n\n R kernel.\n\n# Setup to avoid long messages and plot on screen\noptions(warn=-1)\noptions(jupyter.plot_mimetypes = 'image/png')\n\n# Load GWAS package qqman\nsuppressMessages(library(\"qqman\"))\n\n# Manhattan plot using --logistic results\nheight_eur &lt;- read.table(\"./Data/Height.QC.gz\", head=TRUE)\nmanhattan(height_eur, main = \"Manhattan plot height GWAS\", cex.axis=1.1)\n\n## QQ plot \nqq(height_eur$P, main = \"Q-Q plot\")\n\nDoes the plot surprise you? You can notice extreme deviations in the QQ-plot and an overwhelming number of significant variants. To refine your analysis and avoid false positives, you should perform MAF and INFO filtering to exclude rare variants and poorly imputed or uncertain variants that could lead to false associations.\n Bash kernel.\nYou need to perform the PRS analysis on the simulated dataset in the following way:\n\nPRSice --base ./Data/Height.QC.gz \\\n    --target ./Data/EUR.QC \\\n    --binary-target F \\\n    --pheno ./Data/EUR.height \\\n    --cov ./Data/EUR.covariate \\\n    --base-maf MAF:0.01 \\\n    --base-info INFO:0.8 \\\n    --stat BETA \\\n    --out Results/GWAS7/EUR.PRSice\n\nBy looking at the output file .summary, we can conclude that:\n\nBest-fit P-value is ~0.14\nPhenotypic variation explained by the best-fitting model is ~0.21\n\n\ncat Results/GWAS7/EUR.PRSice.summary\n\n R kernel.\nBelow is an example of how you could create a plot in R to visualize height PGS differences across sex:\n\nlibrary(ggplot2)\n\n# Read in the files\nprs &lt;- read.table(\"./Results/GWAS7/EUR.PRSice.best\", header=T)\nheight &lt;- read.table(\"./Data/EUR.height\", header=T)\nsex &lt;- read.table(\"./Data/EUR.cov\", header=T)\n\n# Rename the sex\nsex$Sex &lt;- as.factor(sex$Sex)\nlevels(sex$Sex) &lt;- c(\"Male\", \"Female\")\n\n# Merge the files\ndat &lt;- merge(merge(prs, height), sex)\n\n# Start plotting\nggplot(dat, aes(x=PRS, y=Height, color=Sex))+\n    geom_point()+\n    theme_bw()+\n    labs(x=\"Polygenic Score\", y=\"Height\") +\n    theme(axis.text=element_text(size=12), axis.title=element_text(size=12), legend.text=element_text(size=12),legend.title=element_text(size=14))\n\n\n\n\nCopyrightCC-BY-SA 4.0 license"
   },
   {
-    "objectID": "develop/GWAS4-QualityControlB.html",
-    "href": "develop/GWAS4-QualityControlB.html",
-    "title": "Quality Control: Relatedness",
+    "objectID": "develop/GWAS11-AdvancedPRS.html",
+    "href": "develop/GWAS11-AdvancedPRS.html",
+    "title": "Advanced Polygenic Risk Scores (PRS)",
     "section": "",
-    "text": "NoteImportant notes for this notebook\n\n\n\nAs we have already mentioned, quality control (QC) analyses are crucial to ensure the reliability and validity of the results. In this section, we will explore relatedness, exploring some ways of estimating it, and how it can be used to check suality of the data.\n\n\n\nDiscuss Identity by descent and its estimators in PLINK and PLINK2\nDetect and categorize related individuals\nIdentify and speculate what can cause unusual relatedness\n\n\n\n\nIn this notebook, we will both use R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. * We will first run Bash commands.\n Choose the Bash kernel\nRelatedness refers to the presence of genetically related individuals in a study sample, which can introduce confounding factors into association analyses. Since most statistical methods assume that samples are independent, including related individuals, like siblings, violates this assumption. Addressing relatedness is crucial as a quality control step to ensure that genomes in the dataset are no more similar than expected for unrelated individuals. This process is essential to preserve the validity of the study’s findings.\nWhile all humans share some genetic relatedness, the degree of relatedness varies among individuals. In genome-wide association studies (GWAS), these variations must be accounted for to avoid biasing the statistical associations between genotypes and phenotypes. Cryptic relatedness (genetic relatedness of individuals not expected to be in a family relationship) can interfere with the association analysis (Voight and Pritchard 2005).\nIn a family-based study (e.g., parent-offspring), you do not need to remove related pairs, but the statistical analysis should account for family relatedness. However, for a population-based study, we suggest using the KING estimator (Manichaikul et al. 2010) with a threshold of 0.06.\nDifferently from the IBD estimator (called pi_hat \\(\\hat{\\pi}\\)), which assumes that individuals come from homogeneous population, KING derives a kinship estimate for a pair of individuals without reference to the population allele frequencies. Instead, it gets the relatedness information from the difference between the counts of loci where both individuals are heterozygotes and counts of loci where they are different homozygotes, normalized by the sum of the heterozygous loci of the individuals. This makes KING robust to population structure and useful to check genotyping quality.\nThus, values for KING are\nKING values need to be multiplied by 2 to match the corresponding IBD probability\nWe use ln -sf to link the data folder and create a directory for output files.\nln -sf ../Data\nmkdir -p Results/GWAS4",
+    "text": "NoteImportant notes for this notebook\n\n\n\nIn GWAS6 and GWAS7, we constructed Polygenic Risk Scores (PRS) using Clumping + Thresholding (C+T) (PLINK and PRSice-2), which greedily prunes SNPs in LD and uses unshrunk marginal GWAS effect sizes. In this 25-minute tutorial, we move to advanced Bayesian and penalized PRS methods that model all genome-wide SNPs jointly, using SNP heritability (\\(h^2_{\\text{SNP}}\\)) from GWAS8 to shrink noisy effect estimates. We compare the two primary paradigms using LDAK: 1. Summary-statistics based PRS: LDAK MegaPRS (--mega-prs, analogous to LDpred2 and PRS-CS) 2. Individual-level PRS: LDAK-Bolt-Predict (--bolt) and LDAK-Elastic-Predict (--elastic)\n\n\n\nContrast heuristic C+T (PRSice-2) with joint Bayesian shrinkage methods (MegaPRS, LDpred2, PRS-CS, LDAK-Predict)\nExplain how per-SNP heritability estimates (\\(\\mathbb{E}[h_j^2]\\)) regularize posterior SNP weights\nConstruct summary-statistics based PRS using LDAK MegaPRS (ldak --mega-prs)\nConstruct individual-level PRS using LDAK-Bolt-Predict (ldak --bolt) and LDAK-Elastic-Predict (ldak --elastic) and evaluate incremental \\(R^2\\) in R\n\n\n\n\n\nIn this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel"
+  },
+  {
+    "objectID": "develop/GWAS11-AdvancedPRS.html#learning-outcomes",
+    "href": "develop/GWAS11-AdvancedPRS.html#learning-outcomes",
+    "title": "Advanced Polygenic Risk Scores (PRS)",
+    "section": "",
+    "text": "Contrast heuristic C+T (PRSice-2) with joint Bayesian shrinkage methods (MegaPRS, LDpred2, PRS-CS, LDAK-Predict)\nExplain how per-SNP heritability estimates (\\(\\mathbb{E}[h_j^2]\\)) regularize posterior SNP weights\nConstruct summary-statistics based PRS using LDAK MegaPRS (ldak --mega-prs)\nConstruct individual-level PRS using LDAK-Bolt-Predict (ldak --bolt) and LDAK-Elastic-Predict (ldak --elastic) and evaluate incremental \\(R^2\\) in R"
+  },
+  {
+    "objectID": "develop/GWAS11-AdvancedPRS.html#how-to-make-this-notebook-work",
+    "href": "develop/GWAS11-AdvancedPRS.html#how-to-make-this-notebook-work",
+    "title": "Advanced Polygenic Risk Scores (PRS)",
+    "section": "",
+    "text": "In this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel"
+  },
+  {
+    "objectID": "develop/GWAS9-LinearMixedModels.html",
+    "href": "develop/GWAS9-LinearMixedModels.html",
+    "title": "Linear mixed model GWAS",
+    "section": "",
+    "text": "NoteImportant notes for this notebook\n\n\n\nIn GWAS5, we ran standard linear and logistic regression (plink --linear and --logistic), which required removing cryptically related individuals and tested one SNP at a time while treating the polygenic background across the rest of the genome as noise. In this tutorial, we introduce Linear Mixed Model (LMM) and Whole-Genome Regression (WGR) GWAS methods—focusing on LDAK-KVIK (Hof et al., 2024)—which use the heritability models from GWAS8 to boost statistical power, retain related individuals, and scale to biobank cohorts.\n\n\n\nUnderstand the assumptions and statistical differences between standard single-SNP regression (PLINK), classical LMMs (GCTA/GEMMA), and two-step biobank methods (BOLT-LMM, REGENIE, and LDAK-KVIK)\nExplain how SNP heritability (\\(h^2_{\\text{SNP}}\\)) and Leave-One-Chromosome-Out (LOCO) predictions increase association power while avoiding proximal contamination\nExecute a two-step mixed-model GWAS using LDAK-KVIK (--kvik-step1 and --kvik-step2) for quantitative traits\nApply Saddlepoint Approximation (SPA) in LDAK-KVIK (--binary YES) for unbalanced case-control traits\nCompare association power and calibration between PLINK and LDAK-KVIK in R\n\n\n\n\n\nIn this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
-      "Quality Control",
-      "Quality Control: Relatedness"
+      "Advanced Topics",
+      "Linear mixed model GWAS"
     ]
   },
   {
-    "objectID": "develop/GWAS4-QualityControlB.html#learning-outcomes",
-    "href": "develop/GWAS4-QualityControlB.html#learning-outcomes",
-    "title": "Quality Control: Relatedness",
+    "objectID": "develop/GWAS9-LinearMixedModels.html#learning-outcomes",
+    "href": "develop/GWAS9-LinearMixedModels.html#learning-outcomes",
+    "title": "Linear mixed model GWAS",
     "section": "",
-    "text": "Discuss Identity by descent and its estimators in PLINK and PLINK2\nDetect and categorize related individuals\nIdentify and speculate what can cause unusual relatedness",
+    "text": "Understand the assumptions and statistical differences between standard single-SNP regression (PLINK), classical LMMs (GCTA/GEMMA), and two-step biobank methods (BOLT-LMM, REGENIE, and LDAK-KVIK)\nExplain how SNP heritability (\\(h^2_{\\text{SNP}}\\)) and Leave-One-Chromosome-Out (LOCO) predictions increase association power while avoiding proximal contamination\nExecute a two-step mixed-model GWAS using LDAK-KVIK (--kvik-step1 and --kvik-step2) for quantitative traits\nApply Saddlepoint Approximation (SPA) in LDAK-KVIK (--binary YES) for unbalanced case-control traits\nCompare association power and calibration between PLINK and LDAK-KVIK in R",
     "crumbs": [
       "Tutorials",
-      "Quality Control",
-      "Quality Control: Relatedness"
+      "Advanced Topics",
+      "Linear mixed model GWAS"
     ]
   },
   {
-    "objectID": "develop/GWAS4-QualityControlB.html#how-to-make-this-notebook-work",
-    "href": "develop/GWAS4-QualityControlB.html#how-to-make-this-notebook-work",
-    "title": "Quality Control: Relatedness",
+    "objectID": "develop/GWAS9-LinearMixedModels.html#how-to-make-this-notebook-work",
+    "href": "develop/GWAS9-LinearMixedModels.html#how-to-make-this-notebook-work",
+    "title": "Linear mixed model GWAS",
     "section": "",
-    "text": "In this notebook, we will both use R and bash command line programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. * We will first run Bash commands.\n Choose the Bash kernel",
+    "text": "In this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
     "crumbs": [
       "Tutorials",
-      "Quality Control",
-      "Quality Control: Relatedness"
+      "Advanced Topics",
+      "Linear mixed model GWAS"
     ]
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html",
+    "href": "develop/GWAS8-LDAK-Extra.html",
+    "title": "Association models with LDAK",
+    "section": "",
+    "text": "Tutorial modified from the LDAK creator Doug Speed\nFor these practicals, we will use the les: human.bed, human.bim and human.fam - 1000 Genomes Project SNP data for 424 humans, 3289 SNPs (Chromosomes 21 & 22). quant.pheno, binary.pheno, multi.pheno and covar.covar are phenotypes and covariates for these.\nhapmap.bed, hapmap.bim and hapmap.fam - SNP data for 1184 humans, 1016 SNPs (from HapMap Project). mice.bed, mice.bim, mice.fam and mice.pheno - SNP and phenotype data for 1940 mice, 2984 SNPs.\nwget https://www.dropbox.com/s/5vcfcree3xnvhew/data.zip\nunzip data.zip -d LDAKdata\nchmod -R 777 LDAKdata"
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html#single-snp-association-analysis",
+    "href": "develop/GWAS8-LDAK-Extra.html#single-snp-association-analysis",
+    "title": "Association models with LDAK",
+    "section": "Single SNP association analysis",
+    "text": "Single SNP association analysis\nWe wish to test each of the 3289 SNPs stored in the dataset human individually for association with the continuous phenotype contained within quant.pheno (using the model \\(Y = + alpha_j X_j\\)). For this we use the main argument --linear Each main argument requires di erent options. Documentation is provided at www.ldak.org, but typically the easiest way is to run LDAK using just the main argument, then it will tell you what options you require So here we type\n\nldak --linear linear\n\nFirst LDAK tells us we need to provide phenotypes, so we add that\n\nldak --linear linear --pheno LDAKdata/quant.pheno\n\nNow LDAK tells us we need to provide data les, so we add them\n\nldak --linear linear --pheno LDAKdata/quant.pheno --bfile LDAKdata/human\n\n\n\n\n\n\n\nWarningAlways pay attention at the output screen\n\n\n\nIt will tell you what options are required and why there are errors. It will also update you on progress (as will the file .progress) and tell you where the results are saved. For the linear regression, the main results are in linear.assoc. We will use linear.summaries for summary-statistic methods, linear.pvalues for clumping, while linear.score provides the polygenic risk score prediction model.\n\n\nSome extra options we might wish to use are --keep (to use only a subset of individuals), --extract (to use only a subset of predictors) and --covar (to include covariates, such as age, sex, population axes).\nTo achieve the same in PLINK, you would use\nplink --linear --out linear_plink --bfile LDAKdata/human --pheno LDAKdata/quant.pheno \nNote that by default PLINK ignores individuals without sex (add --allow-no-sex to continue). If your phenotype is binary, you might prefer logistic regression (use --logistic instead of --linear).\n Choose the R kernel\n\nassoc=read.table(\"linear.assoc\",head=T)\n\n\nhead(assoc,4)\n\n\nwhich.min(assoc[,7])\n\n\nassoc[71,]\n\n\noptions(repr.plot.width=14, repr.plot.height=8)\n\npar(mfrow=c(1,2)) \nplot(-log10(assoc[,7]), \n     col=assoc[,1], \n     pch=19,\n     xlab=\"Chromosome\", \n     ylab=expression(paste(\"-log\"[10],\" p-value\",sep=\"\")), \n     main=\"A Pretty Manhattan Plot\",axes=F) \nmarks=array(0,23) \nfor(i in 1:22){\n    a=which(assoc[,1]==i)\n    marks[i+1]=marks[i]+length(a)\n} \n\nmarks2=(marks[-1]+marks[-23])/2 \n\naxis(1,at=marks,rep(\"\",23));\n\naxis(1,at=marks2,lab=1:22,tick=F) \n\naxis(2);abline(h=-log10(5e-8),lwd=3,lty=2) \n\nord=order(assoc[,7])\n\nobsP=assoc[ord,7] \n\nN=nrow(assoc)\n\nexpP=1:N/(N+1) \n\nplot(-log10(expP), \n     -log10(obsP),\n     pch=19,\n     xlab=\"Expected-log10 P\", \n     ylab=\"Observed-log10 P\",\n     main=\"A Less Pretty QQ-Plot\") \n\nabline(a=0,b=1,col=2,lwd=3,lty=3) \n\ngif=qchisq(median(assoc[,7]),1,lower=F)/qchisq(.5,1) \n\ntext(1.5,15,paste(\"Genomic Inflation Factor:\",round(gif,2)),cex=1.3)\n\n Choose the Bash kernel\nTo identify genome-wide associated SNPs we can use awk\n\nawk &lt; linear.assoc '($7&lt;5e-8){print$0}' \n\nTo identify the independent loci, use the command --thin-tops; this will find then prune all SNPs with p-values below a specified threshold. --thin-tops requires lots of options, butagain, LDAK will walk you through them…\n\nldak --thin-tops top --bfile LDAKdata/human --pvalues linear.pvalues \\\n--cutoff 5e-8 --window-cm 1 --window-prune .2\n\n\ncat top.in\n\n\nawk '(NR==FNR){arr[$1];next}($2inarr){print$0}' top.in linear.assoc | head -n 10"
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html#preparing-a-gwas",
+    "href": "develop/GWAS8-LDAK-Extra.html#preparing-a-gwas",
+    "title": "Association models with LDAK",
+    "section": "Preparing a GWAS",
+    "text": "Preparing a GWAS\nThe steps are as follows:\n1 - Remove poorly genotyped samples and SNPs 2 - Remove ethnic outliers 3 - Imputation 4 - Remove poorly imputed samples and SNPs 5 - Remove related individuals\nSteps 1, 2 & 3 are fairly constant. Steps 4 & 5 depend on the aim of the GWAS; heritability analyses generally require much stricter quality control than single-SNP analysis, and are designed for unrelated individuals. One would also increase QC if studying a binary phenotype. E.g., for a single-SNP analysis, I might use an info score threshold of &gt;0.5 or &gt;0.8, but for heritability analysis require info &gt;0.99.\n\nStandard QC steps on the human data\nWe run some predefined thresholds on the human data\n\nplink --bfile LDAKdata/human \\\n    --geno 0.02 \\\n    --make-bed \\\n    --out Results/human1 --silent\n\nplink --bfile Results/human1 \\\n    --mind 0.02 \\\n    --make-bed \\\n    --out Results/human2 --silent\n    \nplink --bfile Results/human2 \\\n    --maf 0.05 \\\n    --make-bed  \\\n    --out Results/human3 --silent\n\n\n\nEthnic outliers and overlapping to a reference\nGenerally we wish to identify and exclude population outliers (the exception is mixed-model association analysis). For this, we will compute a kinship matrix (also referred to as a relatedness matrix/allelic correlations).\nThe command for computing a kinship matrix is --calc-kins-direct. You must use either --weights or --ignore-weights YES to specify SNP weightings, and --power to specify how to standardize SNPs.\nPeople normally use (in-sample) principal component analysis (PCA) in this way:thin the SNPs, calculate a kinship matrix, perform PCA then plot, and find outliers.\nHowever, you cna also project the data onto population axes derived from a diverse reference panel (e.g., HapMap):\n1 - Find overlap of SNPs between dataset and reference panel 2 - Using the reference panel, calculate a kinship matrix, perform PCA and compute SNP loadings for the principal components 3 - Project the data onto these principal components, then plot\n\nEthnic outliers\n\n#thin for LD \nldak --bfile Results/human3 --thin prune \\\n    --window-prune .2 --window-cm 1 \n\nThis produces prune.in and prune.out\n\n#compute unweighted kinships \nldak --calc-kins-direct prune --bfile Results/human3 \\\n    --ignore-weights YES --power -1 --extract prune.in \\\n    --kinship-raw YES \n\nThe kinship matrix is stored with stem prune\n\n#calculate 5 principal components \nldak --pca prune --grm prune --axes 5\n\nHaving computed the PCAs, we can plot and identify outliers\n Choose the R kernel\n\ndatapca=read.table(\"prune.vect\")\nplot(datapca[,3:4],xlab=\"PC1\",ylab=\"PC2\")\nabline(v=.07,col=2,lwd=3,lty=2)\n\n\n\n\nProjection from reference\n Choose the bash kernel\n\n#get overlap between human and hapmap, then thin hapmap \nawk '(NR==FNR){arr[$2];next}($2 in arr){print $2}' \\\n    Results/human3.bim LDAKdata/hapmap.bim &gt; overlap.txt \n\nldak --thin thin --bfile LDAKdata/hapmap \\\n    --window-prune .2 --window-kb 1000 \\\n    --extract overlap.txt \n    \n\n\n#compute kinships, pcas and loadings \nldak --calc-kins-direct hapmap --bfile LDAKdata/hapmap \\\n    --extract thin.in --ignore-weights YES --power -1 \n\n\nldak --pca hapmap --grm hapmap --axes 20\n\n\nldak --calc-pca-loads hapmap --bfile LDAKdata/hapmap \\\n    --grm hapmap --pcastem hapmap\n    \n\n\n#project human onto these loadings \nldak --calc-scores project --bfile Results/human3 \\\n    --scorefile hapmap.load --power 0\n\nPlot the HapMap PCs, project onto these our data, then identify outliers. Save a list of individuals to keep to goodpop.keep\n Choose the R kernel\n\nhappca=read.table(\"hapmap.vect\") \nproj=read.table(\"project.profile\",head=T) \npar(mfrow=c(1,2)) \nplot(happca[,3:4],col=\"light grey\",pch=19,xlab=\"Proj 1\",ylab=\"Proj 2\") \ntext(c(-.04,.02,.02),c(0,.05,-.04),c(\"African\",\"European\",\"Asian\")) \nplot(happca[,3:4],col=\"light grey\",pch=19,xlab=\"Proj 1\",ylab=\"Proj 2\") \npoints(proj[,c(5,7)],col=2,pch=19) \nabline(v=.005,col=2,lwd=3,lty=2) \nabline(h=.025,col=2,lwd=3,lty=2) \nkeep=which(proj[,5]&gt;.005&proj[,7]&gt;.025) \nwrite.table(proj[keep,1:2],\"goodpop.keep\",row=F,col=F,quote=F)\n\nNote that when using a proper number of individuals, the clusters will be much tighter. Also, for convenience, here we used HapMap, but better to use 1000 Genomes Project (see www.ldak.org/reference-panel)\nBelow we plot both the PCA of the data itself and the PCA of the projection on the reference dataset.\n\ndatapca=read.table(\"prune.vect\") \nhappca=read.table(\"hapmap.vect\") \nproj=read.table(\"project.profile\",head=T) \nsites=rep(1,nrow(proj)) \na=grep(\"AFR\",proj[,2])\nsites[a]=2 \na=grep(\"EAS\",proj[,2])\nsites[a]=3\na=grep(\"SAS\",proj[,2])\nsites[a]=4 \na=grep(\"EUR\",proj[,2])\nsites[a]=5\na=grep(\"AMR\",proj[,2])\nsites[a]=6 \na=grep(\"FIN\",proj[,2])\nsites[a]=7\npar(mfrow=c(1,2)) \nplot(datapca[,3:4],col=sites,pch=19,xlab=\"PCA 1\",ylab=\"PCA 2\") \nplot(happca[,3:4],col=\"light grey\",pch=19,xlab=\"Proj 1\",ylab=\"Proj 2\") \npoints(proj[,c(5,7)],col=sites,pch=19)\n\nWe want to create a covariate le to use in subsequent regressions. Generally include as covariates sex plus 10 principal components (5 from in-sample PC, 5 from population projections, from the two plots above). If you have imputed the data, repeat the PCA using that before using the PCA as covariates.\n\n#can get sex from Column 5 of the fam file \nfam=read.table(\"LDAKdata/human.fam\") \n#use match() to ensure samples are aligned \nm1=match(fam[,1],datapca[,1]) \nm2=match(fam[,1],proj[,1]) \ncovar=cbind(fam[,c(1,2,5)],datapca[m1,3:7],proj[m2,c(5,7,9,11,13)]) \nwrite.table(covar,\"covar.covar\",row=F,col=F,quote=F)"
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html#remove-relatedness",
+    "href": "develop/GWAS8-LDAK-Extra.html#remove-relatedness",
+    "title": "Association models with LDAK",
+    "section": "Remove relatedness",
+    "text": "Remove relatedness\nRemove Relatedness To estimate relatedness we can use the kinship matrix computed when performing PCA (i.e., from thinned SNPs). Ideally you would first remove population outliers. Notice that allelic correlation kinships are distributed around expected values (e.g., 1/2 for full-sibs, 0 for unrelateds ), and there are values above 1 and below 0. (For proper sample sizes, spread will be smaller). The general assumption is if we find identical individuals, these are accidental duplicates, so we want to remove one of each pair. We can do this using filter:\n Choose the Bash kernel\n\nldak --filter dups --grm prune --keep goodpop.keep --max-rel .8\n\n(Of course, duplicates may be twins, so check clinical data if possible).\nIf our aim is single-SNP analysis, we normally want to remove close relatedness; a typical cut-off is 0.185, half-way between half-sibs and cousins:\n\nldak --filter close --grm prune --keep goodpop.keep --max-rel .375\n\n(This is not necessary if performing mixed-model association analysis).\nFor heritability analyses, we generally require unrelated individuals, so we lter based on estimated relatedness. As a threshold, you can use an arbitrary value (say 0.025 or 0.05) or second cousins (1/32=0.03125), but prefer to use the negative of the smallest value observed (the default in LDAK)\n\nldak --filter filter --grm prune --keep goodpop.keep\n\nIn this (unrealistic example), the minimum kinship is -0.176; using this threshold results in removal of 9 individuals, so that 397 remain (stored in filter.keep)"
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html#snp-weights",
+    "href": "develop/GWAS8-LDAK-Extra.html#snp-weights",
+    "title": "Association models with LDAK",
+    "section": "SNP weights",
+    "text": "SNP weights\nThe simple way to do this is using --cut-weights and --calc-weights-all. This can take a lot of time and you need to be patient.\n Choose the bash kernel\n\nldak --bfile LDAKdata/human --cut-weights sections \\\n    --keep goodpop.keep \n\nldak --bfile LDAKdata/human --calc-weights-all sections \\\n    --keep goodpop.keep"
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html#weighted-kinship-matrix",
+    "href": "develop/GWAS8-LDAK-Extra.html#weighted-kinship-matrix",
+    "title": "Association models with LDAK",
+    "section": "Weighted Kinship matrix",
+    "text": "Weighted Kinship matrix\nFor this, we use --calc-kins-direct\n\nldak --calc-kins-direct kins --bfile LDAKdata/human \\\n    --weights sections/weights.all\\\n    --power -.25 --kinship-raw YES"
+  },
+  {
+    "objectID": "develop/GWAS8-LDAK-Extra.html#estimate-variance-components",
+    "href": "develop/GWAS8-LDAK-Extra.html#estimate-variance-components",
+    "title": "Association models with LDAK",
+    "section": "Estimate variance components",
+    "text": "Estimate variance components\nFirst we consider the phenotype quant.pheno and use REML. Remember to include --keep so that we only use unrelated individuals. The main output file is quant.reml, but there are many additional files.\n\nldak --reml quant --grm kins\\\n    --pheno LDAKdata/quant.pheno\\\n    --keep filter.keep\n\nNote, large efect SNPs should be included as top predictors!\nHeritability is estimated to be 0.73 +- 0.08\n\ncat quant.reml"
   },
   {
     "objectID": "develop/GWAS0-geneticTheory.html",

@@ -444,7 +444,6 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 
 
 <p>The app is a <strong>Docker image</strong> that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command <code>start-app -c "Intro_to_GWAS"</code> (example below).</p>
-<p>Link: https://hub.docker.com/r/hdssandbox/genomicsapp.</p>
 <section id="pull-docker-image" class="level4">
 <h4 class="anchored" data-anchor-id="pull-docker-image">Pull docker image</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># docker</span></span>
@@ -459,7 +458,10 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <li><code>--rm</code>: This option removes the container after running, preventing your disk from filling up with cached images.</li>
 <li>Add <code>-v</code> /path/to/data to bind your local data/notebooks to the container</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> <span class="va">$PORT</span>:<span class="va">$PORT</span> hdssandbox/genomicsapp start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS"</span> <span class="at">-p</span> <span class="va">$PORT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#docker</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> <span class="va">$PORT</span>:<span class="va">$PORT</span> hdssandbox/genomicsapp start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS"</span> <span class="at">-p</span> <span class="va">$PORT</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#apptainer</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> exec <span class="at">--rm</span> <span class="at">--writable-tmpfs</span> <span class="at">--fakeroot</span> <span class="at">--pwd</span> /work/ <span class="at">--bind</span> /path/to/data:/work/ app.sif start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS"</span> <span class="at">-p</span> <span class="va">$PORT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

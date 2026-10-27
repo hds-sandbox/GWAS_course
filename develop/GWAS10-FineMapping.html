@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistical fine-mapping – GWAS</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QWLRKN2JZ3"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../img/logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="http://hds-sandbox.github.io/">
+    <span class="navbar-title">GWAS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="../develop/general-intro.html" aria-current="page"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/workshop.html"> 
+<span class="menu-text">Workshop</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hds-sandbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/ucph-heads/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="../develop/GWAS10-FineMapping.html">Statistical fine-mapping</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/general-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Theory Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS1-WhatIsAGWAS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is a GWAS?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data collection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Quality Control</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS3-QualityControlA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: initial steps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Relatedness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Strand and mapping correction, anchoring and population covariates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Association Testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5-AssociationTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Association testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population stratification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic scores I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic scores II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Other tools &amp; conclusions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Advanced Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-HeritabilityEstimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimating SNP heritability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS9-LinearMixedModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear mixed model GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS10-FineMapping.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Statistical fine-mapping</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#preparing-locus-data-for-fine-mapping" id="toc-preparing-locus-data-for-fine-mapping" class="nav-link active" data-scroll-target="#preparing-locus-data-for-fine-mapping">Preparing Locus Data for Fine-Mapping</a>
+  <ul class="collapse">
+  <li><a href="#extracting-a-gwas-locus-and-local-ld-matrix-r" id="toc-extracting-a-gwas-locus-and-local-ld-matrix-r" class="nav-link" data-scroll-target="#extracting-a-gwas-locus-and-local-ld-matrix-r">Extracting a GWAS Locus and Local LD Matrix (<span class="math inline">\(R\)</span>)</a></li>
+  <li><a href="#simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r" id="toc-simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r" class="nav-link" data-scroll-target="#simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r">Simulating a Multi-Causal Locus and Running Marginal GWAS in R</a></li>
+  </ul></li>
+  <li><a href="#individual-level-fine-mapping-with-susie" id="toc-individual-level-fine-mapping-with-susie" class="nav-link" data-scroll-target="#individual-level-fine-mapping-with-susie">Individual-Level Fine-Mapping with <code>susie()</code></a></li>
+  <li><a href="#summary-statistics-fine-mapping-with-susie_rss" id="toc-summary-statistics-fine-mapping-with-susie_rss" class="nav-link" data-scroll-target="#summary-statistics-fine-mapping-with-susie_rss">Summary-Statistics Fine-Mapping with <code>susie_rss()</code></a>
+  <ul class="collapse">
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS10-FineMapping.out.ipynb" download="GWAS10-FineMapping.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="../develop/GWAS10-FineMapping.html">Statistical fine-mapping</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Statistical fine-mapping</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Important notes for this notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Discovering a genome-wide significant locus in a GWAS (<code>GWAS5</code> or <code>GWAS9</code>) is only the first step toward biological insight. Because nearby genetic variants are correlated through <strong>Linkage Disequilibrium (LD)</strong>, a single causal variant typically drags dozens of non-causal tagging SNPs across the significance threshold—and when a locus harbors multiple causal variants, the lead SNP (lowest <span class="math inline">\(p\)</span>-value) may not even be causal at all. In this tutorial, we perform post-GWAS <strong>statistical fine-mapping</strong> using <strong>SuSiE</strong> (<em>Sum of Single Effects</em>; <a href="https://doi.org/10.1111/rssb.12388">Wang et al., 2020</a>; <a href="https://doi.org/10.1371/journal.pgen.1010299">Zou et al., 2022</a>) to pinpoint putative causal variants and construct <strong>95% Credible Sets</strong>.</p>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
+<ul>
+<li><strong>Explain</strong> why marginal single-SNP GWAS tests cannot distinguish true causal variants from correlated LD proxies</li>
+<li><strong>Understand</strong> the <strong>Sum of Single Effects (<code>SuSiE</code>)</strong> sparse multiple regression model and how it improves upon combinatorial fine-mapping methods (<code>FINEMAP</code>, <code>CAVIAR</code>)</li>
+<li><strong>Interpret</strong> <strong>Posterior Inclusion Probabilities (PIPs)</strong> and <strong>95% Credible Sets (CS)</strong></li>
+<li><strong>Execute</strong> fine-mapping in <code>R</code> using both individual-level genotypes (<code>susie()</code>) and GWAS summary statistics (<code>susie_rss()</code>)</li>
+<li><strong>Diagnose</strong> LD reference panel mismatch when fine-mapping with summary statistics</li>
+</ul>
+</section>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
+<ul>
+<li>In this notebook, we will use both <code>bash command line</code> and <code>R</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images. We will first run <code>Bash</code> commands.</li>
+</ul>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Some theory">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Some theory
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="intuition-first-why-isnt-the-top-gwas-snp-always-the-causal-variant" class="level3">
+<h3 class="anchored" data-anchor-id="intuition-first-why-isnt-the-top-gwas-snp-always-the-causal-variant">Intuition First: Why isn’t the top GWAS SNP always the causal variant?</h3>
+<p>Think of a genomic region (locus) as a <strong>group of singers standing close together on stage (in Linkage Disequilibrium, LD)</strong> in front of a single microphone: - <strong>Driver vs.&nbsp;Passenger SNPs</strong>: Even if <strong>only one person is actually singing</strong> (the true <strong>driver</strong> causal variant), the <strong>passenger</strong> SNPs standing right next to them in high LD (<span class="math inline">\(r^2 \approx 0.95\)</span>) move their lips in sync and appear nearly as loud when tested one at a time in a marginal GWAS (<code>GWAS5</code> or <code>GWAS9</code>). - <strong>The “Sponge SNP” Trap (Synthetic Association)</strong>: Even worse, if <strong>two people at opposite sides of the group are singing</strong> (two causal variants in the same locus), a non-causal <strong>“sponge” SNP</strong> standing in the middle that partially correlates with <em>both</em> of them (<span class="math inline">\(r \approx 0.6\)</span>) soaks up signal from both and can produce a <strong>smaller (more significant) marginal <span class="math inline">\(p\)</span>-value than either true causal variant</strong>!</p>
+<p><strong>Statistical fine-mapping (<code>SuSiE</code>)</strong> solves this by listening to all SNPs in the locus <em>jointly</em> in a single multiple-regression model and asking: <em>“What is the simplest sparse combination of 1, 2, or 3 variants that explains the entire association peak?”</em></p>
+</section>
+<section id="why-marginal-gwas-cannot-pinpoint-causal-variants" class="level3">
+<h3 class="anchored" data-anchor-id="why-marginal-gwas-cannot-pinpoint-causal-variants">Why Marginal GWAS Cannot Pinpoint Causal Variants</h3>
+<p>In a standard GWAS (<code>GWAS5</code>) or mixed-model GWAS (<code>GWAS9</code>), each SNP <span class="math inline">\(j\)</span> in a genomic region of <span class="math inline">\(p\)</span> SNPs is tested <strong>marginally</strong> (one at a time). If the true generative model in the locus is:</p>
+<p><span class="math display">\[y = X b + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
+<p>where <span class="math inline">\(X\)</span> is the <span class="math inline">\(N \times p\)</span> standardized genotype matrix and <span class="math inline">\(b = (b_1, \dots, b_p)^\top\)</span> is a <strong>sparse</strong> vector of true causal effects (only a few entries <span class="math inline">\(b_j \neq 0\)</span>), then the expected marginal GWAS <span class="math inline">\(Z\)</span>-score vector <span class="math inline">\(z = (z_1, \dots, z_p)^\top\)</span> is:</p>
+<p><span class="math display">\[\mathbb{E}[z] \approx \sqrt{N} R b, \quad \text{Cov}(z) = R\]</span></p>
+<p>where <span class="math inline">\(R = \frac{1}{N} X^\top X\)</span> is the <span class="math inline">\(p \times p\)</span> local <strong>LD correlation matrix</strong>. Because <span class="math inline">\(R\)</span> multiplies <span class="math inline">\(b\)</span>: 1. <strong>LD Tagging</strong>: Any non-causal SNP <span class="math inline">\(k\)</span> (<span class="math inline">\(b_k = 0\)</span>) correlated with a causal SNP <span class="math inline">\(j\)</span> (<span class="math inline">\(r_{jk} \neq 0\)</span>) acquires a non-zero expected test statistic <span class="math inline">\(\mathbb{E}[z_k] \approx \sqrt{N} r_{jk} b_j\)</span>. 2. <strong>Synthetic Associations</strong>: If two causal variants <span class="math inline">\(j_1\)</span> and <span class="math inline">\(j_2\)</span> reside in the same locus, a third non-causal SNP <span class="math inline">\(k\)</span> that partially tags both can achieve a <strong>more significant <span class="math inline">\(p\)</span>-value than either true causal variant</strong>.</p>
+</section>
+<section id="statistical-fine-mapping-pips-and-95-credible-sets" class="level3">
+<h3 class="anchored" data-anchor-id="statistical-fine-mapping-pips-and-95-credible-sets">Statistical Fine-Mapping: PIPs and 95% Credible Sets</h3>
+<p>Statistical fine-mapping moves from marginal testing to <strong>Bayesian sparse multiple regression</strong>, fitting all <span class="math inline">\(p\)</span> SNPs in a GWAS locus simultaneously and placing a sparsity-inducing prior on <span class="math inline">\(b\)</span> (informed by the expected locus heritability). It produces two key quantities:</p>
+<ul>
+<li><strong>Posterior Inclusion Probability (<span class="math inline">\(\text{PIP}_j\)</span>)</strong>: The posterior probability (between <code>0</code> and <code>1</code>) that SNP <span class="math inline">\(j\)</span> itself is causal: <span class="math display">\[\text{PIP}_j = \Pr(b_j \neq 0 \mid \text{Data})\]</span></li>
+<li><strong>95% Credible Set (<span class="math inline">\(\text{CS}\)</span>)</strong>: A minimal “bucket” of correlated SNPs <span class="math inline">\(S \subseteq \{1, \dots, p\}\)</span> that we are <strong>at least 95% certain contains one true causal variant</strong>.
+<ul>
+<li><em>The “5 Locked Rooms” Intuition — Why do we need Credible Sets in addition to PIPs?</em> Suppose 1 causal variant is hiding behind one of <strong>5 identical locked rooms</strong> (5 SNPs in near-perfect LD, <span class="math inline">\(r^2 \approx 0.99\)</span>). No statistical method can tell which of the 5 rooms holds the prize from genotype data alone, so each SNP receives <span class="math inline">\(\text{PIP}_j \approx 0.20\)</span>. Looking only for <span class="math inline">\(\text{PIP}_j &gt; 0.90\)</span> would miss the signal completely—whereas a <strong>95% Credible Set</strong> groups those 5 rooms together (<span class="math inline">\(\sum \text{PIP} \ge 0.95\)</span>) and tells you: <em>“One of these 5 variants is causal with 95% certainty, and the other 195 SNPs in the locus can be ruled out.”</em></li>
+</ul></li>
+</ul>
+</section>
+<section id="how-susie-sum-of-single-effects-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-susie-sum-of-single-effects-works">How <code>SuSiE</code> (Sum of Single Effects) Works</h3>
+<p>Earlier fine-mapping tools (<code>CAVIAR</code>, <code>FINEMAP</code>) had to evaluate discrete combinations of causal configurations across <span class="math inline">\(\{0, 1\}^p\)</span>, which becomes computationally expensive as the number of causal variants <span class="math inline">\(L\)</span> grows and makes it difficult to separate multiple independent signals into distinct credible sets.</p>
+<p><strong><code>SuSiE</code></strong> (<a href="https://doi.org/10.1111/rssb.12388">Wang et al., 2020</a>) solves this elegantly by writing the sparse effect vector <span class="math inline">\(b\)</span> as a <strong>Sum of <span class="math inline">\(L\)</span> Single Effects</strong>:</p>
+<p><span class="math display">\[b = \sum_{l=1}^{L} b^{(l)}, \quad b^{(l)} = \gamma^{(l)} \beta^{(l)}\]</span></p>
+<p>where each “single-effect” vector <span class="math inline">\(b^{(l)}\)</span> has <strong>at most one non-zero entry</strong>: - <span class="math inline">\(\gamma^{(l)} \in \{0, 1\}^p\)</span> is a one-hot indicator vector drawn from <span class="math inline">\(\text{Multinomial}(1, \pi)\)</span> specifying which single SNP is causal for effect <span class="math inline">\(l\)</span>. - <span class="math inline">\(\beta^{(l)} \sim \mathcal{N}(0, \sigma_{0l}^2)\)</span> is the scalar effect size for that causal SNP.</p>
+<p>Using <strong>Iterative Bayesian Stepwise Selection (IBSS)</strong>, <code>SuSiE</code> cycles through <span class="math inline">\(l = 1, \dots, L\)</span>, fitting a simple single-SNP Bayesian regression on the partial residuals after removing the other <span class="math inline">\(L - 1\)</span> effects. Each component <span class="math inline">\(l\)</span> yields posterior probabilities <span class="math inline">\(\alpha_l = (\alpha_{l1}, \dots, \alpha_{lp})\)</span> that directly define the <span class="math inline">\(l\)</span>-th <strong>95% Credible Set</strong> (by sorting <span class="math inline">\(\alpha_{lj}\)</span> in descending order until their cumulative sum reaches <span class="math inline">\(0.95\)</span>), and the overall PIP for SNP <span class="math inline">\(j\)</span> is simply:</p>
+<p><span class="math display">\[\text{PIP}_j = 1 - \prod_{l \in \mathcal{L}_{\text{non-null}}} (1 - \alpha_{lj})\]</span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>LD Clumping (<code>PLINK --clump</code>)</th>
+<th><code>FINEMAP</code> / <code>CAVIAR</code></th>
+<th><code>SuSiE</code> / <code>SuSiE-RSS</code> (<code>susieR</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Statistical Framework</strong></td>
+<td>Heuristic greedy <span class="math inline">\(r^2\)</span> + <span class="math inline">\(p\)</span>-value thresholding</td>
+<td>Combinatorial / Shotgun Stochastic Search</td>
+<td>Variational Bayes (<strong>Sum of Single Effects</strong>)</td>
+</tr>
+<tr class="even">
+<td><strong>Outputs PIPs?</strong></td>
+<td>No</td>
+<td>Yes</td>
+<td><strong>Yes</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Outputs Separate Credible Sets per Signal?</strong></td>
+<td>No</td>
+<td>Post-hoc approximations</td>
+<td><strong>Yes — one CS per single-effect component <span class="math inline">\(l\)</span></strong></td>
+</tr>
+<tr class="even">
+<td><strong>Input Data Supported</strong></td>
+<td>Summary stats + LD reference</td>
+<td>Summary stats + LD matrix <span class="math inline">\(R\)</span></td>
+<td><strong>Both Individual-level (<code>susie</code>) &amp; Summary stats (<code>susie_rss</code>)</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Quick Concept Check (from Lecture 10)</strong>: - <em>If <code>SuSiE</code> outputs a 95% Credible Set (<code>CS1</code>) of 5 SNPs in perfect LD (<span class="math inline">\(r^2 = 1.00\)</span>), each with <span class="math inline">\(\text{PIP} = 0.20\)</span>, is the locus a false positive?</em> <strong>No!</strong> We are <span class="math inline">\(\ge 95\%\)</span> certain <strong>1 true causal signal</strong> is inside that bucket, split equally across 5 indistinguishable “locked rooms” (<span class="math inline">\(5 \times 0.20 = 1.00\)</span>). - <em>When can the #1 top GWAS SNP (smallest <span class="math inline">\(p\)</span>-value) receive <span class="math inline">\(\text{PIP} \approx 0.00\)</span> in <code>SuSiE</code>?</em> When it is a non-causal <strong>“sponge” SNP</strong> that partially tags two true causal variants!</p>
+</blockquote>
+</section>
+</div>
+</div>
+<section id="preparing-locus-data-for-fine-mapping" class="level1">
+<h1>Preparing Locus Data for Fine-Mapping</h1>
+<section id="extracting-a-gwas-locus-and-local-ld-matrix-r" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-a-gwas-locus-and-local-ld-matrix-r">Extracting a GWAS Locus and Local LD Matrix (<span class="math inline">\(R\)</span>)</h3>
+<p>In practice, after running a genome-wide scan (<code>GWAS5</code> or <code>GWAS9</code>), we extract a <span class="math inline">\(\sim 500\text{ kb}\)</span>–<span class="math inline">\(1\text{ Mb}\)</span> window around each genome-wide significant peak.</p>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<p>Let’s link the <code>Data</code> folder, create <code>Results/GWAS10</code>, and extract a 200-SNP locus on Chromosome 1 from <code>Data/EUR.QC</code> using <code>PLINK</code> to generate two inputs for fine-mapping: - <code>--extract &lt;file&gt;</code>: Restricts <code>PLINK</code> to the 200 SNPs in our locus. - <code>--recode A</code>: Exports the individual-level additive genotype matrix (<code>locus_geno.raw</code>), where each cell is <code>0</code>, <code>1</code>, or <code>2</code> copies of the minor allele (used by <code>susie()</code>). - <code>--r square</code>: Computes the <span class="math inline">\(200 \times 200\)</span> signed SNP-by-SNP LD correlation matrix <span class="math inline">\(R\)</span> (<code>locus_ld.ld</code>, used by <code>susie_rss()</code>).</p>
+<div id="a0000001-0000-4000-8000-000000000005" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS10</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a 200-SNP window on Chromosome 1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$1 == 1 {print $2}'</span> Data/EUR.QC.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 500 <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 200 <span class="op">&gt;</span> Results/GWAS10/locus.snps</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Save SNP coordinates (SNP, CHR, BP) for locus plotting</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'$1 == 1 {print $2, $1, $4}'</span> Data/EUR.QC.bim <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 500 <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> 200 <span class="op">&gt;</span> Results/GWAS10/locus.info</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Export additive genotype matrix (0/1/2 dosages) for individual-level SuSiE</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="dt">\</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--extract</span> Results/GWAS10/locus.snps <span class="dt">\</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--recode</span> A <span class="dt">\</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> Results/GWAS10/locus_geno</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Compute the p x p local LD correlation matrix (R) for summary-statistics SuSiE-RSS</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="dt">\</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">--extract</span> Results/GWAS10/locus.snps <span class="dt">\</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--r</span> square <span class="dt">\</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> Results/GWAS10/locus_ld</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Extracted locus SNPs: </span><span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS10/locus.snps<span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r">Simulating a Multi-Causal Locus and Running Marginal GWAS in R</h3>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
+<p>Now switch to the <strong>R kernel</strong>. Let’s load <code>susieR</code>, read our 200-SNP genotype matrix <span class="math inline">\(X\)</span> and LD matrix <span class="math inline">\(R\)</span>, and simulate a quantitative phenotype driven by <strong>two causal variants</strong> in this region (<code>causal_idx = c(65, 140)</code>), which together explain <span class="math inline">\(h^2_{\text{locus}} = 12\%\)</span> of phenotypic variance.</p>
+<div id="a0000001-0000-4000-8000-000000000007" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">warn</span> = <span class="at">-1</span><span class="kw">)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 7<span class="kw">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">(</span><span class="ex">!requireNamespace</span><span class="er">(</span><span class="st">"susieR"</span><span class="ex">,</span> quietly = TRUE<span class="kw">))</span> <span class="kw">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">install.packages</span><span class="er">(</span><span class="st">"susieR"</span><span class="ex">,</span> repos = <span class="st">"https://cloud.r-project.org"</span><span class="kw">)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">susieR</span><span class="kw">)))</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Load genotype matrix X (N x p), SNP coordinates, and LD matrix R (p x p)</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="ex">raw_geno</span>   <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS10/locus_geno.raw"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">locus_info</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS10/locus.info"</span><span class="ex">,</span> header = FALSE,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                         <span class="ex">col.names</span> = c<span class="er">(</span><span class="st">"SNP"</span><span class="ex">,</span> <span class="st">"CHR"</span>, <span class="st">"BP"</span><span class="kw">))</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="ex">R</span> <span class="op">&lt;</span>- as.matrix<span class="er">(</span><span class="ex">read.table</span><span class="er">(</span><span class="st">"Results/GWAS10/locus_ld.ld"</span><span class="ex">,</span> header = FALSE<span class="kw">))</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Columns 7..ncol in PLINK .raw are the SNP dosages</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="ex">X</span> <span class="op">&lt;</span>- as.matrix<span class="er">(</span><span class="va">raw_geno</span><span class="op">[</span>, 7:ncol(raw_geno)<span class="op">]</span><span class="kw">)</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ex">colnames</span><span class="er">(</span><span class="ex">X</span><span class="kw">)</span> <span class="op">&lt;</span>- <span class="ex">locus_info</span><span class="va">$SNP</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean-impute any sporadic missing genotypes</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">(</span><span class="ex">j</span> in seq_len<span class="er">(</span><span class="ex">ncol</span><span class="er">(</span><span class="ex">X</span><span class="kw">)))</span> <span class="kw">{</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="va">X</span><span class="op">[</span>is.na(X[, j<span class="op">]</span><span class="er">)</span><span class="ex">,</span> j] <span class="op">&lt;</span>- mean<span class="er">(</span><span class="va">X</span><span class="op">[</span>, j<span class="op">]</span><span class="ex">,</span> na.rm = TRUE<span class="kw">)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="ex">n</span> <span class="op">&lt;</span>- nrow<span class="er">(</span><span class="ex">X</span><span class="kw">)</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="ex">p</span> <span class="op">&lt;</span>- ncol<span class="er">(</span><span class="ex">X</span><span class="kw">)</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Sample size (N):"</span><span class="ex">,</span> n, <span class="st">"| Locus SNPs (p):"</span>, p, <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="a0000001-0000-4000-8000-000000000008" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Simulate a phenotype with 2 true causal variants in the locus</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">set.seed</span><span class="er">(</span><span class="ex">2025</span><span class="kw">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">causal_idx</span> <span class="op">&lt;</span>- c<span class="er">(</span><span class="ex">65,</span> 140<span class="kw">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">b_true</span> <span class="op">&lt;</span>- rep<span class="er">(</span><span class="ex">0,</span> p<span class="kw">)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">b_true</span><span class="op">[</span>causal_idx<span class="op">]</span> <span class="op">&lt;</span>- <span class="ex">c</span><span class="er">(</span><span class="ex">0.45,</span> <span class="at">-0.45</span><span class="kw">)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardize X to mean 0, variance 1 for clean effect simulation</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">X_std</span> <span class="op">&lt;</span>- scale<span class="er">(</span><span class="ex">X</span><span class="kw">)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">g_locus</span> <span class="op">&lt;</span>- as.numeric<span class="er">(</span><span class="ex">X_std</span> %<span class="pp">*</span>% b_true<span class="kw">)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calibrate residual noise so the locus explains ~12% of phenotypic variance</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">sigma_e</span> <span class="op">&lt;</span>- sqrt<span class="er">(</span><span class="ex">var</span><span class="er">(</span><span class="ex">g_locus</span><span class="kw">)</span> <span class="ex">*</span> <span class="er">(</span><span class="ex">1</span> <span class="at">-</span> 0.12<span class="kw">)</span> <span class="ex">/</span> 0.12<span class="kw">)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">y</span> <span class="op">&lt;</span>- g_locus + rnorm<span class="er">(</span><span class="ex">n,</span> mean = 0, sd = sigma_e<span class="kw">)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Compute marginal single-SNP GWAS summary statistics (as PLINK/LDAK-KVIK would output)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">uni_reg</span> <span class="op">&lt;</span>- univariate_regression<span class="er">(</span><span class="ex">X,</span> y<span class="kw">)</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ex">z_scores</span> <span class="op">&lt;</span>- uni_reg<span class="va">$betahat</span> / uni_reg<span class="va">$sebetahat</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="ex">p_values</span> <span class="op">&lt;</span>- 2 <span class="pp">*</span> pnorm<span class="er">(</span><span class="ex">-abs</span><span class="er">(</span><span class="ex">z_scores</span><span class="kw">))</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"True causal SNPs:"</span><span class="ex">,</span> locus_info<span class="va">$SNP</span><span class="pp">[</span><span class="ss">causal_idx</span><span class="pp">]</span>, <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Top marginal GWAS hit:"</span><span class="ex">,</span> locus_info<span class="va">$SNP</span>[which.min<span class="er">(</span><span class="ex">p_values</span><span class="kw">)</span><span class="ex">],</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(p ="</span><span class="ex">,</span> signif<span class="er">(</span><span class="ex">min</span><span class="er">(</span><span class="ex">p_values</span><span class="kw">)</span><span class="ex">,</span> 3<span class="kw">)</span><span class="ex">,</span> <span class="st">")\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="individual-level-fine-mapping-with-susie" class="level1">
+<h1>Individual-Level Fine-Mapping with <code>susie()</code></h1>
+<p>When we have access to individual-level genotypes <span class="math inline">\(X\)</span> and phenotype <span class="math inline">\(y\)</span>, we run <code>susie(X, y, L = 10)</code>: - <code>L = 10</code> sets the <strong>upper bound</strong> on the number of causal signals in the locus. <code>SuSiE</code> automatically prunes away unneeded single-effect components by shrinking their prior variance to zero, so setting <code>L = 10</code> easily accommodates 1, 2, or more causal variants. - <code>summary(fitted_ind)$cs</code> prints a table of discovered <strong>95% Credible Sets</strong>, where: - <code>cs</code>: Index of the Credible Set (<code>1</code>, <code>2</code>, …) - <code>cs_log10bf</code>: <span class="math inline">\(\log_{10}(\text{Bayes Factor})\)</span> measuring the strength of evidence for this causal signal - <code>cs_avg_r2</code> / <code>cs_min_r2</code>: Average and minimum pairwise LD (<span class="math inline">\(r^2\)</span>) among SNPs inside the Credible Set (purity) - <code>variable</code>: Indices of the SNPs belonging to this 95% Credible Set</p>
+<div id="a0000001-0000-4000-8000-000000000010" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit individual-level SuSiE with up to L = 10 single effects</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fitted_ind</span> <span class="op">&lt;</span>- susie<span class="er">(</span><span class="ex">X,</span> y, L = 10<span class="kw">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary of discovered 95% Credible Sets</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">print</span><span class="er">(</span><span class="ex">summary</span><span class="er">(</span><span class="ex">fitted_ind</span><span class="kw">)</span><span class="va">$cs</span><span class="kw">)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether our two true causal variants (indices 65 and 140) are captured in the Credible Sets</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">cs_list</span> <span class="op">&lt;</span>- fitted_ind<span class="va">$sets$cs</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">(</span><span class="ex">cs_name</span> in names<span class="er">(</span><span class="ex">cs_list</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">snps_in_cs</span> <span class="op">&lt;</span>- cs_list[<span class="pp">[</span><span class="ss">cs_name</span><span class="pp">]</span>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">captured</span> <span class="op">&lt;</span>- intersect<span class="er">(</span><span class="ex">snps_in_cs,</span> causal_idx<span class="kw">)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span><span class="er">(</span><span class="ex">cs_name,</span> <span class="st">"contains"</span>, length<span class="er">(</span><span class="ex">snps_in_cs</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"SNP(s):"</span>, paste<span class="er">(</span><span class="ex">snps_in_cs,</span> collapse = <span class="st">", "</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| True causal index captured:"</span><span class="ex">,</span> ifelse<span class="er">(</span><span class="ex">length</span><span class="er">(</span><span class="ex">captured</span><span class="kw">)</span> <span class="op">&gt;</span> 0, <span class="ex">captured,</span> <span class="st">"None"</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now let’s visualize the <strong>Marginal GWAS Locus Plot</strong> (<code>-log10(p)</code>) right above the <strong><code>SuSiE</code> Fine-Mapping Plot</strong> (<code>PIP</code>), highlighting the discovered 95% Credible Sets and the two true causal variants.</p>
+<div id="a0000001-0000-4000-8000-000000000012" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign Credible Set membership for plotting</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cs_membership</span> <span class="op">&lt;</span>- rep<span class="er">(</span><span class="st">"None"</span><span class="ex">,</span> p<span class="kw">)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">(</span><span class="ex">cs_name</span> in names<span class="er">(</span><span class="ex">cs_list</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="va">cs_membership</span><span class="op">[</span>cs_list[[cs_name<span class="op">]</span><span class="ex">]]</span> <span class="op">&lt;</span>- paste0<span class="er">(</span><span class="st">"Credible Set "</span><span class="ex">,</span> cs_name<span class="kw">)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">plot_df</span> <span class="op">&lt;</span>- data.frame<span class="er">(</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Index</span>    = 1:p,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">BP_Mb</span>    = locus_info<span class="va">$BP</span> / 1e6,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">NegLogP</span>  = <span class="at">-log10</span><span class="er">(</span><span class="ex">p_values</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">PIP</span>      = fitted_ind<span class="va">$pip</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">CS</span>       = cs_membership,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">IsCausal</span> = ifelse<span class="er">(</span><span class="ex">1:p</span> %in% causal_idx, <span class="st">"True Causal SNP"</span>, <span class="st">"Non-Causal SNP"</span><span class="kw">)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="ex">par</span><span class="er">(</span><span class="ex">mfrow</span> = c<span class="er">(</span><span class="ex">2,</span> 1<span class="kw">)</span><span class="ex">,</span> mar = c<span class="er">(</span><span class="ex">4,</span> 4.5, 2.5, 1<span class="kw">))</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Marginal GWAS -log10(p)</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="ex">plot</span><span class="er">(</span><span class="ex">plot_df</span><span class="va">$BP_Mb</span><span class="ex">,</span> plot_df<span class="va">$NegLogP</span>,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>     <span class="ex">pch</span> = ifelse<span class="er">(</span><span class="ex">plot_df</span><span class="va">$IsCausal</span> == <span class="st">"True Causal SNP"</span>, 17, 19<span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>     <span class="fu">col</span> = ifelse<span class="er">(</span><span class="ex">plot_df</span><span class="va">$IsCausal</span> == <span class="st">"True Causal SNP"</span>, <span class="st">"tomato"</span>, <span class="st">"steelblue"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>     <span class="ex">cex</span> = ifelse<span class="er">(</span><span class="ex">plot_df</span><span class="va">$IsCausal</span> == <span class="st">"True Causal SNP"</span>, 1.6, 1.0<span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>     <span class="ex">xlab</span> = <span class="st">""</span>, ylab = expression<span class="er">(</span><span class="ex">-log[10]</span><span class="er">(</span><span class="ex">italic</span><span class="er">(</span><span class="ex">p</span><span class="kw">)))</span><span class="ex">,</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>     <span class="ex">main</span> = <span class="st">"Marginal GWAS Association Signal Across Locus (Confounded by LD)"</span><span class="kw">)</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="ex">abline</span><span class="er">(</span><span class="ex">h</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">0.05</span> / p<span class="kw">)</span><span class="ex">,</span> lty = 2, col = <span class="st">"grey40"</span><span class="kw">)</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="ex">legend</span><span class="er">(</span><span class="st">"topright"</span><span class="ex">,</span> legend = c<span class="er">(</span><span class="st">"True Causal SNP"</span><span class="ex">,</span> <span class="st">"Tagging / Null SNP"</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>       <span class="fu">col</span> = c<span class="er">(</span><span class="st">"tomato"</span><span class="ex">,</span> <span class="st">"steelblue"</span><span class="kw">)</span><span class="ex">,</span> pch = c<span class="er">(</span><span class="ex">17,</span> 19<span class="kw">)</span><span class="ex">,</span> bty = <span class="st">"n"</span><span class="kw">)</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: SuSiE Posterior Inclusion Probabilities (PIP) &amp; Credible Sets</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="ex">susie_plot</span><span class="er">(</span><span class="ex">fitted_ind,</span> y = <span class="st">"PIP"</span>, b = b_true,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>           <span class="ex">main</span> = <span class="st">"SuSiE Fine-Mapping: Posterior Inclusion Probabilities (PIPs) &amp; 95% Credible Sets"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Look at the difference between the two panels: - In the <strong>top panel (Marginal GWAS)</strong>, many neighboring SNPs show elevated <span class="math inline">\(-\log_{10}(p)\)</span> values due to LD with the two causal variants. - In the <strong>bottom panel (<code>SuSiE</code> PIPs)</strong>, conditioning on all SNPs jointly collapses the signal into <strong>two distinct 95% Credible Sets</strong> (shown by the colored circles), each containing one of the true causal variants (red dots)!</p>
+</section>
+<section id="summary-statistics-fine-mapping-with-susie_rss" class="level1">
+<h1>Summary-Statistics Fine-Mapping with <code>susie_rss()</code></h1>
+<p>In most consortium GWAS studies, individual-level genotypes <span class="math inline">\(X\)</span> are not shared publicly. Instead, we only have: 1. Marginal GWAS summary statistics (<span class="math inline">\(Z\)</span>-scores <code>z_scores</code>, or <span class="math inline">\(\hat{\beta}\)</span> and <span class="math inline">\(\text{SE}\)</span>) 2. The local LD correlation matrix <span class="math inline">\(R\)</span> (<code>p x p</code>), ideally computed from the discovery cohort (in-sample LD) or a large ancestry-matched reference panel 3. The GWAS sample size <code>n</code></p>
+<p>Let’s run <strong><code>susie_rss()</code></strong> using only <code>z_scores</code>, <code>R</code>, and <code>n</code>, and inspect the resulting 95% Credible Sets.</p>
+<div id="a0000001-0000-4000-8000-000000000015" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run SuSiE-RSS using only summary Z-scores, LD matrix R, and sample size n</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fitted_rss</span> <span class="op">&lt;</span>- susie_rss<span class="er">(</span><span class="ex">z</span> = z_scores, R = R, n = n, L = 10<span class="kw">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspect the 95% Credible Sets from summary statistics</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">print</span><span class="er">(</span><span class="ex">summary</span><span class="er">(</span><span class="ex">fitted_rss</span><span class="kw">)</span><span class="va">$cs</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Q1. Compare the PIPs estimated from individual-level data (<code>fitted_ind$pip</code>) with the PIPs estimated from summary statistics + in-sample LD (<code>fitted_rss$pip</code>). Create a scatter plot in <code>ggplot2</code> and compute their Pearson correlation.</strong></li>
+<li><strong>Q2. For each discovered 95% Credible Set in <code>fitted_ind$sets$cs</code>, print (a) the number of SNPs in the Credible Set, (b) the maximum single-SNP PIP inside the set, and (c) the sum of PIPs across all SNPs in the set. Why can the sum of PIPs in a Credible Set exceed 0.95 even when no individual SNP has <span class="math inline">\(\text{PIP} &gt; 0.95\)</span>?</strong></li>
+<li><strong>Q3. What happens when the LD reference matrix <span class="math inline">\(R\)</span> comes from a small or mismatched reference panel? Compute an imprecise LD matrix <code>R_small &lt;- cor(X[1:60, ])</code> from only 60 individuals, run <code>estimate_s_rss(z = z_scores, R = R_small, n = n)</code> to check the <code>SuSiE-RSS</code> LD consistency diagnostic <span class="math inline">\(s\)</span>, and fit <code>susie_rss(z = z_scores, R = R_small, n = n, L = 10)</code>. How does LD mismatch affect fine-mapping?</strong></li>
+</ul>
+<p>Hint: Compare <code>estimate_s_rss(z = z_scores, R = R, n = n)</code> (in-sample LD, where <span class="math inline">\(s \approx 0\)</span>) vs.&nbsp;<code>estimate_s_rss(z = z_scores, R = R_small, n = n)</code> (where larger <span class="math inline">\(s\)</span> indicates inconsistency between <span class="math inline">\(z\)</span> and <span class="math inline">\(R\)</span>).</p>
+</div>
+</div>
+<div id="a0000001-0000-4000-8000-000000000017" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In <code>R</code>, we compare <code>fitted_ind$pip</code> and <code>fitted_rss$pip</code>, inspect the PIPs within each 95% Credible Set, and evaluate the LD diagnostic <span class="math inline">\(s\)</span> when using a small reference panel:</p>
+<div id="a0000001-0000-4000-8000-000000000019" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 7, repr.plot.height = 4.5<span class="kw">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1. Compare individual-level SuSiE PIPs vs. summary-statistics SuSiE-RSS PIPs</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pip_comp</span> <span class="op">&lt;</span>- data.frame<span class="er">(</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">SNP</span>      = locus_info<span class="va">$SNP</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">PIP_ind</span>  = fitted_ind<span class="va">$pip</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">PIP_rss</span>  = fitted_rss<span class="va">$pip</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">IsCausal</span> = ifelse<span class="er">(</span><span class="ex">1:p</span> %in% causal_idx, <span class="st">"True Causal SNP"</span>, <span class="st">"Non-Causal SNP"</span><span class="kw">)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="kw">)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Pearson correlation between susie() and susie_rss() PIPs:"</span><span class="ex">,</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="ex">round</span><span class="er">(</span><span class="ex">cor</span><span class="er">(</span><span class="ex">pip_comp</span><span class="va">$PIP_ind</span><span class="ex">,</span> pip_comp<span class="va">$PIP_rss</span><span class="kw">)</span><span class="ex">,</span> 5<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n\n"</span><span class="kw">)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="ex">p_pip</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">pip_comp,</span> aes<span class="er">(</span><span class="ex">x</span> = PIP_ind, y = PIP_rss, color = IsCausal<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="fu">size</span> = 2.5, alpha = 0.85<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_abline</span><span class="er">(</span><span class="ex">intercept</span> = 0, slope = 1, linetype = <span class="st">"dashed"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_color_manual</span><span class="er">(</span><span class="ex">values</span> = c<span class="er">(</span><span class="st">"True Causal SNP"</span> = <span class="st">"tomato"</span>, <span class="st">"Non-Causal SNP"</span> = <span class="st">"steelblue"</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme_bw</span><span class="er">(</span><span class="ex">base_size</span> = 13<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">title</span> = <span class="st">"SuSiE Individual-Level vs. Summary-Statistics (SuSiE-RSS) PIPs"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="ex">x</span> = <span class="st">"Individual-Level PIP (susie)"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="ex">y</span> = <span class="st">"Summary-Statistics PIP (susie_rss with in-sample LD)"</span>,</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="ex">color</span> = <span class="st">"Variant Class"</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="kw">)</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">p_pip</span><span class="kw">)</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2. Inspect PIPs inside each 95% Credible Set</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">(</span><span class="ex">cs_name</span> in names<span class="er">(</span><span class="ex">fitted_ind</span><span class="va">$sets$cs</span><span class="kw">))</span> <span class="kw">{</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="ex">idx</span> <span class="op">&lt;</span>- fitted_ind<span class="va">$sets$cs</span>[<span class="pp">[</span><span class="ss">cs_name</span><span class="pp">]</span>]</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span><span class="er">(</span><span class="ex">cs_name,</span> <span class="st">"| Size:"</span>, length<span class="er">(</span><span class="ex">idx</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Max PIP:"</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">max</span><span class="er">(</span><span class="ex">fitted_ind</span><span class="va">$pip</span><span class="ex">[idx]</span><span class="kw">)</span><span class="ex">,</span> 3<span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Sum of PIPs:"</span><span class="ex">,</span> round<span class="er">(</span><span class="fu">sum</span><span class="er">(</span><span class="ex">fitted_ind</span><span class="va">$pip</span><span class="ex">[idx]</span><span class="kw">)</span><span class="ex">,</span> 3<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3. Diagnose and evaluate noisy/mismatched LD reference matrix</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="ex">R_small</span> <span class="op">&lt;</span>- cor<span class="er">(</span><span class="va">X</span><span class="op">[</span><span class="dv">1</span>:60, <span class="op">]</span><span class="kw">)</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="va">R_small</span><span class="op">[</span>is.na(R_small)<span class="op">]</span> <span class="op">&lt;</span>- <span class="ex">0</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="ex">diag</span><span class="er">(</span><span class="ex">R_small</span><span class="kw">)</span> <span class="op">&lt;</span>- <span class="ex">1</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="ex">s_insample</span> <span class="op">&lt;</span>- estimate_s_rss<span class="er">(</span><span class="ex">z</span> = z_scores, R = R, n = n<span class="kw">)</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="ex">s_small</span>    <span class="op">&lt;</span>- estimate_s_rss<span class="er">(</span><span class="ex">z</span> = z_scores, R = R_small, n = n<span class="kw">)</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"\nLD diagnostic s (In-sample R):   "</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">s_insample,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"LD diagnostic s (Small panel R): "</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">s_small,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="ex">fitted_rss_small</span> <span class="op">&lt;</span>- susie_rss<span class="er">(</span><span class="ex">z</span> = z_scores, R = R_small, n = n, L = 10<span class="kw">)</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Number of Credible Sets with noisy LD:"</span><span class="ex">,</span> length<span class="er">(</span><span class="ex">fitted_rss_small</span><span class="va">$sets$cs</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><strong>Q1</strong>: When supplied with the exact <strong>in-sample LD matrix <span class="math inline">\(R\)</span></strong>, <code>susie_rss()</code> recovers PIPs and 95% Credible Sets that are virtually identical (<span class="math inline">\(r &gt; 0.999\)</span>) to having the full individual-level genotype matrix <span class="math inline">\(X\)</span>.</li>
+<li><strong>Q2</strong>: When a causal variant is in high LD with one or more proxy SNPs, the posterior probability is split across the correlated SNPs in the credible set, so no single SNP may exceed <span class="math inline">\(\text{PIP} &gt; 0.95\)</span>, while their <strong>sum</strong> exceeds <span class="math inline">\(0.95\)</span>. Always report the full <strong>95% Credible Set</strong> alongside individual PIPs.</li>
+<li><strong>Q3</strong>: When the LD reference matrix <span class="math inline">\(R\)</span> does not match the GWAS discovery sample (reflected by an elevated diagnostic parameter <span class="math inline">\(s\)</span> in <code>estimate_s_rss</code>), <code>SuSiE-RSS</code> cannot accurately cancel out LD tagging and may split signals or produce false-positive credible sets. Always use in-sample LD or a large, ancestry-matched reference panel.</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>In this tutorial, we have learned how statistical fine-mapping with <code>SuSiE</code> resolves broad, LD-confounded GWAS peaks into prioritized <strong>Posterior Inclusion Probabilities (PIPs)</strong> and <strong>95% Credible Sets</strong> using both individual-level genotypes (<code>susie()</code>) and GWAS summary statistics (<code>susie_rss()</code>). Notice how <code>susie_rss()</code> pairs marginal GWAS summary statistics (<code>z</code>) with an LD correlation matrix (<code>R</code>) to undo LD confounding within a single locus. In the final session (<code>GWAS11</code>), we scale this exact same principle—combining <strong>GWAS summary statistics</strong> with an <strong>external LD reference panel</strong> (<code>ldak --calc-cors</code>) and per-SNP heritability priors (<code>sumher_ldak.ind.hers</code> from <code>GWAS8</code>)—across the entire genome to construct <strong>advanced Polygenic Risk Scores (PRS)</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Other take-home messages">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Other take-home messages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Multiple Causal Variants Are Common</strong>: A single GWAS locus frequently contains multiple distinct causal signals (<span class="math inline">\(L &gt; 1\)</span>). <code>SuSiE</code> separates these signals into distinct 95% Credible Sets without requiring combinatorial search.</li>
+<li><strong>Report Both PIPs and 95% Credible Sets</strong>: High LD among candidate variants splits the PIP across proxies; the 95% Credible Set captures the complete group of variants needed to guarantee <span class="math inline">\(\ge 95\%\)</span> coverage of the causal signal.</li>
+<li><strong>LD Reference Quality Is Critical for Summary-Statistics Fine-Mapping</strong>: When using <code>susie_rss()</code>, always match the ancestry and sample size of the LD matrix <span class="math inline">\(R\)</span> to the GWAS summary statistics and check <code>estimate_s_rss()</code> for potential LD mismatch.</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

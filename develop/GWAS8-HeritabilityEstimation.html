@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Estimating SNP heritability – GWAS</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QWLRKN2JZ3"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="http://hds-sandbox.github.io/" class="navbar-brand navbar-brand-logo">
+    <img src="../img/logo.png" alt="" class="navbar-logo light-content">
+    <img src="../img/logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="http://hds-sandbox.github.io/">
+    <span class="navbar-title">GWAS</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="../develop/general-intro.html" aria-current="page"> 
+<span class="menu-text">Tutorials</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../develop/workshop.html"> 
+<span class="menu-text">Workshop</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/hds-sandbox"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/company/ucph-heads/"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Estimating SNP heritability</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/general-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Instructions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS0-geneticTheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Theory Review</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS1-WhatIsAGWAS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">What is a GWAS?</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollectionA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data collection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS2-DataCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data exploration</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Quality Control</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS3-QualityControlA.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: initial steps</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlB.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Relatedness</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS4-QualityControlC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quality Control: Strand and mapping correction, anchoring and population covariates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Association Testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5-AssociationTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Association testing</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS5b-PopulationStratification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Population stratification</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS6-PRSAnalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic scores I</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS7-PRSII.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Polygenic scores II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-OtherToolsAndTesting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Other tools &amp; conclusions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Advanced Topics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS8-HeritabilityEstimation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Estimating SNP heritability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS9-LinearMixedModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear mixed model GWAS</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../develop/GWAS10-FineMapping.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistical fine-mapping</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#individual-level-heritability-estimation-ldak---reml" id="toc-individual-level-heritability-estimation-ldak---reml" class="nav-link active" data-scroll-target="#individual-level-heritability-estimation-ldak---reml">Individual-Level Heritability Estimation (<code>ldak --reml</code>)</a></li>
+  <li><a href="#summary-statistics-heritability-estimation-ldak---sum-hers" id="toc-summary-statistics-heritability-estimation-ldak---sum-hers" class="nav-link" data-scroll-target="#summary-statistics-heritability-estimation-ldak---sum-hers">Summary-Statistics Heritability Estimation (<code>ldak --sum-hers</code>)</a>
+  <ul class="collapse">
+  <li><a href="#visualizing-per-snp-heritability-in-r" id="toc-visualizing-per-snp-heritability-in-r" class="nav-link" data-scroll-target="#visualizing-per-snp-heritability-in-r">Visualizing Per-SNP Heritability in R</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="GWAS8-HeritabilityEstimation.out.ipynb" download="GWAS8-HeritabilityEstimation.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Advanced Topics</a></li><li class="breadcrumb-item"><a href="../develop/GWAS8-HeritabilityEstimation.html">Estimating SNP heritability</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Estimating SNP heritability</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note no-icon callout-titled" title="Important notes for this notebook">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Important notes for this notebook
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Before moving to advanced mixed-model GWAS (<code>GWAS9</code>), fine-mapping (<code>GWAS10</code>), and Bayesian polygenic prediction (<code>GWAS11</code>), we need to understand <strong>SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>)</strong>. Heritability quantifies the proportion of phenotypic variance explained by measured genetic variants and acts as a key tuning parameter in almost all advanced statistical genetics methods. In this tutorial, we explore the assumptions behind different heritability models (such as GCTA vs.&nbsp;LDAK) and estimate SNP heritability from both <strong>individual-level genotypes</strong> (<code>ldak --reml</code>) and <strong>GWAS summary statistics</strong> (<code>ldak --sum-hers</code>).</p>
+<section id="learning-outcomes" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
+<ul>
+<li><strong>Define</strong> narrow-sense SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>) and explain how it bounds polygenic prediction accuracy</li>
+<li><strong>Compare</strong> the genetic architecture assumptions of the <strong>GCTA</strong> (<span class="math inline">\(\alpha = -1\)</span>) and <strong>LDAK</strong> (<span class="math inline">\(\alpha = -0.25\)</span>) heritability models</li>
+<li><strong>Estimate</strong> SNP heritability from individual-level genotype data using REML (<code>ldak --reml</code>)</li>
+<li><strong>Estimate</strong> SNP heritability from GWAS summary statistics using SumHer (<code>ldak --sum-hers</code>) and explain how LD tagging separates polygenicity from confounding</li>
+</ul>
+</section>
+<section id="how-to-make-this-notebook-work" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-make-this-notebook-work">How to make this notebook work</h2>
+<ul>
+<li>In this notebook, we will use both <code>bash command line</code> and <code>R</code> programming languages. Remember to <strong>change the kernel</strong> whenever you transition from one language to the other (<code>Kernel --&gt; Change Kernel</code>) indicated by the languages’ images. We will first run <code>Bash</code> commands.</li>
+</ul>
+<p><img src="Images/bash.png" alt="Bash" width="80"> Choose the Bash kernel</p>
+</section>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Some theory">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Some theory
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="intuition-first-how-can-we-estimate-heritability-without-knowing-which-snps-are-causal" class="level3">
+<h3 class="anchored" data-anchor-id="intuition-first-how-can-we-estimate-heritability-without-knowing-which-snps-are-causal">Intuition First: How can we estimate heritability without knowing which SNPs are causal?</h3>
+<p>In <code>GWAS5</code>, we saw that most individual SNPs have tiny effects that do not pass the strict genome-wide significance threshold (<span class="math inline">\(p &lt; 5 \times 10^{-8}\)</span>). How, then, can we estimate the <strong>total</strong> fraction of trait variance explained by all measured SNPs simultaneously?</p>
+<ul>
+<li><strong>With individual-level data (<code>REML</code>)</strong>: Even among “unrelated” people from the same population, some pairs of individuals happen by chance to share slightly more alleles across the genome than other pairs (e.g., <span class="math inline">\(+0.5\%\)</span> vs.&nbsp;<span class="math inline">\(-0.5\%\)</span> genome-wide similarity <span class="math inline">\(K_{ij}\)</span>). If a trait like height is heritable, pairs of people who are slightly more genetically similar across the genome will also have slightly more similar heights (<span class="math inline">\(y_i \cdot y_j\)</span>)! Measuring how strongly phenotypic similarity tracks genome-wide genetic similarity (<code>GRM</code>) gives us <strong>SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>)</strong>.</li>
+<li><strong>With GWAS summary statistics (<code>SumHer</code>)</strong>: Suppose you only have marginal GWAS <span class="math inline">\(p\)</span>-values and no individual genotypes. A SNP sitting inside a large Linkage Disequilibrium (LD) block “tags” (is correlated with) many neighboring variants, so it is much more likely to tag a causal variant than an isolated SNP in a low-LD region. Regressing the GWAS <span class="math inline">\(\chi^2\)</span> test statistics on each SNP’s <strong>LD tagging score</strong> reveals the total polygenic heritability.</li>
+<li><strong>Why weight SNPs by LD and MAF (<code>GCTA</code> vs.&nbsp;<code>LDAK</code>)?</strong>: Imagine <strong>5 witnesses in an LD block</strong> who all saw the exact same event and give identical testimony (<span class="math inline">\(r^2 \approx 0.99\)</span>). Counting all 5 as independent witnesses (<code>GCTA</code>) over-counts that region 5-fold! Thinning redundant witnesses and weighting variants by allele frequency (<code>LDAK-Thin</code>) prevents LD double-counting.</li>
+</ul>
+</section>
+<section id="formal-definition-of-snp-heritability-h2_textsnp" class="level3">
+<h3 class="anchored" data-anchor-id="formal-definition-of-snp-heritability-h2_textsnp">Formal Definition of SNP Heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>)</h3>
+<p>Suppose we model a quantitative phenotype <span class="math inline">\(y\)</span> across all <span class="math inline">\(M\)</span> measured SNPs simultaneously:</p>
+<p><span class="math display">\[y = Z\gamma + \sum_{j=1}^{M} X_j b_j + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
+<p>where <span class="math inline">\(Z\gamma\)</span> represents fixed covariates (such as sex and principal components), <span class="math inline">\(X_j\)</span> is the genotype dosage vector (<span class="math inline">\(0, 1, or 2\)</span> copies of allele <code>A1</code>) for SNP <span class="math inline">\(j\)</span> with minor allele frequency <span class="math inline">\(f_j\)</span>, and <span class="math inline">\(b_j\)</span> is its per-allele additive effect. Treating the total genetic value <span class="math inline">\(g = \sum_{j=1}^M X_j b_j\)</span> as a random effect with variance <span class="math inline">\(\sigma_g^2\)</span>, the <strong>SNP heritability</strong> is the proportion of phenotypic variance attributable to all measured SNPs:</p>
+<p><span class="math display">\[h^2_{\text{SNP}} = \frac{\sigma_g^2}{\sigma_g^2 + \sigma_e^2}\]</span></p>
+<p>Notice that <span class="math inline">\(h^2_{\text{SNP}}\)</span> is always smaller than classic twin/pedigree narrow-sense heritability (<span class="math inline">\(h^2\)</span>), because <span class="math inline">\(h^2_{\text{SNP}}\)</span> only captures genetic variation tagged by the SNPs present on our genotyping array or imputation panel.</p>
+</section>
+<section id="the-heritability-model-how-does-heritability-vary-across-snps" class="level3">
+<h3 class="anchored" data-anchor-id="the-heritability-model-how-does-heritability-vary-across-snps">The Heritability Model: How does heritability vary across SNPs?</h3>
+<p>Under Hardy-Weinberg equilibrium, the variance of genotype <span class="math inline">\(X_j\)</span> is <span class="math inline">\(2 f_j (1 - f_j)\)</span>, so the heritability contributed by SNP <span class="math inline">\(j\)</span> is <span class="math inline">\(h_j^2 = 2 f_j (1 - f_j) b_j^2\)</span>. To construct a Genetic Relatedness Matrix (GRM) or set priors on SNP effects, every method must assume a <strong>heritability model</strong> for the expected heritability per SNP, <span class="math inline">\(\mathbb{E}[h_j^2]\)</span>.</p>
+<p>The general <strong>LDAK heritability model</strong> (<a href="https://doi.org/10.1016/j.ajhg.2012.10.010">Speed et al., 2012</a>; <a href="https://doi.org/10.1038/ng.3865">Speed et al., 2017</a>) writes this as:</p>
+<p><span class="math display">\[\mathbb{E}[h_j^2] \propto \left[ 2 f_j (1 - f_j) \right]^{1 + \alpha} \times w_j\]</span></p>
+<ul>
+<li><strong><span class="math inline">\(\alpha\)</span> (MAF scaling parameter)</strong>: Controls how per-allele effect sizes <span class="math inline">\(b_j\)</span> vary with minor allele frequency <span class="math inline">\(f_j\)</span>. Strong negative (purifying) natural selection prevents variants with huge effects from becoming common, yet common variants still vary across many more people (<span class="math inline">\(2 f_j (1 - f_j)\)</span> is largest at <span class="math inline">\(f_j = 0.5\)</span>).</li>
+<li><strong><span class="math inline">\(w_j\)</span> (LD weight)</strong>: Downweights or thins SNPs in high-LD blocks so that regions with dozens of redundant, correlated SNPs are not double-counted.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Heritability Model</th>
+<th>MAF Parameter (<span class="math inline">\(\alpha\)</span>)</th>
+<th>LD Weighting (<span class="math inline">\(w_j\)</span>)</th>
+<th>Key Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>GCTA Model</strong></td>
+<td><span class="math inline">\(\alpha = -1\)</span></td>
+<td><span class="math inline">\(w_j = 1\)</span> (None)</td>
+<td>Every SNP is expected to explain the <strong>exact same heritability</strong> (<span class="math inline">\(\mathbb{E}[h_j^2] = \text{constant}\)</span>), regardless of allele frequency or LD. High-LD regions contribute more heritability simply because they contain more SNPs.</td>
+</tr>
+<tr class="even">
+<td><strong>LDAK-Thin Model</strong> (Human Default)</td>
+<td><span class="math inline">\(\alpha = -0.25\)</span></td>
+<td><span class="math inline">\(w_j \in \{0, 1\}\)</span> via LD thinning</td>
+<td>Common SNPs explain more heritability per variant than rare SNPs (<span class="math inline">\(\mathbb{E}[h_j^2] \propto [2 f_j(1-f_j)]^{0.75}\)</span>), matching empirical human traits. Duplicate SNPs (<span class="math inline">\(r^2 &gt; 0.98\)</span>) are pruned.</td>
+</tr>
+<tr class="odd">
+<td><strong>BLD-LDAK Model</strong> (Summary stats)</td>
+<td><span class="math inline">\(\alpha = -0.25\)</span></td>
+<td>Continuous LD weights + 65 functional annotations</td>
+<td>Allows coding, conserved, and regulatory regions to be enriched for heritability alongside MAF and LD scaling.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="why-heritability-matters-for-the-rest-of-the-course" class="level3">
+<h3 class="anchored" data-anchor-id="why-heritability-matters-for-the-rest-of-the-course">Why Heritability Matters for the Rest of the Course</h3>
+<ol type="1">
+<li><strong>Mixed-Model GWAS (<code>GWAS9</code>, e.g., LDAK-KVIK, BOLT-LMM)</strong>: Uses <span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span> and <span class="math inline">\(\mathbb{E}[h_j^2]\)</span> in Step 1 to regularize the whole-genome regression model that predicts the polygenic background <span class="math inline">\(\hat{g}^{(-c)}\)</span> on each chromosome.</li>
+<li><strong>Fine-Mapping (<code>GWAS10</code>, e.g., SuSiE)</strong>: Uses per-locus heritability to calibrate the prior variance of causal effect sizes.</li>
+<li><strong>Advanced Polygenic Scores (<code>GWAS11</code>, e.g., MegaPRS, LDpred2, LDAK-Predict)</strong>: Uses <span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span> and per-SNP heritabilities <span class="math inline">\(\mathbb{E}[h_j^2]\)</span> to determine how strongly noisy GWAS effect estimates are shrunk toward zero.</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Quick Concept Check (from Lecture 8)</strong>: - <em>If a trait has Twin <span class="math inline">\(h^2 = 80\%\)</span> and Array <span class="math inline">\(h^2_{\text{SNP}} = 45\%\)</span>, what is the maximum possible <span class="math inline">\(R^2\)</span> of a standard SNP-chip Polygenic Risk Score?</em> <strong><span class="math inline">\(45\%\)</span> (<span class="math inline">\(R^2 \le h^2_{\text{SNP}}\)</span>)</strong>, because a SNP chip can only predict variation tagged by its measured SNPs. - <em>Why do we run <code>ldak --thin</code> before computing the Kinship Matrix <span class="math inline">\(K\)</span>?</em> Without thinning, an LD block with <strong>5 identical SNPs (<span class="math inline">\(r^2 = 1.00\)</span>)</strong> is counted <strong>5<span class="math inline">\(\times\)</span> too heavily</strong> in <span class="math inline">\(K\)</span>!</p>
+</blockquote>
+</section>
+</div>
+</div>
+<section id="individual-level-heritability-estimation-ldak---reml" class="level1">
+<h1>Individual-Level Heritability Estimation (<code>ldak --reml</code>)</h1>
+<p>When we have individual-level genotypes and phenotypes, we estimate <span class="math inline">\(h^2_{\text{SNP}}\)</span> using <strong>Restricted Maximum Likelihood (REML)</strong>: 1. Compute the <span class="math inline">\(N \times N\)</span> <strong>Genetic Relatedness Matrix (GRM)</strong> <span class="math inline">\(K\)</span> across all pairs of individuals (<code>ldak --calc-kins-direct</code>). 2. Fit the genetic variance <span class="math inline">\(\sigma_g^2\)</span> and environmental variance <span class="math inline">\(\sigma_e^2\)</span> by maximizing the restricted likelihood of <span class="math inline">\(y \sim \mathcal{N}(Z\gamma, \sigma_g^2 K + \sigma_e^2 I)\)</span> (<code>ldak --reml</code>).</p>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<p>First, let’s link the <code>Data</code> folder, create <code>Results/GWAS8</code>, and strip the header lines from the height phenotype (<code>Data/EUR.height</code>) and covariates (<code>Data/EUR.covariate</code>) so <code>LDAK</code> can read them:</p>
+<div id="80000001-0000-4000-8000-000000000005" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS8</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Strip header lines from phenotype and covariate files for compatibility</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $1, $2, $3}'</span> Data/EUR.height <span class="op">&gt;</span> Results/GWAS8/EUR.pheno</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $0}'</span> Data/EUR.covariate <span class="op">&gt;</span> Results/GWAS8/EUR.covar</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS8/EUR.pheno</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now let’s compute the GRM and run REML under both the <strong>GCTA model</strong> (<code>--power -1</code>, no LD weights) and the <strong>LDAK-Thin model</strong> (<code>--thin</code> with <span class="math inline">\(r^2 &gt; 0.98\)</span>, <code>--power -0.25</code>).</p>
+<p>Key <code>LDAK</code> flags used below: - <code>--thin &lt;prefix&gt;</code>: Prunes out near-duplicate SNPs (<span class="math inline">\(r^2 &gt; 0.98\)</span> within 100 kb windows) and writes the retained SNP list to <code>&lt;prefix&gt;.in</code>. - <code>--calc-kins-direct &lt;prefix&gt;</code>: Directly computes the <span class="math inline">\(N \times N\)</span> Genetic Relatedness Matrix (GRM) from the PLINK <code>--bfile</code>. - <code>--power &lt;alpha&gt;</code>: Sets the MAF scaling parameter <span class="math inline">\(\alpha\)</span> (<code>-1</code> for the GCTA model; <code>-0.25</code> for the human default LDAK model). - <code>--weights &lt;file&gt;</code> / <code>--ignore-weights YES</code>: Tells <code>LDAK</code> whether to weight SNPs by LD thinning or give all SNPs weight 1. - <code>--reml &lt;prefix&gt;</code>: Runs Restricted Maximum Likelihood on <code>--grm</code>, <code>--pheno</code>, and <code>--covar</code> to estimate SNP heritability.</p>
+<div id="80000001-0000-4000-8000-000000000007" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. GCTA Model (power = -1, uniform expected heritability per SNP)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS8/kins_gcta <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--ignore-weights</span> YES <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-1</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS8/reml_gcta <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">--grm</span> Results/GWAS8/kins_gcta <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">--pheno</span> Results/GWAS8/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">--covar</span> Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="80000001-0000-4000-8000-000000000008" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. LDAK-Thin Model (thin duplicate SNPs with r^2 &gt; 0.98, then compute GRM with power = -0.25)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--thin</span> Results/GWAS8/thin <span class="dt">\</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-prune</span> 0.98 <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-kb</span> 100</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, 1}'</span> Results/GWAS8/thin.in <span class="op">&gt;</span> Results/GWAS8/weights.thin</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS8/kins_ldak <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">--weights</span> Results/GWAS8/weights.thin <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-0.25</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS8/reml_ldak <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">--grm</span> Results/GWAS8/kins_ldak <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">--pheno</span> Results/GWAS8/EUR.pheno <span class="dt">\</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">--covar</span> Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="summary-statistics-heritability-estimation-ldak---sum-hers" class="level1">
+<h1>Summary-Statistics Heritability Estimation (<code>ldak --sum-hers</code>)</h1>
+<p>When our individual-level sample size is small (<span class="math inline">\(N \approx 500\)</span> in <code>Data/EUR.QC</code>), REML heritability estimates have large standard errors (<span class="math inline">\(\text{SD}(\hat{h}^2) \approx \frac{316}{N}\)</span>). However, if we have summary statistics from a large GWAS meta-analysis—such as <code>Data/Height.QC.gz</code> (<span class="math inline">\(N = 253,288\)</span>)—we can estimate <span class="math inline">\(h^2_{\text{SNP}}\)</span> accurately using <strong>SumHer</strong> (<code>ldak --sum-hers</code>).</p>
+<p>Under a polygenic model, a SNP’s expected marginal GWAS <span class="math inline">\(\chi^2\)</span> test statistic is linearly related to the total heritability it tags through LD:</p>
+<p><span class="math display">\[\mathbb{E}[\chi_j^2] \approx 1 + N \sum_{k} r_{jk}^2 \mathbb{E}[h_k^2]\]</span></p>
+<p>We proceed in three steps: 1. <strong>Format the base GWAS summary statistics (<code>Height.summaries</code>)</strong>: Just like in <code>GWAS7</code>, we keep well-imputed common variants (<code>MAF &gt;= 0.01</code> and <code>INFO &gt;= 0.8</code>) and output the 6 columns required by <code>LDAK</code>: <code>Predictor</code> (SNP ID), <code>A1</code> (effect allele), <code>A2</code> (other allele), <code>Direction</code> (<code>+1</code> or <code>-1</code>), <code>P</code> (<span class="math inline">\(p\)</span>-value), and <code>n</code> (sample size). <em>(You do not need to memorize the <code>awk</code> formatting snippet below—it simply reformats the columns of <code>Data/Height.QC.gz</code>.)</em> 2. <strong>Compute the LD tagging file (<code>ldak --calc-tagging</code>)</strong>: Calculates how much heritability each SNP tags across a <code>1000 kb</code> window in our European reference panel (<code>Data/EUR.QC</code>), and saves the heritability matrix (<code>--save-matrix YES</code>). 3. <strong>Estimate heritability (<code>ldak --sum-hers</code>)</strong>: Regresses the GWAS summary statistics (<code>--summary</code>) on the LD tagging file (<code>--tagfile</code>) to estimate total SNP heritability (<code>sumher_ldak.hers</code>) and each individual SNP’s expected heritability (<code>sumher_ldak.ind.hers</code>).</p>
+<div id="80000001-0000-4000-8000-000000000010" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Format Data/Height.QC.gz into LDAK summary statistics format (Predictor A1 A2 Direction P n)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-dc</span> Data/Height.QC.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">NR==1 {</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=NF; i++) col[$i]=i</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    print "Predictor A1 A2 Direction P n"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">$col["MAF"] &gt;= 0.01 &amp;&amp; $col["INFO"] &gt;= 0.8 &amp;&amp; !seen[$col["SNP"]]++ {</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">    eff = ("OR" in col) ? log($col["OR"]) : $col["BETA"]</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">    dir = (eff &gt;= 0) ? 1 : -1</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">    p   = $col["P"]</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">    n   = ("N" in col) ? $col["N"] : 253288</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">    if (p &gt; 0 &amp;&amp; p &lt;= 1) print $col["SNP"], $col["A1"], $col["A2"], dir, p, n</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="op">&gt;</span> Results/GWAS8/Height.summaries</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS8/Height.summaries</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate tagging file and heritability matrix under the LDAK-Thin model (power = -0.25)</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-tagging</span> Results/GWAS8/tag_ldak <span class="dt">\</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">--weights</span> Results/GWAS8/weights.thin <span class="dt">\</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-kb</span> 1000 <span class="dt">\</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">--save-matrix</span> YES</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Estimate SNP heritability from summary statistics</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--sum-hers</span> Results/GWAS8/sumher_ldak <span class="dt">\</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">--summary</span> Results/GWAS8/Height.summaries <span class="dt">\</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">--tagfile</span> Results/GWAS8/tag_ldak.tagging <span class="dt">\</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>     <span class="at">--matrix</span> Results/GWAS8/tag_ldak.matrix <span class="dt">\</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>     <span class="at">--check-sums</span> NO</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s inspect the heritability estimates from all three analyses. When reading <code>.reml</code> and <code>.hers</code> files, focus on: - <strong><code>Her_All</code> (<code>Her</code> and <code>SD</code>)</strong>: The estimated total SNP heritability (<span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span>) and its standard error (<code>SD</code>). - <strong><code>Scaling</code> (in <code>.hers</code>)</strong>: Measures the intercept of the summary-statistic regression (<code>1.0</code> indicates no inflation from population stratification or cryptic relatedness).</p>
+<div id="80000001-0000-4000-8000-000000000012" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== 1. Individual-level REML: GCTA Model (power = -1) ==="</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS8/reml_gcta.reml</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">""</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== 2. Individual-level REML: LDAK-Thin Model (power = -0.25) ==="</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS8/reml_ldak.reml</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">""</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== 3. Summary-statistics SumHer: LDAK-Thin Model (N = 253,288) ==="</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS8/sumher_ldak.hers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="visualizing-per-snp-heritability-in-r" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-per-snp-heritability-in-r">Visualizing Per-SNP Heritability in R</h3>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
+<p>In <code>R</code>, we can visualize the distribution of per-SNP expected heritabilities (<code>sumher_ldak.ind.hers</code>) produced by <code>ldak --sum-hers</code>:</p>
+<div id="80000001-0000-4000-8000-000000000014" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">warn</span> = <span class="at">-1</span><span class="kw">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">jupyter.plot_mimetypes</span> = <span class="st">'image/png'</span><span class="kw">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ind_hers</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/sumher_ldak.ind.hers"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">colnames</span><span class="er">(</span><span class="ex">ind_hers</span><span class="kw">)</span> <span class="op">&lt;</span>- <span class="ex">c</span><span class="er">(</span><span class="st">"Predictor"</span><span class="ex">,</span> <span class="st">"Heritability"</span><span class="kw">)</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">p_her</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">subset</span><span class="er">(</span><span class="ex">ind_hers,</span> Heritability <span class="op">&gt;</span> 0<span class="kw">)</span><span class="ex">,</span> aes<span class="er">(</span><span class="ex">x</span> = Heritability<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">bins</span> = 40, col = <span class="st">"black"</span>, fill = <span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Distribution of Per-SNP Expected Heritabilities (LDAK-Thin, power = -0.25)"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>       <span class="ex">x</span> = <span class="st">"Per-SNP Expected Heritability"</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>       <span class="ex">y</span> = <span class="st">"Number of SNPs"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title</span> = element_text<span class="er">(</span><span class="fu">size</span> = 14<span class="kw">)</span><span class="ex">,</span> axis.text = element_text<span class="er">(</span><span class="fu">size</span> = 12<span class="kw">))</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">p_her</span><span class="kw">)</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Total SNP heritability (sum across SNPs):"</span><span class="ex">,</span> round<span class="er">(</span><span class="fu">sum</span><span class="er">(</span><span class="ex">ind_hers</span><span class="va">$Heritability</span><span class="kw">)</span><span class="ex">,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Examine the output of <code>reml_gcta.reml</code>, <code>reml_ldak.reml</code>, and <code>sumher_ldak.hers</code> above:</p>
+<ul>
+<li><strong>Q1. How many SNPs in <code>ind_hers</code> have <code>Heritability &gt; 0</code> (retained after <code>--thin</code>) compared to the total number of SNPs (<code>nrow(ind_hers)</code>)?</strong></li>
+<li><strong>Q2. Compare the standard error (<code>SD</code>) of <code>Her_All</code> in the individual-level REML analyses (<code>reml_ldak.reml</code>, where <span class="math inline">\(N \approx 500\)</span>) against the summary-statistics SumHer analysis (<code>sumher_ldak.hers</code>, where <span class="math inline">\(N = 253,288\)</span>).</strong> Why is the SumHer standard error so much smaller?</li>
+<li><strong>Q3. Plot or compute the relationship between LD tagging (<code>Results/GWAS8/tag_ldak.tagging</code>) and GWAS <span class="math inline">\(\chi^2\)</span> test statistics (<code>Results/GWAS8/Height.summaries</code>) in <code>R</code>:</strong> Why does a positive slope between LD tagging and <span class="math inline">\(\chi^2\)</span> indicate true polygenic heritability rather than population stratification?</li>
+</ul>
+<p>Hint: Use <code>sum(ind_hers$Heritability &gt; 0)</code> and <code>nrow(ind_hers)</code> in <code>R</code>, and inspect <code>Results/GWAS8/reml_ldak.reml</code> vs.&nbsp;<code>Results/GWAS8/sumher_ldak.hers</code>.</p>
+</div>
+</div>
+<div id="80000001-0000-4000-8000-000000000016" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>In <code>R</code>, we can compare the retained SNPs (<code>Heritability &gt; 0</code>), inspect the <code>Her_All</code> estimates and standard errors (<code>SD</code>), and compute the correlation between LD tagging and marginal GWAS <span class="math inline">\(\chi^2\)</span> statistics:</p>
+<div id="80000001-0000-4000-8000-000000000018" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1. Compare retained SNPs (Heritability &gt; 0) vs. total SNPs</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Total SNPs in EUR.QC:    "</span><span class="ex">,</span> nrow<span class="er">(</span><span class="ex">ind_hers</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Retained after thinning: "</span><span class="ex">,</span> sum<span class="er">(</span><span class="ex">ind_hers</span><span class="va">$Heritability</span> <span class="op">&gt;</span> 0<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Pruned duplicate SNPs:   "</span><span class="ex">,</span> sum<span class="er">(</span><span class="ex">ind_hers</span><span class="va">$Heritability</span> == 0<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n\n"</span><span class="kw">)</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2. Compare Her_All and SD across individual-level REML (N ~ 500) and SumHer (N = 253,288)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">reml_ldak</span>   <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/reml_ldak.reml"</span><span class="ex">,</span> header = TRUE, fill = TRUE<span class="kw">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">sumher_ldak</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/sumher_ldak.hers"</span><span class="ex">,</span> header = TRUE, fill = TRUE<span class="kw">)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"=== Individual-level REML (LDAK-Thin) ===\n"</span><span class="kw">)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">print</span><span class="er">(</span><span class="ex">subset</span><span class="er">(</span><span class="ex">reml_ldak,</span> Component == <span class="st">"Her_All"</span><span class="kw">))</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"\n=== Summary-statistics SumHer (LDAK-Thin) ===\n"</span><span class="kw">)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="ex">print</span><span class="er">(</span><span class="ex">subset</span><span class="er">(</span><span class="ex">sumher_ldak,</span> Component == <span class="st">"Her_All"</span><span class="kw">))</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3. Inspect the relationship between LD tagging and GWAS chi-square test statistics</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="ex">tagging</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/tag_ldak.tagging"</span><span class="ex">,</span> header = TRUE, fill = TRUE<span class="kw">)</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="ex">sumstat</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/Height.summaries"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span>   <span class="op">&lt;</span>- merge<span class="er">(</span><span class="va">tagging</span><span class="op">[</span>, c(<span class="st">"Predictor"</span>, <span class="st">"Tagging"</span>)<span class="op">]</span><span class="ex">,</span> sumstat[, c<span class="er">(</span><span class="st">"Predictor"</span><span class="ex">,</span> <span class="st">"P"</span><span class="kw">)</span><span class="ex">],</span> by = <span class="st">"Predictor"</span><span class="kw">)</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span><span class="va">$Chisq</span> <span class="op">&lt;</span>- qchisq<span class="er">(</span><span class="ex">m_tag</span><span class="va">$P</span><span class="ex">,</span> df = 1, lower.tail = FALSE<span class="kw">)</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"\nCorrelation between LD Tagging and GWAS Chi-square:"</span><span class="ex">,</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="ex">round</span><span class="er">(</span><span class="ex">cor</span><span class="er">(</span><span class="ex">m_tag</span><span class="va">$Tagging</span><span class="ex">,</span> m_tag<span class="va">$Chisq</span>, use = <span class="st">"complete.obs"</span><span class="kw">)</span><span class="ex">,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><strong>Q1</strong>: Comparing <code>nrow(ind_hers)</code> and <code>sum(ind_hers$Heritability &gt; 0)</code> shows how many redundant SNPs (<span class="math inline">\(r^2 &gt; 0.98\)</span> within 100 kb) were pruned (<code>Heritability = 0</code> in <code>sumher_ldak.ind.hers</code>).</li>
+<li><strong>Q2</strong>: In <code>Data/EUR.QC</code> (<span class="math inline">\(N \approx 500\)</span>), the individual-level REML standard error is large (<span class="math inline">\(\text{SD}(\hat{h}^2) \approx \frac{316}{N} \approx 0.6\)</span>), because <span class="math inline">\(500\)</span> unrelated individuals provide limited information on subtle genome-wide allele sharing. By contrast, <code>sumher_ldak.hers</code> uses summary statistics from <span class="math inline">\(N = 253,288\)</span> individuals, yielding a much smaller standard error.</li>
+<li><strong>Q3</strong>: Under a polygenic trait, SNPs that tag more heritability through LD have systematically higher expected <span class="math inline">\(\chi^2\)</span> test statistics (the <strong>slope</strong> against the tagging values estimates <span class="math inline">\(h^2_{\text{SNP}}\)</span>). Pure confounding or cryptic relatedness inflates <span class="math inline">\(\chi^2\)</span> statistics uniformly across all SNPs regardless of LD tagging (shifting the <strong>intercept</strong> away from <span class="math inline">\(1\)</span>).</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>In this tutorial, we have learned how SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>) is defined, how the GCTA (<span class="math inline">\(\alpha = -1\)</span>) and LDAK (<span class="math inline">\(\alpha = -0.25\)</span>) heritability models differ in their assumptions about allele frequency and LD, and how to estimate <span class="math inline">\(h^2_{\text{SNP}}\)</span> from both individual-level genotypes (<code>ldak --reml</code>) and GWAS summary statistics (<code>ldak --sum-hers</code>). In the upcoming sessions, we will see how the individual-level polygenic variance model (<span class="math inline">\(\sigma_g^2 K\)</span>) leads directly into <strong>Linear Mixed Model GWAS (<code>GWAS9</code>)</strong>, while pairing GWAS summary statistics with an <strong>external LD reference panel</strong> (<code>sumher_ldak.ind.hers</code>) powers post-GWAS fine-mapping (<code>GWAS10</code>) and Bayesian polygenic prediction (<code>GWAS11</code>).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Other take-home messages">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Other take-home messages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Heritability bounds polygenic prediction</strong>: A polygenic score built from common SNPs cannot explain more variance in an independent target sample than the trait’s SNP heritability <span class="math inline">\(h^2_{\text{SNP}}\)</span>.</li>
+<li><strong>Sample size requirements</strong>: Individual-level REML (<code>ldak --reml</code>) requires <span class="math inline">\(N \ge 3,000\text{–}5,000\)</span> unrelated individuals for small standard errors, whereas summary-statistics SumHer (<code>ldak --sum-hers</code>) leverages large published meta-analyses (<span class="math inline">\(N &gt; 50,000\)</span>) paired with a smaller LD reference panel.</li>
+<li><strong>Observed vs.&nbsp;Liability-Scale Heritability for Binary Traits</strong>: When estimating heritability for a binary case-control trait, always supply <code>--prevalence &lt;K&gt;</code> (the population disease prevalence) to <code>ldak --reml</code> or <code>ldak --sum-hers</code> to convert the estimate from the observed (0/1) scale to the continuous <strong>liability scale</strong>.</li>
+</ul>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/hds-sandbox\.github\.io\/GWAS_course\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
