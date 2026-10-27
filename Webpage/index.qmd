@@ -1,7 +1,7 @@
 ---
 listing:
   fields: [image, title, description]
-  contents: cards/*.qmd
+  contents: develop/cards/*.qmd
   type: grid
   image-height: 175px
   grid-columns: 6

@@ -1,0 +1,10 @@
+---
+title: "Jonas Meisner"
+description: "Assistant Professor, KU"
+---
+
+![](Jonas_Meisner.jpg){width=300}
+
+[![](LinkedIN.png){width=50}](https://www.linkedin.com/in/jonasmeisner/)   [![](Github_black.png){width=50}](https://github.com/rosemeis)   [![](Outlook.png){width=50}](mailto:jonas.meisner@sund.ku.dk)   [![](www.png){width=50}](https://rosemeis.github.io/)
+
+Jonas is an Assistant Professor at the University of Copenhagen. His group develops accurate and scalable computational tools to learn from human genetic variation. More info [here](https://rosemeis.github.io/).
