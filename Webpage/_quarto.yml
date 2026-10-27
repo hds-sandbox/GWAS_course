@@ -56,6 +56,12 @@ website:
             - develop/GWAS6-PRSAnalysis.ipynb
             - develop/GWAS7-PRSII.ipynb
             - develop/GWAS8-OtherToolsAndTesting.ipynb
+        - section: "Advanced Topics"
+          contents:
+            - develop/GWAS8-HeritabilityEstimation.ipynb
+            - develop/GWAS9-LinearMixedModels.ipynb
+            - develop/GWAS10-FineMapping.ipynb
+
     - title: "Running the course"
       style: "docked"
       search: true
