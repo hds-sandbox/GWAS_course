@@ -440,21 +440,36 @@
     "href": "develop/GWAS11-AdvancedPRS.html",
     "title": "Advanced Polygenic Risk Scores (PRS)",
     "section": "",
-    "text": "NoteImportant notes for this notebook\n\n\n\nIn GWAS6 and GWAS7, we constructed Polygenic Risk Scores (PRS) using Clumping + Thresholding (C+T) (PLINK and PRSice-2), which greedily prunes SNPs in LD and uses unshrunk marginal GWAS effect sizes. In this 25-minute tutorial, we move to advanced Bayesian and penalized PRS methods that model all genome-wide SNPs jointly, using SNP heritability (\\(h^2_{\\text{SNP}}\\)) from GWAS8 to shrink noisy effect estimates. We compare the two primary paradigms using LDAK: 1. Summary-statistics based PRS: LDAK MegaPRS (--mega-prs, analogous to LDpred2 and PRS-CS) 2. Individual-level PRS: LDAK-Bolt-Predict (--bolt) and LDAK-Elastic-Predict (--elastic)\n\n\n\nContrast heuristic C+T (PRSice-2) with joint Bayesian shrinkage methods (MegaPRS, LDpred2, PRS-CS, LDAK-Predict)\nExplain how per-SNP heritability estimates (\\(\\mathbb{E}[h_j^2]\\)) regularize posterior SNP weights\nConstruct summary-statistics based PRS using LDAK MegaPRS (ldak --mega-prs)\nConstruct individual-level PRS using LDAK-Bolt-Predict (ldak --bolt) and LDAK-Elastic-Predict (ldak --elastic) and evaluate incremental \\(R^2\\) in R\n\n\n\n\n\nIn this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel"
+    "text": "NoteImportant notes for this notebook\n\n\n\nIn GWAS6 and GWAS7, we constructed Polygenic Risk Scores (PRS) using Clumping + Thresholding (C+T) (PLINK and PRSice-2), which greedily prunes SNPs in LD and uses unshrunk marginal GWAS effect sizes. In this 25-minute tutorial, we move to advanced Bayesian and penalized PRS methods that model all genome-wide SNPs jointly, using SNP heritability (\\(h^2_{\\text{SNP}}\\)) from GWAS8 to shrink noisy effect estimates. We compare the two primary paradigms using LDAK: 1. Summary-statistics based PRS: LDAK MegaPRS (--mega-prs, analogous to LDpred2 and PRS-CS) 2. Individual-level PRS: LDAK-Bolt-Predict (--bolt) and LDAK-Elastic-Predict (--elastic)\n\n\n\nContrast heuristic C+T (PRSice-2) with joint Bayesian shrinkage methods (MegaPRS, LDpred2, PRS-CS, LDAK-Predict)\nExplain how per-SNP heritability estimates (\\(\\mathbb{E}[h_j^2]\\)) regularize posterior SNP weights\nConstruct summary-statistics based PRS using LDAK MegaPRS (ldak --mega-prs)\nConstruct individual-level PRS using LDAK-Bolt-Predict (ldak --bolt) and LDAK-Elastic-Predict (ldak --elastic) and evaluate incremental \\(R^2\\) in R\n\n\n\n\n\nIn this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Advanced Polygenic Risk Scores (PRS)"
+    ]
   },
   {
     "objectID": "develop/GWAS11-AdvancedPRS.html#learning-outcomes",
     "href": "develop/GWAS11-AdvancedPRS.html#learning-outcomes",
     "title": "Advanced Polygenic Risk Scores (PRS)",
     "section": "",
-    "text": "Contrast heuristic C+T (PRSice-2) with joint Bayesian shrinkage methods (MegaPRS, LDpred2, PRS-CS, LDAK-Predict)\nExplain how per-SNP heritability estimates (\\(\\mathbb{E}[h_j^2]\\)) regularize posterior SNP weights\nConstruct summary-statistics based PRS using LDAK MegaPRS (ldak --mega-prs)\nConstruct individual-level PRS using LDAK-Bolt-Predict (ldak --bolt) and LDAK-Elastic-Predict (ldak --elastic) and evaluate incremental \\(R^2\\) in R"
+    "text": "Contrast heuristic C+T (PRSice-2) with joint Bayesian shrinkage methods (MegaPRS, LDpred2, PRS-CS, LDAK-Predict)\nExplain how per-SNP heritability estimates (\\(\\mathbb{E}[h_j^2]\\)) regularize posterior SNP weights\nConstruct summary-statistics based PRS using LDAK MegaPRS (ldak --mega-prs)\nConstruct individual-level PRS using LDAK-Bolt-Predict (ldak --bolt) and LDAK-Elastic-Predict (ldak --elastic) and evaluate incremental \\(R^2\\) in R",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Advanced Polygenic Risk Scores (PRS)"
+    ]
   },
   {
     "objectID": "develop/GWAS11-AdvancedPRS.html#how-to-make-this-notebook-work",
     "href": "develop/GWAS11-AdvancedPRS.html#how-to-make-this-notebook-work",
     "title": "Advanced Polygenic Risk Scores (PRS)",
     "section": "",
-    "text": "In this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel"
+    "text": "In this notebook, we will use both bash command line and R programming languages. Remember to change the kernel whenever you transition from one language to the other (Kernel --&gt; Change Kernel) indicated by the languages’ images. We will first run Bash commands.\n\n Choose the Bash kernel",
+    "crumbs": [
+      "Tutorials",
+      "Advanced Topics",
+      "Advanced Polygenic Risk Scores (PRS)"
+    ]
   },
   {
     "objectID": "develop/exercises/gwas7-prs.html",
