@@ -61,6 +61,8 @@ website:
             - develop/GWAS8-HeritabilityEstimation.ipynb
             - develop/GWAS9-LinearMixedModels.ipynb
             - develop/GWAS10-FineMapping.ipynb
+            - develop/GWAS11-AdvancedPRS.ipynb
+
 
     - title: "Running the course"
       style: "docked"
