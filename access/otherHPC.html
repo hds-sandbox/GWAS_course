@@ -312,10 +312,25 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../access/setup.html" aria-current="page"> 
-<span class="menu-text">Access</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
@@ -368,12 +383,6 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../access/setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">General</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -434,14 +443,14 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </header>
 
 
-<p>The app is a <strong>Docker image</strong> that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command <code>start-app -c "Intro-to-GWAS"</code> (example below).</p>
+<p>The app is a <strong>Docker image</strong> that you can use on a different machine or your own computer. To use it, you should be familiar with Docker/Singularity. Simply pull the image and run the container using the command <code>start-app -c "Intro_to_GWAS"</code> (example below).</p>
 <p>Link: https://hub.docker.com/r/hdssandbox/genomicsapp.</p>
 <section id="pull-docker-image" class="level4">
 <h4 class="anchored" data-anchor-id="pull-docker-image">Pull docker image</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># docker</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull hdssandbox/genomicsapp</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># singularity</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull genomicsapp.sif docker://hdssandbox/genomicsapp </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># apptainer</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull app.sif docker://hdssandbox/genomicsapp </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="run-the-container" class="level4">
 <h4 class="anchored" data-anchor-id="run-the-container">Run the container</h4>
@@ -450,7 +459,7 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <li><code>--rm</code>: This option removes the container after running, preventing your disk from filling up with cached images.</li>
 <li>Add <code>-v</code> /path/to/data to bind your local data/notebooks to the container</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-rm</span> <span class="at">-p</span> <span class="va">$PORT</span>:<span class="va">$PORT</span> genomicsapp.sif start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS"</span> <span class="at">-p</span> <span class="va">$PORT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-p</span> <span class="va">$PORT</span>:<span class="va">$PORT</span> hdssandbox/genomicsapp start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS"</span> <span class="at">-p</span> <span class="va">$PORT</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 
 </section>

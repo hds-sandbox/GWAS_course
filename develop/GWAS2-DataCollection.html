@@ -331,10 +331,25 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../access/setup.html"> 
-<span class="menu-text">Access</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link active" href="../develop/general-intro.html" aria-current="page"> 
 <span class="menu-text">Tutorials</span></a>
@@ -594,26 +609,14 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <p>To demonstrate all analysis steps with realistic genetic data, we will use a simulated dataset (N = 165) with a binary outcome measure, based on the publicly available data from the International HapMap Project <span class="citation" data-cites="gibbs_international_2003">(<a href="#ref-gibbs_international_2003" role="doc-biblioref">Gibbs et al. 2003</a>)</span>. For this tutorial, we only included Utah residents with ancestry from Northern and Western Europe (CEU) to create an <strong>ethnically homogenous</strong> dataset. Because of the relatively small sample size of the HapMap data, genetic effect sizes in these simulations were set at values larger than usually observed in genetic studies of complex traits. It is important to note that larger sample sizes (e.g., at least in the order of thousands but likely even tens or hundreds of thousands) will be required to detect genetic risk factors of complex traits.</p>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Choose the Bash kernel.</p>
 <p>First, we link the data folder to easily access it by using the <code>ln -sf</code> command.</p>
-<div id="7e877d39-1dca-43d3-b547-cfbdb9103cc5" class="cell" data-tags="[]" data-execution_count="13">
+<div id="7e877d39-1dca-43d3-b547-cfbdb9103cc5" class="cell" data-tags="[]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="fam-file---info-on-individuals" class="level3">
 <h3 class="anchored" data-anchor-id="fam-file---info-on-individuals">Fam file - Info on individuals</h3>
 <p>We begin by looking at <code>HapMap_3_r3_1.fam</code>, which you can do using the command below (<code>head</code>), which prints and selects the first 10 lines of a file:</p>
-<div id="6a04f8ff" class="cell" data-tags="[]" data-execution_count="15">
+<div id="6a04f8ff" class="cell" data-tags="[]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-10</span> Data/HapMap_3_r3_1.fam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1328 NA06989 0 0 2 2
-1377 NA11891 0 0 1 2
-1349 NA11843 0 0 1 1
-1330 NA12341 0 0 2 2
-1444 NA12739 NA12748 NA12749 1 -9
-1344 NA10850 0 NA12058 2 -9
-1328 NA06984 0 0 1 2
-1463 NA12877 NA12889 NA12890 1 -9
-1418 NA12275 0 0 2 1
-13291 NA06986 0 0 1 1</code></pre>
-</div>
 </div>
 <p>It is just a plain text file with six columns separated by the others using the so-called <em>tab spacing</em> and no header. What information does each column contain?</p>
 <ul>
@@ -642,13 +645,13 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </div>
 </div>
 <div id="09b3a996-cc11-430f-95db-c65dfed1705b" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="d7d28eab-9d1a-4fec-a053-a545fe326c80" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d7d28eab-9d1a-4fec-a053-a545fe326c80" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="a08a96fd-e33f-49da-b2d8-ee5b9e6ab7f4" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
@@ -663,45 +666,26 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>The command <code>wc</code> (which stands for Word Count) can count the words in a file. With the option <code>-l</code> it will instead count the lines of the file.</p>
-<div id="76132d60" class="cell" data-tags="[]" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Data/HapMap_3_r3_1.fam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>165 Data/HapMap_3_r3_1.fam</code></pre>
-</div>
+<div id="76132d60" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Data/HapMap_3_r3_1.fam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Q1: There are 165 individuals.</strong></p>
 <p>To see how many unique fathers there are, we need a sequence of commands. Each command has an output, which is sent to the next command using the pipe <code>|</code> symbol. We will: - <code>cut</code> the 3rd column of the text file setting the space as a separator for the columns, - <code>sort</code> the column extracted, so multiple occurrences of the same fathers are grouped together and not counted as separate groups - count how many times each father is shown using the command <code>uniq</code> with the option <code>-c</code> for counting - displays the first 5 rows of the file, allowing you to preview the data and check its format</p>
-<div id="df6803ef-ca78-43eb-9ea0-cad921ec962c" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    115 0
-      1 NA06986
-      1 NA06993
-      1 NA06994
-      1 NA07051</code></pre>
-</div>
+<div id="df6803ef-ca78-43eb-9ea0-cad921ec962c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can see how there are 115 unknown fathers (0s), and all the others occur only once. To count how many fathers there are, we can simply run the same commands and add <code>wc -l</code> at the end. There are 51 lines, meaning 50 known fathers if we remove the unknown ones</p>
-<div id="b00884ad-d2a0-40c8-af8d-dacd3026757c" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>51</code></pre>
-</div>
+<div id="b00884ad-d2a0-40c8-af8d-dacd3026757c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f3</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>You can observe a similar thing for the mothers, where we have one less which is unknown</p>
-<div id="16816aa2-74cc-4eba-83d3-f5d1f2402715" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f4</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>52</code></pre>
-</div>
+<div id="16816aa2-74cc-4eba-83d3-f5d1f2402715" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f4</span> <span class="at">-d</span><span class="st">" "</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="at">-c</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Q2: There are 50 unique fathers and 51 unique mothers in the dataset.</strong></p>
 <p>Finally, we will count the occurrences of <code>0</code> and <code>-9</code> in column 6 using the <code>awk</code> command:</p>
-<div id="c2a8a535-1549-4b8a-99e1-7a24c7769784" class="cell" data-execution_count="25">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{if ($6 == 0 || $6 == -9) print $0}'</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>53</code></pre>
-</div>
+<div id="c2a8a535-1549-4b8a-99e1-7a24c7769784" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{if ($6 == 0 || $6 == -9) print $0}'</span> Data/HapMap_3_r3_1.fam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Q3: There are 53 individuals with missing phenotypes in the dataset.</strong></p>
 </div>
@@ -712,20 +696,8 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <section id="bim-file---snp-location-info" class="level3">
 <h3 class="anchored" data-anchor-id="bim-file---snp-location-info">Bim file - SNP location info</h3>
 <p>The <code>.bim</code> file contains the genomic locations of all SNPs in the data, and looks like this:</p>
-<div id="945feb7f" class="cell" data-tags="[]" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-10</span> Data/HapMap_3_r3_1.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1   rs2185539   0   556738  T   C
-1   rs11510103  0   557616  G   A
-1   rs11240767  0   718814  T   C
-1   rs3131972   0   742584  A   G
-1   rs3131969   0   744045  A   G
-1   rs1048488   0   750775  C   T
-1   rs12562034  0   758311  A   G
-1   rs12124819  0   766409  G   A
-1   rs4040617   0   769185  G   A
-1   rs2905036   0   782343  C   T</code></pre>
-</div>
+<div id="945feb7f" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-10</span> Data/HapMap_3_r3_1.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Similar to the .fam file, the bim file has six columns.</p>
 <ul>
@@ -752,7 +724,7 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </div>
 </div>
 <div id="644ad9cb-d3bf-4deb-97d0-2a0834dd9688" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q4 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here - Q4 </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Did you also get 1,457,897 SNPs for the HapMap data with the <code>wc -l Data/HapMap_3_r3_1.bim</code> command?</p>
 </section>
@@ -760,27 +732,12 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <h3 class="anchored" data-anchor-id="bed-file---individual-genotypes">Bed file - Individual genotypes</h3>
 <p>So far, we know that the files you downloaded contain genotypes for 165 individuals, each of them genotyped for 1,457,897 SNPs. But where are the genotypes for the individual samples?</p>
 <p>These are located in the binary file called <code>HapMap_3_r3_1.bed file</code>, but unfortunately, opening it as a normal text looks like this:</p>
-<div id="74f86693-3f60-4753-b93e-736692ba075c" class="cell" data-execution_count="26">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-1</span> Data/HapMap_3_r3_1.bed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>l�����������������������������������������������������������������������������������������������������������������������������λ������������/������������������������λ������������/�������������������������λ������������/������������������������������?�������������������������������������������������������⸿Ͼ��,��z���ο������������/����������������������������������������������������������������������������������������������������������������������������������������������������������ﮪ���������+������������������������������������������������������������誮����Ϋ������������:���*�?������������������﫿����������������������������������������������������������������������������������������������������������������������������������������������������?�������￿�����;�����������������//���������﮿������;����ή�������������?�������ʯϿ�����;����Ϯ�����������������������������������������������������������������������������������������������������������������������������������������������ʯ￾�����;����Ϯ���&lt;�������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������뿌�������Ͽ������:���Ϫ���&lt;�.�?������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������̣�������?�������������˫���������+�����̣�������?�������������˫���������+�����̣�������?�������������˫���������+��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������β�����.����������������������������������������������������?���������������������������������������������������������������������������������������������������������������������������������(������/����������</code></pre>
-</div>
+<div id="74f86693-3f60-4753-b93e-736692ba075c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-1</span> Data/HapMap_3_r3_1.bed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>This is because the genotypes are stored in a <em>binary format</em>, which saves disk space and allows faster processing by the computer, as it’s already in a <strong>machine-readable format</strong>. It is often useful to check out the individual genotypes, for that, you will need a new command called <code>xxd</code> to open the file which can then be pipeped into the <code>head</code> command.</p>
-<div id="7660e6ce" class="cell" data-tags="[]" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Data/HapMap_3_r3_1.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>00000000: 01101100 00011011 00000001 11111111 11111111 11111111  l.....
-00000006: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-0000000c: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-00000012: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-00000018: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-0000001e: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-00000024: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-0000002a: 11111111 11111111 00000011 11111111 11111111 11111111  ......
-00000030: 11111111 11111111 11111111 11111111 11111111 11111111  ......
-00000036: 11110011 11111111 11111111 11111111 11111111 11111111  ......</code></pre>
-</div>
+<div id="7660e6ce" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">xxd</span> <span class="at">-b</span> Data/HapMap_3_r3_1.bed <span class="kw">|</span> <span class="fu">head</span> <span class="at">-10</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The non-binary file format for the genotype is stored in the so-called <code>.ped</code> and <code>.map</code> files. These are also some well-known formats and widely used in various programs.</p>
 <div class="callout callout-style-default callout-important callout-titled" title="Challenge yourself with the command line programs">

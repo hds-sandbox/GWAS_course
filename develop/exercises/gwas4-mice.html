@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -121,9 +121,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -315,10 +312,25 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../access/setup.html"> 
-<span class="menu-text">Access</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
@@ -385,34 +397,10 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We will use the mice data undrgoing QC from the previous exercise (You can also use the initial mice data if you want). We apply <code>--make-king-table</code> option in PLINK2 to calculate the KING kinship matrix.</p>
-<div id="aafefbaf" class="cell" data-tags="[]" data-execution_count="4">
+<div id="aafefbaf" class="cell" data-tags="[]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink2</span> <span class="at">--bfile</span> Results/GWAS3/mice_QCA <span class="dt">\</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">--make-king-table</span> <span class="dt">\</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">--out</span> Results/GWAS4/KING</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>PLINK v2.00a5.12LM 64-bit Intel (25 Jun 2024)  www.cog-genomics.org/plink/2.0/
-(C) 2005-2024 Shaun Purcell, Christopher Chang   GNU General Public License v3
-Logging to Results/GWAS4/KING.log.
-Options in effect:
-  --bfile Results/GWAS3/mice_QCA
-  --make-king-table
-  --out Results/GWAS4/KING
-
-Start time: Fri Mar 28 12:47:56 2025
-385567 MiB RAM detected, ~334696 available; reserving 192783 MiB for main
-workspace.
-Using up to 64 threads (change this with --threads).
-1926 samples (0 females, 0 males, 1926 ambiguous; 1926 founders) loaded from
-Results/GWAS3/mice_QCA.fam.
-2439 variants loaded from Results/GWAS3/mice_QCA.bim.
-Note: No phenotype data present.
---make-king-table pass 1/1: Scanning for rare variants... done.
-0 variants handled by initial scan (2439 remaining).
---make-king-table pass 1/1: Writing... done.
---make-king-table: 2439 variants processed.
-Results written to Results/GWAS4/KING.kin0 .
-End time: Fri Mar 28 12:47:57 2025</code></pre>
-</div>
 </div>
 <p>Remember that the table from PLINK2 contains:</p>
 <ul>
@@ -426,466 +414,117 @@ End time: Fri Mar 28 12:47:57 2025</code></pre>
 <li><code>KINSHIP</code>: The kinship coefficient between the two individuals, which is the proportion of alleles shared by descent.</li>
 </ul>
 <p>Let’s print the first few rows of <code>KING.kin0</code> and then, the unique relatioship categories in the file:</p>
-<div id="4f7ccdcf-e469-4f95-8b0f-7f72ca1f91bb" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>#FID1   IID1    FID2    IID2    NSNP    HETHET  IBS0    KINSHIP
-A048006063  A048006063  A048005080  A048005080  2439    0.177122    0.0561706   0.0543033
-A048006555  A048006555  A048005080  A048005080  2439    0.222632    0.0418204   0.145492
-A048006555  A048006555  A048006063  A048006063  2439    0.211152    0.0606806   0.1
-A048007096  A048007096  A048005080  A048005080  2439    0.207052    0.0471505   0.101434</code></pre>
-</div>
+<div id="4f7ccdcf-e469-4f95-8b0f-7f72ca1f91bb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>It looks like there are mostly related pairs!</p>
-<div id="10f99282-4c98-4c45-befd-24e48503e1c7" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.2) print $2}'</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1785</code></pre>
-</div>
+<div id="10f99282-4c98-4c45-befd-24e48503e1c7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($8 &gt; 0.2) print $2}'</span> Results/GWAS4/KING.kin0 <span class="kw">|</span> <span class="fu">sort</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>:::</p>
 <hr>
 <p>Generation of the plot of KING values</p>
 <p><img src="../Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
-<div id="3533da70-e492-4bb1-a0fb-c8c86fff0191" class="cell" data-tags="[]" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/KING.kin0"</span><span class="ex">,</span> header=TRUE, comment.char = <span class="st">'|'</span><span class="kw">)</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<table class="dataframe caption-top table table-sm table-striped small">
-<caption>A data.frame: 6 × 8</caption>
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">X.FID1</th>
-<th data-quarto-table-cell-role="th" scope="col">IID1</th>
-<th data-quarto-table-cell-role="th" scope="col">FID2</th>
-<th data-quarto-table-cell-role="th" scope="col">IID2</th>
-<th data-quarto-table-cell-role="th" scope="col">NSNP</th>
-<th data-quarto-table-cell-role="th" scope="col">HETHET</th>
-<th data-quarto-table-cell-role="th" scope="col">IBS0</th>
-<th data-quarto-table-cell-role="th" scope="col">KINSHIP</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">1</th>
-<td>A048006063</td>
-<td>A048006063</td>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>2439</td>
-<td>0.177122</td>
-<td>0.0561706</td>
-<td>0.0543033</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">2</th>
-<td>A048006555</td>
-<td>A048006555</td>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>2439</td>
-<td>0.222632</td>
-<td>0.0418204</td>
-<td>0.1454920</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">3</th>
-<td>A048006555</td>
-<td>A048006555</td>
-<td>A048006063</td>
-<td>A048006063</td>
-<td>2439</td>
-<td>0.211152</td>
-<td>0.0606806</td>
-<td>0.1000000</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">4</th>
-<td>A048007096</td>
-<td>A048007096</td>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>2439</td>
-<td>0.207052</td>
-<td>0.0471505</td>
-<td>0.1014340</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">5</th>
-<td>A048007096</td>
-<td>A048007096</td>
-<td>A048006063</td>
-<td>A048006063</td>
-<td>2439</td>
-<td>0.220172</td>
-<td>0.0434604</td>
-<td>0.1388890</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">6</th>
-<td>A048007096</td>
-<td>A048007096</td>
-<td>A048006555</td>
-<td>A048006555</td>
-<td>2439</td>
-<td>0.223042</td>
-<td>0.0356704</td>
-<td>0.1602210</td>
-</tr>
-</tbody>
-</table>
-</div>
+<div id="3533da70-e492-4bb1-a0fb-c8c86fff0191" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/KING.kin0"</span><span class="ex">,</span> header=TRUE, comment.char = <span class="st">'|'</span><span class="kw">)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>That is a crazy histograms!</strong></p>
-<div id="1c350e8d-3672-40ff-8f6b-432eb1808dd7" class="cell" data-scrolled="true" data-tags="[]" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>relatedness<span class="pp">[</span><span class="ss">,8</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of relatedness (KING)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"KING kinship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Log Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10()</span> <span class="ex">+</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span> </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract coordinates of the plot</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="ex">bin_data</span> <span class="op">&lt;</span>- ggplot_build<span class="er">(</span><span class="ex">hist.king</span><span class="kw">)</span><span class="va">$data</span><span class="ex">[[1]]</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding text labels to  each bar, </span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#accounting for log scale</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> + </span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_text</span><span class="er">(</span><span class="ex">data</span> = bin_data, </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>            <span class="ex">aes</span><span class="er">(</span><span class="ex">x</span> = xmin + <span class="er">(</span><span class="ex">xmax</span> <span class="at">-</span> xmin<span class="kw">)</span> <span class="ex">/</span> 2, </span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>                <span class="ex">y</span> = log10<span class="er">(</span><span class="ex">count+1</span><span class="kw">)</span><span class="ex">,</span>  <span class="co"># Apply log10</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>                <span class="ex">label</span> = count<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                <span class="ex">vjust</span> = <span class="at">-5,</span> <span class="co">#Vertical adjustment of text</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                <span class="fu">size</span> = 4, </span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                <span class="ex">color</span> = <span class="st">"black"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<div class="ansi-escaped-output">
-<pre>Warning message in scale_y_log10():
-
-“<span class="ansi-green-fg">log-10</span> transformation introduced infinite values.”
-
-Warning message in scale_y_log10():
-
-“<span class="ansi-green-fg">log-10</span> transformation introduced infinite values.”
-
-Warning message in scale_y_log10():
-
-“<span class="ansi-green-fg">log-10</span> transformation introduced infinite values.”
-
-Warning message:
-
-“Removed 4 rows containing missing values or values outside the scale range
-
-(`geom_bar()`).”
-</pre>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gwas4-mice_files/figure-html/cell-7-output-2.png" width="540" height="240" class="figure-img"></p>
-</figure>
-</div>
-</div>
+<div id="1c350e8d-3672-40ff-8f6b-432eb1808dd7" class="cell" data-scrolled="true" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>relatedness<span class="pp">[</span><span class="ss">,8</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of relatedness (KING)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"KING kinship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Log Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10()</span> <span class="ex">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract coordinates of the plot</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">bin_data</span> <span class="op">&lt;</span>- ggplot_build<span class="er">(</span><span class="ex">hist.king</span><span class="kw">)</span><span class="va">$data</span><span class="ex">[[1]]</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding text labels to  each bar, </span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co">#accounting for log scale</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> + </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_text</span><span class="er">(</span><span class="ex">data</span> = bin_data, </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>            <span class="ex">aes</span><span class="er">(</span><span class="ex">x</span> = xmin + <span class="er">(</span><span class="ex">xmax</span> <span class="at">-</span> xmin<span class="kw">)</span> <span class="ex">/</span> 2, </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                <span class="ex">y</span> = log10<span class="er">(</span><span class="ex">count+1</span><span class="kw">)</span><span class="ex">,</span>  <span class="co"># Apply log10</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                <span class="ex">label</span> = count<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>                <span class="ex">vjust</span> = <span class="at">-5,</span> <span class="co">#Vertical adjustment of text</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>                <span class="fu">size</span> = 4, </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>                <span class="ex">color</span> = <span class="st">"black"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The quality seems however good - around same number of SNPs has been used for all samples (this plot takes some time as there are hundreds of thousands of points).</p>
-<div id="a5689287-f4b7-4612-956a-37439e17307e" class="cell" data-tags="[]" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plot.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="va">x</span><span class="op">=</span>NSNP, <span class="va">y</span><span class="op">=</span>KINSHIP<span class="kw">)</span><span class="ex">,</span> size=5, alpha=.25<span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylim</span><span class="er">(</span><span class="ex">-.1,.4</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">x</span> = <span class="st">"Number of SNPs used"</span>, y = <span class="st">"KING kinship"</span>, title = <span class="st">"Check for genotyping quality"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">legend.text=</span> element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">legend.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="ex">plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">plot.relatedness</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<div class="ansi-escaped-output">
-<pre>Warning message:
-
-“Removed 564631 rows containing missing values or values outside the scale range
-
-(`geom_point()`).”
-</pre>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gwas4-mice_files/figure-html/cell-8-output-2.png" width="540" height="240" class="figure-img"></p>
-</figure>
-</div>
-</div>
+<div id="a5689287-f4b7-4612-956a-37439e17307e" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Relatedness plot</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plot.relatedness</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="va">x</span><span class="op">=</span>NSNP, <span class="va">y</span><span class="op">=</span>KINSHIP<span class="kw">)</span><span class="ex">,</span> size=5, alpha=.25<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylim</span><span class="er">(</span><span class="ex">-.1,.4</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">x</span> = <span class="st">"Number of SNPs used"</span>, y = <span class="st">"KING kinship"</span>, title = <span class="st">"Check for genotyping quality"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">legend.text=</span> element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">legend.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="ex">plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">plot.relatedness</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>2 - Why do you get those values in the plot? What could be happening? Remember those are mice!</strong></p>
 <p>One possibility for getting such a crazy histogram is that the individuals have a lot of inbreeding. This is indeed our case: all mice come from only eight founders! The KING estimator assumes outbred populations, which is usually the case for humans. Another thing that can happen in this scenario, is that a founder is responsible for many of the descendants. This will create so many differences in genotype frequencies, that KING gets negative value, which would mean <em>pairs with very negative relatedness</em>, almost creating an outgroup within the dataset</p>
 <p><strong>3 - Now try instead to use <code>plink</code> with the option <code>--genome</code>. This calculates the IBD estimator called pi_hat. You need <code>--bfile</code> for the input data and <code>--out</code> for the name of the output table.</strong></p>
 <p><img src="../Images/bash.png" alt="R" width="40"> Switch to the bash kernel.</p>
-<div id="60cda845-ddd3-4a76-8ece-fc9bfa4f0cfa" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_QCA <span class="dt">\</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genome</span> <span class="dt">\</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out</span> Results/GWAS4/pihat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>PLINK v1.90b6.21 64-bit (19 Oct 2020)          www.cog-genomics.org/plink/1.9/
-(C) 2005-2020 Shaun Purcell, Christopher Chang   GNU General Public License v3
-Logging to Results/GWAS4/pihat.log.
-Options in effect:
-  --bfile Results/GWAS3/mice_QCA
-  --genome
-  --out Results/GWAS4/pihat
-
-385567 MB RAM detected; reserving 192783 MB for main workspace.
-2439 variants loaded from .bim file.
-1926 people (0 males, 0 females, 1926 ambiguous) loaded from .fam.
-Ambiguous sex IDs written to Results/GWAS4/pihat.nosex .
-Using up to 63 threads (change this with --threads).
-Before main variant filters, 1926 founders and 0 nonfounders present.
-Calculating allele frequencies... done.
-Total genotyping rate is 0.999187.
-2439 variants and 1926 people pass filters and QC.
-Note: No phenotypes present.
-IBD calculations complete.  
-Finished writing Results/GWAS4/pihat.genome .</code></pre>
-</div>
+<div id="60cda845-ddd3-4a76-8ece-fc9bfa4f0cfa" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_QCA <span class="dt">\</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">--genome</span> <span class="dt">\</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">--out</span> Results/GWAS4/pihat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>4 - Plot again the histogram using the table (column PI_HAT). Now you should have values bounded between (0,1) on the x axis.</p>
 <p><img src="../Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
-<div id="7ca7f56b-4316-4967-b5d9-51aecef2db6b" class="cell" data-tags="[]" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/pihat.genome"</span><span class="ex">,</span> header=TRUE<span class="kw">)</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<table class="dataframe caption-top table table-sm table-striped small">
-<caption>A data.frame: 6 × 14</caption>
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">FID1</th>
-<th data-quarto-table-cell-role="th" scope="col">IID1</th>
-<th data-quarto-table-cell-role="th" scope="col">FID2</th>
-<th data-quarto-table-cell-role="th" scope="col">IID2</th>
-<th data-quarto-table-cell-role="th" scope="col">RT</th>
-<th data-quarto-table-cell-role="th" scope="col">EZ</th>
-<th data-quarto-table-cell-role="th" scope="col">Z0</th>
-<th data-quarto-table-cell-role="th" scope="col">Z1</th>
-<th data-quarto-table-cell-role="th" scope="col">Z2</th>
-<th data-quarto-table-cell-role="th" scope="col">PI_HAT</th>
-<th data-quarto-table-cell-role="th" scope="col">PHE</th>
-<th data-quarto-table-cell-role="th" scope="col">DST</th>
-<th data-quarto-table-cell-role="th" scope="col">PPC</th>
-<th data-quarto-table-cell-role="th" scope="col">RATIO</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;lgl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">1</th>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>A048006063</td>
-<td>A048006063</td>
-<td>UN</td>
-<td>NA</td>
-<td>0.6232</td>
-<td>0.3768</td>
-<td>0.0000</td>
-<td>0.1884</td>
-<td>-1</td>
-<td>0.699467</td>
-<td>0.9996</td>
-<td>3.2500</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">2</th>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>A048006555</td>
-<td>A048006555</td>
-<td>UN</td>
-<td>NA</td>
-<td>0.5372</td>
-<td>0.4204</td>
-<td>0.0424</td>
-<td>0.2526</td>
-<td>-1</td>
-<td>0.758098</td>
-<td>1.0000</td>
-<td>4.2692</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">3</th>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>A048007096</td>
-<td>A048007096</td>
-<td>UN</td>
-<td>NA</td>
-<td>0.5635</td>
-<td>0.4365</td>
-<td>0.0000</td>
-<td>0.2183</td>
-<td>-1</td>
-<td>0.728167</td>
-<td>1.0000</td>
-<td>4.1887</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">4</th>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>A048010273</td>
-<td>A048010273</td>
-<td>UN</td>
-<td>NA</td>
-<td>0.3277</td>
-<td>0.6723</td>
-<td>0.0000</td>
-<td>0.3361</td>
-<td>-1</td>
-<td>0.745182</td>
-<td>1.0000</td>
-<td>5.1176</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">5</th>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>A048010371</td>
-<td>A048010371</td>
-<td>UN</td>
-<td>NA</td>
-<td>1.0000</td>
-<td>0.0000</td>
-<td>0.0000</td>
-<td>0.0000</td>
-<td>-1</td>
-<td>0.677400</td>
-<td>0.3059</td>
-<td>1.8659</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">6</th>
-<td>A048005080</td>
-<td>A048005080</td>
-<td>A048011040</td>
-<td>A048011040</td>
-<td>UN</td>
-<td>NA</td>
-<td>0.5661</td>
-<td>0.4339</td>
-<td>0.0000</td>
-<td>0.2170</td>
-<td>-1</td>
-<td>0.736162</td>
-<td>1.0000</td>
-<td>4.1702</td>
-</tr>
-</tbody>
-</table>
+<div id="7ca7f56b-4316-4967-b5d9-51aecef2db6b" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot to assess the type of relationship.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">relatedness</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS4/pihat.genome"</span><span class="ex">,</span> header=TRUE<span class="kw">)</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">relatedness</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<div id="a28f52f0-5ea7-4b2f-85c6-6c59f86a5802" class="cell" data-tags="[]" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>PI_HAT<span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of relatedness (PI hat)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"PI hat kinship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Log Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10()</span> <span class="ex">+</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span> </span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract coordinates of the plot</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ex">bin_data</span> <span class="op">&lt;</span>- ggplot_build<span class="er">(</span><span class="ex">hist.king</span><span class="kw">)</span><span class="va">$data</span><span class="ex">[[1]]</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding text labels to  each bar, </span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#accounting for log scale</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> + </span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_text</span><span class="er">(</span><span class="ex">data</span> = bin_data, </span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="ex">aes</span><span class="er">(</span><span class="ex">x</span> = xmin + <span class="er">(</span><span class="ex">xmax</span> <span class="at">-</span> xmin<span class="kw">)</span> <span class="ex">/</span> 2, </span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>                <span class="ex">y</span> = log10<span class="er">(</span><span class="ex">count+1</span><span class="kw">)</span><span class="ex">,</span>  <span class="co"># Apply log10</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>                <span class="ex">label</span> = count<span class="kw">)</span><span class="ex">,</span> </span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>                <span class="ex">vjust</span> = <span class="at">-5,</span> <span class="co">#Vertical adjustment of text</span></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>                <span class="fu">size</span> = 4, </span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>                <span class="ex">color</span> = <span class="st">"black"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<div class="ansi-escaped-output">
-<pre>Warning message in scale_y_log10():
-
-“<span class="ansi-green-fg">log-10</span> transformation introduced infinite values.”
-
-Warning message in scale_y_log10():
-
-“<span class="ansi-green-fg">log-10</span> transformation introduced infinite values.”
-
-Warning message in scale_y_log10():
-
-“<span class="ansi-green-fg">log-10</span> transformation introduced infinite values.”
-
-Warning message:
-
-“Removed 4 rows containing missing values or values outside the scale range
-
-(`geom_bar()`).”
-</pre>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gwas4-mice_files/figure-html/cell-11-output-2.png" width="540" height="240" class="figure-img"></p>
-</figure>
-</div>
-</div>
+<div id="a28f52f0-5ea7-4b2f-85c6-6c59f86a5802" class="cell" data-tags="[]">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">relatedness,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>PI_HAT<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.02, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Histogram of relatedness (PI hat)"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"PI hat kinship"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Log Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span> <span class="ex">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10()</span> <span class="ex">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>14<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">axis.text=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">plot.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Extract coordinates of the plot</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="ex">bin_data</span> <span class="op">&lt;</span>- ggplot_build<span class="er">(</span><span class="ex">hist.king</span><span class="kw">)</span><span class="va">$data</span><span class="ex">[[1]]</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding text labels to  each bar, </span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co">#accounting for log scale</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.king</span> + </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_text</span><span class="er">(</span><span class="ex">data</span> = bin_data, </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>            <span class="ex">aes</span><span class="er">(</span><span class="ex">x</span> = xmin + <span class="er">(</span><span class="ex">xmax</span> <span class="at">-</span> xmin<span class="kw">)</span> <span class="ex">/</span> 2, </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                <span class="ex">y</span> = log10<span class="er">(</span><span class="ex">count+1</span><span class="kw">)</span><span class="ex">,</span>  <span class="co"># Apply log10</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>                <span class="ex">label</span> = count<span class="kw">)</span><span class="ex">,</span> </span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>                <span class="ex">vjust</span> = <span class="at">-5,</span> <span class="co">#Vertical adjustment of text</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>                <span class="fu">size</span> = 4, </span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>                <span class="ex">color</span> = <span class="st">"black"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>6 - Values around 0.25 are second-degree relationships (half siblings), around 0.5 are parent-child and siblings. Usually, a pi_hat much above 0.5 is trace of duplicates, or inbreeding (the second is likely our case, or we would have really bad data with too many duplicates). We have also some sample pairs with a pi_hat=1. What could those samples be?</strong></p>
 <p>Those could be pairs of twins!</p>

@@ -312,10 +312,25 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
     <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../access/setup.html" aria-current="page"> 
-<span class="menu-text">Access</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
@@ -368,12 +383,6 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../access/setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">General</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
@@ -405,22 +414,17 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
   </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#using-genomedk-desktop" id="toc-using-genomedk-desktop" class="nav-link active" data-scroll-target="#using-genomedk-desktop">Using GenomeDK Desktop</a></li>
-  <li><a href="#using-the-terminal" id="toc-using-the-terminal" class="nav-link" data-scroll-target="#using-the-terminal">Using the terminal</a>
-  <ul class="collapse">
-  <li><a href="#what-if-my-internet-connection-drops" id="toc-what-if-my-internet-connection-drops" class="nav-link" data-scroll-target="#what-if-my-internet-connection-drops">What if my internet connection drops?</a></li>
-  <li><a href="#recovering-the-material-from-your-previous-session" id="toc-recovering-the-material-from-your-previous-session" class="nav-link" data-scroll-target="#recovering-the-material-from-your-previous-session">Recovering the material from your previous session</a></li>
-  </ul></li>
   </ul>
 </nav>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -445,7 +449,7 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </header>
 
 
-<p>If you are using GenomeDK as the HPC of your choice, you can use the pre-packaged Docker container, which contains JupyterLab and the necessary packages to run all the notebooks for our genomics app. GenomeDK comes with ‘Singularity’, which can import and execute Docker containers, ensuring full reproducibility of the analysis. Instructions for using the container through the terminal or desktop are available.</p>
+<p>If you are using GenomeDK as the HPC of your choice, you can use the pre-packaged Docker container, which contains JupyterLab and the necessary packages to run all the notebooks for our app. GenomeDK comes with ‘Singularity’, which can import and execute Docker containers, ensuring full reproducibility of the analysis. Instructions for using the container through the terminal or desktop are available.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Technical prerequisites">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -474,44 +478,28 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Whether you’re using the terminal or desktop, <strong>avoid working directly in your home folder <code>/home/username</code></strong>, as this has a limit of 100GB of space available. Work instead inside a previously established project folder.</p>
+<p>Whether you’re using the terminal or desktop, <strong>avoid working directly in your home folder <code>/home/username</code></strong>, as this has a limit of 100GB of space available. Work instead inside a previously established project folder. If you do not have a project, <a href="https://genome.au.dk/docs/projects-and-accounting/#requesting-a-project">remember to request one</a>.</p>
 </div>
 </div>
 <section id="using-genomedk-desktop" class="level2">
 <h2 class="anchored" data-anchor-id="using-genomedk-desktop">Using GenomeDK Desktop</h2>
 <p>We recommend using <a href="https://desktop.genome.au.dk/">GenomeDK Desktop</a> - a browser-based virtual desktop solution. Follow these steps to get the app running:</p>
 <ol type="1">
-<li>Log in to GenomeDK Desktop.</li>
+<li><a href="https://desktop.genome.au.dk/">Login to GenomeDK Desktop</a>.</li>
 <li>Open a terminal and navigate to or create a new folder, then pull the Docker image of the app.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># docker</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull hdssandbox/genomicsapp</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># singularity</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull genomicsapp.sif docker://hdssandbox/genomicsapp </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">apptainer</span> pull app.sif docker://hdssandbox/genomicsapp</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="3" type="1">
-<li><p>Copy the command below and modify it accordingly.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>2 <span class="at">--time</span><span class="op">=</span>0:10:0 <span class="at">--account</span><span class="op">=&lt;</span>YOURPROJECT<span class="op">&gt;</span> --pty singularity exec <span class="at">--writable-tmpfs</span> <span class="at">--fakeroot</span> <span class="at">--bind</span> /tmp:/tmp <span class="at">--bind</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>:<span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span> <span class="at">--pwd</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span> <span class="at">--bind</span> /etc/ssl/certs:/etc/ssl/certs <span class="at">--bind</span> /etc/pki/ca-trust:/etc/pki/ca-trust /path/to/genomicsapp.sif start-app <span class="at">-c</span> <span class="st">"Intro_to_GWAS -p </span><span class="va">$UID</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p>The command above is used to run the image as an interactive session on the HPC, specifying the time, cores, and memory allocation.</p>
-<ul>
-<li>Adjust the settings to your needs. Check <a href="https://genome.au.dk/docs/interacting-with-the-queue/">GenomeDK guidelines</a> if in doubt.</li>
-<li>Choose the directories that should be bound for inclusion inside the container.</li>
-</ul></li>
-<li><p>Click on “Show clipboard” at the top-right of the Desktop, and paste the modified command there.</p></li>
-<li><p>In the terminal, paste the command and ensure you are in the desired working directory (e.g., <code>intro_to_GWAS</code> in one of your projects as we are binding the <code>pwd</code>).</p></li>
-<li><p>Open the link displayed in the terminal, which includes the node name and port number (e.g., cn-1040:8787 or s21n31:8787).</p></li>
+<li><p>If you need to download the data and notebooks for the course, run in background the container with the command below. You will need to wait for the download to finish. If you already have the data and notebooks, you can skip this step. <code>DATA_AND_NOTEBOOKS_FOLDER</code> is the folder where you want to download the data and notebooks. You can create a new folder for this purpose.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> apptainer exec <span class="at">--pwd</span> /work/ <span class="at">--bind</span> DATA_AND_NOTEBOOKS_FOLDER:/work/ app.sif start-app <span class="at">-c</span> Intro_to_GWAS <span class="at">-d</span> <span class="op">&gt;</span> download.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">&amp;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The download is finished when <code>download.log</code> ends with <code>Download complete</code>. You can check it with <code>tail download.log</code>.</p></li>
+<li><p>Execute the course material with the command below. You will need to wait for the container to start. The command will provide a link to open in your browser, which includes the node name and port number (e.g., cn-1040:8787).</p></li>
 </ol>
-</section>
-<section id="using-the-terminal" class="level2">
-<h2 class="anchored" data-anchor-id="using-the-terminal">Using the terminal</h2>
-<p><strong>1.</strong> Log into the cluster using the command line, and substituting <code>USERNAME</code> with your actual user name:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> USERNAME@login.genome.au.dk</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>and be sure to run those two commands to remove space-filling cache data, which can make everything slower after a few times you run tutorials</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.apptainer/cache/<span class="pp">*</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/.singularity/cache/<span class="pp">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>2.</strong> Get into a folder inside your project, for example</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> MYPROJECT/ngsSummerSchool</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>3.</strong> Use <code>singularity</code> to download the container of the course. This will take some time and show a lot of text, and at the end a file called <code>course.sif</code> is created into the folder.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> pull course.sif docker://hdssandbox/ngssummerschool:2024.07</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>MEMORYg <span class="at">--cores</span><span class="op">=</span>CORES <span class="at">--time</span><span class="op">=</span>HOURS:0:0 <span class="at">--account</span><span class="op">=</span>YOUR_PROJECT <span class="at">--pty</span> apptainer exec <span class="at">--writable-tmpfs</span> <span class="at">--fakeroot</span> <span class="at">--pwd</span> /work/ <span class="at">--bind</span> DATA_AND_NOTEBOOKS_FOLDER:/work/ app.sif start-app <span class="at">-c</span> Intro_to_GWAS <span class="at">-p</span> <span class="va">$UID</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Choose MEMORY, CORES, HOURS, and YOUR_PROJECT according to your needs. Remember DATA_AND_NOTEBOOKS_FOLDER is the folder where you downloaded the data and notebooks.</p>
+<ol start="5" type="1">
+<li>On the terminal you will see a link containing the node number (e.g., cn-1040:8787). Click on the link with Ctrl+Click. You will see the JupyterLab interface.</li>
+</ol>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -522,65 +510,15 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You need to do this step only once!</p>
+<ul>
+<li>If the browser shows an error about _xmrf, it is due to old cookies in your browser. Refresh until the error disappears or delete the cookies.</li>
+<li>If you lose your internet connection, the course material will still be up and running. You only need to reconnect to desktop.genome.au.dk</li>
+<li>Do you want to work again on the course material, or recover some analysis? Everything is saved in the folder you were working in. Next time, follow the whole procedure again without downloading again in steps 2 and 3.</li>
+</ul>
 </div>
 </div>
-<p><strong>4.</strong> Activate <code>tmux</code>: this will make things run in background. If you lose your internet connection, the course material will still be up and running when the connection is back on your pc! Use the command</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">tmux</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The command line will change a bit its aspect. Now it’s time to get a few resources to run all the material. We suggest one CPU and 32GB of RAM for this module. For the first configuration suggested, for example, you get resources using</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">srun</span> <span class="at">--mem</span><span class="op">=</span>32g <span class="at">--cores</span><span class="op">=</span>1 <span class="at">--time</span><span class="op">=</span>4:0:0  <span class="at">--account</span><span class="op">=</span>MYPROJECT <span class="at">--pty</span> /bin/bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You’ll need your project name and can choose how long you want resources available. * Requesting resources may involve a wait in the queue**. In the example above <code>time</code> is 4 hours, after which your session will be closed, so save your progress.</p>
-</div>
-</div>
-<p><strong>5.</strong> execute the container with</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">singularity</span> exec course.sif /bin/bash</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Note that the command line shows now <code>Apptainer&gt;</code> on its left. We are <em>inside</em> the container and the tools we need are now available into it.</p>
-<p><strong>6.</strong> Now we need to run a configuration script, which will setup the last details and execute jupyterlab. If a folder called <code>Data</code> exists, it will not be downloaded again (also meaning that you can use our container with your own data folder for your own analysis in future)</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-overflow-wrap code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.sslVerify false</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-qO-</span>  https://raw.githubusercontent.com/hds-sandbox/NGS_summer_course_Aarhus/docker/scripts/courseMaterial.sh <span class="kw">|</span> <span class="fu">bash</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>7.</strong> You will see a lot of messages, which is normal. At the end of the messages, you are provided two links looking as in the image below. Write down the node name and the user id highlighted in the circles.</p>
-<p><img src="../img/nodeAndUsername.png" class="img-fluid" width="600"></p>
-<p>Wrote down node and ID? Last step is to create a tunnel between your computer and genomeDK to be able to see jupyterlab in your browser. Now you need to <strong>use the node name and the user id</strong> you wrote down before! <strong>Open a new terminal window</strong> on your laptop and write</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>where you substitute <code>USERID</code> and <code>NODENAME</code> as you wrote down before, and then USERNAME is your account name on GenomeDK. For example <code>ssh -L 6835:s21n81:6835 samuele@login.genome.au.dk</code> according to the figure above for a user with name <code>samuele</code>.</p>
-<p><strong>8.</strong> Open your browser and go to the address http://127.0.0.1:USERID/lab, where you need your user id again instead of USERID. For example <code>http://127.0.0.1:6835/lab</code> from the figure above. Jupyterlab opens in your browser.</p>
-<p><strong>9.</strong> Now you are ready to use JupyterLab for coding. Use the file browser (on the left-side) to find the folder <code>Notebooks</code>. Select one of the four tutorials of the course. You will see that the notebook opens on the right-side pane. Read the text of the tutorial and execute each code cell starting from the first. You will see results showing up directly on the notebook!</p>
-<p><img src="../img/startNotebook.gif" class="img-fluid"></p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Right click on a notebook or a saved results file, and use the download option to save it locally on your computer.</p>
-</div>
-</div>
-<section id="what-if-my-internet-connection-drops" class="level3">
-<h3 class="anchored" data-anchor-id="what-if-my-internet-connection-drops">What if my internet connection drops?</h3>
-<p>Now worries, <code>tmux</code> kept your material up and running. You only need a new terminal window to run the tunneling</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-L</span> USERID:NODENAME:USERID USERNAME@login.genome.au.dk</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>as you did before, so you can continue working!</p>
-</section>
-<section id="recovering-the-material-from-your-previous-session" class="level3">
-<h3 class="anchored" data-anchor-id="recovering-the-material-from-your-previous-session">Recovering the material from your previous session</h3>
-<p>Do you want to work again on the course material, or recover some analysis? Everything is saved in the folder you were working in. Next time, follow the whole procedure again (without step number <strong>3.</strong>) and you can be up and running the course in no time.</p>
 
 
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-copyright"><h2 class="anchored quarto-appendix-heading">Copyright</h2><div class="quarto-appendix-contents"><div>CC-BY-SA 4.0 license</div></div></section></div></main> <!-- /main -->

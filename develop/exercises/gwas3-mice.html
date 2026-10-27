@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -121,9 +121,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 </script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -344,10 +341,25 @@ window.Quarto = {
     <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../access/setup.html"> 
-<span class="menu-text">Access</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-access" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Access</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-access">    
+        <li>
+    <a class="dropdown-item" href="../../access/UCloud.html">
+ <span class="dropdown-text">UCloud</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../access/genomedk.html">
+ <span class="dropdown-text">GenomeDK</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../access/otherHPC.html">
+ <span class="dropdown-text">Independent users</span></a>
+  </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../develop/general-intro.html"> 
 <span class="menu-text">Tutorials</span></a>
@@ -423,616 +435,258 @@ window.Quarto = {
 <li><strong>4. Heterozygosity rate.</strong></li>
 </ul>
 <p><img src="../Images/bash.png" alt="bash" width="40"> Switch to the Bash kernel.</p>
-<div id="5b66ff95-1ae2-49f8-9023-4ab65434e824" class="cell" data-execution_count="1">
+<div id="5b66ff95-1ae2-49f8-9023-4ab65434e824" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../../Data</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="filtering-excessive-missing-values." class="level1">
 <h1><strong>1. Filtering excessive missing values.</strong></h1>
 <p>First of all, we begin by producing the sample-wise and variant-wise missing reports in the format <code>.imiss</code> and <code>.lmiss</code>. Note that sex will not be considered at all by PLINK as mentioned in the warning.</p>
-<div id="7ee3f7cd-fb2c-421e-bd75-ea5245e9d457" class="cell" data-execution_count="2">
+<div id="7ee3f7cd-fb2c-421e-bd75-ea5245e9d457" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/mice <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS3/mice <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Warning: Ignoring phenotypes of missing-sex samples.  If you don't want those
-phenotypes to be ignored, use the --allow-no-sex flag.</code></pre>
-</div>
 </div>
 <p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
 <p>Now we look at the histograms. The only thing needed to change in the code, compared to the tutorial, is the name of the two missingness reports.</p>
-<div id="1771c8b4-483d-4e06-8009-bbdad147350e" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">indmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice.imiss"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">snpmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice.lmiss"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#imiss histogram</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.imiss</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">indmiss,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>indmiss<span class="pp">[</span><span class="ss">,6</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.001, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Frequency of missingness rates in individuals"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Missingness in Individuals"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#lmiss histogram</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.lmiss</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">snpmiss,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>snpmiss<span class="pp">[</span><span class="ss">,5</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.005, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Frequency of missingness rates in SNPs"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Missingness in SNPs"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#show histograms</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.imiss</span><span class="kw">)</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.lmiss</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning message:
-“package ‘ggplot2’ was built under R version 4.2.3”</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gwas3-mice_files/figure-html/cell-4-output-2.png" width="540" height="240" class="figure-img"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gwas3-mice_files/figure-html/cell-4-output-3.png" width="540" height="240" class="figure-img"></p>
-</figure>
-</div>
-</div>
+<div id="1771c8b4-483d-4e06-8009-bbdad147350e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">indmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice.imiss"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">snpmiss</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice.lmiss"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#imiss histogram</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.imiss</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">indmiss,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>indmiss<span class="pp">[</span><span class="ss">,6</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.001, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Frequency of missingness rates in individuals"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Missingness in Individuals"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#lmiss histogram</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.lmiss</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">snpmiss,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>snpmiss<span class="pp">[</span><span class="ss">,5</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.005, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Frequency of missingness rates in SNPs"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Missingness in SNPs"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#show histograms</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.imiss</span><span class="kw">)</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.lmiss</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The histograms do not show any high missingness for the variants (second plot), while there are a few individuals that we should filter out. Below, we filter only individuals with missingness above 2%, without choosing any variant filter. The new <code>bed, bim, fam</code> files have the prefix <code>mice_miss</code></p>
-<div id="c241ee5b-8274-4e42-a06a-4561376f077b" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/mice <span class="at">--mind</span> .02 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Warning: Ignoring phenotypes of missing-sex samples.  If you don't want those
-phenotypes to be ignored, use the --allow-no-sex flag.</code></pre>
-</div>
+<div id="c241ee5b-8274-4e42-a06a-4561376f077b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/mice <span class="at">--mind</span> .02 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="minimum-allele-frequency." class="level1">
 <h1><strong>2. Minimum Allele Frequency</strong>.</h1>
 <p>Let’s calculate the MAF values using <code>--freq</code>:</p>
-<div id="62b7b14d-3fb9-448f-b7ee-6de8b8466c73" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot of the MAF distribution.</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/mice_miss <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="62b7b14d-3fb9-448f-b7ee-6de8b8466c73" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot of the MAF distribution.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/mice_miss <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
 <p>Let’s plot the MAF histogram using <code>R</code>. The second plot, is a zoom-in version with MAF up to 0.1 to observe the low MAF values.</p>
-<div class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">maf_freq</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/mice_miss.frq"</span><span class="ex">,</span> header =TRUE, as.is=T<span class="kw">)</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># maf_freq histogram</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.maf</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">maf_freq,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>maf_freq<span class="pp">[</span><span class="ss">,5</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span>, bins=50<span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"MAF distribution"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MAF"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># zoom-in into X-axis</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.maf.zoom</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">maf_freq,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>maf_freq<span class="pp">[</span><span class="ss">,5</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span>, bins = 10<span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Zoom into MAF distribution up to value 0.1"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MAF"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlim</span><span class="er">(</span><span class="ex">-.01,</span> 0.1<span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.maf</span><span class="kw">)</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.maf.zoom</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<div class="ansi-escaped-output">
-<pre>Warning message:
-
-“package ‘ggplot2’ was built under R version 4.2.3”
-
-Warning message:
-
-“Removed 2611 rows containing non-finite outside the scale range (`stat_bin()`).”
-
-Warning message:
-
-“Removed 2 rows containing missing values or values outside the scale range
-
-(`geom_bar()`).”
-</pre>
-</div>
-</div>
-<div id="fig-maf" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="1">
+<div id="fig-maf" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display">
-<div id="fig-maf-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-maf-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="gwas3-mice_files/figure-html/fig-maf-output-2.png" data-ref-parent="fig-maf" width="540" height="240" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-maf-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) MAF plot for the autosomal SNPs only. Note the zoomed interval (0, 0.1)
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div id="fig-maf-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="240" width="540">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-maf-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="gwas3-mice_files/figure-html/fig-maf-output-3.png" id="fig-maf-2" data-ref-parent="fig-maf" width="540" height="240" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-maf-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
-</figcaption>
-</figure>
-</div>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R </span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">maf_freq</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/mice_miss.frq"</span><span class="ex">,</span> header =TRUE, as.is=T<span class="kw">)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># maf_freq histogram</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.maf</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">maf_freq,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>maf_freq<span class="pp">[</span><span class="ss">,5</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span>, bins=50<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"MAF distribution"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MAF"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># zoom-in into X-axis</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.maf.zoom</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">maf_freq,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>maf_freq<span class="pp">[</span><span class="ss">,5</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span>, bins = 10<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Zoom into MAF distribution up to value 0.1"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"MAF"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlim</span><span class="er">(</span><span class="ex">-.01,</span> 0.1<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.maf</span><span class="kw">)</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.maf.zoom</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-maf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1
 </figcaption>
 </figure>
 </div>
-</div>
 <p>There are two minor peaks in the histograms above, one at 0.05 and 0.1. Choosing 0.1 would remove over a hundred extra SNPs, while 0.05 should remove around less than 200. We can for example choose 0.05, but 0.1 is acceptable as well as it is another threshold often applied in literature.</p>
-<div id="a54d801c-3f83-48a0-8062-c3dfd905a669" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove SNPs with a low MAF frequency.</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss <span class="at">--maf</span> 0.05 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a54d801c-3f83-48a0-8062-c3dfd905a669" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove SNPs with a low MAF frequency.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss <span class="at">--maf</span> 0.05 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="hardy-weinberg-equilibrium." class="level1">
 <h1><strong>3. Hardy Weinberg Equilibrium</strong>.</h1>
 <p>Here we need again to apply the option <code>hardy</code> to calculate observed and expected heterozigous frequencies and p-values for the binomial test. Note how column <code>TEST</code> considers all individuals ( <code>ALL(NP)</code> stands for <code>ALL Not Pruned</code>).</p>
-<div id="dfd98cba-760f-4e8a-b5a4-77172a838cbb" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf <span class="at">--hardy</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf <span class="at">--silent</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($9 &lt;0.00001) print $0 }'</span> Results/GWAS3/mice_miss_maf.hwe <span class="op">&gt;</span> Results/GWAS3/mice_miss_maf.deviating.hwe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dfd98cba-760f-4e8a-b5a4-77172a838cbb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf <span class="at">--hardy</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf <span class="at">--silent</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{ if ($9 &lt;0.00001) print $0 }'</span> Results/GWAS3/mice_miss_maf.hwe <span class="op">&gt;</span> Results/GWAS3/mice_miss_maf.deviating.hwe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="581e5901-778b-48d7-8b5b-acb429c41b18" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS3/mice_miss_maf.hwe </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> CHR                  SNP     TEST   A1   A2                 GENO   O(HET)   E(HET)            P 
-   1            rs3683945  ALL(NP)    A    G         358/1002/572   0.5186   0.4939      0.03035
-   1            rs3707673  ALL(NP)    G    A         359/1003/572   0.5186   0.4939      0.03048
-   1            rs6269442  ALL(NP)    A    G          252/887/791   0.4596    0.461       0.8824
-   1            rs6336442  ALL(NP)    A    G         358/1003/572   0.5189   0.4939      0.02714
-   1           rs13475700  ALL(NP)    A    C          33/442/1458   0.2287   0.2283            1
-   1            rs3658242  ALL(NP)    A    T         359/1003/572   0.5186   0.4939      0.03048
-   1           rs13475701  ALL(NP)    C    G          33/481/1417   0.2491   0.2432       0.3045
-   1            rs6198069  ALL(NP)    A    G          186/802/945   0.4149   0.4229       0.4197
-   1            rs3659303  ALL(NP)    A    G         360/1001/571   0.5181    0.494      0.03419</code></pre>
+<div id="581e5901-778b-48d7-8b5b-acb429c41b18" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> Results/GWAS3/mice_miss_maf.hwe </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<div id="ef759ed6-4079-4f0a-9f1e-a97fa19ba15d" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_miss_maf.deviating.hwe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>356 Results/GWAS3/mice_miss_maf.deviating.hwe</code></pre>
-</div>
+<div id="ef759ed6-4079-4f0a-9f1e-a97fa19ba15d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_miss_maf.deviating.hwe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There are 355 variants to remove with a p-value below 0.00001</p>
 <p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
 <p>Now we create histograms to look at the p-values from the tables above. We do not need to use the case-control renaming and plotting categories.</p>
-<div id="f77ae110-627f-40f7-bbd6-86d25a75b4a0" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R using dplyr library </span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice_miss_maf.hwe"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe_zoom</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice_miss_maf.deviating.hwe"</span>, <span class="va">header</span><span class="op">=</span>FALSE<span class="kw">)</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="ex">colnames</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span> <span class="op">&lt;</span>- <span class="ex">colnames</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f77ae110-627f-40f7-bbd6-86d25a75b4a0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data into R using dplyr library </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice_miss_maf.hwe"</span>, <span class="va">header</span><span class="op">=</span>TRUE<span class="kw">)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hwe_zoom</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="va">file</span><span class="op">=</span><span class="st">"Results/GWAS3/mice_miss_maf.deviating.hwe"</span>, <span class="va">header</span><span class="op">=</span>FALSE<span class="kw">)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ex">colnames</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span> <span class="op">&lt;</span>- <span class="ex">colnames</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here, we print the first rows of the two generated tables</p>
-<div class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="fig-hwetables" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="2">
+<div id="fig-hwetables" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hwetables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div id="fig-hwetables-1" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-hwetables-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="dataframe caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">CHR</th>
-<th data-quarto-table-cell-role="th" scope="col">SNP</th>
-<th data-quarto-table-cell-role="th" scope="col">TEST</th>
-<th data-quarto-table-cell-role="th" scope="col">A1</th>
-<th data-quarto-table-cell-role="th" scope="col">A2</th>
-<th data-quarto-table-cell-role="th" scope="col">GENO</th>
-<th data-quarto-table-cell-role="th" scope="col">O.HET.</th>
-<th data-quarto-table-cell-role="th" scope="col">E.HET.</th>
-<th data-quarto-table-cell-role="th" scope="col">P</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">1</th>
-<td>1</td>
-<td>rs3683945</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>G</td>
-<td>358/1002/572</td>
-<td>0.5186</td>
-<td>0.4939</td>
-<td>0.03035</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">2</th>
-<td>1</td>
-<td>rs3707673</td>
-<td>ALL(NP)</td>
-<td>G</td>
-<td>A</td>
-<td>359/1003/572</td>
-<td>0.5186</td>
-<td>0.4939</td>
-<td>0.03048</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">3</th>
-<td>1</td>
-<td>rs6269442</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>G</td>
-<td>252/887/791</td>
-<td>0.4596</td>
-<td>0.4610</td>
-<td>0.88240</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">4</th>
-<td>1</td>
-<td>rs6336442</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>G</td>
-<td>358/1003/572</td>
-<td>0.5189</td>
-<td>0.4939</td>
-<td>0.02714</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">5</th>
-<td>1</td>
-<td>rs13475700</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>C</td>
-<td>33/442/1458</td>
-<td>0.2287</td>
-<td>0.2283</td>
-<td>1.00000</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">6</th>
-<td>1</td>
-<td>rs3658242</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>T</td>
-<td>359/1003/572</td>
-<td>0.5186</td>
-<td>0.4939</td>
-<td>0.03048</td>
-</tr>
-</tbody>
-</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe</span><span class="kw">)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span><span class="er">(</span><span class="ex">hwe_zoom</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hwetables-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) HWE tables from PLINK
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-hwetables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2
 </figcaption>
 </figure>
-</div>
-<div id="fig-hwetables-2" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-hwetables-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="dataframe caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">CHR</th>
-<th data-quarto-table-cell-role="th" scope="col">SNP</th>
-<th data-quarto-table-cell-role="th" scope="col">TEST</th>
-<th data-quarto-table-cell-role="th" scope="col">A1</th>
-<th data-quarto-table-cell-role="th" scope="col">A2</th>
-<th data-quarto-table-cell-role="th" scope="col">GENO</th>
-<th data-quarto-table-cell-role="th" scope="col">O.HET.</th>
-<th data-quarto-table-cell-role="th" scope="col">E.HET.</th>
-<th data-quarto-table-cell-role="th" scope="col">P</th>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;int&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;chr&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-<th data-quarto-table-cell-role="th" scope="col">&lt;dbl&gt;</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">1</th>
-<td>1</td>
-<td>rs13475729</td>
-<td>ALL(NP)</td>
-<td>G</td>
-<td>A</td>
-<td>46/339/1549</td>
-<td>0.1753</td>
-<td>0.1980</td>
-<td>3.014e-06</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">2</th>
-<td>1</td>
-<td>rs13475730</td>
-<td>ALL(NP)</td>
-<td>G</td>
-<td>A</td>
-<td>46/339/1547</td>
-<td>0.1755</td>
-<td>0.1982</td>
-<td>3.079e-06</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">3</th>
-<td>1</td>
-<td>rs3654377</td>
-<td>ALL(NP)</td>
-<td>G</td>
-<td>A</td>
-<td>46/339/1549</td>
-<td>0.1753</td>
-<td>0.1980</td>
-<td>3.014e-06</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">4</th>
-<td>1</td>
-<td>rs3655978</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>G</td>
-<td>46/339/1545</td>
-<td>0.1756</td>
-<td>0.1984</td>
-<td>3.146e-06</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th" scope="row">5</th>
-<td>1</td>
-<td>rs13475731</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>G</td>
-<td>46/339/1548</td>
-<td>0.1754</td>
-<td>0.1981</td>
-<td>3.046e-06</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th" scope="row">6</th>
-<td>1</td>
-<td>rs3670630</td>
-<td>ALL(NP)</td>
-<td>A</td>
-<td>C</td>
-<td>46/339/1545</td>
-<td>0.1756</td>
-<td>0.1984</td>
-<td>3.146e-06</td>
-</tr>
-</tbody>
-</table>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hwetables-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
-</figcaption>
-</figure>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hwetables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: A data.frame: 6 × 9
-</figcaption>
-</figure>
-</div>
 </div>
 <p>Now, we can plot the histograms</p>
-<div class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># maf_freq histogram</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.hwe</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">hwe,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>hwe<span class="pp">[</span><span class="ss">,9</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span>, bins=50<span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"HWE distribution"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"HWE p-value"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># maf_freq histogram</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.hwe_below_threshold</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">hwe_zoom,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>hwe_zoom<span class="pp">[</span><span class="ss">,9</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.0000015, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"HWE distribution for strongly deviating SNPs only"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"HWE p-value"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.hwe</span><span class="kw">)</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.hwe_below_threshold</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="fig-hwe" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
+<div id="fig-hwe" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display">
-<div id="fig-hwe-1" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-hwe-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="gwas3-mice_files/figure-html/fig-hwe-output-1.png" data-ref-parent="fig-hwe" width="540" height="240" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hwe-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) HWE p-values calculated with PLINK and zoom for the SNPs deviating from HWE.
-</figcaption>
-</figure>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div id="fig-hwe-2" class="quarto-float quarto-figure quarto-figure-center anchored" height="240" width="540">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-hwe-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="gwas3-mice_files/figure-html/fig-hwe-output-2.png" id="fig-hwe-2" data-ref-parent="fig-hwe" width="540" height="240" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hwe-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b)
-</figcaption>
-</figure>
-</div>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># maf_freq histogram</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.hwe</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">hwe,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>hwe<span class="pp">[</span><span class="ss">,9</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="fu">col</span> = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span>, bins=50<span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"HWE distribution"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"HWE p-value"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co"># maf_freq histogram</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.hwe_below_threshold</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">hwe_zoom,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>hwe_zoom<span class="pp">[</span><span class="ss">,9</span><span class="pp">]</span><span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.0000015, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"HWE distribution for strongly deviating SNPs only"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"HWE p-value"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span><span class="ex">+</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme</span><span class="er">(</span><span class="ex">axis.title=element_text</span><span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> axis.text=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>13<span class="kw">)</span><span class="ex">,</span> plot.title=element_text<span class="er">(</span><span class="va">size</span><span class="op">=</span>15<span class="kw">))</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.hwe</span><span class="kw">)</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.hwe_below_threshold</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-hwe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3
 </figcaption>
 </figure>
 </div>
-</div>
 <p>We choose the threshold 1e-5 and create the new filtered data files:</p>
-<div id="245f5391-ab69-4831-a8b2-9a9ff79d880a" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf <span class="at">--hwe</span> 1e-5 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf_hwe <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="245f5391-ab69-4831-a8b2-9a9ff79d880a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf <span class="at">--hwe</span> 1e-5 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf_hwe <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="heterozigosity-rate." class="level1">
 <h1><strong>4. Heterozigosity rate.</strong></h1>
 <p>Now we look at genotype calls at each individual’s level. First, we create a list of SNPs for which there is lower correlation, so to avoid linkage disequilibrium.</p>
-<div id="3fe6ba21-493f-4a9d-bb78-a5aa9d3f797b" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf_hwe <span class="at">--indep-pairwise</span> 50 5 0.2 <span class="at">--out</span> Results/GWAS3/mice_indepSNP <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3fe6ba21-493f-4a9d-bb78-a5aa9d3f797b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf_hwe <span class="at">--indep-pairwise</span> 50 5 0.2 <span class="at">--out</span> Results/GWAS3/mice_indepSNP <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>With this pruned list, we measure the heterozygosity rates of the individuals in the remaining independent SNPs.</p>
-<div id="ace205e0-9fa0-4a3b-810e-1347d1123426" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf_hwe <span class="dt">\</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS3/mice_indepSNP.prune.in <span class="dt">\</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--het</span> <span class="dt">\</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/mice_R_check <span class="dt">\</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ace205e0-9fa0-4a3b-810e-1347d1123426" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf_hwe <span class="dt">\</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--extract</span> Results/GWAS3/mice_indepSNP.prune.in <span class="dt">\</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--het</span> <span class="dt">\</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/mice_R_check <span class="dt">\</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>How does the table with the SNPs look like?</p>
-<div id="8da725d2-5429-4e01-8b23-7e1765c2d83f" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/mice_R_check.het</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         FID          IID       O(HOM)       E(HOM)        N(NM)            F
-  A048005080   A048005080          112        109.5          184      0.03357
-  A048006063   A048006063          111        109.5          184      0.02015
-  A048006555   A048006555          105        109.5          184     -0.06039
-  A048007096   A048007096           94        109.5          184       -0.208</code></pre>
-</div>
+<div id="8da725d2-5429-4e01-8b23-7e1765c2d83f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/mice_R_check.het</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
 <p>We are going to calculate by hand the heterozygosity rates so we can plot them (not by default in the table). The formula for the rates is <span class="math inline">\(N(NM)-O(HOM)/N(NM)\)</span></p>
-<div id="cell-fig-HET" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/mice_R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span><span class="va">$HET_RATE</span> = <span class="er">(</span><span class="ex">het</span><span class="st">$"N.NM."</span> <span class="at">-</span> het<span class="st">$"O.HOM."</span><span class="kw">)</span><span class="ex">/het</span><span class="st">$"N.NM."</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plink.imiss histogram</span></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.het</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">het,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>HET_RATE<span class="kw">))</span> <span class="ex">+</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.01, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Heterozygosity Rates"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Heterozygosity Rate"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span></span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.het</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning message:
-“package ‘ggplot2’ was built under R version 4.2.3”</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div id="fig-het" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-het" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-het-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="gwas3-mice_files/figure-html/fig-het-output-2.png" width="540" height="240" class="figure-img">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 9, repr.plot.height = 4<span class="kw">)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/mice_R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span><span class="va">$HET_RATE</span> = <span class="er">(</span><span class="ex">het</span><span class="st">$"N.NM."</span> <span class="at">-</span> het<span class="st">$"O.HOM."</span><span class="kw">)</span><span class="ex">/het</span><span class="st">$"N.NM."</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plink.imiss histogram</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="ex">hist.het</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">het,</span> aes<span class="er">(</span><span class="va">x</span><span class="op">=</span>HET_RATE<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_histogram</span><span class="er">(</span><span class="ex">binwidth</span> = 0.01, col = <span class="st">"black"</span>, fill=<span class="st">"tomato"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">title</span> = <span class="st">"Heterozygosity Rates"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">xlab</span><span class="er">(</span><span class="st">"Heterozygosity Rate"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylab</span><span class="er">(</span><span class="st">"Frequency"</span><span class="kw">)</span> <span class="ex">+</span> </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.het</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-het-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Barplot of heterozigosity rates.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-het-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4
 </figcaption>
 </figure>
 </div>
-</div>
-</div>
 <p>We use the same filter for all individuals as applied to the other dataset (heterozigosity rate 3 standard deviations away from the mean)</p>
-<div id="3de97d24-489e-49dc-acda-6c91c8e4e4a3" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/mice_R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span><span class="va">$HET_RATE</span> = <span class="er">(</span><span class="ex">het</span><span class="st">$"N.NM."</span> <span class="at">-</span> het<span class="st">$"O.HOM."</span><span class="kw">)</span><span class="ex">/het</span><span class="st">$"N.NM."</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="ex">het_fail</span> <span class="op">&lt;</span>- subset<span class="er">(</span><span class="ex">het,</span> <span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span> <span class="op">&lt;</span> mean<span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)</span><span class="ex">-3*sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">))</span> <span class="kw">|</span> </span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">(</span><span class="ex">het</span><span class="va">$HET_RATE</span> <span class="op">&gt;</span> mean<span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)</span><span class="ex">+3*sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)))</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="ex">het_fail</span><span class="va">$HET_DST</span> <span class="op">&lt;</span>- <span class="er">(</span><span class="ex">het_fail</span><span class="va">$HET_RATE</span><span class="ex">-mean</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">))</span><span class="ex">/sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">);</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="ex">het_fail,</span> <span class="st">"Results/GWAS3/mice-fail-het-qc.txt"</span>, row.names=FALSE, quote=FALSE<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3de97d24-489e-49dc-acda-6c91c8e4e4a3" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS3/mice_R_check.het"</span><span class="ex">,</span> head=TRUE<span class="kw">)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">het</span><span class="va">$HET_RATE</span> = <span class="er">(</span><span class="ex">het</span><span class="st">$"N.NM."</span> <span class="at">-</span> het<span class="st">$"O.HOM."</span><span class="kw">)</span><span class="ex">/het</span><span class="st">$"N.NM."</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="ex">het_fail</span> <span class="op">&lt;</span>- subset<span class="er">(</span><span class="ex">het,</span> <span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span> <span class="op">&lt;</span> mean<span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)</span><span class="ex">-3*sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">))</span> <span class="kw">|</span> </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                    <span class="kw">(</span><span class="ex">het</span><span class="va">$HET_RATE</span> <span class="op">&gt;</span> mean<span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)</span><span class="ex">+3*sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">)))</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="ex">het_fail</span><span class="va">$HET_DST</span> <span class="op">&lt;</span>- <span class="er">(</span><span class="ex">het_fail</span><span class="va">$HET_RATE</span><span class="ex">-mean</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">))</span><span class="ex">/sd</span><span class="er">(</span><span class="ex">het</span><span class="va">$HET_RATE</span><span class="kw">);</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="ex">het_fail,</span> <span class="st">"Results/GWAS3/mice-fail-het-qc.txt"</span>, row.names=FALSE, quote=FALSE<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The resulting table contains a few outlying individuals:</p>
-<div id="f7f0a5e4-09ff-4991-ae80-5ec570a594fe" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice-fail-het-qc.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>9 Results/GWAS3/mice-fail-het-qc.txt</code></pre>
-</div>
+<div id="f7f0a5e4-09ff-4991-ae80-5ec570a594fe" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice-fail-het-qc.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We use <code>awk</code> to print out the first two columns in the file <code>het-fail-ind.txt</code> and use the option <code>--remove</code> to filter out the individuals with PLINK.</p>
-<div id="e7191cba-f371-4f12-afd9-12aef073adeb" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1, $2}'</span> Results/GWAS3/mice-fail-het-qc.txt <span class="op">&gt;</span> Results/GWAS3/mice-het-fail-ind.txt</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf_hwe <span class="dt">\</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS3/mice-het-fail-ind.txt <span class="dt">\</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/mice_QCA <span class="dt">\</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e7191cba-f371-4f12-afd9-12aef073adeb" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print$1, $2}'</span> Results/GWAS3/mice-fail-het-qc.txt <span class="op">&gt;</span> Results/GWAS3/mice-het-fail-ind.txt</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf_hwe <span class="dt">\</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--remove</span> Results/GWAS3/mice-het-fail-ind.txt <span class="dt">\</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--make-bed</span> <span class="dt">\</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS3/mice_QCA <span class="dt">\</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We can count again samples and variants</p>
-<div id="3ddd4abc-5d22-45f0-bcb8-17341c7cd84c" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_QCA.fam</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_QCA.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>1926 Results/GWAS3/mice_QCA.fam
-2439 Results/GWAS3/mice_QCA.bim</code></pre>
-</div>
+<div id="3ddd4abc-5d22-45f0-bcb8-17341c7cd84c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_QCA.fam</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_QCA.bim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 
