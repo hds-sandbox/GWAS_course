@@ -15,7 +15,10 @@ website:
       - href: ./index.qmd
         text: Home
       - text: Access
-        href: access/setup.qmd
+        menu:
+          - access/UCloud.qmd
+          - access/genomedk.qmd
+          - access/otherHPC.qmd
       - text: Tutorials
         href: develop/general-intro.qmd
       - href: develop/workshop.qmd
@@ -57,8 +60,6 @@ website:
       style: "docked"
       search: true
       contents:
-        - href: access/setup.qmd
-          text: General
         - section: "Systems"
           contents:
             - access/UCloud.qmd

@@ -17,8 +17,8 @@ Link: https://hub.docker.com/r/hdssandbox/genomicsapp.
 ```{.bash .code-overflow-wrap} 
 # docker
 docker pull hdssandbox/genomicsapp
-# singularity
-singularity pull genomicsapp.sif docker://hdssandbox/genomicsapp 
+# apptainer
+apptainer pull genomicsapp.sif docker://hdssandbox/genomicsapp 
 ```
 
 #### Run the container 

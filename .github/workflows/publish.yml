@@ -24,7 +24,18 @@ jobs:
       - name: Pull Notebooks folder content
         if: runner.os == 'Linux'
         run: |
-          cp -r .compiledNotebooks/* Webpage/develop
+          cp -r Notebooks/* Webpage/develop
+
+      - name: Pull access pages
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/hds-sandbox/common-files_development.git /tmp/common-files
+          git -C /tmp/common-files sparse-checkout set access_genomedk access_ucloud other_hpc
+          cd /tmp/common-files
+          APP=genomicsapp COURSE=Intro_to_GWAS
+          sed -i.bak -e "s|__APP_NAME__|$APP|g" -e "s|__COURSE_NAME__|$COURSE|g" access_genomedk/genomedk.qmd other_hpc/otherHPC.qmd && rm access_genomedk/genomedk.qmd.bak other_hpc/otherHPC.qmd.bak
+          APP="Genomics Sandbox" COURSE="Introduction to GWAS"
+          sed -i.bak -e "s|__UCLOUD_APP_NAME__|$APP|g" -e "s|__COURSE_TITLE__|$COURSE|g" access_ucloud/UCloud.qmd && rm access_ucloud/UCloud.qmd.bak
+          cp -r access_genomedk/genomedk.qmd other_hpc/otherHPC.qmd access_ucloud/UCloud.qmd access_ucloud/img_ucloud "$GITHUB_WORKSPACE/Webpage/access/"
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
