@@ -1,13 +1,5 @@
 ---
 title: "Getting Started with the GWAS Module"
-author:
-  - name: Conor O'Hare
-  - name: Samuele Soraggi
-    orcid: 0000-0002-1159-5535
-    email: samuele@birc.au.dk
-  - name: Alba Refoyo Martinez
-    orcid: 0000-0002-3674-4007
-    email: alba.martinez@sund.ku.dk
 format: 
   html:
     toc: false
