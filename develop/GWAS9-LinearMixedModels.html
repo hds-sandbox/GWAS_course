@@ -82,9 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-bd7c3a1ff35aa8d49ac85b23e519ff38.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-1efdceca0e01b28d1751245e2abfc86b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-23ba0ffc82299b61b237e86a1e6b39c8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -767,7 +767,7 @@ window.Quarto = {
 <section id="running-ldak-kvik-step-1-and-step-2-on-quantitative-traits" class="level3">
 <h3 class="anchored" data-anchor-id="running-ldak-kvik-step-1-and-step-2-on-quantitative-traits">Running <code>LDAK-KVIK</code> Step 1 and Step 2 on Quantitative Traits</h3>
 <p>Now we run the two steps of <code>LDAK-KVIK</code> on our quality-controlled European dataset (<code>Data/EUR.QC</code>).</p>
-<p>Key <code>LDAK</code> flags used below: - <code>--kvik-step1 &lt;prefix&gt;</code>: Estimates SNP heritability, fits the Step 1 Elastic Net whole-genome regression model adjusting for covariates (<code>--covar</code>), and saves the 22 Leave-One-Chromosome-Out (<code>LOCO</code>) polygenic predictions (<code>&lt;prefix&gt;.loco.crs</code>). - <code>--kvik-step2 &lt;prefix&gt;</code>: Reads the Step 1 <code>LOCO</code> predictions from <code>&lt;prefix&gt;</code>, tests each SNP in <code>--bfile</code> against the residualized phenotype, and writes the GWAS summary statistics to <code>&lt;prefix&gt;.assoc</code>. - <code>--bfile &lt;prefix&gt;</code>, <code>--pheno &lt;file&gt;</code>, <code>--covar &lt;file&gt;</code>: Specify the PLINK binary fileset, phenotype file, and covariate file (just as in <code>PLINK</code>).</p>
+<p>Key <code>LDAK</code> flags used below: - <code>--kvik-step1 &lt;prefix&gt;</code>: Estimates SNP heritability, fits the Step 1 Elastic Net whole-genome regression model adjusting for covariates (<code>--covar</code>), and saves the 22 Leave-One-Chromosome-Out (<code>LOCO</code>) polygenic predictions (<code>&lt;prefix&gt;.step1.loco.prs</code>). - <code>--kvik-step2 &lt;prefix&gt;</code>: Reads the Step 1 <code>LOCO</code> predictions from <code>&lt;prefix&gt;</code>, tests each SNP in <code>--bfile</code> against the residualized phenotype, and writes the GWAS summary statistics to <code>&lt;prefix&gt;.step2.assoc</code> (and <code>&lt;prefix&gt;.step2.summaries</code>). - <code>--bfile &lt;prefix&gt;</code>, <code>--pheno &lt;file&gt;</code>, <code>--covar &lt;file&gt;</code>: Specify the PLINK binary fileset, phenotype file, and covariate file (just as in <code>PLINK</code>).</p>
 <div id="90000001-0000-4000-8000-000000000007" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Fit Whole-Genome Regression and generate LOCO predictions</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
@@ -783,9 +783,9 @@ window.Quarto = {
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_height.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_height.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Let’s inspect the columns of <code>kvik_height.assoc</code>: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: The test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: Two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SD</code>: Estimated effect size (<span class="math inline">\(\hat{\beta}_j\)</span>) and standard error of allele <code>A1</code> - <code>Effect_Liability</code>: Effect size on the liability scale (when analyzing binary traits)</p>
+<p>Let’s inspect the columns of <code>kvik_height.step2.assoc</code>: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: The test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: Two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SD</code>: Estimated effect size (<span class="math inline">\(\hat{\beta}_j\)</span>) and standard error of allele <code>A1</code> - <code>Effect_Liability</code>: Effect size on the liability scale (when analyzing binary traits)</p>
 </section>
 </section>
 <section id="benchmarking-power-ldak-kvik-vs.-standard-plink-gwas" class="level1">
@@ -848,7 +848,7 @@ window.Quarto = {
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS9/kvik_binary.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS9/kvik_binary.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="visualizing-and-comparing-ldak-kvik-vs.-plink-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-and-comparing-ldak-kvik-vs.-plink-in-r">Visualizing and Comparing <code>LDAK-KVIK</code> vs.&nbsp;<code>PLINK</code> in R</h3>
@@ -865,7 +865,7 @@ window.Quarto = {
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load PLINK and LDAK-KVIK results for the simulated polygenic trait</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">plink_res</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/plink_sim.assoc.linear"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">kvik_res</span>  <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/kvik_sim.assoc"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">kvik_res</span>  <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/kvik_sim.step2.assoc"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">causals</span>   <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS9/sim_poly.effects"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge by SNP identifier</span></span>
@@ -960,7 +960,7 @@ window.Quarto = {
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have learned how Linear Mixed Model and Whole-Genome Regression GWAS methods (<code>LDAK-KVIK</code>) leverage SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span> from <code>GWAS8</code>) and <code>LOCO</code> polygenic predictions to increase discovery power and control confounding across quantitative and binary traits. Because Step 2 of an LMM GWAS still tests one SNP at a time on the <code>LOCO</code> residuals, the resulting GWAS summary statistics (<code>*.assoc</code> and <code>*.summaries</code>) remain blurred by local Linkage Disequilibrium (LD) on each chromosome. In the next two sessions, we will see how pairing <strong>GWAS summary statistics</strong> with an <strong>external LD reference panel</strong> allows us to deconvolve LD locally to pinpoint causal variants (<strong>Fine-Mapping in <code>GWAS10</code></strong>) and globally to build genome-wide predictors (<strong>Advanced PRS in <code>GWAS11</code></strong>).</p>
+<p>In this tutorial, we have learned how Linear Mixed Model and Whole-Genome Regression GWAS methods (<code>LDAK-KVIK</code>) leverage SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span> from <code>GWAS8</code>) and <code>LOCO</code> polygenic predictions to increase discovery power and control confounding across quantitative and binary traits. Because Step 2 of an LMM GWAS still tests one SNP at a time on the <code>LOCO</code> residuals, the resulting GWAS summary statistics (<code>*.step2.assoc</code> and <code>*.step2.summaries</code>) remain blurred by local Linkage Disequilibrium (LD) on each chromosome. In the next two sessions, we will see how pairing <strong>GWAS summary statistics</strong> with an <strong>external LD reference panel</strong> allows us to deconvolve LD locally to pinpoint causal variants (<strong>Fine-Mapping in <code>GWAS10</code></strong>) and globally to build genome-wide predictors (<strong>Advanced PRS in <code>GWAS11</code></strong>).</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Other take-home messages">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
