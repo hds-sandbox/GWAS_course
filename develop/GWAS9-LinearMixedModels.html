@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0ae969d3293726db143f6e9eb89af930.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -622,7 +622,7 @@ window.Quarto = {
 <li><strong>Understand</strong> the assumptions and statistical differences between standard single-SNP regression (<code>PLINK</code>), classical LMMs (<code>GCTA</code>/<code>GEMMA</code>), and two-step biobank methods (<code>BOLT-LMM</code>, <code>REGENIE</code>, and <code>LDAK-KVIK</code>)</li>
 <li><strong>Explain</strong> how SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>) and Leave-One-Chromosome-Out (<code>LOCO</code>) predictions increase association power while avoiding proximal contamination</li>
 <li><strong>Execute</strong> a two-step mixed-model GWAS using <code>LDAK-KVIK</code> (<code>--kvik-step1</code> and <code>--kvik-step2</code>) for quantitative traits</li>
-<li><strong>Apply</strong> Saddlepoint Approximation (SPA) in <code>LDAK-KVIK</code> (<code>--binary YES</code>) for unbalanced case-control traits</li>
+<li><strong>Apply</strong> <code>LDAK-KVIK</code> to case-control traits (<code>--binary YES</code> in Step 1) and <strong>explain</strong> why Saddlepoint Approximation (SPA) matters for unbalanced case-control data</li>
 <li><strong>Compare</strong> association power and calibration between <code>PLINK</code> and <code>LDAK-KVIK</code> in <code>R</code></li>
 </ul>
 </section>
@@ -769,23 +769,24 @@ window.Quarto = {
 <p>Now we run the two steps of <code>LDAK-KVIK</code> on our quality-controlled European dataset (<code>Data/EUR.QC</code>).</p>
 <p>Key <code>LDAK</code> flags used below: - <code>--kvik-step1 &lt;prefix&gt;</code>: Estimates SNP heritability, fits the Step 1 Elastic Net whole-genome regression model adjusting for covariates (<code>--covar</code>), and saves the 22 Leave-One-Chromosome-Out (<code>LOCO</code>) polygenic predictions (<code>&lt;prefix&gt;.step1.loco.prs</code>). - <code>--kvik-step2 &lt;prefix&gt;</code>: Reads the Step 1 <code>LOCO</code> predictions from <code>&lt;prefix&gt;</code>, tests each SNP in <code>--bfile</code> against the residualized phenotype, and writes the GWAS summary statistics to <code>&lt;prefix&gt;.step2.assoc</code> (and <code>&lt;prefix&gt;.step2.summaries</code>). - <code>--bfile &lt;prefix&gt;</code>, <code>--pheno &lt;file&gt;</code>, <code>--covar &lt;file&gt;</code>: Specify the PLINK binary fileset, phenotype file, and covariate file (just as in <code>PLINK</code>).</p>
 <div id="90000001-0000-4000-8000-000000000007" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Fit Whole-Genome Regression and generate LOCO predictions</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform single-SNP association testing conditioned on LOCO predictions</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_height.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Fit Whole-Genome Regression and generate LOCO predictions</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform single-SNP association testing conditioned on LOCO predictions</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_height.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Let’s inspect the columns of <code>kvik_height.step2.assoc</code>: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: The test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: Two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SD</code>: Estimated effect size (<span class="math inline">\(\hat{\beta}_j\)</span>) and standard error of allele <code>A1</code> - <code>Effect_Liability</code>: Effect size on the liability scale (when analyzing binary traits)</p>
+<p>Let’s inspect the columns of <code>kvik_height.step2.assoc</code>: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: The test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: Two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SE</code>: Estimated effect size (<span class="math inline">\(\hat{\beta}_j\)</span>) and standard error of allele <code>A1</code> - <code>Effect_Liability</code>: Effect size on the liability scale (when analyzing binary traits)</p>
 </section>
 </section>
 <section id="benchmarking-power-ldak-kvik-vs.-standard-plink-gwas" class="level1">
@@ -793,60 +794,61 @@ window.Quarto = {
 <p>When does a Linear Mixed Model provide the biggest gain over <code>plink --linear</code>? Theory tells us the expected increase in test statistics is proportional to <span class="math inline">\(1 / (1 - h^2_{\text{SNP}})\)</span>: the higher the heritability explained by the genome, the more background variance Step 1 removes.</p>
 <p>To see this clearly in our small teaching cohort (<span class="math inline">\(N \approx 480\)</span>), let’s use <code>ldak --make-phenos</code> to simulate a heritable polygenic trait (<code>--her 0.7</code>, <code>--num-causals 200</code> causal SNPs, <code>--power -0.25</code>) directly on <code>Data/EUR.QC</code> (which also records the true causal SNPs in <code>sim_poly.effects</code>), and run both <strong>standard <code>PLINK</code> linear regression</strong> and <strong><code>LDAK-KVIK</code></strong> on the exact same phenotype.</p>
 <div id="90000001-0000-4000-8000-000000000010" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Simulate a polygenic trait (h2 = 0.7, 200 causal variants) under the LDAK model</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--make-phenos</span> Results/GWAS9/sim_poly <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--her</span> 0.7 <span class="dt">\</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-phenos</span> 1 <span class="dt">\</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-causals</span> 200 <span class="dt">\</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run standard single-SNP linear regression in PLINK (with covariates)</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="dt">\</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Data/EUR.covariate <span class="dt">\</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--linear</span> hide-covar <span class="dt">\</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> Results/GWAS9/plink_sim</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run LDAK-KVIK Step 1 and Step 2 on the same simulated phenotype</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Simulate a polygenic trait (h2 = 0.7, 200 causal variants) under the LDAK model</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--make-phenos</span> Results/GWAS9/sim_poly <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--her</span> 0.7 <span class="dt">\</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-phenos</span> 1 <span class="dt">\</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-causals</span> 200 <span class="dt">\</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run standard single-SNP linear regression in PLINK (with covariates)</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Data/EUR.covariate <span class="dt">\</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--linear</span> hide-covar <span class="dt">\</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> Results/GWAS9/plink_sim</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run LDAK-KVIK Step 1 and Step 2 on the same simulated phenotype</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="binary-traits-and-saddlepoint-approximation-spa" class="level1">
 <h1>Binary Traits and Saddlepoint Approximation (SPA)</h1>
-<p>When analyzing case-control phenotypes (coded as <code>1</code> = control, <code>2</code> = case, or <code>0</code>/<code>1</code>), adding <code>--binary YES</code> tells <code>LDAK-KVIK</code> to use a <strong>Saddlepoint Approximation (SPA)</strong> in Step 2.</p>
+<p>When analyzing case-control phenotypes (coded as <code>1</code> = control, <code>2</code> = case, or <code>0</code>/<code>1</code>), add <code>--binary YES</code> to <strong>Step 1</strong> to tell <code>LDAK-KVIK</code> to fit a logistic instead of a linear model. Step 2 can calibrate the <span class="math inline">\(p\)</span>-values with a <strong>Saddlepoint Approximation (SPA)</strong>. The <code>SPA_Status</code> column of the output reports, for each SNP, whether SPA was used.</p>
 <p>Why is SPA essential? Standard score tests approximate the null distribution of the test statistic using a normal distribution (which only matches the mean and variance). When case-control ratios are unbalanced (e.g., 500 cases vs.&nbsp;50,000 controls) and a SNP has low minor allele frequency, the true null distribution is heavily skewed, causing standard tests to produce thousands of false positives. <strong>SPA</strong> approximates the entire cumulant generating function (capturing skewness and higher-order moments), ensuring accurate <span class="math inline">\(p\)</span>-values even for low-frequency variants in unbalanced cohorts.</p>
-<p>Let’s run <code>LDAK-KVIK</code> with <code>--binary YES</code> on the binary case-control phenotype stored in column 6 of <code>Data/TOY_TARGET_DATA.fam</code>.</p>
+<p>Let’s run <code>LDAK-KVIK</code> on the binary case-control phenotype stored in column 6 of <code>Data/TOY_TARGET_DATA.fam</code>, with <code>--binary YES</code> in Step 1.</p>
 <div id="90000001-0000-4000-8000-000000000012" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract binary phenotype (FID IID CaseControl) from TOY_TARGET_DATA.fam</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, $2, $6}'</span> Data/TOY_TARGET_DATA.fam <span class="op">&gt;</span> Results/GWAS9/toy_binary.pheno</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1 with --binary YES</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 with --binary YES (activates Saddlepoint Approximation)</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract binary phenotype (FID IID CaseControl) from TOY_TARGET_DATA.fam</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, $2, $6}'</span> Data/TOY_TARGET_DATA.fam <span class="op">&gt;</span> Results/GWAS9/toy_binary.pheno</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1 with --binary YES</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS9/kvik_binary.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -870,7 +872,7 @@ window.Quarto = {
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge by SNP identifier</span></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">merged</span> <span class="op">&lt;</span>- merge<span class="er">(</span><span class="va">plink_res</span><span class="op">[</span>, c(<span class="st">"SNP"</span>, <span class="st">"CHR"</span>, <span class="st">"BP"</span>, <span class="st">"STAT"</span>, <span class="st">"P"</span>)<span class="op">]</span><span class="ex">,</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="va">kvik_res</span><span class="op">[</span>, c(<span class="st">"Predictor"</span>, <span class="st">"Wald_Stat"</span>, <span class="st">"Wald_P"</span>, <span class="st">"Effect"</span>, <span class="st">"SD"</span>)<span class="op">]</span><span class="ex">,</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                <span class="va">kvik_res</span><span class="op">[</span>, c(<span class="st">"Predictor"</span>, <span class="st">"Wald_Stat"</span>, <span class="st">"Wald_P"</span>, <span class="st">"Effect"</span>, <span class="st">"SE"</span>)<span class="op">]</span><span class="ex">,</span></span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                <span class="ex">by.x</span> = <span class="st">"SNP"</span>, by.y = <span class="st">"Predictor"</span><span class="kw">)</span></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="ex">merged</span><span class="va">$IsCausal</span> <span class="op">&lt;</span>- ifelse<span class="er">(</span><span class="ex">merged</span><span class="va">$SNP</span> %in% causals<span class="va">$Predictor</span>, <span class="st">"Causal SNP"</span>, <span class="st">"Null SNP"</span><span class="kw">)</span></span>
@@ -974,7 +976,7 @@ window.Quarto = {
 <ul>
 <li><strong>Two-Step Whole-Genome Regression Scales LMMs to Biobanks</strong>: Instead of inverting an <span class="math inline">\(N \times N\)</span> kinship matrix (<span class="math inline">\(\mathcal{O}(N^3)\)</span>), methods like <code>LDAK-KVIK</code>, <code>REGENIE</code>, and <code>BOLT-LMM</code> predict the polygenic background in Step 1 (<code>LOCO</code>) and test individual SNPs against the residuals in Step 2 (<span class="math inline">\(\mathcal{O}(NM)\)</span>).</li>
 <li><strong>Realistic Heritability Priors Improve Step 1</strong>: Because <code>LDAK-KVIK</code> combines the LDAK heritability model (<span class="math inline">\(\alpha = -0.25\)</span>) with a flexible Elastic Net prior, its Step 1 polygenic predictions adapt accurately to both highly polygenic traits and traits with large-effect loci.</li>
-<li><strong>Always Use SPA for Unbalanced Binary Traits</strong>: When analyzing case-control traits with low case prevalence, enabling <code>--binary YES</code> activates the Saddlepoint Approximation (SPA), preventing false-positive inflation at low-frequency variants.</li>
+<li><strong>Use Logistic Models and SPA for Unbalanced Binary Traits</strong>: When analyzing case-control traits with low case prevalence, set <code>--binary YES</code> in Step 1 so that <code>LDAK-KVIK</code> fits a logistic model; Step 2 can then calibrate <span class="math inline">\(p\)</span>-values with the Saddlepoint Approximation (SPA, see <code>SPA_Status</code>), preventing false-positive inflation at low-frequency variants.</li>
 </ul>
 </div>
 </div>

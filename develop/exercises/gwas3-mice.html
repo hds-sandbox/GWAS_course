@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0ae969d3293726db143f6e9eb89af930.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -445,7 +445,7 @@ window.Quarto = {
 <div id="7ee3f7cd-fb2c-421e-bd75-ea5245e9d457" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/mice <span class="at">--missing</span> <span class="at">--out</span> Results/GWAS3/mice <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Now we look at the histograms. The only thing needed to change in the code, compared to the tutorial, is the name of the two missingness reports.</p>
 <div id="1771c8b4-483d-4e06-8009-bbdad147350e" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)</span></span>
@@ -477,6 +477,7 @@ window.Quarto = {
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.imiss</span><span class="kw">)</span></span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">hist.lmiss</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><img src="../Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>The histograms do not show any high missingness for the variants (second plot), while there are a few individuals that we should filter out. Below, we filter only individuals with missingness above 2%, without choosing any variant filter. The new <code>bed, bim, fam</code> files have the prefix <code>mice_miss</code></p>
 <div id="c241ee5b-8274-4e42-a06a-4561376f077b" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Data/mice <span class="at">--mind</span> .02 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -489,7 +490,7 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a plot of the MAF distribution.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss <span class="at">--freq</span> <span class="at">--out</span> Results/GWAS3/mice_miss <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Let’s plot the MAF histogram using <code>R</code>. The second plot, is a zoom-in version with MAF up to 0.1 to observe the low MAF values.</p>
 <div id="fig-maf" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -528,6 +529,7 @@ Figure&nbsp;1
 </figcaption>
 </figure>
 </div>
+<p><img src="../Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>There are two minor peaks in the histograms above, one at 0.05 and 0.1. Choosing 0.1 would remove over a hundred extra SNPs, while 0.05 should remove around less than 200. We can for example choose 0.05, but 0.1 is acceptable as well as it is another threshold often applied in literature.</p>
 <div id="a54d801c-3f83-48a0-8062-c3dfd905a669" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove SNPs with a low MAF frequency.</span></span>
@@ -549,7 +551,7 @@ Figure&nbsp;1
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice_miss_maf.deviating.hwe</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>There are 355 variants to remove with a p-value below 0.00001</p>
-<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>Now we create histograms to look at the p-values from the tables above. We do not need to use the case-control renaming and plotting categories.</p>
 <div id="f77ae110-627f-40f7-bbd6-86d25a75b4a0" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">dplyr</span><span class="kw">)))</span></span>
@@ -604,6 +606,7 @@ Figure&nbsp;3
 </figcaption>
 </figure>
 </div>
+<p><img src="../Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>We choose the threshold 1e-5 and create the new filtered data files:</p>
 <div id="245f5391-ab69-4831-a8b2-9a9ff79d880a" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="at">--bfile</span> Results/GWAS3/mice_miss_maf <span class="at">--hwe</span> 1e-5 <span class="at">--make-bed</span> <span class="at">--out</span> Results/GWAS3/mice_miss_maf_hwe <span class="at">--silent</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -627,7 +630,7 @@ Figure&nbsp;3
 <div id="8da725d2-5429-4e01-8b23-7e1765c2d83f" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-5</span> Results/GWAS3/mice_R_check.het</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R-GWAS kernel.</p>
+<p><img src="../Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
 <p>We are going to calculate by hand the heterozygosity rates so we can plot them (not by default in the table). The formula for the rates is <span class="math inline">\(N(NM)-O(HOM)/N(NM)\)</span></p>
 <div id="fig-het" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -669,6 +672,7 @@ Figure&nbsp;4
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">write.table</span><span class="er">(</span><span class="ex">het_fail,</span> <span class="st">"Results/GWAS3/mice-fail-het-qc.txt"</span>, row.names=FALSE, quote=FALSE<span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p><img src="../Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>The resulting table contains a few outlying individuals:</p>
 <div id="f7f0a5e4-09ff-4991-ae80-5ec570a594fe" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wc</span> <span class="at">-l</span> Results/GWAS3/mice-fail-het-qc.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0ae969d3293726db143f6e9eb89af930.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -727,67 +727,74 @@ window.Quarto = {
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
 <p>Let’s link the <code>Data</code> folder, create <code>Results/GWAS11</code>, and run <code>MegaPRS</code>:</p>
 <div id="b0000001-0000-4000-8000-000000000005" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS11</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare target phenotype and covariates for LDAK</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $1, $2, $3}'</span> Data/EUR.height <span class="op">&gt;</span> Results/GWAS11/EUR.pheno</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $0}'</span> Data/EUR.covariate <span class="op">&gt;</span> Results/GWAS11/EUR.covar</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Reuse Height.summaries and sumher_ldak.ind.hers from GWAS8 if present; otherwise create them</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> Results/GWAS8/sumher_ldak.ind.hers <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">[</span> <span class="ot">-f</span> Results/GWAS8/Height.summaries <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cp</span> Results/GWAS8/Height.summaries Results/GWAS11/Height.summaries</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cp</span> Results/GWAS8/sumher_ldak.ind.hers Results/GWAS11/sumher_ldak.ind.hers</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gzip</span> <span class="at">-dc</span> Data/Height.QC.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="st">  NR==1 {</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=NF; i++) col[$i]=i</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">    print "Predictor A1 A2 Direction P n"</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="st">  $col["MAF"] &gt;= 0.01 &amp;&amp; $col["INFO"] &gt;= 0.8 &amp;&amp; !seen[$col["SNP"]]++ {</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">    eff = ("OR" in col) ? log($col["OR"]) : $col["BETA"]</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">    dir = (eff &gt;= 0) ? 1 : -1</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="st">    p   = $col["P"]</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="st">    n   = ("N" in col) ? $col["N"] : 253288</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="st">    if (p &gt; 0 &amp;&amp; p &lt;= 1) print $col["SNP"], $col["A1"], $col["A2"], dir, p, n</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="st">  }'</span> <span class="op">&gt;</span> Results/GWAS11/Height.summaries</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ldak</span> <span class="at">--thin</span> Results/GWAS11/thin <span class="at">--bfile</span> Data/EUR.QC <span class="at">--window-prune</span> 0.98 <span class="at">--window-kb</span> 100</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awk</span> <span class="st">'{print $1, 1}'</span> Results/GWAS11/thin.in <span class="op">&gt;</span> Results/GWAS11/weights.thin</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ldak</span> <span class="at">--calc-tagging</span> Results/GWAS11/tag_ldak <span class="at">--bfile</span> Data/EUR.QC <span class="at">--weights</span> Results/GWAS11/weights.thin <span class="at">--power</span> <span class="at">-0.25</span> <span class="at">--window-kb</span> 1000 <span class="at">--save-matrix</span> YES</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ldak</span> <span class="at">--sum-hers</span> Results/GWAS11/sumher_ldak <span class="at">--summary</span> Results/GWAS11/Height.summaries <span class="at">--tagfile</span> Results/GWAS11/tag_ldak.tagging <span class="at">--matrix</span> Results/GWAS11/tag_ldak.matrix <span class="at">--check-sums</span> NO</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Compute local LD correlation windows (1000 kb) for MegaPRS</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">--calc-cors</span> Results/GWAS11/cors_eur <span class="dt">\</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">--window-kb</span> 1000</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run MegaPRS with Bolt (LDpred2 spike-and-slab) and Ridge (LDpred-inf) priors</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">--mega-prs</span> Results/GWAS11/megaprs_bolt <span class="dt">\</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> bolt <span class="dt">\</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">--summary</span> Results/GWAS11/Height.summaries <span class="dt">\</span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cors</span> Results/GWAS11/cors_eur <span class="dt">\</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1 <span class="dt">\</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">--window-kb</span> 1000 <span class="dt">\</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">--check-sums</span> NO</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">--mega-prs</span> Results/GWAS11/megaprs_ridge <span class="dt">\</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> ridge <span class="dt">\</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">--summary</span> Results/GWAS11/Height.summaries <span class="dt">\</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cors</span> Results/GWAS11/cors_eur <span class="dt">\</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1 <span class="dt">\</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="at">--window-kb</span> 1000 <span class="dt">\</span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">--check-sums</span> NO</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Score target individuals in Data/EUR.QC</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_megaprs_bolt <span class="at">--bfile</span> Data/EUR.QC <span class="at">--scorefile</span> Results/GWAS11/megaprs_bolt.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_megaprs_ridge <span class="at">--bfile</span> Data/EUR.QC <span class="at">--scorefile</span> Results/GWAS11/megaprs_ridge.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS11</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare target phenotype and covariates for LDAK</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $1, $2, $3}'</span> Data/EUR.height <span class="op">&gt;</span> Results/GWAS11/EUR.pheno</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $0}'</span> Data/EUR.covariate <span class="op">&gt;</span> Results/GWAS11/EUR.covar</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Reuse Height.summaries and sumher_ldak.ind.hers from GWAS8 if present; otherwise create them</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-f</span> Results/GWAS8/sumher_ldak.ind.hers <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">[</span> <span class="ot">-f</span> Results/GWAS8/Height.summaries <span class="bu">]</span><span class="kw">;</span> <span class="cf">then</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cp</span> Results/GWAS8/Height.summaries Results/GWAS11/Height.summaries</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cp</span> Results/GWAS8/sumher_ldak.ind.hers Results/GWAS11/sumher_ldak.ind.hers</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gzip</span> <span class="at">-dc</span> Data/Height.QC.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">  NR==1 {</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=NF; i++) col[$i]=i</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="st">    print "Predictor A1 A2 n Z"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">  $col["MAF"] &gt;= 0.01 &amp;&amp; $col["INFO"] &gt;= 0.8 &amp;&amp; $col["SE"] &gt; 0 &amp;&amp; !seen[$col["SNP"]]++ {</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">    n = ("N" in col) ? $col["N"] : 388028</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="st">    print $col["SNP"], $col["A1"], $col["A2"], n, $col["BETA"] / $col["SE"]</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="st">  }'</span> <span class="op">&gt;</span> Results/GWAS11/Height.summaries</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ldak</span> <span class="at">--thin</span> Results/GWAS11/thin <span class="at">--bfile</span> Data/EUR.QC <span class="at">--window-prune</span> 0.98 <span class="at">--window-kb</span> 100</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">awk</span> <span class="st">'{print $1, 1}'</span> Results/GWAS11/thin.in <span class="op">&gt;</span> Results/GWAS11/weights.thin</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ldak</span> <span class="at">--calc-tagging</span> Results/GWAS11/tag_ldak <span class="at">--bfile</span> Data/EUR.QC <span class="at">--weights</span> Results/GWAS11/weights.thin <span class="at">--power</span> <span class="at">-0.25</span> <span class="at">--window-kb</span> 1000</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ldak</span> <span class="at">--sum-hers</span> Results/GWAS11/sumher_ldak <span class="at">--summary</span> Results/GWAS11/Height.summaries <span class="at">--tagfile</span> Results/GWAS11/tag_ldak.tagging <span class="at">--matrix</span> Results/GWAS11/tag_ldak.matrix <span class="at">--check-sums</span> NO</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Compute local LD correlation windows (1000 kb) for MegaPRS</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">--calc-cors</span> Results/GWAS11/cors_eur <span class="dt">\</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="at">--window-kb</span> 1000</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run MegaPRS with Bolt (LDpred2 spike-and-slab) and Ridge (LDpred-inf) priors</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">--mega-prs</span> Results/GWAS11/megaprs_bolt <span class="dt">\</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> bolt <span class="dt">\</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">--summary</span> Results/GWAS11/Height.summaries <span class="dt">\</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cors</span> Results/GWAS11/cors_eur <span class="dt">\</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">--mega-prs</span> Results/GWAS11/megaprs_ridge <span class="dt">\</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">--model</span> ridge <span class="dt">\</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">--summary</span> Results/GWAS11/Height.summaries <span class="dt">\</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cors</span> Results/GWAS11/cors_eur <span class="dt">\</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Score target individuals in Data/EUR.QC</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_megaprs_bolt <span class="at">--bfile</span> Data/EUR.QC <span class="at">--scorefile</span> Results/GWAS11/megaprs_bolt.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_megaprs_ridge <span class="at">--bfile</span> Data/EUR.QC <span class="at">--scorefile</span> Results/GWAS11/megaprs_ridge.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Pseudo-validation estimates">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Pseudo-validation estimates
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>ldak --mega-prs</code> uses <code>--cv-proportion 0.1</code> to estimate the accuracy of each candidate model from the summary statistics alone, and prints the “approximate correlation” of the best one (all values are in <code>megaprs_*.cors</code>). In this dataset these estimates are close to or even above <span class="math inline">\(1\)</span>, which is impossible for a real correlation. Pseudo-validation depends on the LD reference panel, and ours (<code>Data/EUR.QC</code>) has only ~500 individuals, who are also the people we score, so the estimates are unreliable. Always judge a PRS by its performance in a target sample: below, the incremental <span class="math inline">\(R^2\)</span> corresponds to a correlation of only about <span class="math inline">\(0.4\)</span>–<span class="math inline">\(0.5\)</span>.</p>
+</div>
 </div>
 </section>
 <section id="individual-level-prs-with-ldak-bolt-predict-and-ldak-elastic-predict" class="level1">
@@ -795,38 +802,39 @@ window.Quarto = {
 <p>Now suppose we have direct access to individual-level genotypes <span class="math inline">\(X\)</span> and phenotypes <span class="math inline">\(y\)</span> in a biobank. Let’s split <code>Data/EUR.QC</code> into an <strong>80% Training set</strong> (<code>train.keep</code>) and a <strong>20% Hold-out Test set</strong> (<code>test.keep</code>), check training SNP heritability (<code>--reml</code>), and train two individual-level whole-genome regression predictors on the training set (passing <code>--LOCO NO</code> so <code>LDAK</code> builds a single genome-wide prediction model (<code>*.effects</code>) rather than 22 chromosome-specific LOCO predictors): - <code>--bolt &lt;prefix&gt;</code>: Fits individual-level <strong>Bolt-Predict</strong> (mixture of two Gaussians prior) using <code>--keep Results/GWAS11/train.keep</code>, <code>--ind-hers Results/GWAS11/sumher_ldak.ind.hers</code>, and <code>--LOCO NO</code>. - <code>--elastic &lt;prefix&gt;</code>: Fits individual-level <strong>Elastic-Predict</strong> (mixture of Laplace <span class="math inline">\(L_1\)</span> and Gaussian <span class="math inline">\(L_2\)</span> priors) with <code>--LOCO NO</code>.</p>
 <p>Finally, we project the trained weights onto the held-out <strong>20% Test set</strong> (<code>--keep Results/GWAS11/test.keep</code>) using <code>ldak --calc-scores</code>.</p>
 <div id="b0000001-0000-4000-8000-000000000007" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create an 80% Training / 20% Testing split</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR % 5 != 0 {print $1, $2}'</span> Results/GWAS11/EUR.pheno <span class="op">&gt;</span> Results/GWAS11/train.keep</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR % 5 == 0 {print $1, $2}'</span> Results/GWAS11/EUR.pheno <span class="op">&gt;</span> Results/GWAS11/test.keep</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Estimate SNP heritability on the 80% Training set using REML</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS11/kin_train <span class="at">--bfile</span> Data/EUR.QC <span class="at">--keep</span> Results/GWAS11/train.keep <span class="at">--power</span> <span class="at">-0.25</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS11/reml_train <span class="at">--grm</span> Results/GWAS11/kin_train <span class="at">--pheno</span> Results/GWAS11/EUR.pheno <span class="at">--covar</span> Results/GWAS11/EUR.covar <span class="at">--keep</span> Results/GWAS11/train.keep</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Fit Individual-Level Bolt-Predict (--bolt) and Elastic-Predict (--elastic) on Training set</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bolt</span> Results/GWAS11/ind_bolt <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS11/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS11/EUR.covar <span class="dt">\</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--keep</span> Results/GWAS11/train.keep <span class="dt">\</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1 <span class="dt">\</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--LOCO</span> NO</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">--elastic</span> Results/GWAS11/ind_elastic <span class="dt">\</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS11/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS11/EUR.covar <span class="dt">\</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--keep</span> Results/GWAS11/train.keep <span class="dt">\</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1 <span class="dt">\</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--LOCO</span> NO</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Project trained weights onto the held-out 20% Test set</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_ind_bolt <span class="at">--bfile</span> Data/EUR.QC <span class="at">--keep</span> Results/GWAS11/test.keep <span class="at">--scorefile</span> Results/GWAS11/ind_bolt.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_ind_elastic <span class="at">--bfile</span> Data/EUR.QC <span class="at">--keep</span> Results/GWAS11/test.keep <span class="at">--scorefile</span> Results/GWAS11/ind_elastic.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Create an 80% Training / 20% Testing split</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR % 5 != 0 {print $1, $2}'</span> Results/GWAS11/EUR.pheno <span class="op">&gt;</span> Results/GWAS11/train.keep</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR % 5 == 0 {print $1, $2}'</span> Results/GWAS11/EUR.pheno <span class="op">&gt;</span> Results/GWAS11/test.keep</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Estimate SNP heritability on the 80% Training set using REML</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS11/kin_train <span class="at">--bfile</span> Data/EUR.QC <span class="at">--keep</span> Results/GWAS11/train.keep <span class="at">--power</span> <span class="at">-0.25</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS11/reml_train <span class="at">--grm</span> Results/GWAS11/kin_train <span class="at">--pheno</span> Results/GWAS11/EUR.pheno <span class="at">--covar</span> Results/GWAS11/EUR.covar <span class="at">--keep</span> Results/GWAS11/train.keep</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Fit Individual-Level Bolt-Predict (--bolt) and Elastic-Predict (--elastic) on Training set</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bolt</span> Results/GWAS11/ind_bolt <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS11/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS11/EUR.covar <span class="dt">\</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--keep</span> Results/GWAS11/train.keep <span class="dt">\</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1 <span class="dt">\</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">--LOCO</span> NO</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--elastic</span> Results/GWAS11/ind_elastic <span class="dt">\</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS11/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS11/EUR.covar <span class="dt">\</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--keep</span> Results/GWAS11/train.keep <span class="dt">\</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ind-hers</span> Results/GWAS11/sumher_ldak.ind.hers <span class="dt">\</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--cv-proportion</span> 0.1 <span class="dt">\</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--LOCO</span> NO</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Project trained weights onto the held-out 20% Test set</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_ind_bolt <span class="at">--bfile</span> Data/EUR.QC <span class="at">--keep</span> Results/GWAS11/test.keep <span class="at">--scorefile</span> Results/GWAS11/ind_bolt.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-scores</span> Results/GWAS11/prs_ind_elastic <span class="at">--bfile</span> Data/EUR.QC <span class="at">--keep</span> Results/GWAS11/test.keep <span class="at">--scorefile</span> Results/GWAS11/ind_elastic.effects <span class="at">--power</span> 0 <span class="at">--pheno</span> Results/GWAS11/EUR.pheno</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="evaluating-prs-accuracy-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="evaluating-prs-accuracy-in-r">Evaluating PRS Accuracy in R</h3>
@@ -886,14 +894,14 @@ window.Quarto = {
 <li><strong>Q1. Create a bar plot comparing the incremental <span class="math inline">\(R^2\)</span> (<code>inc_r2</code>) of the four models (<code>MegaPRS-Bolt</code>, <code>MegaPRS-Ridge</code>, <code>Individual-Bolt</code>, and <code>Individual-Elastic</code>).</strong></li>
 <li><strong>Q2. Why do the summary-statistics <code>MegaPRS</code> models achieve much higher incremental <span class="math inline">\(R^2\)</span> than the individual-level models in our exercise dataset, whereas in the UK Biobank (<span class="math inline">\(N = 400\text{,000}\)</span>) individual-level <code>LDAK-Bolt</code> / <code>LDAK-Elastic</code> outperform summary-statistics methods?</strong></li>
 </ul>
-<p>Hint: Compare the discovery sample size of <code>Data/Height.QC.gz</code> (<span class="math inline">\(N = 253\text{,288}\)</span>) against our 80% individual-level training split of <code>Data/EUR.QC</code> (<span class="math inline">\(N_{\text{train}} \approx 380\)</span>).</p>
+<p>Hint: Compare the discovery sample size of <code>Data/Height.QC.gz</code> (<span class="math inline">\(N = 388\text{,028}\)</span>) against our 80% individual-level training split of <code>Data/EUR.QC</code> (<span class="math inline">\(N_{\text{train}} \approx 380\)</span>).</p>
 </div>
 </div>
 <div id="b0000001-0000-4000-8000-000000000011" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -902,7 +910,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>In <code>R</code>, we compare the incremental <span class="math inline">\(R^2\)</span> across the summary-statistics and individual-level models:</p>
 <div id="b0000001-0000-4000-8000-000000000013" class="cell">
@@ -910,7 +918,7 @@ window.Quarto = {
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">bench_df</span> <span class="op">&lt;</span>- data.frame<span class="er">(</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Method</span>   = factor<span class="er">(</span><span class="ex">c</span><span class="er">(</span><span class="st">"MegaPRS (Bolt)"</span><span class="ex">,</span> <span class="st">"MegaPRS (Ridge)"</span>, <span class="st">"LDAK-Bolt (Ind)"</span>, <span class="st">"LDAK-Elastic (Ind)"</span><span class="kw">)</span><span class="ex">,</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                    <span class="ex">levels</span> = c<span class="er">(</span><span class="st">"MegaPRS (Bolt)"</span><span class="ex">,</span> <span class="st">"MegaPRS (Ridge)"</span>, <span class="st">"LDAK-Bolt (Ind)"</span>, <span class="st">"LDAK-Elastic (Ind)"</span><span class="kw">))</span><span class="ex">,</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Category</span> = c<span class="er">(</span><span class="st">"Summary Statistics (N=253k)"</span><span class="ex">,</span> <span class="st">"Summary Statistics (N=253k)"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Category</span> = c<span class="er">(</span><span class="st">"Summary Statistics (N=388k)"</span><span class="ex">,</span> <span class="st">"Summary Statistics (N=388k)"</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Individual-Level (N=380)"</span><span class="ex">,</span> <span class="st">"Individual-Level (N=380)"</span><span class="kw">)</span><span class="ex">,</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">Inc_R2</span>   = c<span class="er">(</span><span class="ex">res_mega_bolt</span><span class="va">$inc_r2</span><span class="ex">,</span> res_mega_ridge<span class="va">$inc_r2</span>,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>               <span class="ex">res_ind_bolt</span><span class="va">$inc_r2</span><span class="ex">,</span> res_ind_elas<span class="va">$inc_r2</span><span class="kw">)</span></span>
@@ -921,7 +929,7 @@ window.Quarto = {
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">p_prs</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">bench_df,</span> aes<span class="er">(</span><span class="ex">x</span> = Method, y = Inc_R2, fill = Category<span class="kw">))</span> <span class="ex">+</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_col</span><span class="er">(</span><span class="ex">width</span> = 0.6, col = <span class="st">"black"</span><span class="kw">)</span> <span class="ex">+</span></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_text</span><span class="er">(</span><span class="ex">aes</span><span class="er">(</span><span class="ex">label</span> = round<span class="er">(</span><span class="ex">Inc_R2,</span> 4<span class="kw">))</span><span class="ex">,</span> vjust = <span class="at">-0.4,</span> size = 4<span class="kw">)</span> <span class="ex">+</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_fill_manual</span><span class="er">(</span><span class="ex">values</span> = c<span class="er">(</span><span class="st">"Summary Statistics (N=253k)"</span> = <span class="st">"steelblue"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">scale_fill_manual</span><span class="er">(</span><span class="ex">values</span> = c<span class="er">(</span><span class="st">"Summary Statistics (N=388k)"</span> = <span class="st">"steelblue"</span>,</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Individual-Level (N=380)"</span> = <span class="st">"tomato"</span><span class="kw">))</span> <span class="ex">+</span></span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">theme_bw</span><span class="er">(</span><span class="ex">base_size</span> = 13<span class="kw">)</span> <span class="ex">+</span></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">ylim</span><span class="er">(</span><span class="ex">0,</span> max<span class="er">(</span><span class="ex">bench_df</span><span class="va">$Inc_R2</span><span class="kw">)</span> <span class="ex">*</span> 1.18<span class="kw">)</span> <span class="ex">+</span></span>
@@ -935,8 +943,8 @@ window.Quarto = {
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="ex">show</span><span class="er">(</span><span class="ex">p_prs</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li><strong>Q1</strong>: <code>MegaPRS (Bolt)</code> and <code>MegaPRS (Ridge)</code> explain a substantial fraction of height variance over covariates in <code>Data/EUR.QC</code>, with the spike-and-slab <code>Bolt</code> model slightly outperforming the infinitesimal <code>Ridge</code> model.</li>
-<li><strong>Q2</strong>: The theoretical accuracy of a polygenic predictor scales with <span class="math inline">\(N h^2_{\text{SNP}} / (N h^2_{\text{SNP}} + M_e)\)</span>, where <span class="math inline">\(N\)</span> is the training sample size. In this tutorial, <code>Data/Height.QC.gz</code> comes from a consortium GWAS of <strong><span class="math inline">\(N = 253\text{,288}\)</span> individuals</strong>, whereas our 80% training split of <code>Data/EUR.QC</code> has only <strong><span class="math inline">\(N_{\text{train}} \approx 380\)</span> individuals</strong>. With <span class="math inline">\(N = 380\)</span> and <span class="math inline">\(M \approx 500\text{,000}\)</span> SNPs, the noise in individual-level estimation is huge, so <code>reml_train</code> and <code>--bolt</code>/<code>--elastic</code> strongly shrink weights toward zero. When sample sizes are matched at biobank scale (<span class="math inline">\(N &gt; 100\text{,000}\)</span>), individual-level <code>LDAK-Bolt</code> and <code>LDAK-Elastic</code> consistently outperform summary-statistics estimators because they access the exact individual-level LD structure without summary-statistic approximation errors.</li>
+<li><strong>Q1</strong>: <code>MegaPRS (Bolt)</code> and <code>MegaPRS (Ridge)</code> explain a substantial fraction of height variance over covariates in <code>Data/EUR.QC</code> (incremental <span class="math inline">\(R^2\)</span> of roughly <span class="math inline">\(0.16\)</span>–<span class="math inline">\(0.24\)</span> in our test run). Here the infinitesimal <code>Ridge</code> model did better than the spike-and-slab <code>Bolt</code> model: height is highly polygenic, and with a ~500-person LD reference panel the extra flexibility of <code>Bolt</code> does not pay off.</li>
+<li><strong>Q2</strong>: The theoretical accuracy of a polygenic predictor scales with <span class="math inline">\(N h^2_{\text{SNP}} / (N h^2_{\text{SNP}} + M_e)\)</span>, where <span class="math inline">\(N\)</span> is the training sample size. In this tutorial, <code>Data/Height.QC.gz</code> comes from a GWAS of <strong><span class="math inline">\(N = 388\text{,028}\)</span> individuals</strong>, whereas our 80% training split of <code>Data/EUR.QC</code> has only <strong><span class="math inline">\(N_{\text{train}} \approx 380\)</span> individuals</strong>. With <span class="math inline">\(N = 380\)</span> and <span class="math inline">\(M \approx 500\text{,000}\)</span> SNPs, the noise in individual-level estimation is huge, so <code>reml_train</code> and <code>--bolt</code>/<code>--elastic</code> strongly shrink weights toward zero. When sample sizes are matched at biobank scale (<span class="math inline">\(N &gt; 100\text{,000}\)</span>), individual-level <code>LDAK-Bolt</code> and <code>LDAK-Elastic</code> consistently outperform summary-statistics estimators because they access the exact individual-level LD structure without summary-statistic approximation errors.</li>
 </ul>
 </div>
 </div>
@@ -945,7 +953,7 @@ window.Quarto = {
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have brought together the entire advanced course pipeline: combining <strong>per-SNP heritability priors</strong> (<code>sumher_ldak.ind.hers</code> from <code>GWAS8</code>), <strong>GWAS summary statistics</strong> (from <code>GWAS5</code>/<code>GWAS9</code>), and <strong>external LD reference panel correlations</strong> (<code>ldak --calc-cors</code>, mirroring local LD deconvolution in <code>GWAS10</code>) to build summary-statistics based <strong><code>LDAK MegaPRS</code></strong> (<code>--mega-prs</code>), and comparing it with individual-level whole-genome regression (<strong><code>LDAK-Predict</code></strong>: <code>--bolt</code> and <code>--elastic</code>, using the same engine as <code>GWAS9</code> Step 1).</p>
+<p>In this tutorial, we have brought together the entire advanced course pipeline: combining <strong>per-SNP heritability priors</strong> (<code>sumher_ldak.ind.hers</code> from <code>GWAS8</code>), <strong>GWAS summary statistics</strong> (<code>Data/Height.QC.gz</code>), and <strong>external LD reference panel correlations</strong> (<code>ldak --calc-cors</code>, mirroring local LD deconvolution in <code>GWAS10</code>) to build summary-statistics based <strong><code>LDAK MegaPRS</code></strong> (<code>--mega-prs</code>), and comparing it with individual-level whole-genome regression (<strong><code>LDAK-Predict</code></strong>: <code>--bolt</code> and <code>--elastic</code>, using the same engine as <code>GWAS9</code> Step 1).</p>
 <div class="callout callout-style-default callout-note callout-titled" title="Other take-home messages">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

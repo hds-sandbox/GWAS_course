@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -96,9 +96,9 @@ div.csl-indent {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0ae969d3293726db143f6e9eb89af930.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -807,24 +807,6 @@ Warning
 <p>The second plot <code>PRSice_HIGH-RES_PLOT_&lt;date&gt;.png</code> (<strong>which you again can manually open</strong>) shows many different p-value thresholds. The p-value of the predictive effect is in black together with an aggregated trend line in green.</p>
 <p><img src="Images/PRSice_HIGH-RES_PLOT.png" class="img-fluid" width="600"></p>
 <p>Both figures show that trait-associated SNPs in the base sample can predict the trait in the target sample. If the same trait is used, predictive power depends on the trait’s heritability and base sample size. When using related but different traits, the predictive power also depends on their genetic correlation. Studies suggest that models with more lenient p-value thresholds capture smaller effects important for complex traits, while stricter thresholds reduce noise, aiding interpretation and the understanding of the underlying genetic architecture. Balancing informative SNPs and minimizing noise is key to maximizing predictive power.</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Stop - Read - Solve
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>Using R, plot the scores for the “best-fit” P-value threshold against another P-value threshold of your choice.</li>
-</ul>
-</div>
-</div>
-<div id="d56ebc90-12bc-467b-8057-5ecd79e50538" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R code here (switch the kernel if necessary)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
@@ -847,6 +829,79 @@ Warning
 </ul>
 </div>
 </div>
+<p>If you have time, try the extra exercise below.</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Stop - Read - Solve">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Stop - Read - Solve
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Using R, plot the scores for the “best-fit” P-value threshold against another P-value threshold of your choice.</li>
+</ul>
+</div>
+</div>
+<div id="d56ebc90-12bc-467b-8057-5ecd79e50538" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add your code here</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>By default, PRSice only saves the individual scores for the “best-fit” threshold (<code>PRSice.best</code>). To get the scores for every P-value threshold, we re-run PRSice with <code>--all-score</code>, using a new output prefix so the previous results are kept.</p>
+<p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
+<div id="33456e7b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">PRSice</span> <span class="at">--base</span> ./Data/TOY_BASE_GWAS.assoc <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--snp</span> SNP <span class="at">--chr</span> CHR <span class="at">--bp</span> BP <span class="at">--A1</span> A1 <span class="at">--A2</span> A2 <span class="at">--stat</span> OR <span class="at">--pvalue</span> P <span class="dt">\</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--target</span> ./Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--out</span> Results/GWAS6/PRSice_all <span class="dt">\</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--binary-target</span> T <span class="dt">\</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--all-score</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
+<p>Each column <code>Pt_&lt;threshold&gt;</code> in <code>PRSice_all.all_score</code> holds the scores at one threshold. We take the best-fit threshold from <code>PRSice.summary</code> and compare it with <code>P &lt; 0.1</code>, coloring individuals by case/control status from the <code>.fam</code> file.</p>
+<div id="76d23aaf" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">suppressMessages</span><span class="er">(</span><span class="ex">suppressWarnings</span><span class="er">(</span><span class="ex">library</span><span class="er">(</span><span class="ex">ggplot2</span><span class="kw">)))</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 7, repr.plot.height = 5<span class="kw">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Scores for all thresholds, the best-fit threshold, and case/control status</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">scores</span>  <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS6/PRSice_all.all_score"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">summ</span>    <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS6/PRSice.summary"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">fam</span>     <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Data/TOY_TARGET_DATA.fam"</span><span class="ex">,</span> col.names = c<span class="er">(</span><span class="st">"FID"</span><span class="ex">,</span> <span class="st">"IID"</span>, <span class="st">"PID"</span>, <span class="st">"MID"</span>, <span class="st">"Sex"</span>, <span class="st">"Pheno"</span><span class="kw">))</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">best_col</span>  <span class="op">&lt;</span>- paste0<span class="er">(</span><span class="st">"Pt_"</span><span class="ex">,</span> summ<span class="va">$Threshold</span><span class="kw">)</span>   <span class="co"># "Pt_0.4463"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">other_col</span> <span class="op">&lt;</span>- <span class="st">"Pt_0.1"</span>                        <span class="co"># any column in colnames(scores)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="ex">plot_df</span> <span class="op">&lt;</span>- merge<span class="er">(</span><span class="va">scores</span><span class="op">[</span>, c(<span class="st">"FID"</span>, <span class="st">"IID"</span>, best_col, other_col)<span class="op">]</span><span class="ex">,</span> fam[, c<span class="er">(</span><span class="st">"FID"</span><span class="ex">,</span> <span class="st">"IID"</span>, <span class="st">"Pheno"</span><span class="kw">)</span><span class="ex">],</span> by = c<span class="er">(</span><span class="st">"FID"</span><span class="ex">,</span> <span class="st">"IID"</span><span class="kw">))</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="ex">colnames</span><span class="er">(</span><span class="ex">plot_df</span><span class="kw">)</span><span class="ex">[3:4]</span> <span class="op">&lt;</span>- c<span class="er">(</span><span class="st">"best"</span><span class="ex">,</span> <span class="st">"other"</span><span class="kw">)</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="ex">plot_df</span><span class="va">$Status</span> <span class="op">&lt;</span>- factor<span class="er">(</span><span class="ex">plot_df</span><span class="va">$Pheno</span><span class="ex">,</span> levels = c<span class="er">(</span><span class="ex">1,</span> 2<span class="kw">)</span><span class="ex">,</span> labels = c<span class="er">(</span><span class="st">"Control"</span><span class="ex">,</span> <span class="st">"Case"</span><span class="kw">))</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Correlation between the two scores:"</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">cor</span><span class="er">(</span><span class="ex">plot_df</span><span class="va">$best</span><span class="ex">,</span> plot_df<span class="va">$other</span><span class="kw">)</span><span class="ex">,</span> 3<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="ex">ggplot</span><span class="er">(</span><span class="ex">plot_df,</span> aes<span class="er">(</span><span class="ex">x</span> = other, y = best, color = Status<span class="kw">))</span> <span class="ex">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">geom_point</span><span class="er">(</span><span class="ex">alpha</span> = 0.6<span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">labs</span><span class="er">(</span><span class="ex">x</span> = paste<span class="er">(</span><span class="st">"PRS at P &lt;"</span><span class="ex">,</span> sub<span class="er">(</span><span class="st">"Pt_"</span><span class="ex">,</span> <span class="st">""</span>, other_col<span class="kw">))</span><span class="ex">,</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>       <span class="ex">y</span> = paste<span class="er">(</span><span class="st">"PRS at best-fit P &lt;"</span><span class="ex">,</span> summ<span class="va">$Threshold</span><span class="kw">)</span><span class="ex">,</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>       <span class="ex">title</span> = <span class="st">"Best-fit PRS vs. PRS at another P-value threshold"</span><span class="kw">)</span> <span class="ex">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The two scores are positively correlated (r ≈ 0.46) but far from identical: the best-fit score adds many SNPs with weaker evidence, so individuals change rank depending on the threshold. Cases tend to have slightly higher scores than controls, but the two groups overlap heavily. This is consistent with the best-fit PRS explaining only ~5% of the variance: it shifts the average risk of a group, but it cannot reliably classify individuals.</p>
+</div>
+</div>
+</div>
+<hr>
 
 
 

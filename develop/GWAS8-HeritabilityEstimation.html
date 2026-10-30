@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.19">
+<meta name="generator" content="quarto-1.10.20">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0ae969d3293726db143f6e9eb89af930.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-17888a1159294d3eb470f19f6f52f5a5.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-535daae0fd2f4c54181dbe1a82f9e791.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -734,77 +734,76 @@ window.Quarto = {
 <p>Now let’s compute the GRM and run REML under both the <strong>GCTA model</strong> (<code>--power -1</code>, no LD weights) and the <strong>LDAK-Thin model</strong> (<code>--thin</code> with <span class="math inline">\(r^2 &gt; 0.98\)</span>, <code>--power -0.25</code>).</p>
 <p>Key <code>LDAK</code> flags used below: - <code>--thin &lt;prefix&gt;</code>: Prunes out near-duplicate SNPs (<span class="math inline">\(r^2 &gt; 0.98\)</span> within 100 kb windows) and writes the retained SNP list to <code>&lt;prefix&gt;.in</code>. - <code>--calc-kins-direct &lt;prefix&gt;</code>: Directly computes the <span class="math inline">\(N \times N\)</span> Genetic Relatedness Matrix (GRM) from the PLINK <code>--bfile</code>. - <code>--power &lt;alpha&gt;</code>: Sets the MAF scaling parameter <span class="math inline">\(\alpha\)</span> (<code>-1</code> for the GCTA model; <code>-0.25</code> for the human default LDAK model). - <code>--weights &lt;file&gt;</code> / <code>--ignore-weights YES</code>: Tells <code>LDAK</code> whether to weight SNPs by LD thinning or give all SNPs weight 1. - <code>--reml &lt;prefix&gt;</code>: Runs Restricted Maximum Likelihood on <code>--grm</code>, <code>--pheno</code>, and <code>--covar</code> to estimate SNP heritability.</p>
 <div id="80000001-0000-4000-8000-000000000007" class="cell" data-tags="[]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. GCTA Model (power = -1, uniform expected heritability per SNP)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS8/kins_gcta <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--ignore-weights</span> YES <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-1</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS8/reml_gcta <span class="dt">\</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">--grm</span> Results/GWAS8/kins_gcta <span class="dt">\</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">--pheno</span> Results/GWAS8/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">--covar</span> Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. GCTA Model (power = -1, uniform expected heritability per SNP)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS8/kins_gcta <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--ignore-weights</span> YES <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS8/reml_gcta <span class="dt">\</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">--grm</span> Results/GWAS8/kins_gcta <span class="dt">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">--pheno</span> Results/GWAS8/EUR.pheno <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">--covar</span> Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="80000001-0000-4000-8000-000000000008" class="cell" data-tags="[]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. LDAK-Thin Model (thin duplicate SNPs with r^2 &gt; 0.98, then compute GRM with power = -0.25)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--thin</span> Results/GWAS8/thin <span class="dt">\</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-prune</span> 0.98 <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-kb</span> 100</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, 1}'</span> Results/GWAS8/thin.in <span class="op">&gt;</span> Results/GWAS8/weights.thin</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS8/kins_ldak <span class="dt">\</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">--weights</span> Results/GWAS8/weights.thin <span class="dt">\</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-0.25</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS8/reml_ldak <span class="dt">\</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">--grm</span> Results/GWAS8/kins_ldak <span class="dt">\</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">--pheno</span> Results/GWAS8/EUR.pheno <span class="dt">\</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">--covar</span> Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. LDAK-Thin Model (thin duplicate SNPs with r^2 &gt; 0.98, then compute GRM with power = -0.25)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--thin</span> Results/GWAS8/thin <span class="dt">\</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-prune</span> 0.98 <span class="dt">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-kb</span> 100</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'{print $1, 1}'</span> Results/GWAS8/thin.in <span class="op">&gt;</span> Results/GWAS8/weights.thin</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-kins-direct</span> Results/GWAS8/kins_ldak <span class="dt">\</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">--weights</span> Results/GWAS8/weights.thin <span class="dt">\</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-0.25</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--reml</span> Results/GWAS8/reml_ldak <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">--grm</span> Results/GWAS8/kins_ldak <span class="dt">\</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>     <span class="at">--pheno</span> Results/GWAS8/EUR.pheno <span class="dt">\</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">--covar</span> Results/GWAS8/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="summary-statistics-heritability-estimation-ldak---sum-hers" class="level1">
 <h1>Summary-Statistics Heritability Estimation (<code>ldak --sum-hers</code>)</h1>
-<p>When our individual-level sample size is small (<span class="math inline">\(N \approx 500\)</span> in <code>Data/EUR.QC</code>), REML heritability estimates have large standard errors (<span class="math inline">\(\text{SD}(\hat{h}^2) \approx \frac{316}{N}\)</span>). However, if we have summary statistics from a large GWAS meta-analysis—such as <code>Data/Height.QC.gz</code> (<span class="math inline">\(N = 253,288\)</span>)—we can estimate <span class="math inline">\(h^2_{\text{SNP}}\)</span> accurately using <strong>SumHer</strong> (<code>ldak --sum-hers</code>).</p>
+<p>When our individual-level sample size is small (<span class="math inline">\(N \approx 500\)</span> in <code>Data/EUR.QC</code>), REML heritability estimates have large standard errors (<span class="math inline">\(\text{SD}(\hat{h}^2) \approx \frac{316}{N}\)</span>). However, if we have summary statistics from a large GWAS—such as <code>Data/Height.QC.gz</code> (<span class="math inline">\(N = 388,028\)</span>)—we can estimate <span class="math inline">\(h^2_{\text{SNP}}\)</span> accurately using <strong>SumHer</strong> (<code>ldak --sum-hers</code>).</p>
 <p>Under a polygenic model, a SNP’s expected marginal GWAS <span class="math inline">\(\chi^2\)</span> test statistic is linearly related to the total heritability it tags through LD:</p>
 <p><span class="math display">\[\mathbb{E}[\chi_j^2] \approx 1 + N \sum_{k} r_{jk}^2 \mathbb{E}[h_k^2]\]</span></p>
-<p>We proceed in three steps: 1. <strong>Format the base GWAS summary statistics (<code>Height.summaries</code>)</strong>: Just like in <code>GWAS7</code>, we keep well-imputed common variants (<code>MAF &gt;= 0.01</code> and <code>INFO &gt;= 0.8</code>) and output the 6 columns required by <code>LDAK</code>: <code>Predictor</code> (SNP ID), <code>A1</code> (effect allele), <code>A2</code> (other allele), <code>Direction</code> (<code>+1</code> or <code>-1</code>), <code>P</code> (<span class="math inline">\(p\)</span>-value), and <code>n</code> (sample size). <em>(You do not need to memorize the <code>awk</code> formatting snippet below—it simply reformats the columns of <code>Data/Height.QC.gz</code>.)</em> 2. <strong>Compute the LD tagging file (<code>ldak --calc-tagging</code>)</strong>: Calculates how much heritability each SNP tags across a <code>1000 kb</code> window in our European reference panel (<code>Data/EUR.QC</code>), and saves the heritability matrix (<code>--save-matrix YES</code>). 3. <strong>Estimate heritability (<code>ldak --sum-hers</code>)</strong>: Regresses the GWAS summary statistics (<code>--summary</code>) on the LD tagging file (<code>--tagfile</code>) to estimate total SNP heritability (<code>sumher_ldak.hers</code>) and each individual SNP’s expected heritability (<code>sumher_ldak.ind.hers</code>).</p>
+<p>We proceed in three steps: 1. <strong>Format the base GWAS summary statistics (<code>Height.summaries</code>)</strong>: Just like in <code>GWAS7</code>, we keep well-imputed common variants (<code>MAF &gt;= 0.01</code> and <code>INFO &gt;= 0.8</code>) and output the 5 columns required by <code>LDAK</code>: <code>Predictor</code> (SNP ID), <code>A1</code> (effect allele), <code>A2</code> (other allele), <code>n</code> (sample size), and <code>Z</code> (the <span class="math inline">\(Z\)</span>-statistic, <code>BETA / SE</code>). <em>(You do not need to memorize the <code>awk</code> formatting snippet below—it simply reformats the columns of <code>Data/Height.QC.gz</code>.)</em> 2. <strong>Compute the LD tagging file (<code>ldak --calc-tagging</code>)</strong>: Calculates how much heritability each SNP tags across a <code>1000 kb</code> window in our European reference panel (<code>Data/EUR.QC</code>), and saves the heritability matrix (<code>tag_ldak.matrix</code>). 3. <strong>Estimate heritability (<code>ldak --sum-hers</code>)</strong>: Regresses the GWAS summary statistics (<code>--summary</code>) on the LD tagging file (<code>--tagfile</code>) to estimate total SNP heritability (<code>sumher_ldak.hers</code>) and each individual SNP’s expected heritability (<code>sumher_ldak.ind.hers</code>).</p>
 <div id="80000001-0000-4000-8000-000000000010" class="cell" data-tags="[]">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Format Data/Height.QC.gz into LDAK summary statistics format (Predictor A1 A2 Direction P n)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-dc</span> Data/Height.QC.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="st">NR==1 {</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=NF; i++) col[$i]=i</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    print "Predictor A1 A2 Direction P n"</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">$col["MAF"] &gt;= 0.01 &amp;&amp; $col["INFO"] &gt;= 0.8 &amp;&amp; !seen[$col["SNP"]]++ {</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">    eff = ("OR" in col) ? log($col["OR"]) : $col["BETA"]</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">    dir = (eff &gt;= 0) ? 1 : -1</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">    p   = $col["P"]</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">    n   = ("N" in col) ? $col["N"] : 253288</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">    if (p &gt; 0 &amp;&amp; p &lt;= 1) print $col["SNP"], $col["A1"], $col["A2"], dir, p, n</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="op">&gt;</span> Results/GWAS8/Height.summaries</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Format Data/Height.QC.gz into LDAK summary statistics format (Predictor A1 A2 n Z)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> <span class="at">-dc</span> Data/Height.QC.gz <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">NR==1 {</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    for (i=1; i&lt;=NF; i++) col[$i]=i</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    print "Predictor A1 A2 n Z"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">    next</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">$col["MAF"] &gt;= 0.01 &amp;&amp; $col["INFO"] &gt;= 0.8 &amp;&amp; $col["SE"] &gt; 0 &amp;&amp; !seen[$col["SNP"]]++ {</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">    n = ("N" in col) ? $col["N"] : 388028</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">    print $col["SNP"], $col["A1"], $col["A2"], n, $col["BETA"] / $col["SE"]</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span> <span class="op">&gt;</span> Results/GWAS8/Height.summaries</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS8/Height.summaries</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS8/Height.summaries</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate tagging file and heritability matrix under the LDAK-Thin model (power = -0.25)</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-tagging</span> Results/GWAS8/tag_ldak <span class="dt">\</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">--weights</span> Results/GWAS8/weights.thin <span class="dt">\</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-kb</span> 1000 <span class="dt">\</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">--save-matrix</span> YES</span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Estimate SNP heritability from summary statistics</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--sum-hers</span> Results/GWAS8/sumher_ldak <span class="dt">\</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">--summary</span> Results/GWAS8/Height.summaries <span class="dt">\</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">--tagfile</span> Results/GWAS8/tag_ldak.tagging <span class="dt">\</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>     <span class="at">--matrix</span> Results/GWAS8/tag_ldak.matrix <span class="dt">\</span></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>     <span class="at">--check-sums</span> NO</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Calculate tagging file and heritability matrix under the LDAK-Thin model (power = -0.25)</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--calc-tagging</span> Results/GWAS8/tag_ldak <span class="dt">\</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">--weights</span> Results/GWAS8/weights.thin <span class="dt">\</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">--window-kb</span> 1000</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Estimate SNP heritability from summary statistics</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="at">--sum-hers</span> Results/GWAS8/sumher_ldak <span class="dt">\</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">--summary</span> Results/GWAS8/Height.summaries <span class="dt">\</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>     <span class="at">--tagfile</span> Results/GWAS8/tag_ldak.tagging <span class="dt">\</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">--matrix</span> Results/GWAS8/tag_ldak.matrix <span class="dt">\</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">--check-sums</span> NO</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Let’s inspect the heritability estimates from all three analyses. When reading <code>.reml</code> and <code>.hers</code> files, focus on: - <strong><code>Her_All</code> (<code>Her</code> and <code>SD</code>)</strong>: The estimated total SNP heritability (<span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span>) and its standard error (<code>SD</code>). - <strong><code>Scaling</code> (in <code>.hers</code>)</strong>: Measures the intercept of the summary-statistic regression (<code>1.0</code> indicates no inflation from population stratification or cryptic relatedness).</p>
+<p>Let’s inspect the heritability estimates from all three analyses. When reading <code>.reml</code> and <code>.hers</code> files, focus on: - <strong><code>Her_All</code> (<code>Heritability</code> and <code>SE</code>)</strong>: The estimated total SNP heritability (<span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span>) and its standard error (<code>SE</code>). - <strong><code>LRT_P</code> (in <code>.reml</code>)</strong>: The <span class="math inline">\(p\)</span>-value of the likelihood-ratio test of <span class="math inline">\(h^2_{\text{SNP}} = 0\)</span>. - <strong>Estimates above 1 with small samples</strong>: With <span class="math inline">\(N \approx 500\)</span>, the REML standard error is about <span class="math inline">\(0.8\)</span>, so the point estimate can land outside the <span class="math inline">\([0, 1]\)</span> range (you may see <code>Her_All</code> &gt; 1 for the LDAK-Thin model). Such an estimate is not meaningful on its own: its confidence interval covers the whole <span class="math inline">\(0\)</span>–<span class="math inline">\(1\)</span> range and <code>LRT_P</code> is not significant. This is exactly why we turn to summary statistics with SumHer.</p>
 <div id="80000001-0000-4000-8000-000000000012" class="cell" data-tags="[]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== 1. Individual-level REML: GCTA Model (power = -1) ==="</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS8/reml_gcta.reml</span>
@@ -814,7 +813,7 @@ window.Quarto = {
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS8/reml_ldak.reml</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">""</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== 3. Summary-statistics SumHer: LDAK-Thin Model (N = 253,288) ==="</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"=== 3. Summary-statistics SumHer: LDAK-Thin Model (N = 388,028) ==="</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> Results/GWAS8/sumher_ldak.hers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="visualizing-per-snp-heritability-in-r" class="level3">
@@ -855,7 +854,7 @@ window.Quarto = {
 <p>Examine the output of <code>reml_gcta.reml</code>, <code>reml_ldak.reml</code>, and <code>sumher_ldak.hers</code> above:</p>
 <ul>
 <li><strong>Q1. How many SNPs in <code>ind_hers</code> have <code>Heritability &gt; 0</code> (retained after <code>--thin</code>) compared to the total number of SNPs (<code>nrow(ind_hers)</code>)?</strong></li>
-<li><strong>Q2. Compare the standard error (<code>SD</code>) of <code>Her_All</code> in the individual-level REML analyses (<code>reml_ldak.reml</code>, where <span class="math inline">\(N \approx 500\)</span>) against the summary-statistics SumHer analysis (<code>sumher_ldak.hers</code>, where <span class="math inline">\(N = 253,288\)</span>).</strong> Why is the SumHer standard error so much smaller?</li>
+<li><strong>Q2. Compare the standard error (<code>SE</code>) of <code>Her_All</code> in the individual-level REML analyses (<code>reml_ldak.reml</code>, where <span class="math inline">\(N \approx 500\)</span>) against the summary-statistics SumHer analysis (<code>sumher_ldak.hers</code>, where <span class="math inline">\(N = 388,028\)</span>).</strong> Why is the SumHer standard error so much smaller?</li>
 <li><strong>Q3. Plot or compute the relationship between LD tagging (<code>Results/GWAS8/tag_ldak.tagging</code>) and GWAS <span class="math inline">\(\chi^2\)</span> test statistics (<code>Results/GWAS8/Height.summaries</code>) in <code>R</code>:</strong> Why does a positive slope between LD tagging and <span class="math inline">\(\chi^2\)</span> indicate true polygenic heritability rather than population stratification?</li>
 </ul>
 <p>Hint: Use <code>sum(ind_hers$Heritability &gt; 0)</code> and <code>nrow(ind_hers)</code> in <code>R</code>, and inspect <code>Results/GWAS8/reml_ldak.reml</code> vs.&nbsp;<code>Results/GWAS8/sumher_ldak.hers</code>.</p>
@@ -876,14 +875,14 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In <code>R</code>, we can compare the retained SNPs (<code>Heritability &gt; 0</code>), inspect the <code>Her_All</code> estimates and standard errors (<code>SD</code>), and compute the correlation between LD tagging and marginal GWAS <span class="math inline">\(\chi^2\)</span> statistics:</p>
+<p>In <code>R</code>, we can compare the retained SNPs (<code>Heritability &gt; 0</code>), inspect the <code>Her_All</code> estimates and standard errors (<code>SE</code>), and compute the correlation between LD tagging and marginal GWAS <span class="math inline">\(\chi^2\)</span> statistics:</p>
 <div id="80000001-0000-4000-8000-000000000018" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1. Compare retained SNPs (Heritability &gt; 0) vs. total SNPs</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Total SNPs in EUR.QC:    "</span><span class="ex">,</span> nrow<span class="er">(</span><span class="ex">ind_hers</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Retained after thinning: "</span><span class="ex">,</span> sum<span class="er">(</span><span class="ex">ind_hers</span><span class="va">$Heritability</span> <span class="op">&gt;</span> 0<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Pruned duplicate SNPs:   "</span><span class="ex">,</span> sum<span class="er">(</span><span class="ex">ind_hers</span><span class="va">$Heritability</span> == 0<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n\n"</span><span class="kw">)</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2. Compare Her_All and SD across individual-level REML (N ~ 500) and SumHer (N = 253,288)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Q2. Compare Her_All and SE across individual-level REML (N ~ 500) and SumHer (N = 388,028)</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">reml_lines</span>   <span class="op">&lt;</span>- grep<span class="er">(</span><span class="st">"^Component|^Her_"</span><span class="ex">,</span> readLines<span class="er">(</span><span class="st">"Results/GWAS8/reml_ldak.reml"</span><span class="kw">)</span><span class="ex">,</span> value = TRUE<span class="kw">)</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">sumher_lines</span> <span class="op">&lt;</span>- grep<span class="er">(</span><span class="st">"^Component|^Her_"</span><span class="ex">,</span> readLines<span class="er">(</span><span class="st">"Results/GWAS8/sumher_ldak.hers"</span><span class="kw">)</span><span class="ex">,</span> value = TRUE<span class="kw">)</span></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">reml_ldak</span>    <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="ex">text</span> = reml_lines, header = TRUE<span class="kw">)</span></span>
@@ -896,9 +895,9 @@ window.Quarto = {
 <span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Q3. Inspect and plot the relationship between LD tagging and GWAS chi-square test statistics</span></span>
 <span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="ex">tagging</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/tag_ldak.tagging"</span><span class="ex">,</span> header = TRUE, fill = TRUE<span class="kw">)</span></span>
 <span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="ex">sumstat</span> <span class="op">&lt;</span>- read.table<span class="er">(</span><span class="st">"Results/GWAS8/Height.summaries"</span><span class="ex">,</span> header = TRUE<span class="kw">)</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span>   <span class="op">&lt;</span>- merge<span class="er">(</span><span class="va">tagging</span><span class="op">[</span>, c(<span class="st">"Predictor"</span>, <span class="st">"Tagging"</span>)<span class="op">]</span><span class="ex">,</span> sumstat[, c<span class="er">(</span><span class="st">"Predictor"</span><span class="ex">,</span> <span class="st">"P"</span><span class="kw">)</span><span class="ex">],</span> by = <span class="st">"Predictor"</span><span class="kw">)</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span>   <span class="op">&lt;</span>- merge<span class="er">(</span><span class="va">tagging</span><span class="op">[</span>, c(<span class="st">"Predictor"</span>, <span class="st">"Tagging"</span>)<span class="op">]</span><span class="ex">,</span> sumstat[, c<span class="er">(</span><span class="st">"Predictor"</span><span class="ex">,</span> <span class="st">"Z"</span><span class="kw">)</span><span class="ex">],</span> by = <span class="st">"Predictor"</span><span class="kw">)</span></span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span><span class="va">$Tagging</span> <span class="op">&lt;</span>- as.numeric<span class="er">(</span><span class="ex">m_tag</span><span class="va">$Tagging</span><span class="kw">)</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span><span class="va">$Chisq</span>   <span class="op">&lt;</span>- qchisq<span class="er">(</span><span class="ex">m_tag</span><span class="va">$P</span><span class="ex">,</span> df = 1, lower.tail = FALSE<span class="kw">)</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="ex">m_tag</span><span class="va">$Chisq</span>   <span class="op">&lt;</span>- m_tag<span class="va">$Z</span>^2</span>
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"\nCorrelation between LD Tagging and GWAS Chi-square:"</span><span class="ex">,</span></span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="ex">round</span><span class="er">(</span><span class="ex">cor</span><span class="er">(</span><span class="ex">m_tag</span><span class="va">$Tagging</span><span class="ex">,</span> m_tag<span class="va">$Chisq</span>, use = <span class="st">"complete.obs"</span><span class="kw">)</span><span class="ex">,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
@@ -919,7 +918,7 @@ window.Quarto = {
 </div>
 <ul>
 <li><strong>Q1</strong>: Comparing <code>nrow(ind_hers)</code> and <code>sum(ind_hers$Heritability &gt; 0)</code> shows how many redundant SNPs (<span class="math inline">\(r^2 &gt; 0.98\)</span> within 100 kb) were pruned (<code>Heritability = 0</code> in <code>sumher_ldak.ind.hers</code>).</li>
-<li><strong>Q2</strong>: In <code>Data/EUR.QC</code> (<span class="math inline">\(N \approx 500\)</span>), the individual-level REML standard error is large (<span class="math inline">\(\text{SD}(\hat{h}^2) \approx \frac{316}{N} \approx 0.6\)</span>), because <span class="math inline">\(500\)</span> unrelated individuals provide limited information on subtle genome-wide allele sharing. By contrast, <code>sumher_ldak.hers</code> uses summary statistics from <span class="math inline">\(N = 253,288\)</span> individuals, yielding a much smaller standard error.</li>
+<li><strong>Q2</strong>: In <code>Data/EUR.QC</code> (<span class="math inline">\(N \approx 500\)</span>), the individual-level REML standard error is large (<span class="math inline">\(\text{SD}(\hat{h}^2) \approx \frac{316}{N} \approx 0.6\)</span>), because <span class="math inline">\(500\)</span> unrelated individuals provide limited information on subtle genome-wide allele sharing. By contrast, <code>sumher_ldak.hers</code> uses summary statistics from <span class="math inline">\(N = 388,028\)</span> individuals, yielding a much smaller standard error. With an SE this large, the REML point estimate can even exceed 1 (as for the LDAK-Thin model here): it is compatible with any value between 0 and 1, whereas SumHer pins <span class="math inline">\(h^2_{\text{SNP}}\)</span> down to within about <span class="math inline">\(\pm 0.005\)</span>.</li>
 <li><strong>Q3</strong>: Under a polygenic trait, SNPs that tag more heritability through LD have systematically higher expected <span class="math inline">\(\chi^2\)</span> test statistics (the <strong>slope</strong> against the tagging values estimates <span class="math inline">\(h^2_{\text{SNP}}\)</span>). Pure confounding or cryptic relatedness inflates <span class="math inline">\(\chi^2\)</span> statistics uniformly across all SNPs regardless of LD tagging (shifting the <strong>intercept</strong> away from <span class="math inline">\(1\)</span>).</li>
 </ul>
 </div>
