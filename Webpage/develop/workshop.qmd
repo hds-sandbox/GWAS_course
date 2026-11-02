@@ -1,21 +1,40 @@
 ---
 format: html
+css: ../css/agenda.css
+filters:
+  - ../css/agenda.lua
 ---
 
 :::{.hero-banner}
-# Welcome to GWAS with the Genomics Sandbox 
+# Welcome to GWAS with the Genomics Sandbox
 :::
 
 :::{.callout-warning title="Required preparation"}
-You are expected to make sure you can sign in to UCloud, SDU's HPC platform on which we will be running this course. All data, assignments, and tools will be provided on UCloud. Please use your university ID to sign in (instructions below). If you run into problems, please write us (respond to the email that got you to this page).
+You are expected to make sure you can sign in to the computing platform on which we will be running this course. We are doing many of the exercises on GenomeDK, so please create your account before the workshop (instructions below). If you run into problems, please write us (respond to the email that got you to this page).
 
 :::
 
 ## Access Sandbox resources
 
+::: {.panel-tabset}
+
+### GenomeDK
+
+We are doing many of the exercises on our computing cluster, [GenomeDK](https://genome.au.dk). We need your account name, so please send it now if you already have one, or after you have followed the steps below:
+
+1. Go to [https://console.genome.au.dk/user-requests/create/](https://console.genome.au.dk/user-requests/create/) and choose the **Open** account type.
+2. Fill out the form that appears. You can only use a university/company email address, not a private one (e.g. Gmail or ProtonMail). As the reason, simply state *"participation to course using genomedk"*. Choose a username and password that you **MUST NOT FORGET**.
+3. Wait until you receive a confirmation email that your account has been approved.
+4. Set up two-factor authentication. Instructions are here: [https://genome.au.dk/docs/getting-started/#2fa](https://genome.au.dk/docs/getting-started/#2fa). You only need to follow the steps up to the paragraph called *"Connecting via the GenomeDK desktop"*.
+5. When you are done, write your username below this announcement as a comment.
+
+If you have problems or questions, or need any help, just contact me at [samuele@birc.au.dk](mailto:samuele@birc.au.dk).
+
+### UCloud
+
 Our first choice is to provide all the **training materials, tutorials, and tools as interactive apps on UCloud**, the supercomputer located at the University of Southern Denmark. Anyone using these resources needs the following:
 
- 1. a Danish university ID so you can sign on to UCloud via WAYF^[Other institutions (e.g. hospitals, libraries, ...) can log on through WAYF. See all institutions [here](https://www.wayf.dk/da/institutioner-i-wayf).]. 
+ 1. a Danish university ID so you can sign on to UCloud via WAYF^[Other institutions (e.g. hospitals, libraries, ...) can log on through WAYF. See all institutions [here](https://www.wayf.dk/da/institutioner-i-wayf).].
 
 &nbsp;
 
@@ -43,47 +62,55 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 &nbsp;
 
-4. Download the slides
+:::
 
- <p align="center">
+## Course material
+
+1. Course slides
+
+<div style="display: flex; justify-content: center; padding: 10px 20px">
   <a href="./GwasSandbox_slides.zip" download="GwasSandbox_slides.zip">
-    <button class="btn small-button">Download slides</button>
+    <button class="btn-action">Download course slides</button>
   </a>
-</p>
+</div>
 
-5. EXTRA EXERCISE - GWAS4
+&nbsp;
 
-You can download an extra notebook and data with population structure and the effect of LD on that. Upload the files through JupyterLab, and copy the data into the data folder and the notebook into the notebooks folder: 
+<!--
+2. EXTRA EXERCISE - GWAS4
 
- <p align="center">
-   <a href="./hapmap.zip" download="hapmap.zip">
-    <button class="btn small-button">Download data</button>
+You can download an extra notebook and data with population structure and the effect of LD on that. Upload the files through JupyterLab, and copy the data into the data folder and the notebook into the notebooks folder:
+
+<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 10px 20px">
+  <a href="./hapmap.zip" download="hapmap.zip">
+    <button class="btn-action">Download data</button>
   </a>
-</p>
-
-<p align="center">
-  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS4_extra_population_structure.ipynb" download="GWAS4_extra_population_structure.ipynb">
-    <button class="btn small-button">Download notebook</button>
+  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Notebooks/Extra_GWAS4.ipynb" download="Extra_GWAS4.ipynb">
+    <button class="btn-action">Download notebook</button>
   </a>
-</p>
+</div>
 
-6. EXTRA EXERCISE - LDAK
+&nbsp;
+
+3. EXTRA EXERCISE - LDAK
 
 A notebook with an analysis using LDAK for preprocessing and some of the implemented association testing and heritability estimates
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Webpage/develop/GWAS8-LDAK-Extra.ipynb" download="GWAS8-LDAK-Extra.ipynb">
-    <button class="btn small-button">Download notebook</button>
+<div style="display: flex; justify-content: center; padding: 10px 20px">
+  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Notebooks/Extra_GWAS8.ipynb" download="Extra_GWAS8.ipynb">
+    <button class="btn-action">Download notebook</button>
   </a>
-</p>
+</div>
 
+&nbsp;
+-->
 
-7. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
+2. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
  &nbsp;
 
 <p align="center">
-  <a href="https://forms.office.com/e/rLyWSiS46k" 
+  <a href="https://forms.office.com/e/rLyWSiS46k"
   style="background-color: #4266A1; color: #FFFFFF; padding: 30px 20px; text-decoration: none; border-radius: 5px;">
     Evaluation survey link
   </a>
@@ -91,6 +118,93 @@ A notebook with an analysis using LDAK for preprocessing and some of the impleme
 
 &nbsp;
 
+# Workshop Agenda
+
+::: {.panel-tabset}
+
+## Day 1
+
+::: {.agenda}
+| Time  | Session                                                                 | Type       |
+|-------|-------------------------------------------------------------------------|------------|
+| 8:45  | Coffee break                                                            | break      |
+| 9:00  | Intro to course and UCloud                                              | lecture    |
+| 9:45  | Introduction to GWAS                                                    | lecture    |
+| 10:15 | Coffee break                                                            | break      |
+| 10:30 | Data collection                                                         | lecture    |
+| 11:10 | Data collection - GWAS2 notebook                                        | exercise   |
+| 12:00 | Lunch                                                                   | break      |
+| 13:00 | Quality control: Hardy-Weinberg equilibrium, population structure      | lecture    |
+| 13:30 | Quality control - GWAS3 notebook (without the bonus mice exercise)      | exercise   |
+| 14:15 | Coffee break                                                            | break      |
+| 14:30 | Quality control - GWAS3 notebook                                        | exercise   |
+| 15:00 | Quality control: relatedness, LD, kinship                               | lecture    |
+| 15:20 | GWAS4 notebook                                                          | exercise   |
+| 16:00 | Wrap up and end of day!                                                 | discussion |
+:::
+
+## Day 2
+
+::: {.agenda}
+| Time  | Session                                                 | Type       |
+|-------|---------------------------------------------------------|------------|
+| 8:45  | Coffee break                                            | break      |
+| 9:00  | Recap + getting on UCloud                               | lecture    |
+| 9:10  | Relatedness - GWAS4 notebook                            | exercise   |
+| 10:00 | Coffee break                                            | break      |
+| 10:15 | Quality control: population structure                  | lecture    |
+| 10:30 | Population structure (PCA) - GWAS4 notebook             | exercise   |
+| 12:00 | Lunch                                                   | break      |
+| 13:00 | Association tests I: linear models                      | lecture    |
+| 13:45 | Linear models - GWAS5 notebook                          | exercise   |
+| 14:15 | Coffee break                                            | break      |
+| 14:30 | Recap + more on association tests and biases            | lecture    |
+| 14:50 | Population stratification - GWAS5b notebook             | exercise   |
+| 15:05 | Bonus exercises                                         | exercise   |
+| 16:00 | Wrap up and end of day!                                 | discussion |
+:::
+
+## Day 3
+
+::: {.agenda}
+| Time  | Session                                                 | Type       |
+|-------|---------------------------------------------------------|------------|
+| 8:45  | Coffee break                                            | break      |
+| 9:00  | Polygenic scores I: summary statistics                  | lecture    |
+| 10:00 | Coffee break                                            | break      |
+| 10:15 | Computing PRS I - GWAS6 notebook                        | exercise   |
+| 10:45 | Polygenic scores II: polygenic adaptation               | lecture    |
+| 11:00 | Computing PRS II - GWAS7 notebook                       | exercise   |
+| 12:00 | Lunch                                                   | break      |
+| 13:00 | Heritability estimation                                 | lecture    |
+| 13:45 | Estimating heritability - GWAS8 notebook                | exercise   |
+| 14:15 | Coffee break                                            | break      |
+| 14:30 | Association tests II: linear mixed models               | lecture    |
+| 14:50 | Linear mixed models - GWAS9 notebook                    | exercise   |
+| 15:30 | Recap on association tests                              | lecture    |
+| 16:00 | Wrap up and end of day!                                 | discussion |
+:::
+
+## Day 4
+
+::: {.agenda}
+| Time  | Session                                                       | Type       |
+|-------|---------------------------------------------------------------|------------|
+| 8:45  | Coffee break                                                  | break      |
+| 9:00  | Applications of GWAS: fine-mapping                            | lecture    |
+| 10:00 | Coffee break                                                  | break      |
+| 10:15 | Fine-mapping - GWAS10 notebook                                | exercise   |
+| 10:50 | Polygenic scores III: Bayesian approaches and meta-analysis   | lecture    |
+| 11:35 | Computing PRS III - GWAS11 notebook                           | exercise   |
+| 12:00 | Lunch                                                         | break      |
+| 13:00 | Recap of the GWAS universe                                    | lecture    |
+| 13:50 | Coffee break                                                  | break      |
+| 14:05 | Full workflows (GWAS vs. PGS)                                 | lecture    |
+| 15:00 | Final exercises - work on your data                           | exercise   |
+| 16:00 | Wrap up and end of day!                                       | discussion |
+:::
+
+:::
 
 ## Discussion and feedback
 
@@ -98,59 +212,6 @@ We hope you enjoyed the workshop. If you have broader questions, suggestions, or
 
 &nbsp;
 
-:::{.callout-note  appearance="simple" icon=false} 
-<h4 align=center>Nice meeting you and we hope to see you again!</h4> 
-::: 
-
-
-## Download or copy your data
-
-You can move all your data into your own personal workspace on UCloud, and also download all data and notebooks to your computer.
-
-### Copy data on UCloud
-
-If you transfer the data to your UCloud workspace, you can at any time run the course material with the Genomics Sandbox application and use the folders with your own Notebooks and datasets.
-
-- Go to the left-side toolbar and click on the file browser.
-
-  ![](../img/ucloud_download_instructions/toolbar.png){fig-align="center" width=100px}
-
-- Be sure you are in the **Sandbox_workshop workspace** (green circle). You should be able to see your personal folder whose name starts with **Member Files** (red circle).
-
-  ![](../img/ucloud_download_instructions/personalHome.png){fig-align="center" width=400px}
-
-- Get into your personal folder and find the folder containing all your course material. Right-click on it, and choose **Copy to...**
-
-  ![](../img/ucloud_download_instructions/ucloudCopy.png){fig-align="center" width=400px}
-
-- In the browsing window that opens, choose your own workspace **My workspace** (green circle). You should already be inside your **Home** folder; otherwise, you can find it with the small arrow (red circle). Now click on **Use this folder** (blue circle). The data is copied. 
-
-  ![](../img/ucloud_download_instructions/copyDestination.png){fig-align="center" width=400px}
-
-- Next time, when you launch the genomics sandbox, use `Add Folder` and select the Notebooks and Data folder from your personal workspace.
-
-### Download data from UCloud
-
-To download the data and notebooks, you first need to compress them into a `zip` file. 
-
-- Launch the genomics sandbox with the data and notebooks as added folders.
-
-- When you open the graphical interface, open a new terminal (green circle)
-
-  ![](../img/ucloud_download_instructions/launcher.png){fig-align="center" width=400px}
-
-- Run the following command to go into the `/work` folder, where the material is loaded.
-
-  ```
-  cd /work
-  ```
-
-- Create a compressed version of your folders. It takes some time, so wait for it.
-
-  ```
-  zip -r GWAS.zip Data Notebooks
-  ```
-
-- Right-click on the file `GWAS.zip`, and choose download. It will be transferred to your download folder!
-
-    ![](../img/ucloud_download_instructions/jupyterDownload.png){fig-align="center" width=400px}
+:::{.callout-note  appearance="simple" icon=false}
+<h4 align=center>Nice meeting you and we hope to see you again!</h4>
+:::
