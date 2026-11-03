@@ -171,8 +171,8 @@ A notebook with an analysis using LDAK for preprocessing and some of the impleme
 |-------|---------------------------------------------------------|------------|
 | 8:45  | Coffee break                                            | break      |
 | 9:00  | Polygenic scores I: summary statistics                  | lecture    |
-| 10:00 | Coffee break                                            | break      |
-| 10:15 | Computing PRS I - GWAS6 notebook                        | exercise   |
+| 9:30  | Computing PRS I - GWAS6 notebook                        | exercise   |
+| 10:30 | Coffee break                                            | break      |
 | 10:45 | Polygenic scores II: polygenic adaptation               | lecture    |
 | 11:00 | Computing PRS II - GWAS7 notebook                       | exercise   |
 | 12:00 | Lunch                                                   | break      |
