@@ -612,15 +612,16 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>In <code>GWAS5</code>, we ran standard linear and logistic regression (<code>plink --linear</code> and <code>--logistic</code>), which required removing cryptically related individuals and tested one SNP at a time while treating the polygenic background across the rest of the genome as noise. In this tutorial, we introduce <strong>Linear Mixed Model (LMM)</strong> and <strong>Whole-Genome Regression (WGR)</strong> GWAS methods—focusing on <strong>LDAK-KVIK</strong> (<a href="https://doi.org/10.1038/s41588-024-01986-w">Hof et al., 2024</a>)—which use the heritability models from <code>GWAS8</code> to boost statistical power, retain related individuals, and scale to biobank cohorts.</p>
+<p>In <code>GWAS5</code>, we tested one SNP at a time with linear and logistic regression (<code>plink --linear</code> and <code>--logistic</code>). This required removing related individuals, and it treated the combined effect of all other SNPs as noise. In this notebook, we use a <strong>linear mixed model (LMM)</strong> GWAS, <strong>LDAK-KVIK</strong> (<a href="https://doi.org/10.1038/s41588-024-01986-w">Hof et al., 2024</a>). It first predicts the effect of the rest of the genome, removes it from the phenotype, and then tests each SNP. This gives more power, allows related individuals, and runs fast on biobank-sized data.</p>
+<p>As in <code>GWAS8</code>, we use the simulated cohort <code>Data/SIM.QC</code> (<span class="math inline">\(N = 5,000\)</span> individuals, 50,000 SNPs). Mixed models only gain power when they can predict part of the phenotype from the genome, and that needs thousands of individuals.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
-<li><strong>Understand</strong> the assumptions and statistical differences between standard single-SNP regression (<code>PLINK</code>), classical LMMs (<code>GCTA</code>/<code>GEMMA</code>), and two-step biobank methods (<code>BOLT-LMM</code>, <code>REGENIE</code>, and <code>LDAK-KVIK</code>)</li>
-<li><strong>Explain</strong> how SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>) and Leave-One-Chromosome-Out (<code>LOCO</code>) predictions increase association power while avoiding proximal contamination</li>
-<li><strong>Execute</strong> a two-step mixed-model GWAS using <code>LDAK-KVIK</code> (<code>--kvik-step1</code> and <code>--kvik-step2</code>) for quantitative traits</li>
-<li><strong>Apply</strong> <code>LDAK-KVIK</code> to case-control traits (<code>--binary YES</code> in Step 1) and <strong>explain</strong> why Saddlepoint Approximation (SPA) matters for unbalanced case-control data</li>
-<li><strong>Compare</strong> association power and calibration between <code>PLINK</code> and <code>LDAK-KVIK</code> in <code>R</code></li>
+<li><strong>Explain</strong> how standard single-SNP regression (<code>PLINK</code>) differs from mixed-model methods (<code>GCTA</code>, <code>BOLT-LMM</code>, <code>REGENIE</code>, <code>LDAK-KVIK</code>)</li>
+<li><strong>Explain</strong> how a Leave-One-Chromosome-Out (<code>LOCO</code>) prediction increases power without removing the signal of the tested SNP</li>
+<li><strong>Run</strong> a two-step mixed-model GWAS with <code>LDAK-KVIK</code> (<code>--kvik-step1</code> and <code>--kvik-step2</code>) for a quantitative trait</li>
+<li><strong>Run</strong> <code>LDAK-KVIK</code> on a case-control trait (<code>--binary YES</code>) and <strong>explain</strong> why the Saddlepoint Approximation (SPA) matters when cases are rare</li>
+<li><strong>Compare</strong> the power and calibration of <code>PLINK</code> and <code>LDAK-KVIK</code> in <code>R</code></li>
 </ul>
 </section>
 <section id="how-to-make-this-notebook-work" class="level2">
@@ -644,30 +645,34 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <section id="intuition-first-how-does-a-mixed-model-boost-gwas-power" class="level3">
 <h3 class="anchored" data-anchor-id="intuition-first-how-does-a-mixed-model-boost-gwas-power">Intuition First: How does a Mixed Model boost GWAS power?</h3>
-<p>Imagine you are trying to hear a <strong>solo singer</strong> (<span class="math inline">\(X_j \beta_j\)</span>, the effect of a single SNP on <strong>Chromosome 1</strong>) over a <strong>background choir</strong> (<span class="math inline">\(g\)</span>, the combined polygenic effect of <strong>Chromosomes 2–22</strong>). In standard single-SNP regression (<code>plink --linear</code> in <code>GWAS5</code>), the genetic effects of thousands of causal variants on <strong>Chromosomes 2–22</strong> are left unmodeled and thrown into the random error term <span class="math inline">\(\epsilon\)</span>. That background choir acts like loud room noise, making it harder to hear the solo singer on Chromosome 1.</p>
-<p>Modern <strong>Linear Mixed Models (LMMs)</strong> and <strong>Whole-Genome Regression</strong> methods (like <code>LDAK-KVIK</code>) solve this in two intuitive steps: 1. <strong>Step 1 (Subtract the background choir using Chromosomes 2–22)</strong>: Using the trait’s SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span> from <code>GWAS8</code>), the model jointly fits all SNPs on Chromosomes 2–22 to predict each person’s background genetic value (<span class="math inline">\(\hat{g}^{(-1)}\)</span>, called a <strong>Leave-One-Chromosome-Out</strong> or <strong><code>LOCO</code></strong> prediction) and subtracts it from the phenotype. 2. <strong>Step 2 (Test each solo singer SNP on Chromosome 1 against the quieted phenotype)</strong>: Because the polygenic background noise from the rest of the genome has been removed, the residual variance is smaller and true causal variants on Chromosome 1 stand out with much stronger test statistics! Moreover, because Step 1 naturally accounts for shared family genetics (<code>GRM</code> <span class="math inline">\(K\)</span>), <strong>we no longer need to discard related individuals</strong> as we did in <code>GWAS3</code>.</p>
+<p>Imagine trying to hear a <strong>solo singer</strong> (one SNP on chromosome 1) while a <strong>background choir</strong> sings (the combined effect of all causal SNPs on chromosomes 2–22). Standard regression (<code>plink --linear</code>) treats the choir as noise, which makes the singer hard to hear. A mixed-model GWAS such as <code>LDAK-KVIK</code> works in two steps:</p>
+<ol type="1">
+<li><strong>Step 1 — quiet the choir</strong>: Fit all SNPs on chromosomes 2–22 together to predict each person’s genetic background, <span class="math inline">\(\hat{g}^{(-1)}\)</span>, and remove it from the phenotype. This is called a <strong>Leave-One-Chromosome-Out (<code>LOCO</code>)</strong> prediction.</li>
+<li><strong>Step 2 — listen to the singer</strong>: Test each SNP on chromosome 1 against the “quieter” phenotype. With less background noise, true causal SNPs give larger test statistics.</li>
+</ol>
+<p>The same is done for every chromosome. Because the genetic background is modelled, close relatives can also stay in the analysis instead of being removed as in <code>GWAS3</code>.</p>
 </section>
 <section id="why-move-beyond-standard-single-snp-gwas-plink" class="level3">
 <h3 class="anchored" data-anchor-id="why-move-beyond-standard-single-snp-gwas-plink">Why move beyond standard single-SNP GWAS (<code>PLINK</code>)?</h3>
-<p>In <code>GWAS5</code>, we tested each SNP <span class="math inline">\(j\)</span> individually using ordinary least squares (<code>plink --linear</code>):</p>
+<p>In <code>GWAS5</code>, we tested each SNP <span class="math inline">\(j\)</span> on its own:</p>
 <p><span class="math display">\[y = X_j \beta_j + Z \gamma + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
-<p>where <span class="math inline">\(y\)</span> is the phenotype vector (<span class="math inline">\(N \times 1\)</span>), <span class="math inline">\(X_j\)</span> is the genotype vector for SNP <span class="math inline">\(j\)</span>, and <span class="math inline">\(Z\)</span> is the matrix of fixed covariates (such as sex and top principal components). This classical approach has three major limitations in modern cohorts:</p>
+<p>where <span class="math inline">\(y\)</span> is the phenotype of the <span class="math inline">\(N\)</span> individuals, <span class="math inline">\(X_j\)</span> the genotypes at SNP <span class="math inline">\(j\)</span>, and <span class="math inline">\(Z\)</span> the covariates (e.g., sex and principal components). This has three problems in large modern cohorts:</p>
 <ol type="1">
-<li><strong>Loss of sample size from relatedness filtering</strong>: Because <span class="math inline">\(\epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\)</span> assumes independent residuals, related individuals violate the model and inflate Type I error. In <code>GWAS3</code>, we had to drop related individuals (<span class="math inline">\(\hat{\pi} &gt; 0.125\)</span>). In biobanks like the UK Biobank (~30% with a 3rd-degree or closer relative), discarding relatives throws away massive statistical power.</li>
-<li><strong>Omitted polygenic background reduces power</strong>: For a polygenic trait with heritability <span class="math inline">\(h^2_{\text{SNP}}\)</span>, thousands of causal variants on other chromosomes contribute variance <span class="math inline">\(\sigma_g^2\)</span> to <span class="math inline">\(y\)</span>. Leaving this polygenic signal in the error term <span class="math inline">\(\epsilon\)</span> inflates residual variance from <span class="math inline">\(\sigma_e^2\)</span> to <span class="math inline">\(\sigma_g^2 + \sigma_e^2\)</span>, weakening test statistics.</li>
-<li><strong>Case-control imbalance in binary traits</strong>: Standard logistic regression (<code>plink --logistic</code>) relies on normal theory that breaks down for rare variants when cases are much rarer than controls (e.g., 1:50 case-control ratio), leading to severe false-positive inflation.</li>
+<li><strong>Relatives must be removed</strong>: The model assumes independent residuals, which is not true for relatives, so in <code>GWAS3</code> we removed related individuals (<span class="math inline">\(\hat{\pi} &gt; 0.125\)</span>). In the UK Biobank, about 30% of participants have a third-degree or closer relative in the data, so this throws away a lot of data.</li>
+<li><strong>The genetic background is left in the noise</strong>: For a polygenic trait, the many causal SNPs elsewhere in the genome end up in <span class="math inline">\(\epsilon\)</span>, so the residual variance is larger than it needs to be and test statistics are smaller.</li>
+<li><strong>Rare binary traits</strong>: With far fewer cases than controls (e.g., 1:50), standard logistic regression can give false positives for low-frequency SNPs.</li>
 </ol>
 </section>
-<section id="linear-mixed-models-lmms-and-whole-genome-regression" class="level3">
-<h3 class="anchored" data-anchor-id="linear-mixed-models-lmms-and-whole-genome-regression">Linear Mixed Models (LMMs) and Whole-Genome Regression</h3>
-<p>A <strong>Linear Mixed Model (LMM)</strong> explicitly includes a random polygenic effect <span class="math inline">\(g\)</span> alongside the fixed effect of the tested SNP <span class="math inline">\(X_j\)</span>:</p>
+<section id="linear-mixed-models-lmms" class="level3">
+<h3 class="anchored" data-anchor-id="linear-mixed-models-lmms">Linear Mixed Models (LMMs)</h3>
+<p>An LMM adds a random <strong>polygenic effect</strong> <span class="math inline">\(g\)</span> to the model:</p>
 <p><span class="math display">\[y = X_j \beta_j + Z \gamma + g + \epsilon, \quad g \sim \mathcal{N}(0, \sigma_g^2 K), \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
-<p>Equivalently, we can view <span class="math inline">\(g = \sum_{k \neq j} X_k b_k\)</span> as a <strong>whole-genome regression</strong> model over all other SNPs, where the prior variance of <span class="math inline">\(b_k\)</span> is governed by the <strong>SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span>)</strong> and the <strong>heritability model</strong> (<span class="math inline">\(\mathbb{E}[h_k^2] \propto [2 f_k(1-f_k)]^{1+\alpha} w_k\)</span>) we studied in <code>GWAS8</code>.</p>
-<p>By conditioning on the polygenic background <span class="math inline">\(\hat{g}^{(-c)}\)</span> predicted from all chromosomes except chromosome <span class="math inline">\(c\)</span> (<strong>Leave-One-Chromosome-Out, LOCO</strong>), mixed-model GWAS: - <strong>Increases statistical power</strong>: Residual variance drops from <span class="math inline">\(\text{Var}(y)\)</span> to approximately <span class="math inline">\((1 - h^2_{\text{SNP}})\text{Var}(y)\)</span>, which increases <span class="math inline">\(\chi^2\)</span> test statistics roughly in proportion to <span class="math inline">\(1 / (1 - h^2_{\text{SNP}})\)</span>. - <strong>Avoids proximal contamination</strong>: Excluding the chromosome of the tested SNP when predicting <span class="math inline">\(\hat{g}^{(-c)}\)</span> ensures the polygenic predictor does not absorb the signal of the tested SNP via linkage disequilibrium (LD).</p>
+<p>Here <span class="math inline">\(K\)</span> is the genetic relatedness matrix and <span class="math inline">\(\sigma_g^2\)</span> the genetic variance from <code>GWAS8</code>. Equivalently, <span class="math inline">\(g = \sum_{k} X_k b_k\)</span> is a regression on all SNPs at once (a <strong>whole-genome regression</strong>), where the heritability model from <code>GWAS8</code> says how large each <span class="math inline">\(b_k\)</span> is expected to be.</p>
+<p>Modern methods estimate <span class="math inline">\(g\)</span> for each chromosome <span class="math inline">\(c\)</span> from all <strong>other</strong> chromosomes (<span class="math inline">\(\hat{g}^{(-c)}\)</span>, the <code>LOCO</code> prediction). This has two effects: - <strong>More power</strong>: Removing <span class="math inline">\(\hat{g}^{(-c)}\)</span> lowers the residual variance to about <span class="math inline">\((1 - R^2_{\text{LOCO}})\,\text{Var}(y)\)</span>, where <span class="math inline">\(R^2_{\text{LOCO}}\)</span> is the fraction of phenotypic variance that the prediction explains. Test statistics then increase by a factor of about <span class="math inline">\(1 / (1 - R^2_{\text{LOCO}})\)</span>. The maximum is <span class="math inline">\(1/(1 - h^2_{\text{SNP}})\)</span>, reached only if the genetic background is predicted perfectly. With small samples, <span class="math inline">\(R^2_{\text{LOCO}} \approx 0\)</span> and there is no gain. - <strong>No proximal contamination</strong>: Leaving out the tested chromosome means the prediction cannot absorb the signal of the tested SNP (or of its LD partners).</p>
 </section>
 <section id="comparing-biobank-scale-mixed-model-methods" class="level3">
 <h3 class="anchored" data-anchor-id="comparing-biobank-scale-mixed-model-methods">Comparing Biobank-Scale Mixed-Model Methods</h3>
-<p>Classical LMMs (<code>GCTA-MLMA</code>, <code>GEMMA</code>) explicitly build and factorize the dense <span class="math inline">\(N \times N\)</span> Genetic Relatedness Matrix <span class="math inline">\(K\)</span>, which costs <span class="math inline">\(\mathcal{O}(N^2 M)\)</span> memory and <span class="math inline">\(\mathcal{O}(N^3)\)</span> time—impossible when <span class="math inline">\(N = 500\text{,000}\)</span>. Modern biobank methods replace matrix factorization with a <strong>2-Step Whole-Genome Regression</strong> strategy:</p>
+<p>Classical LMMs (<code>GCTA</code>, <code>GEMMA</code>) build the full <span class="math inline">\(N \times N\)</span> relatedness matrix <span class="math inline">\(K\)</span>, which needs <span class="math inline">\(\mathcal{O}(N^2)\)</span> memory and <span class="math inline">\(\mathcal{O}(N^2 M + N^3)\)</span> time—impossible for <span class="math inline">\(N = 500{,}000\)</span>. Modern methods instead use the two-step whole-genome regression described above:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -680,66 +685,65 @@ window.Quarto = {
 <tr class="header">
 <th>Method</th>
 <th>Heritability Model (<span class="math inline">\(\alpha\)</span>)</th>
-<th>Step 1 Effect Prior (<span class="math inline">\(b_k\)</span>)</th>
-<th>Binary Trait Support</th>
-<th>Computational Scaling</th>
+<th>Step 1 Prior on SNP Effects (<span class="math inline">\(b_k\)</span>)</th>
+<th>Binary Traits</th>
+<th>Computation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><strong>PLINK</strong> (<code>--linear</code>/<code>--logistic</code>)</td>
-<td>None (<span class="math inline">\(\sigma_g^2 = 0\)</span>)</td>
-<td>None (single-SNP only)</td>
-<td>Wald / Firth test</td>
-<td>Fast, <span class="math inline">\(\mathcal{O}(NM)\)</span>, but requires unrelateds &amp; lower power</td>
+<td>None (no polygenic term)</td>
+<td>None (one SNP at a time)</td>
+<td>Logistic regression (Wald test; Firth in PLINK 2)</td>
+<td>Fast, <span class="math inline">\(\mathcal{O}(NM)\)</span>, but needs unrelated individuals and has less power</td>
 </tr>
 <tr class="even">
 <td><strong>Classical LMM</strong> (<code>GCTA</code>, <code>GEMMA</code>)</td>
 <td>GCTA (<span class="math inline">\(\alpha = -1\)</span>)</td>
-<td>Infinitesimal Gaussian: <span class="math inline">\(b_k \sim \mathcal{N}(0, \sigma_g^2/M)\)</span></td>
-<td>Liability / linear approx.</td>
-<td>Slow, <span class="math inline">\(\mathcal{O}(N^2 M + N^3)\)</span>, exact GRM inversion</td>
+<td>One Gaussian for all SNPs: <span class="math inline">\(b_k \sim \mathcal{N}(0, \sigma_g^2/M)\)</span></td>
+<td>Linear model or liability approximation</td>
+<td>Slow, <span class="math inline">\(\mathcal{O}(N^2 M + N^3)\)</span></td>
 </tr>
 <tr class="odd">
 <td><strong>BOLT-LMM</strong></td>
 <td>GCTA (<span class="math inline">\(\alpha = -1\)</span>)</td>
-<td>Mixture of two Gaussians (spike-and-slab)</td>
-<td>Linear model only</td>
-<td><span class="math inline">\(\mathcal{O}(N M^{1.5})\)</span> via conjugate gradient</td>
+<td>Mixture of two Gaussians (large and small effects)</td>
+<td>Linear model approximation</td>
+<td><span class="math inline">\(\mathcal{O}(M N^{1.5})\)</span></td>
 </tr>
 <tr class="even">
 <td><strong>REGENIE</strong></td>
 <td>GCTA (<span class="math inline">\(\alpha = -1\)</span>)</td>
-<td>Stacked block-wise Ridge regression (infinitesimal)</td>
-<td>Firth / Saddlepoint (SPA)</td>
-<td>Fast two-step block regression, <span class="math inline">\(\mathcal{O}(NM)\)</span></td>
+<td>Ridge regression in blocks of SNPs</td>
+<td>Firth regression or SPA</td>
+<td>Fast, <span class="math inline">\(\mathcal{O}(NM)\)</span></td>
 </tr>
 <tr class="odd">
 <td><strong>LDAK-KVIK</strong></td>
-<td><strong>LDAK (<span class="math inline">\(\alpha = -0.25\)</span>)</strong></td>
-<td><strong>Elastic Net / Mixture prior</strong> (adapts to sparse &amp; polygenic traits)</td>
-<td><strong>Saddlepoint Approx. (SPA)</strong></td>
-<td><strong>Very fast &amp; low RAM</strong>, <span class="math inline">\(\mathcal{O}(NM)\)</span> randomized solver</td>
+<td>LDAK model (<span class="math inline">\(\alpha\)</span> chosen from the data, often <span class="math inline">\(-0.25\)</span>)</td>
+<td>Elastic net (fits both sparse and highly polygenic traits)</td>
+<td>Quasi-logistic regression + SPA</td>
+<td>Fast and low memory, <span class="math inline">\(\mathcal{O}(NM)\)</span></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="how-ldak-kvik-works-step-1-and-step-2" class="level3">
 <h3 class="anchored" data-anchor-id="how-ldak-kvik-works-step-1-and-step-2">How <code>LDAK-KVIK</code> Works (Step 1 and Step 2)</h3>
-<p><code>LDAK-KVIK</code> (<a href="https://doi.org/10.1038/s41588-024-01986-w">Hof et al., 2024</a>) divides mixed-model association testing into two fast steps:</p>
 <ol type="1">
-<li><strong>Step 1 (<code>--kvik-step1</code>) — Heritability &amp; LOCO Polygenic Prediction</strong>:
+<li><strong>Step 1 (<code>--kvik-step1</code>) — predict the genetic background</strong>:
 <ul>
-<li>Estimates SNP heritability (<span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span>) under the realistic LDAK-Thin model (<span class="math inline">\(\alpha = -0.25\)</span>) using a randomized Haseman-Elston / REML solver without forming an <span class="math inline">\(N \times N\)</span> GRM.</li>
-<li>Uses <span class="math inline">\(\hat{h}^2_{\text{SNP}}\)</span> to calibrate a variational Bayes <strong>Elastic Net</strong> (mixture of Laplace and Gaussian priors) across genome-wide SNPs, and computes 22 <strong>Leave-One-Chromosome-Out (LOCO)</strong> polygenic predictions <span class="math inline">\(\hat{g}^{(-c)}\)</span> (<span class="math inline">\(c = 1, \dots, 22\)</span>).</li>
+<li>Estimates <span class="math inline">\(h^2_{\text{SNP}}\)</span> and the expected heritability of each SNP with <strong>randomized Haseman-Elston regression</strong>, which avoids building the <span class="math inline">\(N \times N\)</span> matrix. It tries several values of <span class="math inline">\(\alpha\)</span> and keeps the best (the log reports e.g.&nbsp;<code>Best power is -0.2500</code>).</li>
+<li>Fits 10 <strong>elastic net</strong> whole-genome regression models (a mixture of a Laplace and a Gaussian prior) with different settings, keeps the one with the lowest mean squared error on 10% held-out individuals, and saves 22 <code>LOCO</code> predictions <span class="math inline">\(\hat{g}^{(-c)}\)</span>, one per chromosome.</li>
 </ul></li>
-<li><strong>Step 2 (<code>--kvik-step2</code>) — Single-SNP Association Testing</strong>:
+<li><strong>Step 2 (<code>--kvik-step2</code>) — test each SNP</strong>:
 <ul>
-<li>For each SNP <span class="math inline">\(j\)</span> on chromosome <span class="math inline">\(c\)</span>, tests <span class="math inline">\(X_j\)</span> against the LOCO-adjusted phenotype <span class="math inline">\(y - Z\hat{\gamma} - \hat{g}^{(-c)}\)</span> using a calibrated score test (or <strong>Saddlepoint Approximation, SPA</strong>, when <code>--binary YES</code> is specified).</li>
+<li>For each SNP <span class="math inline">\(j\)</span> on chromosome <span class="math inline">\(c\)</span>, regresses the phenotype on <span class="math inline">\(X_j\)</span> with <span class="math inline">\(\hat{g}^{(-c)}\)</span> removed (included as an offset). For binary traits it uses a quasi-logistic regression and checks small <span class="math inline">\(p\)</span>-values with the <strong>Saddlepoint Approximation (SPA)</strong>.</li>
 </ul></li>
 </ol>
 <blockquote class="blockquote">
-<p><strong>Quick Concept Check (from Lecture 9)</strong>: - <em>What happens if Step 1 accidentally includes all 22 chromosomes (including Chromosome 1) when testing a causal SNP on Chromosome 1?</em> Its signal is <strong>wiped out</strong> (<em>Proximal Contamination</em> — we subtracted the Solo Singer along with the Background Choir!), which is why <strong><code>LOCO</code></strong> predicts <span class="math inline">\(\hat{g}^{(-1)}\)</span> from Chromosomes 2–22 only. - <em>Why can an LMM safely keep siblings and cousins in the study?</em> Because the polygenic term <span class="math inline">\(g \sim \mathcal{N}(0, \sigma_g^2 K)\)</span> already models shared family genetics!</p>
+<p><strong>Quick Concept Check (from Lecture 9)</strong>: - <em>What would happen if Step 1 used all 22 chromosomes, including chromosome 1, when testing a causal SNP on chromosome 1?</em> The prediction would already contain that SNP’s effect, so removing it would also remove the signal (<strong>proximal contamination</strong>: the singer is silenced together with the choir). This is why we use <code>LOCO</code>. - <em>Why can an LMM keep siblings and cousins in the study?</em> Because the polygenic term <span class="math inline">\(g \sim \mathcal{N}(0, \sigma_g^2 K)\)</span> models the extra genetic similarity between relatives.</p>
 </blockquote>
 </section>
 </div>
@@ -749,86 +753,89 @@ window.Quarto = {
 <section id="preparing-phenotype-and-covariates" class="level3">
 <h3 class="anchored" data-anchor-id="preparing-phenotype-and-covariates">Preparing Phenotype and Covariates</h3>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
-<p>First, let’s link the <code>Data</code> folder, create our working directory <code>Results/GWAS9</code>, and format the phenotype (<code>Data/EUR.height</code>) and covariate (<code>Data/EUR.covariate</code>) files for <code>LDAK</code> (which expects headerless files where the first two columns are <code>FID</code> and <code>IID</code>):</p>
+<p>First, let’s link the <code>Data</code> folder, create <code>Results/GWAS9</code>, and remove the header lines from the simulated phenotype (<code>Data/SIM.pheno</code>, true <span class="math inline">\(h^2_{\text{SNP}} = 0.5\)</span>) and covariates (<code>Data/SIM.covariate</code>), because <code>LDAK</code> expects files without headers whose first two columns are <code>FID</code> and <code>IID</code>:</p>
 <div id="90000001-0000-4000-8000-000000000005" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS9</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Strip headers from EUR.height and EUR.covariate for LDAK</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $1, $2, $3}'</span> Data/EUR.height <span class="op">&gt;</span> Results/GWAS9/EUR.pheno</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $0}'</span> Data/EUR.covariate <span class="op">&gt;</span> Results/GWAS9/EUR.covar</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Strip headers from SIM.pheno and SIM.covariate for LDAK</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $1, $2, $3}'</span> Data/SIM.pheno <span class="op">&gt;</span> Results/GWAS9/SIM.pheno</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">awk</span> <span class="st">'NR&gt;1 {print $0}'</span> Data/SIM.covariate <span class="op">&gt;</span> Results/GWAS9/SIM.covar</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Formatted individuals: </span><span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS9/EUR.pheno<span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Formatted individuals: </span><span class="va">$(</span><span class="fu">wc</span> <span class="at">-l</span> <span class="op">&lt;</span> Results/GWAS9/SIM.pheno<span class="va">)</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="running-ldak-kvik-step-1-and-step-2-on-quantitative-traits" class="level3">
 <h3 class="anchored" data-anchor-id="running-ldak-kvik-step-1-and-step-2-on-quantitative-traits">Running <code>LDAK-KVIK</code> Step 1 and Step 2 on Quantitative Traits</h3>
-<p>Now we run the two steps of <code>LDAK-KVIK</code> on our quality-controlled European dataset (<code>Data/EUR.QC</code>).</p>
-<p>Key <code>LDAK</code> flags used below: - <code>--kvik-step1 &lt;prefix&gt;</code>: Estimates SNP heritability, fits the Step 1 Elastic Net whole-genome regression model adjusting for covariates (<code>--covar</code>), and saves the 22 Leave-One-Chromosome-Out (<code>LOCO</code>) polygenic predictions (<code>&lt;prefix&gt;.step1.loco.prs</code>). - <code>--kvik-step2 &lt;prefix&gt;</code>: Reads the Step 1 <code>LOCO</code> predictions from <code>&lt;prefix&gt;</code>, tests each SNP in <code>--bfile</code> against the residualized phenotype, and writes the GWAS summary statistics to <code>&lt;prefix&gt;.step2.assoc</code> (and <code>&lt;prefix&gt;.step2.summaries</code>). - <code>--bfile &lt;prefix&gt;</code>, <code>--pheno &lt;file&gt;</code>, <code>--covar &lt;file&gt;</code>: Specify the PLINK binary fileset, phenotype file, and covariate file (just as in <code>PLINK</code>).</p>
+<p>Now we run the two steps of <code>LDAK-KVIK</code> on the simulated cohort (<code>Data/SIM.QC</code>).</p>
+<p>Key <code>LDAK</code> options used below: - <code>--kvik-step1 &lt;prefix&gt;</code>: Estimates the heritability, fits the elastic net model (adjusting for the covariates in <code>--covar</code>), and saves the 22 <code>LOCO</code> predictions to <code>&lt;prefix&gt;.step1.loco.prs</code>. - <code>--kvik-step2 &lt;prefix&gt;</code>: Reads the <code>LOCO</code> predictions from Step 1, tests every SNP in <code>--bfile</code>, and writes the results to <code>&lt;prefix&gt;.step2.assoc</code> (and <code>&lt;prefix&gt;.step2.summaries</code>). - <code>--bfile &lt;prefix&gt;</code>, <code>--pheno &lt;file&gt;</code>, <code>--covar &lt;file&gt;</code>: The PLINK genotype files, the phenotype file and the covariate file (as in <code>PLINK</code>). - <code>--random-seed 42</code>: Step 1 uses random numbers (e.g., to pick the 10% of individuals for cross-validation). Fixing the seed makes your results very close to ours, although small differences in the last digits can remain.</p>
 <div id="90000001-0000-4000-8000-000000000007" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step takes less than a minute to run.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Fit Whole-Genome Regression and generate LOCO predictions</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform single-SNP association testing conditioned on LOCO predictions</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_height <span class="dt">\</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/EUR.pheno <span class="dt">\</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_height.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_sim_trait <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/SIM.QC <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/SIM.pheno <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/SIM.covar <span class="dt">\</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Perform single-SNP association testing conditioned on LOCO predictions</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_sim_trait <span class="dt">\</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/SIM.QC <span class="dt">\</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/SIM.pheno <span class="dt">\</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/SIM.covar</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 10 Results/GWAS9/kvik_sim_trait.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Let’s inspect the columns of <code>kvik_height.step2.assoc</code>: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: The test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: Two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SE</code>: Estimated effect size (<span class="math inline">\(\hat{\beta}_j\)</span>) and standard error of allele <code>A1</code> - <code>Effect_Liability</code>: Effect size on the liability scale (when analyzing binary traits)</p>
+<p>The columns of <code>kvik_sim_trait.step2.assoc</code> are: - <code>Chromosome</code>, <code>Predictor</code> (SNP ID), <code>Basepair</code>, <code>A1</code> (effect allele), <code>A2</code> (other allele) - <code>Wald_Stat</code>: the test statistic (<span class="math inline">\(Z\)</span>-score) - <code>Wald_P</code>: the two-sided <span class="math inline">\(p\)</span>-value - <code>Effect</code>, <code>SE</code>: the estimated effect of allele <code>A1</code> (<span class="math inline">\(\hat{\beta}_j\)</span>) and its standard error - <code>MAF</code>, <code>CallRate</code>: the minor allele frequency and the fraction of non-missing genotypes - <code>SPA_Status</code>: whether the Saddlepoint Approximation was used (binary traits, see below). For binary traits, <code>Effect</code> and <code>SE</code> are replaced by <code>Approx_Log_OR</code> and <code>Approx_SE</code></p>
+<p>In the Step 1 output above, also look for the line <code>Best power is ...</code> (the chosen <span class="math inline">\(\alpha\)</span> and the heritability estimate) and the <code>mean squared error</code> (MSE) of the 10 models. The phenotype is scaled to variance 1, so an MSE clearly below 1 means the <code>LOCO</code> predictions explain part of the phenotype (<span class="math inline">\(R^2_{\text{LOCO}} \approx 1 - \text{MSE}\)</span>).</p>
 </section>
 </section>
 <section id="benchmarking-power-ldak-kvik-vs.-standard-plink-gwas" class="level1">
 <h1>Benchmarking Power: <code>LDAK-KVIK</code> vs.&nbsp;Standard <code>PLINK</code> GWAS</h1>
-<p>When does a Linear Mixed Model provide the biggest gain over <code>plink --linear</code>? Theory tells us the expected increase in test statistics is proportional to <span class="math inline">\(1 / (1 - h^2_{\text{SNP}})\)</span>: the higher the heritability explained by the genome, the more background variance Step 1 removes.</p>
-<p>To see this clearly in our small teaching cohort (<span class="math inline">\(N \approx 480\)</span>), let’s use <code>ldak --make-phenos</code> to simulate a heritable polygenic trait (<code>--her 0.7</code>, <code>--num-causals 200</code> causal SNPs, <code>--power -0.25</code>) directly on <code>Data/EUR.QC</code> (which also records the true causal SNPs in <code>sim_poly.effects</code>), and run both <strong>standard <code>PLINK</code> linear regression</strong> and <strong><code>LDAK-KVIK</code></strong> on the exact same phenotype.</p>
+<p>How much power does a mixed model add? As explained above, test statistics increase by about <span class="math inline">\(1 / (1 - R^2_{\text{LOCO}})\)</span>: the more of the phenotype Step 1 can predict (at most <span class="math inline">\(h^2_{\text{SNP}}\)</span>), the larger the gain. <span class="math inline">\(R^2_{\text{LOCO}}\)</span> is larger when the sample is large, the heritability is high, and the trait is driven by fewer causal SNPs.</p>
+<p>Let’s test this. We use <code>ldak --make-phenos</code> to simulate a new trait on <code>Data/SIM.QC</code> with <span class="math inline">\(h^2_{\text{SNP}} = 0.5\)</span> (<code>--her 0.5</code>) and 200 causal SNPs (<code>--num-causals 200</code>) under the LDAK model (<code>--power -0.25</code>). The true causal SNPs are saved in <code>sim_poly.effects</code>. We then analyze the same phenotype with <strong><code>PLINK</code> linear regression</strong> and with <strong><code>LDAK-KVIK</code></strong>. <em>(With only <span class="math inline">\(N \approx 480\)</span> individuals, as in <code>Data/EUR.QC</code>, Step 1 cannot predict anything—all 10 models have an MSE of about 1—and the two methods give the same results.)</em></p>
 <div id="90000001-0000-4000-8000-000000000010" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Simulate a polygenic trait (h2 = 0.7, 200 causal variants) under the LDAK model</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step takes less than a minute to run.</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Simulate a polygenic trait (h2 = 0.5, 200 causal variants) under the LDAK model</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">--make-phenos</span> Results/GWAS9/sim_poly <span class="dt">\</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/SIM.QC <span class="dt">\</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">--power</span> <span class="at">-0.25</span> <span class="dt">\</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--her</span> 0.7 <span class="dt">\</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--her</span> 0.5 <span class="dt">\</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-phenos</span> 1 <span class="dt">\</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--num-causals</span> 200 <span class="dt">\</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Run standard single-SNP linear regression in PLINK (with covariates)</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">plink</span> <span class="dt">\</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/SIM.QC <span class="dt">\</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Data/EUR.covariate <span class="dt">\</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Data/SIM.covariate <span class="dt">\</span></span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--linear</span> hide-covar <span class="dt">\</span></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">--out</span> Results/GWAS9/plink_sim</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Run LDAK-KVIK Step 1 and Step 2 on the same simulated phenotype</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/SIM.QC <span class="dt">\</span></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/EUR.QC <span class="dt">\</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/EUR.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/SIM.covar <span class="dt">\</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_sim <span class="dt">\</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/SIM.QC <span class="dt">\</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/sim_poly.pheno <span class="dt">\</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">--covar</span> Results/GWAS9/SIM.covar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="binary-traits-and-saddlepoint-approximation-spa" class="level1">
 <h1>Binary Traits and Saddlepoint Approximation (SPA)</h1>
-<p>When analyzing case-control phenotypes (coded as <code>1</code> = control, <code>2</code> = case, or <code>0</code>/<code>1</code>), add <code>--binary YES</code> to <strong>Step 1</strong> to tell <code>LDAK-KVIK</code> to fit a logistic instead of a linear model. Step 2 can calibrate the <span class="math inline">\(p\)</span>-values with a <strong>Saddlepoint Approximation (SPA)</strong>. The <code>SPA_Status</code> column of the output reports, for each SNP, whether SPA was used.</p>
-<p>Why is SPA essential? Standard score tests approximate the null distribution of the test statistic using a normal distribution (which only matches the mean and variance). When case-control ratios are unbalanced (e.g., 500 cases vs.&nbsp;50,000 controls) and a SNP has low minor allele frequency, the true null distribution is heavily skewed, causing standard tests to produce thousands of false positives. <strong>SPA</strong> approximates the entire cumulant generating function (capturing skewness and higher-order moments), ensuring accurate <span class="math inline">\(p\)</span>-values even for low-frequency variants in unbalanced cohorts.</p>
-<p>Let’s run <code>LDAK-KVIK</code> on the binary case-control phenotype stored in column 6 of <code>Data/TOY_TARGET_DATA.fam</code>, with <code>--binary YES</code> in Step 1.</p>
+<p>For a case-control phenotype (coded <code>1</code> = control and <code>2</code> = case, or <code>0</code>/<code>1</code>), add <code>--binary YES</code> to <strong>Step 1</strong> so that <code>LDAK-KVIK</code> fits a (quasi-)logistic model instead of a linear one. Step 2 detects the binary phenotype automatically. By default, it rechecks every SNP with <span class="math inline">\(p &lt; 0.05\)</span> using the <strong>Saddlepoint Approximation (SPA)</strong> (change the threshold with <code>--spa-threshold</code>, or turn SPA off with <code>--spa-test NO</code>). The <code>SPA_Status</code> column shows for which SNPs SPA was used.</p>
+<p>Why do we need SPA? Standard tests assume that the test statistic follows a normal distribution under the null hypothesis. When cases are rare (e.g., 500 cases and 50,000 controls) and a SNP is uncommon, the true null distribution is skewed, so the normal approximation gives too many small <span class="math inline">\(p\)</span>-values, i.e., false positives. SPA uses the whole shape of the distribution (including its skewness), so the <span class="math inline">\(p\)</span>-values stay accurate.</p>
+<p>Let’s run <code>LDAK-KVIK</code> on the case-control phenotype in column 6 of <code>Data/TOY_TARGET_DATA.fam</code> (1,000 cases and 1,000 controls), with <code>--binary YES</code> in Step 1. <em>(This toy phenotype has little polygenic signal, so Step 1 reports that it will “exclude the polygenic contribution”, and Step 2 becomes an ordinary logistic regression with SPA.)</em></p>
 <div id="90000001-0000-4000-8000-000000000012" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: this step can take several minutes to run.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract binary phenotype (FID IID CaseControl) from TOY_TARGET_DATA.fam</span></span>
@@ -839,20 +846,21 @@ window.Quarto = {
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step1</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno <span class="dt">\</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS9/kvik_binary.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">--binary</span> YES <span class="dt">\</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">--random-seed</span> 42</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ex">ldak</span> <span class="dt">\</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">--kvik-step2</span> Results/GWAS9/kvik_binary <span class="dt">\</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">--bfile</span> Data/TOY_TARGET_DATA <span class="dt">\</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">--pheno</span> Results/GWAS9/toy_binary.pheno</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> <span class="at">-n</span> 5 Results/GWAS9/kvik_binary.step2.assoc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="visualizing-and-comparing-ldak-kvik-vs.-plink-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="visualizing-and-comparing-ldak-kvik-vs.-plink-in-r">Visualizing and Comparing <code>LDAK-KVIK</code> vs.&nbsp;<code>PLINK</code> in R</h3>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
-<p>Let’s switch to the <strong>R kernel</strong> to visualize the <code>LDAK-KVIK</code> Manhattan and Q-Q plots and compare the test statistics at the true causal variants (<code>sim_poly.effects</code>) between <code>LDAK-KVIK</code> and <code>PLINK</code>.</p>
+<p>In <code>R</code>, we draw the <code>LDAK-KVIK</code> Manhattan and Q-Q plots, and compare <code>LDAK-KVIK</code> with <code>PLINK</code> at the true causal SNPs (<code>sim_poly.effects</code>).</p>
 <div id="90000001-0000-4000-8000-000000000014" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">warn</span> = <span class="at">-1</span><span class="kw">)</span></span>
@@ -901,8 +909,8 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>Q1. Create a scatter plot comparing <code>-log10(P)</code> from <code>PLINK</code> on the x-axis against <code>-log10(Wald_P)</code> from <code>LDAK-KVIK</code> on the y-axis, coloring points by <code>IsCausal</code> (<code>"Causal SNP"</code> vs.&nbsp;<code>"Null SNP"</code>), and add the <span class="math inline">\(y = x\)</span> identity line (<code>geom_abline</code>).</strong></li>
-<li><strong>Q2. Compute the genomic inflation factor <span class="math inline">\(\lambda_{\text{GC}} = \text{median}(\chi^2) / \text{qchisq}(0.5, 1)\)</span> for both <code>PLINK</code> and <code>LDAK-KVIK</code>. Why is it crucial that <code>LDAK-KVIK</code> uses Leave-One-Chromosome-Out (<code>LOCO</code>) predictions in Step 1 rather than predicting polygenic effects from all 22 chromosomes simultaneously?</strong></li>
+<li><strong>Q1. Make a scatter plot of <code>-log10(P)</code> from <code>PLINK</code> (x-axis) against <code>-log10(Wald_P)</code> from <code>LDAK-KVIK</code> (y-axis), coloring the points by <code>IsCausal</code> (<code>"Causal SNP"</code> or <code>"Null SNP"</code>), and add the line <span class="math inline">\(y = x\)</span> (<code>geom_abline</code>).</strong> Which method gives stronger signals at the causal SNPs?</li>
+<li><strong>Q2. Compute the genomic inflation factor <span class="math inline">\(\lambda_{\text{GC}} = \text{median}(\chi^2) / \text{qchisq}(0.5, 1)\)</span> for <code>PLINK</code> and for <code>LDAK-KVIK</code>. Why is it important that Step 1 uses <code>LOCO</code> predictions instead of a prediction from all 22 chromosomes?</strong></li>
 </ul>
 <p>Hint: Use <code>merged</code> from the previous cell, <code>ggplot(merged, aes(x = -log10(P), y = -log10(Wald_P), color = IsCausal))</code>, and <code>median(merged$CHISQ_KVIK, na.rm = TRUE) / qchisq(0.5, 1)</code>.</p>
 </div>
@@ -922,7 +930,7 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In <code>R</code>, we plot <code>-log10(P)</code> from <code>PLINK</code> against <code>-log10(Wald_P)</code> from <code>LDAK-KVIK</code> and compute <span class="math inline">\(\lambda_{\text{GC}}\)</span> for both methods:</p>
+<p>In <code>R</code>, we plot <code>-log10(P)</code> from <code>PLINK</code> against <code>-log10(Wald_P)</code> from <code>LDAK-KVIK</code>, and compute <span class="math inline">\(\lambda_{\text{GC}}\)</span> for both methods:</p>
 <div id="90000001-0000-4000-8000-000000000019" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q1. Scatter plot of -log10(p) values: PLINK vs. LDAK-KVIK</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">p_comp</span> <span class="op">&lt;</span>- ggplot<span class="er">(</span><span class="ex">merged,</span> aes<span class="er">(</span><span class="ex">x</span> = <span class="at">-log10</span><span class="er">(</span><span class="ex">P</span><span class="kw">)</span><span class="ex">,</span> y = <span class="at">-log10</span><span class="er">(</span><span class="ex">Wald_P</span><span class="kw">)</span><span class="ex">,</span> color = IsCausal, alpha = IsCausal<span class="kw">))</span> <span class="ex">+</span></span>
@@ -949,8 +957,8 @@ window.Quarto = {
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Lambda_GC (LDAK-KVIK):"</span><span class="ex">,</span> round<span class="er">(</span><span class="ex">lambda_kvik,</span> 4<span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li><strong>Q1</strong>: Notice how the true causal SNPs (red points) lie systematically above the dashed <span class="math inline">\(y = x\)</span> identity line, showing that conditioning on the Step 1 polygenic predictor increases association test statistics.</li>
-<li><strong>Q2</strong>: If Step 1 included SNPs on the <strong>same chromosome</strong> as the SNP being tested in Step 2, the whole-genome regression predictor <span class="math inline">\(\hat{g}\)</span> would already capture part of the effect of the tested SNP (both directly and through LD with nearby tagging SNPs). Subtracting <span class="math inline">\(\hat{g}\)</span> from <span class="math inline">\(y\)</span> would therefore subtract out the true association signal—a phenomenon called <strong>proximal contamination</strong>—causing a severe loss of statistical power. Using <strong>Leave-One-Chromosome-Out (<code>LOCO</code>)</strong> predictions <span class="math inline">\(\hat{g}_{-c}\)</span> removes polygenic variance from the other 21 chromosomes while leaving all genetic signal on chromosome <span class="math inline">\(c\)</span> intact for Step 2 testing.</li>
+<li><strong>Q1</strong>: The true causal SNPs (red points) lie above the dashed <span class="math inline">\(y = x\)</span> line: removing the <code>LOCO</code> prediction makes their test statistics larger. In our run, the mean <span class="math inline">\(\chi^2\)</span> at the 200 causal SNPs increased from about <span class="math inline">\(13.6\)</span> (<code>PLINK</code>) to about <span class="math inline">\(21.3\)</span> (<code>LDAK-KVIK</code>), about 55% more. This agrees with <span class="math inline">\(1/(1 - R^2_{\text{LOCO}})\)</span>: the best Step 1 model had an MSE of about <span class="math inline">\(0.65\)</span>, so <span class="math inline">\(R^2_{\text{LOCO}} \approx 0.35\)</span> and <span class="math inline">\(1/0.65 \approx 1.5\)</span>.</li>
+<li><strong>Q2</strong>: Both <span class="math inline">\(\lambda_{\text{GC}}\)</span> values are close to 1 (about <span class="math inline">\(1.02\)</span> for <code>PLINK</code> and <span class="math inline">\(1.04\)</span> for <code>LDAK-KVIK</code> in our run), so there is no sign of confounding. <code>LDAK-KVIK</code> is slightly higher because it increases the test statistics of all SNPs that tag causal variants, which raises the median <span class="math inline">\(\chi^2\)</span> a little. If Step 1 also used the chromosome of the tested SNP, the prediction <span class="math inline">\(\hat{g}\)</span> would already contain that SNP’s effect (directly, or through SNPs in LD with it). Removing <span class="math inline">\(\hat{g}\)</span> from <span class="math inline">\(y\)</span> would then also remove the signal we want to detect (<strong>proximal contamination</strong>), and power would drop. A <code>LOCO</code> prediction only removes the background from the other 21 chromosomes and leaves the signal on chromosome <span class="math inline">\(c\)</span> untouched.</li>
 </ul>
 </div>
 </div>
@@ -959,7 +967,7 @@ window.Quarto = {
 </section>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have learned how Linear Mixed Model and Whole-Genome Regression GWAS methods (<code>LDAK-KVIK</code>) leverage SNP heritability (<span class="math inline">\(h^2_{\text{SNP}}\)</span> from <code>GWAS8</code>) and <code>LOCO</code> polygenic predictions to increase discovery power and control confounding across quantitative and binary traits. Because Step 2 of an LMM GWAS still tests one SNP at a time on the <code>LOCO</code> residuals, the resulting GWAS summary statistics (<code>*.step2.assoc</code> and <code>*.step2.summaries</code>) remain blurred by local Linkage Disequilibrium (LD) on each chromosome. In the next two sessions, we will see how pairing <strong>GWAS summary statistics</strong> with an <strong>external LD reference panel</strong> allows us to deconvolve LD locally to pinpoint causal variants (<strong>Fine-Mapping in <code>GWAS10</code></strong>) and globally to build genome-wide predictors (<strong>Advanced PRS in <code>GWAS11</code></strong>).</p>
+<p>In this tutorial, we saw how mixed-model GWAS (<code>LDAK-KVIK</code>) uses SNP heritability (<code>GWAS8</code>) and <code>LOCO</code> predictions to increase power for quantitative and binary traits. Step 2 still tests one SNP at a time, so its results (<code>*.step2.assoc</code> and <code>*.step2.summaries</code>) are still blurred by local LD: many SNPs near a causal variant look significant. In the next two sessions, we combine <strong>GWAS summary statistics</strong> with an <strong>LD reference panel</strong> to undo this blurring within a locus (<strong>fine-mapping, <code>GWAS10</code></strong>) and across the genome (<strong>advanced polygenic scores, <code>GWAS11</code></strong>).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -971,9 +979,10 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>Two-Step Whole-Genome Regression Scales LMMs to Biobanks</strong>: Instead of inverting an <span class="math inline">\(N \times N\)</span> kinship matrix (<span class="math inline">\(\mathcal{O}(N^3)\)</span>), methods like <code>LDAK-KVIK</code>, <code>REGENIE</code>, and <code>BOLT-LMM</code> predict the polygenic background in Step 1 (<code>LOCO</code>) and test individual SNPs against the residuals in Step 2 (<span class="math inline">\(\mathcal{O}(NM)\)</span>).</li>
-<li><strong>Realistic Heritability Priors Improve Step 1</strong>: Because <code>LDAK-KVIK</code> combines the LDAK heritability model (<span class="math inline">\(\alpha = -0.25\)</span>) with a flexible Elastic Net prior, its Step 1 polygenic predictions adapt accurately to both highly polygenic traits and traits with large-effect loci.</li>
-<li><strong>Use Logistic Models and SPA for Unbalanced Binary Traits</strong>: When analyzing case-control traits with low case prevalence, set <code>--binary YES</code> in Step 1 so that <code>LDAK-KVIK</code> fits a logistic model; Step 2 can then calibrate <span class="math inline">\(p\)</span>-values with the Saddlepoint Approximation (SPA, see <code>SPA_Status</code>), preventing false-positive inflation at low-frequency variants.</li>
+<li><strong>Two steps make mixed models fast</strong>: Instead of working with the full <span class="math inline">\(N \times N\)</span> relatedness matrix (<span class="math inline">\(\mathcal{O}(N^3)\)</span>), <code>LDAK-KVIK</code>, <code>REGENIE</code> and <code>BOLT-LMM</code> predict the genetic background in Step 1 (<code>LOCO</code>) and test single SNPs in Step 2 (<span class="math inline">\(\mathcal{O}(NM)\)</span>).</li>
+<li><strong>Flexible priors</strong>: <code>LDAK-KVIK</code> combines the LDAK heritability model (<span class="math inline">\(\alpha\)</span> chosen from the data) with an elastic net prior, so Step 1 works both for highly polygenic traits and for traits with some large-effect SNPs.</li>
+<li><strong>Power gains need sample size</strong>: The gain over <code>PLINK</code> is about <span class="math inline">\(1/(1 - R^2_{\text{LOCO}})\)</span>. It only appears when Step 1 can predict part of the phenotype, which needs thousands of individuals (as in our <span class="math inline">\(N = 5,000\)</span> cohort), not a few hundred.</li>
+<li><strong>Rare binary traits</strong>: Use <code>--binary YES</code> in Step 1; Step 2 then uses a quasi-logistic model and checks small <span class="math inline">\(p\)</span>-values with SPA (see <code>SPA_Status</code>), which prevents false positives at low-frequency SNPs.</li>
 </ul>
 </div>
 </div>

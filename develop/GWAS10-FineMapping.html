@@ -611,15 +611,15 @@ window.Quarto = {
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Discovering a genome-wide significant locus in a GWAS (<code>GWAS5</code> or <code>GWAS9</code>) is only the first step toward biological insight. Because nearby genetic variants are correlated through <strong>Linkage Disequilibrium (LD)</strong>, a single causal variant typically drags dozens of non-causal tagging SNPs across the significance threshold—and when a locus harbors multiple causal variants, the lead SNP (lowest <span class="math inline">\(p\)</span>-value) may not even be causal at all. In this tutorial, we perform post-GWAS <strong>statistical fine-mapping</strong> using <strong>SuSiE</strong> (<em>Sum of Single Effects</em>; <a href="https://doi.org/10.1111/rssb.12388">Wang et al., 2020</a>; <a href="https://doi.org/10.1371/journal.pgen.1010299">Zou et al., 2022</a>) to pinpoint putative causal variants and construct <strong>95% Credible Sets</strong>.</p>
+<p>Finding a genome-wide significant locus in a GWAS (<code>GWAS5</code> or <code>GWAS9</code>) is only the first step. Nearby SNPs are correlated through <strong>linkage disequilibrium (LD)</strong>, so one causal variant makes many non-causal neighbours significant too. If a locus contains several causal variants, the SNP with the smallest <span class="math inline">\(p\)</span>-value may not be causal at all. In this notebook, we use <strong>statistical fine-mapping</strong> with <strong>SuSiE</strong> (<em>Sum of Single Effects</em>; <a href="https://doi.org/10.1111/rssb.12388">Wang et al., 2020</a>; <a href="https://doi.org/10.1371/journal.pgen.1010299">Zou et al., 2022</a>) to find the likely causal variants and summarize them as <strong>95% credible sets</strong>.</p>
 <section id="learning-outcomes" class="level2">
 <h2 class="anchored" data-anchor-id="learning-outcomes">Learning outcomes</h2>
 <ul>
-<li><strong>Explain</strong> why marginal single-SNP GWAS tests cannot distinguish true causal variants from correlated LD proxies</li>
-<li><strong>Understand</strong> the <strong>Sum of Single Effects (<code>SuSiE</code>)</strong> sparse multiple regression model and how it improves upon combinatorial fine-mapping methods (<code>FINEMAP</code>, <code>CAVIAR</code>)</li>
-<li><strong>Interpret</strong> <strong>Posterior Inclusion Probabilities (PIPs)</strong> and <strong>95% Credible Sets (CS)</strong></li>
-<li><strong>Execute</strong> fine-mapping in <code>R</code> using both individual-level genotypes (<code>susie()</code>) and GWAS summary statistics (<code>susie_rss()</code>)</li>
-<li><strong>Diagnose</strong> LD reference panel mismatch when fine-mapping with summary statistics</li>
+<li><strong>Explain</strong> why single-SNP GWAS tests cannot tell causal variants apart from SNPs in LD with them</li>
+<li><strong>Understand</strong> the <strong>SuSiE</strong> model and how it differs from earlier fine-mapping methods (<code>FINEMAP</code>, <code>CAVIAR</code>)</li>
+<li><strong>Interpret</strong> <strong>posterior inclusion probabilities (PIPs)</strong> and <strong>95% credible sets</strong></li>
+<li><strong>Run</strong> fine-mapping in <code>R</code> with individual-level data (<code>susie()</code>) and with GWAS summary statistics (<code>susie_rss()</code>)</li>
+<li><strong>Detect</strong> a mismatch between the LD reference panel and the GWAS sample</li>
 </ul>
 </section>
 <section id="how-to-make-this-notebook-work" class="level2">
@@ -643,36 +643,38 @@ window.Quarto = {
 <div class="callout-body-container callout-body">
 <section id="intuition-first-why-isnt-the-top-gwas-snp-always-the-causal-variant" class="level3">
 <h3 class="anchored" data-anchor-id="intuition-first-why-isnt-the-top-gwas-snp-always-the-causal-variant">Intuition First: Why isn’t the top GWAS SNP always the causal variant?</h3>
-<p>Think of a genomic region (locus) as a <strong>group of singers standing close together on stage (in Linkage Disequilibrium, LD)</strong> in front of a single microphone: - <strong>Driver vs.&nbsp;Passenger SNPs</strong>: Even if <strong>only one person is actually singing</strong> (the true <strong>driver</strong> causal variant), the <strong>passenger</strong> SNPs standing right next to them in high LD (<span class="math inline">\(r^2 \approx 0.95\)</span>) move their lips in sync and appear nearly as loud when tested one at a time in a marginal GWAS (<code>GWAS5</code> or <code>GWAS9</code>). - <strong>The “Sponge SNP” Trap (Synthetic Association)</strong>: Even worse, if <strong>two people at opposite sides of the group are singing</strong> (two causal variants in the same locus), a non-causal <strong>“sponge” SNP</strong> standing in the middle that partially correlates with <em>both</em> of them (<span class="math inline">\(r \approx 0.6\)</span>) soaks up signal from both and can produce a <strong>smaller (more significant) marginal <span class="math inline">\(p\)</span>-value than either true causal variant</strong>!</p>
-<p><strong>Statistical fine-mapping (<code>SuSiE</code>)</strong> solves this by listening to all SNPs in the locus <em>jointly</em> in a single multiple-regression model and asking: <em>“What is the simplest sparse combination of 1, 2, or 3 variants that explains the entire association peak?”</em></p>
+<ul>
+<li><strong>SNPs in LD look alike</strong>: If one SNP is causal, every SNP in strong LD with it (<span class="math inline">\(r^2 \approx 0.95\)</span>) gets an almost equally strong association when SNPs are tested one at a time. The GWAS cannot tell which of them is causal.</li>
+<li><strong>Two causal SNPs can create a misleading peak</strong>: If a locus has two causal SNPs, a non-causal SNP that is partly correlated with both (say <span class="math inline">\(r \approx 0.6\)</span> with each) can pick up signal from both and end up with a <strong>smaller <span class="math inline">\(p\)</span>-value than either causal SNP</strong>. We call it a “sponge” SNP (the technical term is <em>synthetic association</em>).</li>
+</ul>
+<p><strong>Fine-mapping</strong> solves this by fitting all SNPs in the locus <strong>together</strong> in one regression model and asking: <em>which small set of SNPs explains the whole association signal?</em></p>
 </section>
-<section id="why-marginal-gwas-cannot-pinpoint-causal-variants" class="level3">
-<h3 class="anchored" data-anchor-id="why-marginal-gwas-cannot-pinpoint-causal-variants">Why Marginal GWAS Cannot Pinpoint Causal Variants</h3>
-<p>In a standard GWAS (<code>GWAS5</code>) or mixed-model GWAS (<code>GWAS9</code>), each SNP <span class="math inline">\(j\)</span> in a genomic region of <span class="math inline">\(p\)</span> SNPs is tested <strong>marginally</strong> (one at a time). If the true generative model in the locus is:</p>
+<section id="why-single-snp-gwas-cannot-pinpoint-causal-variants" class="level3">
+<h3 class="anchored" data-anchor-id="why-single-snp-gwas-cannot-pinpoint-causal-variants">Why Single-SNP GWAS Cannot Pinpoint Causal Variants</h3>
+<p>Suppose a locus has <span class="math inline">\(p\)</span> SNPs and the true model is</p>
 <p><span class="math display">\[y = X b + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma_e^2 I)\]</span></p>
-<p>where <span class="math inline">\(X\)</span> is the <span class="math inline">\(N \times p\)</span> standardized genotype matrix and <span class="math inline">\(b = (b_1, \dots, b_p)^\top\)</span> is a <strong>sparse</strong> vector of true causal effects (only a few entries <span class="math inline">\(b_j \neq 0\)</span>), then the expected marginal GWAS <span class="math inline">\(Z\)</span>-score vector <span class="math inline">\(z = (z_1, \dots, z_p)^\top\)</span> is:</p>
-<p><span class="math display">\[\mathbb{E}[z] \approx \sqrt{N} R b, \quad \text{Cov}(z) = R\]</span></p>
-<p>where <span class="math inline">\(R = \frac{1}{N} X^\top X\)</span> is the <span class="math inline">\(p \times p\)</span> local <strong>LD correlation matrix</strong>. Because <span class="math inline">\(R\)</span> multiplies <span class="math inline">\(b\)</span>: 1. <strong>LD Tagging</strong>: Any non-causal SNP <span class="math inline">\(k\)</span> (<span class="math inline">\(b_k = 0\)</span>) correlated with a causal SNP <span class="math inline">\(j\)</span> (<span class="math inline">\(r_{jk} \neq 0\)</span>) acquires a non-zero expected test statistic <span class="math inline">\(\mathbb{E}[z_k] \approx \sqrt{N} r_{jk} b_j\)</span>. 2. <strong>Synthetic Associations</strong>: If two causal variants <span class="math inline">\(j_1\)</span> and <span class="math inline">\(j_2\)</span> reside in the same locus, a third non-causal SNP <span class="math inline">\(k\)</span> that partially tags both can achieve a <strong>more significant <span class="math inline">\(p\)</span>-value than either true causal variant</strong>.</p>
+<p>where <span class="math inline">\(X\)</span> holds the standardized genotypes of the <span class="math inline">\(N\)</span> individuals (<span class="math inline">\(N \times p\)</span>) and <span class="math inline">\(b = (b_1, \dots, b_p)\)</span> contains the true effects, most of them zero. The single-SNP GWAS <span class="math inline">\(Z\)</span>-scores <span class="math inline">\(z = (z_1, \dots, z_p)\)</span> then satisfy approximately</p>
+<p><span class="math display">\[\mathbb{E}[z] \approx \sqrt{N}\, R\, b, \quad \text{Cov}(z) = R\]</span></p>
+<p>where <span class="math inline">\(R = \frac{1}{N} X^\top X\)</span> is the <span class="math inline">\(p \times p\)</span> <strong>LD (correlation) matrix</strong> of the locus. Because <span class="math inline">\(b\)</span> is multiplied by <span class="math inline">\(R\)</span>: 1. <strong>LD tagging</strong>: A non-causal SNP <span class="math inline">\(k\)</span> (<span class="math inline">\(b_k = 0\)</span>) that is correlated with a causal SNP <span class="math inline">\(j\)</span> gets <span class="math inline">\(\mathbb{E}[z_k] \approx \sqrt{N}\, r_{jk}\, b_j\)</span>, which is not zero. 2. <strong>Synthetic association</strong>: A SNP correlated with two causal SNPs adds up both signals, and can get the largest <span class="math inline">\(Z\)</span>-score in the locus.</p>
 </section>
 <section id="statistical-fine-mapping-pips-and-95-credible-sets" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-fine-mapping-pips-and-95-credible-sets">Statistical Fine-Mapping: PIPs and 95% Credible Sets</h3>
-<p>Statistical fine-mapping moves from marginal testing to <strong>Bayesian sparse multiple regression</strong>, fitting all <span class="math inline">\(p\)</span> SNPs in a GWAS locus simultaneously and placing a sparsity-inducing prior on <span class="math inline">\(b\)</span> (informed by the expected locus heritability). It produces two key quantities:</p>
+<p>Fine-mapping fits all <span class="math inline">\(p\)</span> SNPs together in a Bayesian regression that assumes only a few SNPs are causal. It reports two things:</p>
 <ul>
-<li><strong>Posterior Inclusion Probability (<span class="math inline">\(\text{PIP}_j\)</span>)</strong>: The posterior probability (between <code>0</code> and <code>1</code>) that SNP <span class="math inline">\(j\)</span> itself is causal: <span class="math display">\[\text{PIP}_j = \Pr(b_j \neq 0 \mid \text{Data})\]</span></li>
-<li><strong>95% Credible Set (<span class="math inline">\(\text{CS}\)</span>)</strong>: A minimal “bucket” of correlated SNPs <span class="math inline">\(S \subseteq \{1, \dots, p\}\)</span> that we are <strong>at least 95% certain contains one true causal variant</strong>.
+<li><strong>Posterior inclusion probability (PIP)</strong>: the probability, given the data, that SNP <span class="math inline">\(j\)</span> is causal: <span class="math display">\[\text{PIP}_j = \Pr(b_j \neq 0 \mid \text{data})\]</span></li>
+<li><strong>95% credible set (CS)</strong>: a small group of SNPs that contains a causal variant with at least 95% probability.
 <ul>
-<li><em>The “5 Locked Rooms” Intuition — Why do we need Credible Sets in addition to PIPs?</em> Suppose 1 causal variant is hiding behind one of <strong>5 identical locked rooms</strong> (5 SNPs in near-perfect LD, <span class="math inline">\(r^2 \approx 0.99\)</span>). No statistical method can tell which of the 5 rooms holds the prize from genotype data alone, so each SNP receives <span class="math inline">\(\text{PIP}_j \approx 0.20\)</span>. Looking only for <span class="math inline">\(\text{PIP}_j &gt; 0.90\)</span> would miss the signal completely—whereas a <strong>95% Credible Set</strong> groups those 5 rooms together (<span class="math inline">\(\sum \text{PIP} \ge 0.95\)</span>) and tells you: <em>“One of these 5 variants is causal with 95% certainty, and the other 195 SNPs in the locus can be ruled out.”</em></li>
+<li><em>Why we need credible sets as well as PIPs — the “locked rooms” analogy</em>: a prize (the causal variant) is behind one of <strong>5 identical locked rooms</strong> (5 SNPs in near-perfect LD, <span class="math inline">\(r^2 \approx 0.99\)</span>). The data cannot tell the rooms apart, so each SNP gets <span class="math inline">\(\text{PIP} \approx 0.20\)</span>. If we only looked for SNPs with <span class="math inline">\(\text{PIP} &gt; 0.9\)</span>, we would miss the signal. The credible set groups the 5 rooms (<span class="math inline">\(\sum \text{PIP} \ge 0.95\)</span>) and says: <em>“one of these 5 SNPs is causal, and the other SNPs in the locus can be ruled out.”</em></li>
 </ul></li>
 </ul>
 </section>
 <section id="how-susie-sum-of-single-effects-works" class="level3">
 <h3 class="anchored" data-anchor-id="how-susie-sum-of-single-effects-works">How <code>SuSiE</code> (Sum of Single Effects) Works</h3>
-<p>Earlier fine-mapping tools (<code>CAVIAR</code>, <code>FINEMAP</code>) had to evaluate discrete combinations of causal configurations across <span class="math inline">\(\{0, 1\}^p\)</span>, which becomes computationally expensive as the number of causal variants <span class="math inline">\(L\)</span> grows and makes it difficult to separate multiple independent signals into distinct credible sets.</p>
-<p><strong><code>SuSiE</code></strong> (<a href="https://doi.org/10.1111/rssb.12388">Wang et al., 2020</a>) solves this elegantly by writing the sparse effect vector <span class="math inline">\(b\)</span> as a <strong>Sum of <span class="math inline">\(L\)</span> Single Effects</strong>:</p>
-<p><span class="math display">\[b = \sum_{l=1}^{L} b^{(l)}, \quad b^{(l)} = \gamma^{(l)} \beta^{(l)}\]</span></p>
-<p>where each “single-effect” vector <span class="math inline">\(b^{(l)}\)</span> has <strong>at most one non-zero entry</strong>: - <span class="math inline">\(\gamma^{(l)} \in \{0, 1\}^p\)</span> is a one-hot indicator vector drawn from <span class="math inline">\(\text{Multinomial}(1, \pi)\)</span> specifying which single SNP is causal for effect <span class="math inline">\(l\)</span>. - <span class="math inline">\(\beta^{(l)} \sim \mathcal{N}(0, \sigma_{0l}^2)\)</span> is the scalar effect size for that causal SNP.</p>
-<p>Using <strong>Iterative Bayesian Stepwise Selection (IBSS)</strong>, <code>SuSiE</code> cycles through <span class="math inline">\(l = 1, \dots, L\)</span>, fitting a simple single-SNP Bayesian regression on the partial residuals after removing the other <span class="math inline">\(L - 1\)</span> effects. Each component <span class="math inline">\(l\)</span> yields posterior probabilities <span class="math inline">\(\alpha_l = (\alpha_{l1}, \dots, \alpha_{lp})\)</span> that directly define the <span class="math inline">\(l\)</span>-th <strong>95% Credible Set</strong> (by sorting <span class="math inline">\(\alpha_{lj}\)</span> in descending order until their cumulative sum reaches <span class="math inline">\(0.95\)</span>), and the overall PIP for SNP <span class="math inline">\(j\)</span> is simply:</p>
-<p><span class="math display">\[\text{PIP}_j = 1 - \prod_{l \in \mathcal{L}_{\text{non-null}}} (1 - \alpha_{lj})\]</span></p>
+<p>Older methods (<code>CAVIAR</code>, <code>FINEMAP</code>) search over combinations of causal SNPs, which becomes slow when there are several causal variants. <strong>SuSiE</strong> (<a href="https://doi.org/10.1111/rssb.12388">Wang et al., 2020</a>) instead writes the effects as a <strong>sum of <span class="math inline">\(L\)</span> single effects</strong>:</p>
+<p><span class="math display">\[b = \sum_{l=1}^{L} b^{(l)}\]</span></p>
+<p>where each single effect <span class="math inline">\(b^{(l)}\)</span> has <strong>exactly one</strong> non-zero entry: one causal SNP (chosen with probabilities <span class="math inline">\(\alpha_{l1}, \dots, \alpha_{lp}\)</span>) with effect size <span class="math inline">\(\beta^{(l)} \sim \mathcal{N}(0, \sigma_{0l}^2)\)</span>.</p>
+<p>SuSiE fits the effects one at a time, repeatedly (<em>iterative Bayesian stepwise selection</em>): each single effect is fitted to what the other <span class="math inline">\(L - 1\)</span> effects have not yet explained. Each effect <span class="math inline">\(l\)</span> gives its own credible set (sort SNPs by <span class="math inline">\(\alpha_{lj}\)</span> and add them until the sum reaches 0.95). The PIP of SNP <span class="math inline">\(j\)</span> combines all effects:</p>
+<p><span class="math display">\[\text{PIP}_j = 1 - \prod_{l=1}^{L} (1 - \alpha_{lj})\]</span></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -690,33 +692,33 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Statistical Framework</strong></td>
-<td>Heuristic greedy <span class="math inline">\(r^2\)</span> + <span class="math inline">\(p\)</span>-value thresholding</td>
-<td>Combinatorial / Shotgun Stochastic Search</td>
-<td>Variational Bayes (<strong>Sum of Single Effects</strong>)</td>
+<td><strong>Approach</strong></td>
+<td>Keep the top SNP, remove SNPs in LD with it (rule of thumb)</td>
+<td>Search over combinations of causal SNPs</td>
+<td>Sum of single effects (Bayesian, fast)</td>
 </tr>
 <tr class="even">
-<td><strong>Outputs PIPs?</strong></td>
+<td><strong>Gives PIPs?</strong></td>
 <td>No</td>
 <td>Yes</td>
 <td><strong>Yes</strong></td>
 </tr>
 <tr class="odd">
-<td><strong>Outputs Separate Credible Sets per Signal?</strong></td>
+<td><strong>One credible set per signal?</strong></td>
 <td>No</td>
-<td>Post-hoc approximations</td>
-<td><strong>Yes — one CS per single-effect component <span class="math inline">\(l\)</span></strong></td>
+<td>Not directly</td>
+<td><strong>Yes</strong></td>
 </tr>
 <tr class="even">
-<td><strong>Input Data Supported</strong></td>
-<td>Summary stats + LD reference</td>
-<td>Summary stats + LD matrix <span class="math inline">\(R\)</span></td>
-<td><strong>Both Individual-level (<code>susie</code>) &amp; Summary stats (<code>susie_rss</code>)</strong></td>
+<td><strong>Input</strong></td>
+<td>Summary statistics + LD reference</td>
+<td>Summary statistics + LD matrix <span class="math inline">\(R\)</span></td>
+<td><strong>Individual-level data (<code>susie</code>) or summary statistics + <span class="math inline">\(R\)</span> (<code>susie_rss</code>)</strong></td>
 </tr>
 </tbody>
 </table>
 <blockquote class="blockquote">
-<p><strong>Quick Concept Check (from Lecture 10)</strong>: - <em>If <code>SuSiE</code> outputs a 95% Credible Set (<code>CS1</code>) of 5 SNPs in perfect LD (<span class="math inline">\(r^2 = 1.00\)</span>), each with <span class="math inline">\(\text{PIP} = 0.20\)</span>, is the locus a false positive?</em> <strong>No!</strong> We are <span class="math inline">\(\ge 95\%\)</span> certain <strong>1 true causal signal</strong> is inside that bucket, split equally across 5 indistinguishable “locked rooms” (<span class="math inline">\(5 \times 0.20 = 1.00\)</span>). - <em>When can the #1 top GWAS SNP (smallest <span class="math inline">\(p\)</span>-value) receive <span class="math inline">\(\text{PIP} \approx 0.00\)</span> in <code>SuSiE</code>?</em> When it is a non-causal <strong>“sponge” SNP</strong> that partially tags two true causal variants!</p>
+<p><strong>Quick Concept Check (from Lecture 10)</strong>: - <em>SuSiE reports a 95% credible set of 5 SNPs in perfect LD (<span class="math inline">\(r^2 = 1\)</span>), each with <span class="math inline">\(\text{PIP} = 0.20\)</span>. Is this a false positive?</em> <strong>No.</strong> We are at least 95% sure that one causal variant is among these 5 SNPs; the data just cannot say which one (<span class="math inline">\(5 \times 0.20 = 1.00\)</span>). - <em>When can the top GWAS SNP get <span class="math inline">\(\text{PIP} \approx 0\)</span>?</em> When it is a non-causal “sponge” SNP that is correlated with two causal SNPs.</p>
 </blockquote>
 </section>
 </div>
@@ -725,9 +727,9 @@ window.Quarto = {
 <h1>Preparing Locus Data for Fine-Mapping</h1>
 <section id="extracting-a-gwas-locus-and-local-ld-matrix-r" class="level3">
 <h3 class="anchored" data-anchor-id="extracting-a-gwas-locus-and-local-ld-matrix-r">Extracting a GWAS Locus and Local LD Matrix (<span class="math inline">\(R\)</span>)</h3>
-<p>In practice, after running a genome-wide scan (<code>GWAS5</code> or <code>GWAS9</code>), we extract a <span class="math inline">\(\sim 500\text{ kb}\)</span>–<span class="math inline">\(1\text{ Mb}\)</span> window around each genome-wide significant peak.</p>
+<p>In practice, after a genome-wide scan (<code>GWAS5</code> or <code>GWAS9</code>), we take a window of about 500 kb–1 Mb around each genome-wide significant peak.</p>
 <p><img src="Images/bash.png" alt="Bash" width="40"> Switch to the Bash kernel.</p>
-<p>Let’s link the <code>Data</code> folder, create <code>Results/GWAS10</code>, and extract a 200-SNP locus on Chromosome 1 from <code>Data/EUR.QC</code> using <code>PLINK</code> to generate two inputs for fine-mapping: - <code>--extract &lt;file&gt;</code>: Restricts <code>PLINK</code> to the 200 SNPs in our locus. - <code>--recode A</code>: Exports the individual-level additive genotype matrix (<code>locus_geno.raw</code>), where each cell is <code>0</code>, <code>1</code>, or <code>2</code> copies of the minor allele (used by <code>susie()</code>). - <code>--r square</code>: Computes the <span class="math inline">\(200 \times 200\)</span> signed SNP-by-SNP LD correlation matrix <span class="math inline">\(R\)</span> (<code>locus_ld.ld</code>, used by <code>susie_rss()</code>).</p>
+<p>Let’s link the <code>Data</code> folder, create <code>Results/GWAS10</code>, and use <code>PLINK</code> to extract a 200-SNP locus on chromosome 1 from <code>Data/EUR.QC</code>. We create two inputs for fine-mapping: - <code>--extract &lt;file&gt;</code>: keeps only the 200 SNPs in our locus. - <code>--recode A</code>: writes the genotype matrix (<code>locus_geno.raw</code>), with <code>0</code>, <code>1</code> or <code>2</code> copies of the minor allele per individual and SNP (used by <code>susie()</code>). - <code>--r square</code>: computes the <span class="math inline">\(200 \times 200\)</span> LD correlation matrix <span class="math inline">\(R\)</span> (<code>locus_ld.ld</code>, used by <code>susie_rss()</code>).</p>
 <div id="a0000001-0000-4000-8000-000000000005" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-sf</span> ../Data</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> Results/GWAS10</span>
@@ -758,7 +760,7 @@ window.Quarto = {
 <section id="simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r" class="level3">
 <h3 class="anchored" data-anchor-id="simulating-a-multi-causal-locus-and-running-marginal-gwas-in-r">Simulating a Multi-Causal Locus and Running Marginal GWAS in R</h3>
 <p><img src="Images/R.png" alt="R" width="40"> Switch to the R kernel.</p>
-<p>Now switch to the <strong>R kernel</strong>. Let’s load <code>susieR</code>, read our 200-SNP genotype matrix <span class="math inline">\(X\)</span> and LD matrix <span class="math inline">\(R\)</span>, and simulate a quantitative phenotype driven by <strong>two causal variants</strong> in this region (<code>causal_idx = c(65, 140)</code>), which together explain <span class="math inline">\(h^2_{\text{locus}} = 12\%\)</span> of phenotypic variance.</p>
+<p>In <code>R</code>, let’s load <code>susieR</code>, read the genotype matrix <span class="math inline">\(X\)</span> and the LD matrix <span class="math inline">\(R\)</span>, and simulate a phenotype with <strong>two causal SNPs</strong> in this locus (<code>causal_idx = c(48, 140)</code>). Together they explain 12% of the phenotypic variance. SNP 48 lies in a block of SNPs in strong LD (<span class="math inline">\(r^2 &gt; 0.85\)</span>), while SNP 140 has no close proxies. <em>(Fine-mapping needs densely genotyped SNPs, so here we use <code>Data/EUR.QC</code> rather than the sparser 50,000-SNP <code>Data/SIM.QC</code> cohort from <code>GWAS8</code> and <code>GWAS9</code>.)</em></p>
 <div id="a0000001-0000-4000-8000-000000000007" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup to avoid long messages and plot on screen</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">warn</span> = <span class="at">-1</span><span class="kw">)</span></span>
@@ -793,7 +795,7 @@ window.Quarto = {
 <div id="a0000001-0000-4000-8000-000000000008" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Simulate a phenotype with 2 true causal variants in the locus</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">set.seed</span><span class="er">(</span><span class="ex">2025</span><span class="kw">)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">causal_idx</span> <span class="op">&lt;</span>- c<span class="er">(</span><span class="ex">65,</span> 140<span class="kw">)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">causal_idx</span> <span class="op">&lt;</span>- c<span class="er">(</span><span class="ex">48,</span> 140<span class="kw">)</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">b_true</span> <span class="op">&lt;</span>- rep<span class="er">(</span><span class="ex">0,</span> p<span class="kw">)</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">b_true</span><span class="op">[</span>causal_idx<span class="op">]</span> <span class="op">&lt;</span>- <span class="ex">c</span><span class="er">(</span><span class="ex">0.45,</span> <span class="at">-0.45</span><span class="kw">)</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -817,7 +819,7 @@ window.Quarto = {
 </section>
 <section id="individual-level-fine-mapping-with-susie" class="level1">
 <h1>Individual-Level Fine-Mapping with <code>susie()</code></h1>
-<p>When we have access to individual-level genotypes <span class="math inline">\(X\)</span> and phenotype <span class="math inline">\(y\)</span>, we run <code>susie(X, y, L = 10)</code>: - <code>L = 10</code> sets the <strong>upper bound</strong> on the number of causal signals in the locus. <code>SuSiE</code> automatically prunes away unneeded single-effect components by shrinking their prior variance to zero, so setting <code>L = 10</code> easily accommodates 1, 2, or more causal variants. - <code>summary(fitted_ind)$cs</code> prints a table of discovered <strong>95% Credible Sets</strong>, where: - <code>cs</code>: Index of the Credible Set (<code>1</code>, <code>2</code>, …) - <code>cs_log10bf</code>: <span class="math inline">\(\log_{10}(\text{Bayes Factor})\)</span> measuring the strength of evidence for this causal signal - <code>cs_avg_r2</code> / <code>cs_min_r2</code>: Average and minimum pairwise LD (<span class="math inline">\(r^2\)</span>) among SNPs inside the Credible Set (purity) - <code>variable</code>: Indices of the SNPs belonging to this 95% Credible Set</p>
+<p>With individual-level genotypes <span class="math inline">\(X\)</span> and phenotype <span class="math inline">\(y\)</span>, we run <code>susie(X, y, L = 10)</code>: - <code>L = 10</code> is the <strong>maximum</strong> number of causal signals in the locus. Effects that are not needed are switched off automatically (their prior variance is estimated as zero), so <code>L = 10</code> works whether there are 1, 2 or more causal variants. - <code>summary(fitted_ind)$cs</code> lists the <strong>95% credible sets</strong>: - <code>cs</code>: the number of the credible set (<code>1</code>, <code>2</code>, …) - <code>cs_log10bf</code>: the evidence for this signal, as <span class="math inline">\(\log_{10}(\text{Bayes factor})\)</span> - <code>cs_avg_r2</code> / <code>cs_min_r2</code>: the average and minimum LD (<span class="math inline">\(r^2\)</span>) between the SNPs in the set (high values mean a “pure” set of SNPs in strong LD) - <code>variable</code>: the positions (indices) of the SNPs in the set</p>
 <div id="a0000001-0000-4000-8000-000000000010" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit individual-level SuSiE with up to L = 10 single effects</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fitted_ind</span> <span class="op">&lt;</span>- susie<span class="er">(</span><span class="ex">X,</span> y, L = 10<span class="kw">)</span></span>
@@ -825,7 +827,7 @@ window.Quarto = {
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary of discovered 95% Credible Sets</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">print</span><span class="er">(</span><span class="ex">summary</span><span class="er">(</span><span class="ex">fitted_ind</span><span class="kw">)</span><span class="va">$cs</span><span class="kw">)</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether our two true causal variants (indices 65 and 140) are captured in the Credible Sets</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether our two true causal variants (indices 48 and 140) are captured in the Credible Sets</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">cs_list</span> <span class="op">&lt;</span>- fitted_ind<span class="va">$sets$cs</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="kw">(</span><span class="ex">cs_name</span> in names<span class="er">(</span><span class="ex">cs_list</span><span class="kw">))</span> <span class="kw">{</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">snps_in_cs</span> <span class="op">&lt;</span>- cs_list[<span class="pp">[</span><span class="ss">cs_name</span><span class="pp">]</span>]</span>
@@ -834,7 +836,7 @@ window.Quarto = {
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| True causal index captured:"</span><span class="ex">,</span> ifelse<span class="er">(</span><span class="ex">length</span><span class="er">(</span><span class="ex">captured</span><span class="kw">)</span> <span class="op">&gt;</span> 0, <span class="ex">captured,</span> <span class="st">"None"</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Now let’s visualize the <strong>Marginal GWAS Locus Plot</strong> (<code>-log10(p)</code>) right above the <strong><code>SuSiE</code> Fine-Mapping Plot</strong> (<code>PIP</code>), highlighting the discovered 95% Credible Sets and the two true causal variants.</p>
+<p>Now let’s plot the <strong>single-SNP GWAS results</strong> (<code>-log10(p)</code>) above the <strong>SuSiE results</strong> (PIPs), with the credible sets and the two true causal SNPs marked.</p>
 <div id="a0000001-0000-4000-8000-000000000012" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign Credible Set membership for plotting</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cs_membership</span> <span class="op">&lt;</span>- rep<span class="er">(</span><span class="st">"None"</span><span class="ex">,</span> p<span class="kw">)</span></span>
@@ -867,12 +869,12 @@ window.Quarto = {
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="ex">susie_plot</span><span class="er">(</span><span class="ex">fitted_ind,</span> y = <span class="st">"PIP"</span>, b = b_true,</span>
 <span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>           <span class="ex">main</span> = <span class="st">"SuSiE Fine-Mapping: Posterior Inclusion Probabilities (PIPs) &amp; 95% Credible Sets"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Look at the difference between the two panels: - In the <strong>top panel (Marginal GWAS)</strong>, many neighboring SNPs show elevated <span class="math inline">\(-\log_{10}(p)\)</span> values due to LD with the two causal variants. - In the <strong>bottom panel (<code>SuSiE</code> PIPs)</strong>, conditioning on all SNPs jointly collapses the signal into <strong>two distinct 95% Credible Sets</strong> (shown by the colored circles), each containing one of the true causal variants (red dots)!</p>
+<p>Compare the two panels: - <strong>Top panel (single-SNP GWAS)</strong>: many SNPs near the two causal SNPs have small <span class="math inline">\(p\)</span>-values because of LD. The top GWAS hit printed above is <strong>not</strong> one of the causal SNPs, but a SNP in LD with SNP 48. - <strong>Bottom panel (SuSiE PIPs)</strong>: fitting all SNPs together reduces the signal to <strong>two 95% credible sets</strong> (colored circles), each containing one true causal SNP (red). One set contains a single SNP with PIP close to 1. The other contains 4 SNPs in strong LD that share the probability between them—the “locked rooms” situation from the theory section.</p>
 </section>
 <section id="summary-statistics-fine-mapping-with-susie_rss" class="level1">
 <h1>Summary-Statistics Fine-Mapping with <code>susie_rss()</code></h1>
-<p>In most consortium GWAS studies, individual-level genotypes <span class="math inline">\(X\)</span> are not shared publicly. Instead, we only have: 1. Marginal GWAS summary statistics (<span class="math inline">\(Z\)</span>-scores <code>z_scores</code>, or <span class="math inline">\(\hat{\beta}\)</span> and <span class="math inline">\(\text{SE}\)</span>) 2. The local LD correlation matrix <span class="math inline">\(R\)</span> (<code>p x p</code>), ideally computed from the discovery cohort (in-sample LD) or a large ancestry-matched reference panel 3. The GWAS sample size <code>n</code></p>
-<p>Let’s run <strong><code>susie_rss()</code></strong> using only <code>z_scores</code>, <code>R</code>, and <code>n</code>, and inspect the resulting 95% Credible Sets.</p>
+<p>Most large GWAS do not share individual-level genotypes. Instead, we usually have: 1. The GWAS summary statistics: <span class="math inline">\(Z\)</span>-scores (<code>z_scores</code>), or <span class="math inline">\(\hat{\beta}\)</span> and <span class="math inline">\(\text{SE}\)</span> 2. The LD matrix <span class="math inline">\(R\)</span> of the locus, ideally from the GWAS sample itself (<strong>in-sample LD</strong>), otherwise from a large reference panel of the same ancestry 3. The GWAS sample size <code>n</code></p>
+<p>Let’s run <strong><code>susie_rss()</code></strong> with only <code>z_scores</code>, <code>R</code> and <code>n</code>, and look at the credible sets.</p>
 <div id="a0000001-0000-4000-8000-000000000015" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run SuSiE-RSS using only summary Z-scores, LD matrix R, and sample size n</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fitted_rss</span> <span class="op">&lt;</span>- susie_rss<span class="er">(</span><span class="ex">z</span> = z_scores, R = R, n = n, L = 10<span class="kw">)</span></span>
@@ -891,11 +893,11 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>Q1. Compare the PIPs estimated from individual-level data (<code>fitted_ind$pip</code>) with the PIPs estimated from summary statistics + in-sample LD (<code>fitted_rss$pip</code>). Create a scatter plot in <code>ggplot2</code> and compute their Pearson correlation.</strong></li>
-<li><strong>Q2. For each discovered 95% Credible Set in <code>fitted_ind$sets$cs</code>, print (a) the number of SNPs in the Credible Set, (b) the maximum single-SNP PIP inside the set, and (c) the sum of PIPs across all SNPs in the set. Why can the sum of PIPs in a Credible Set exceed 0.95 even when no individual SNP has <span class="math inline">\(\text{PIP} &gt; 0.95\)</span>?</strong></li>
-<li><strong>Q3. What happens when the LD reference matrix <span class="math inline">\(R\)</span> comes from a small or mismatched reference panel? Compute an imprecise LD matrix <code>R_small &lt;- cor(X[1:60, ])</code> from only 60 individuals, run <code>estimate_s_rss(z = z_scores, R = R_small, n = n)</code> to check the <code>SuSiE-RSS</code> LD consistency diagnostic <span class="math inline">\(s\)</span>, and fit <code>susie_rss(z = z_scores, R = R_small, n = n, L = 10)</code>. How does LD mismatch affect fine-mapping?</strong></li>
+<li><strong>Q1. Compare the PIPs from individual-level data (<code>fitted_ind$pip</code>) with the PIPs from summary statistics and in-sample LD (<code>fitted_rss$pip</code>). Make a scatter plot in <code>ggplot2</code> and compute their correlation.</strong></li>
+<li><strong>Q2. For each credible set in <code>fitted_ind$sets$cs</code>, print (a) the number of SNPs, (b) the largest PIP in the set, and (c) the sum of the PIPs in the set. How can a credible set reach 95% when none of its SNPs has <span class="math inline">\(\text{PIP} &gt; 0.95\)</span>?</strong></li>
+<li><strong>Q3. What happens if the LD matrix comes from a small reference panel? Compute <code>R_small &lt;- cor(X[1:60, ])</code> from only 60 individuals, check the LD consistency measure <span class="math inline">\(s\)</span> with <code>estimate_s_rss(z = z_scores, R = R_small, n = n)</code>, and run <code>susie_rss(z = z_scores, R = R_small, n = n, L = 10)</code>. How does the poor LD matrix affect the results?</strong></li>
 </ul>
-<p>Hint: Compare <code>estimate_s_rss(z = z_scores, R = R, n = n)</code> (in-sample LD, where <span class="math inline">\(s \approx 0\)</span>) vs.&nbsp;<code>estimate_s_rss(z = z_scores, R = R_small, n = n)</code> (where larger <span class="math inline">\(s\)</span> indicates inconsistency between <span class="math inline">\(z\)</span> and <span class="math inline">\(R\)</span>).</p>
+<p>Hint: Compare <code>estimate_s_rss(z = z_scores, R = R, n = n)</code> (in-sample LD, <span class="math inline">\(s \approx 0\)</span>) with <code>estimate_s_rss(z = z_scores, R = R_small, n = n)</code>. A larger <span class="math inline">\(s\)</span> means that <span class="math inline">\(z\)</span> and <span class="math inline">\(R\)</span> do not fit together well.</p>
 </div>
 </div>
 <div id="a0000001-0000-4000-8000-000000000017" class="cell">
@@ -913,7 +915,7 @@ window.Quarto = {
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>In <code>R</code>, we compare <code>fitted_ind$pip</code> and <code>fitted_rss$pip</code>, inspect the PIPs within each 95% Credible Set, and evaluate the LD diagnostic <span class="math inline">\(s\)</span> when using a small reference panel:</p>
+<p>In <code>R</code>, we compare <code>fitted_ind$pip</code> with <code>fitted_rss$pip</code>, look at the PIPs within each credible set, and check the LD measure <span class="math inline">\(s\)</span> for the small reference panel:</p>
 <div id="a0000001-0000-4000-8000-000000000019" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">options</span><span class="er">(</span><span class="ex">repr.plot.width</span> = 7, repr.plot.height = 4.5<span class="kw">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -964,9 +966,9 @@ window.Quarto = {
 <span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span><span class="er">(</span><span class="st">"Number of Credible Sets with noisy LD:"</span><span class="ex">,</span> length<span class="er">(</span><span class="ex">fitted_rss_small</span><span class="va">$sets$cs</span><span class="kw">)</span><span class="ex">,</span> <span class="st">"\n"</span><span class="kw">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
-<li><strong>Q1</strong>: When supplied with the exact <strong>in-sample LD matrix <span class="math inline">\(R\)</span></strong>, <code>susie_rss()</code> recovers PIPs and 95% Credible Sets that are virtually identical (<span class="math inline">\(r &gt; 0.999\)</span>) to having the full individual-level genotype matrix <span class="math inline">\(X\)</span>.</li>
-<li><strong>Q2</strong>: When a causal variant is in high LD with one or more proxy SNPs, the posterior probability is split across the correlated SNPs in the credible set, so no single SNP may exceed <span class="math inline">\(\text{PIP} &gt; 0.95\)</span>, while their <strong>sum</strong> exceeds <span class="math inline">\(0.95\)</span>. Always report the full <strong>95% Credible Set</strong> alongside individual PIPs.</li>
-<li><strong>Q3</strong>: When the LD reference matrix <span class="math inline">\(R\)</span> does not match the GWAS discovery sample (reflected by an elevated diagnostic parameter <span class="math inline">\(s\)</span> in <code>estimate_s_rss</code>), <code>SuSiE-RSS</code> cannot accurately cancel out LD tagging and may split signals or produce false-positive credible sets. Always use in-sample LD or a large, ancestry-matched reference panel.</li>
+<li><strong>Q1</strong>: With the exact <strong>in-sample LD matrix</strong>, <code>susie_rss()</code> gives practically the same PIPs as <code>susie()</code> on the full genotypes (correlation <span class="math inline">\(\approx 0.999\)</span>). The credible set for the stronger signal is identical; for the weaker signal, <code>susie_rss()</code> adds one extra correlated SNP to the set.</li>
+<li><strong>Q2</strong>: When a causal SNP is in strong LD with other SNPs, the probability is shared between them, so no single SNP reaches <span class="math inline">\(\text{PIP} &gt; 0.95\)</span>, but their <strong>sum</strong> does. In our run, the 4-SNP credible set has a largest PIP of only about <span class="math inline">\(0.33\)</span>, while its PIPs sum to about <span class="math inline">\(1\)</span>. Always report the full credible set, not only the top SNP.</li>
+<li><strong>Q3</strong>: The 60-person LD matrix is noisy and does not match the GWAS sample, which shows up as a larger <span class="math inline">\(s\)</span> (about <span class="math inline">\(0.57\)</span>, versus <span class="math inline">\(0\)</span> with in-sample LD). SuSiE-RSS then cannot correctly separate causal SNPs from SNPs in LD with them: in our run, it reported 5 credible sets instead of 2, so some are false positives. Use in-sample LD when possible, or a large reference panel of the same ancestry.</li>
 </ul>
 </div>
 </div>
@@ -974,7 +976,7 @@ window.Quarto = {
 <hr>
 <section id="conclusion" class="level3">
 <h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
-<p>In this tutorial, we have learned how statistical fine-mapping with <code>SuSiE</code> resolves broad, LD-confounded GWAS peaks into prioritized <strong>Posterior Inclusion Probabilities (PIPs)</strong> and <strong>95% Credible Sets</strong> using both individual-level genotypes (<code>susie()</code>) and GWAS summary statistics (<code>susie_rss()</code>). Notice how <code>susie_rss()</code> pairs marginal GWAS summary statistics (<code>z</code>) with an LD correlation matrix (<code>R</code>) to undo LD confounding within a single locus. In the final session (<code>GWAS11</code>), we scale this exact same principle—combining <strong>GWAS summary statistics</strong> with an <strong>external LD reference panel</strong> (<code>ldak --calc-cors</code>) and per-SNP heritability priors (<code>sumher_ldak.ind.hers</code> from <code>GWAS8</code>)—across the entire genome to construct <strong>advanced Polygenic Risk Scores (PRS)</strong>.</p>
+<p>In this tutorial, we used <code>SuSiE</code> to turn broad GWAS peaks into <strong>posterior inclusion probabilities (PIPs)</strong> and <strong>95% credible sets</strong>, both from individual-level data (<code>susie()</code>) and from summary statistics (<code>susie_rss()</code>). <code>susie_rss()</code> combines GWAS <span class="math inline">\(Z\)</span>-scores with an LD matrix to undo the effect of LD within one locus. In the final session (<code>GWAS11</code>), we apply the same idea to the whole genome: we combine <strong>GWAS summary statistics</strong>, an <strong>LD reference panel</strong> (<code>ldak --calc-cors</code>) and the per-SNP heritabilities from <code>GWAS8</code> (<code>sumher_ldak.ind.hers</code>) to build <strong>advanced polygenic scores</strong>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -986,9 +988,9 @@ window.Quarto = {
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><strong>Multiple Causal Variants Are Common</strong>: A single GWAS locus frequently contains multiple distinct causal signals (<span class="math inline">\(L &gt; 1\)</span>). <code>SuSiE</code> separates these signals into distinct 95% Credible Sets without requiring combinatorial search.</li>
-<li><strong>Report Both PIPs and 95% Credible Sets</strong>: High LD among candidate variants splits the PIP across proxies; the 95% Credible Set captures the complete group of variants needed to guarantee <span class="math inline">\(\ge 95\%\)</span> coverage of the causal signal.</li>
-<li><strong>LD Reference Quality Is Critical for Summary-Statistics Fine-Mapping</strong>: When using <code>susie_rss()</code>, always match the ancestry and sample size of the LD matrix <span class="math inline">\(R\)</span> to the GWAS summary statistics and check <code>estimate_s_rss()</code> for potential LD mismatch.</li>
+<li><strong>Loci often have several causal variants</strong>: <code>SuSiE</code> finds them without searching over all combinations, and gives each its own credible set.</li>
+<li><strong>Report PIPs and credible sets</strong>: Strong LD shares the PIP between SNPs, so the credible set is needed to capture the signal with at least 95% probability.</li>
+<li><strong>The LD matrix must match the GWAS</strong>: For <code>susie_rss()</code>, use LD from the GWAS sample or from a large reference panel of the same ancestry, and check <code>estimate_s_rss()</code> for mismatch.</li>
 </ul>
 </div>
 </div>
