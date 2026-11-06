@@ -179,7 +179,7 @@ A notebook with an analysis using LDAK for preprocessing and some of the impleme
 | 13:00 | Heritability estimation                                 | lecture    |
 | 13:45 | Estimating heritability - GWAS8 notebook                | exercise   |
 | 14:15 | Coffee break                                            | break      |
-| 14:30 | Association tests II: linear mixed models               | lecture    |
+| 14:30 | Association tests II: linear mixed models & meta-analysis | lecture  |
 | 14:50 | Linear mixed models - GWAS9 notebook                    | exercise   |
 | 15:30 | Recap on association tests                              | lecture    |
 | 16:00 | Wrap up and end of day!                                 | discussion |
@@ -194,14 +194,12 @@ A notebook with an analysis using LDAK for preprocessing and some of the impleme
 | 9:00  | Applications of GWAS: fine-mapping                            | lecture    |
 | 10:00 | Coffee break                                                  | break      |
 | 10:15 | Fine-mapping - GWAS10 notebook                                | exercise   |
-| 10:50 | Polygenic scores III: Bayesian approaches and meta-analysis   | lecture    |
+| 10:50 | Polygenic scores III: Bayesian approaches                     | lecture    |
 | 11:35 | Computing PRS III - GWAS11 notebook                           | exercise   |
 | 12:00 | Lunch                                                         | break      |
-| 13:00 | Recap of the GWAS universe                                    | lecture    |
-| 13:50 | Coffee break                                                  | break      |
-| 14:05 | Full workflows (GWAS vs. PGS)                                 | lecture    |
-| 15:00 | Final exercises - work on your data                           | exercise   |
-| 16:00 | Wrap up and end of day!                                       | discussion |
+| 13:00 | Work on your data                                             | exercise   |
+| 14:15 | Coffee break                                                  | break      |
+| 16:00 | End of day!                                                   | discussion |
 :::
 
 :::
