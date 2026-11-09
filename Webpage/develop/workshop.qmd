@@ -69,7 +69,7 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 1. Course slides
 
 <div style="display: flex; justify-content: center; padding: 10px 20px">
-  <a href="./GwasSandbox_slides.zip" download="GwasSandbox_slides.zip">
+  <a href="./GWAS-slides-PDF.zip" download="GWAS-slides-PDF.zip">
     <button class="btn-action">Download course slides</button>
   </a>
 </div>
