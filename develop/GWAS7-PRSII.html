@@ -618,11 +618,6 @@ gtag('config', 'G-QWLRKN2JZ3', { 'anonymize_ip': true});
 <li><strong>EUR.height</strong>: file containing measurements</li>
 <li><strong>EUR.covariate</strong>: this file contains the principal components and sex as covariates. Since PRSice only accepts a single covariate file, you may need to merge the <em>.cov and </em>.eigenvec files if you used PLINK for quality control.</li>
 </ul>
-<p>Please, apply the following filter to the base GWAS:</p>
-<ul>
-<li>Filter out SNPs with MAF &lt; 0.01 in the GWAS summary statistics, using the information in the <code>MAF</code> column</li>
-<li>Filter out SNPs with INFO &lt; 0.8 in the GWAS summary statistics, using the information in the <code>INFO</code> column</li>
-</ul>
 <p><strong>Adjust the code from the previous notebooks to run PRSice software on the new dataset</strong>. Check out the user manual if you need extra help: https://choishingwan.github.io/PRSice/.</p>
 <p>We recommend using the <code>qqman</code> library in R to visualize the <strong>Manhattan plot</strong> and <strong>QQ-plot</strong> of the base GWAS results to assess the distribution of association signals before computing the PRS.</p>
 </div>
