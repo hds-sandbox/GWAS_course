@@ -76,35 +76,6 @@ Our first choice is to provide all the **training materials, tutorials, and tool
 
 &nbsp;
 
-<!--
-2. EXTRA EXERCISE - GWAS4
-
-You can download an extra notebook and data with population structure and the effect of LD on that. Upload the files through JupyterLab, and copy the data into the data folder and the notebook into the notebooks folder:
-
-<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 10px 20px">
-  <a href="./hapmap.zip" download="hapmap.zip">
-    <button class="btn-action">Download data</button>
-  </a>
-  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Notebooks/Extra_GWAS4.ipynb" download="Extra_GWAS4.ipynb">
-    <button class="btn-action">Download notebook</button>
-  </a>
-</div>
-
-&nbsp;
-
-3. EXTRA EXERCISE - LDAK
-
-A notebook with an analysis using LDAK for preprocessing and some of the implemented association testing and heritability estimates
-
-<div style="display: flex; justify-content: center; padding: 10px 20px">
-  <a href="https://raw.githubusercontent.com/hds-sandbox/GWAS_course/refs/heads/main/Notebooks/Extra_GWAS8.ipynb" download="Extra_GWAS8.ipynb">
-    <button class="btn-action">Download notebook</button>
-  </a>
-</div>
-
-&nbsp;
--->
-
 2. Course evaluation survey - The Novo Nordisk Foundation funds the Sandbox project and is interested in the outcomes of our training activities, so we really appreciate your responses!
 
  &nbsp;
@@ -115,6 +86,10 @@ A notebook with an analysis using LDAK for preprocessing and some of the impleme
     Evaluation survey link
   </a>
 </p>
+
+&nbsp;
+
+If you need a diploma, please send an email to [heads-admin@sund.ku.dk](mailto:heads-admin@sund.ku.dk).
 
 &nbsp;
 
